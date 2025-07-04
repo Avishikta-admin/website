@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Events & Gallery – AVISHIKTA - I Type - A RWA</title>
+  <link rel="stylesheet" href="css/responsive-fix.css" />
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: #f4f6fa;
+      color: #333;
+    }
+
+    main {
+      max-width: 1200px;
+      margin: 0.2rem auto 2rem;
+      padding: 0.5rem 1rem 1rem;
+    }
+
+    .events-header {
+      text-align: center;
+      margin-top: 0.2rem;  /* Moving the header up */
+      margin-bottom: 1.2rem;  /* Reduced margin */
+      animation: fadeInDown 0.8s ease-in-out;
+      background: linear-gradient(to right, #4b0082, #ff6347); /* Gradient background */
+      color: white;
+      padding:1rem 0;
+      border-radius: 10px; /* Soft rounded corners */
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .events-header h1 {
+      font-size: 2.4rem; /* Reduced font size for simplicity */
+      text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); /* Subtle text shadow */
+      font-weight: bold;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.4rem;
+    }
+
+    .events-header p {
+      font-size: 1.05rem;
+      color: #4b0082; /* Deep purple */
+      max-width: 700px;
+      margin: 0 auto;
+      line-height: 1.5;
+      margin-top: 0.1rem;
+      background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent background */
+      padding: 10px;
+      border-radius: 8px;
+      text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3); /* Optional: to enhance readability */
+    }
+
+    .upcoming-events {
+      background: #fff7e6;
+      border-left: 5px solid #4b0082;
+      padding: 0.6rem 1rem;
+      max-width: 380px;
+      margin: 0.5rem auto 1.5rem;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      box-shadow: 0 3px 12px rgba(75, 0, 130, 0.08);
+      border-radius: 8px;
+      color: #3a1a72;
+      font-size: 0.9rem;
+      line-height: 1.25;
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); /* Smaller image grid */
+      gap: 16px;
+      
+      padding-top: 0.4rem;
+    }
+
+    .gallery-card {
+      position: relative;
+      border-radius: 12px;
+      overflow: hidden;
+      background: #fff;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s;
+      cursor: pointer;
+    }
+
+    .gallery-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.15);
+    }
+
+    .gallery-card img {
+      width: 100%;
+      height: 150px; /* Reduced image size */
+      object-fit: cover;
+      display: block;
+      user-select: none;
+      pointer-events: auto;
+    }
+
+    .zoom-icon {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: rgba(0, 0, 0, 0.6);
+      color: #fff;
+      font-size: 1.5rem;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+    }
+
+    .card-caption {
+      padding: 4px 8px;             /* Less internal space */
+  text-align: center;
+  font-size: 0.8rem;            /* Smaller text */
+  background: #fafafa;
+  color: #444;
+  font-weight: bold;
+  height: 30px;                 /* Optional: fixed height */
+  display: flex;                /* For vertical centering */
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;            /* Prevents overflow text */
+  text-overflow: ellipsis;     /* Optional: add '...' if text is long */
+  white-space: nowrap;
+    }
+
+    /* Lightbox Modal */
+    #lightboxModal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(0, 0, 0, 0.88);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      z-index: 9999;
+      padding: 20px;
+    }
+
+    #lightboxImage {
+      max-width: 90%;
+      max-height: 80vh;
+      border-radius: 12px;
+      box-shadow: 0 0 24px rgba(255, 255, 255, 0.2);
+      pointer-events: none;
+    }
+
+    #closeBtn {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      font-size: 36px;
+      color: white;
+      cursor: pointer;
+      user-select: none;
+      z-index: 10001;
+    }
+
+    .no-download-msg {
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff;
+      padding: 12px 24px;
+      border-radius: 8px;
+      margin-top: 10px;
+      font-weight: 500;
+      text-align: center;
+    }
+
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 600px) {
+      .events-header h1 {
+        font-size: 1.8rem;
+        margin-top: 0;
+      }
+
+      .gallery-card img {
+        height: 140px; /* Slightly smaller for mobile */
+      }
+    }
+
+    .event-description-box {
+      background: #fef3f3;
+      border: 1px solid #f8dcdc;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      padding: 12px 40px;
+      border-radius: 10px;
+      text-align: justify;
+      text-justify: inter-word;
+      max-width: 99vw;
+      width: 1350px;
+      margin: 0 auto 2rem;
+      font-size: 0.94rem;
+      line-height: 1.48;
+      color: #333;
+    }
+
+    .upcoming-events h2 {
+      font-size: 1.3rem;
+      margin-bottom: 0.4rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      border-bottom: 1.5px solid #4b0082;
+      padding-bottom: 0.25rem;
+    }
+
+    .upcoming-events ul {
+      list-style-type: none;
+      padding-left: 0;
+      margin: 0;
+    }
+
+    .upcoming-events li {
+      margin-bottom: 0.3rem;
+      position: relative;
+      padding-left: 1rem;
+      font-weight: 500;
+    }
+
+    .upcoming-events li::before {
+      content: "•";
+      color: #4b0082;
+      position: absolute;
+      left: 0;
+      top: 0;
+      font-size: 1rem;
+      line-height: 1;
+    }
+
+    .upcoming-events time {
+      font-style: normal;
+      color: #6b3fa0;
+      font-weight: 600;
+    }
+
+.download-container {
+  margin-top: 16px;
+  text-align: center;
+}
+
+.download-btn {
+  background-color: #cccccc;
+  color: #666;
+  border: none;
+  padding: 10px 20px;
+  font-size: 1rem;
+  border-radius: 6px;
+  cursor: not-allowed;
+  margin-bottom: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  transition: background-color 0.3s ease;
+}
+
+.download-btn:disabled {
+  background-color: #bbb;
+  color: #555;
+}
+
+.no-download-msg {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  padding: 8px 18px;
+  border-radius: 6px;
+  font-weight: 500;
+  font-size: 0.95rem;
+  display: inline-block;
+}
+
+
+  </style>
+</head>
+
+<body oncontextmenu="return false">
+  <!-- layout.js inject: HEADER -->
+  <div id="layout-header"></div>
+
+  <main>
+    <section class="events-header">
+      <h1>Events & Celebrations</h1>
+      <p class="event-description-box">
+        "🏛️ Celebrating our shared moments — from festivals to cultural evenings — each gathering reflects the unity, spirit, and joy of our Avishikta Type-A community."
+      </p>
+    </section>
+
+    <section class="upcoming-events">
+      <h2>Upcoming Events</h2>
+      <ul>
+        <li><strong>Annual General Meeting</strong> on <time datetime="2025-07-27">27th July, 2025</time></li>
+        <li>Independence Day</li>
+        <li>Biswakarma Puja</li>
+        <li>Durga Puja</li>
+      </ul>
+    </section>
+
+    <section class="gallery-grid" aria-label="Photo gallery">
+      <div class="gallery-card" onclick="openLightbox('image-1.jpg')">
+        <img src="image-1.jpg" alt="Annual Day Celebration" draggable="false">
+        <div class="zoom-icon">+</div>
+        <div class="card-caption">Annual Day Celebration</div>
+      </div>
+      <div class="gallery-card" onclick="openLightbox('image-2.jpg')">
+        <img src="image-2.jpg" alt="Festive Lights Evening" draggable="false">
+        <div class="zoom-icon">+</div>
+        <div class="card-caption">Festive Lights Evening</div>
+      </div>
+      <div class="gallery-card" onclick="openLightbox('image-1.jpg')">
+        <img src="image-1.jpg" alt="Cultural Performance" draggable="false">
+        <div class="zoom-icon">+</div>
+        <div class="card-caption">Cultural Performance</div>
+      </div>
+      <div class="gallery-card" onclick="openLightbox('image-2.jpg')">
+        <img src="image-2.jpg" alt="New Year Bash" draggable="false">
+        <div class="zoom-icon">+</div>
+        <div class="card-caption">New Year Bash</div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Lightbox -->
+  <div id="lightboxModal" onclick="closeLightbox()" role="dialog" aria-modal="true">
+    <span id="closeBtn" onclick="event.stopPropagation(); closeLightbox();" aria-label="Close preview">&times;</span>
+    <img id="lightboxImage" src="" alt="Zoomed Image">
+    <div class="download-container">
+  <button class="download-btn" disabled>⬇️ Download</button>
+  <div class="no-download-msg">🔒 Downloads are temporarily unavailable. Feature coming in the next release!!!</div>
+</div>
+  </div>
+
+  <!-- layout.js inject: FOOTER -->
+  <div id="layout-footer"></div>
+
+  <script src="layout.js"></script>
+  <script>
+    // Inject layout from layout.js
+    document.getElementById('layout-header').innerHTML = layout.getHeader();
+    document.getElementById('layout-footer').innerHTML = layout.getFooter();
+
+    // Lightbox functionality
+    function openLightbox(src) {
+      document.getElementById("lightboxModal").style.display = "flex";
+      document.getElementById("lightboxImage").src = src;
+    }
+
+    function closeLightbox() {
+      document.getElementById("lightboxModal").style.display = "none";
+      document.getElementById("lightboxImage").src = "";
+    }
+  </script>
+</body>
+</html>
