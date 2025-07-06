@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Avishikta - I Type - A RWA</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Open+Sans&display=swap" rel="stylesheet" />
+
+  <!-- Font Awesome -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  />
+
+  <style>
+    /* Your existing styles here... */
+    /* Keyframes for ticker animation */
+    @keyframes scroll-left {
+      0% { transform: translateX(100%); }
+      100% { transform: translateX(-100%); }
+    }
+
+    .ticker-wrapper {
+      position: relative;
+      height: 54px;
+      background: linear-gradient(0deg, rgba(195, 47, 34, 1) 12%, rgba(217, 99, 38, 1) 46%, rgba(253, 187, 45, 1) 100%);
+      overflow: visible;
+      z-index: 2500;
+      display: flex;
+      align-items: center;
+      font-weight: 700;
+      color: white;
+      font-size: 1.2rem;
+      letter-spacing: 0.05em;
+      font-family: 'Montserrat', sans-serif;
+      justify-content: space-between;
+      padding-right: 20px; /* Added padding on the right to give space for the button */
+    }
+
+    .ticker {
+      display: inline-block;
+      white-space: nowrap;
+      animation: scroll-left 20s linear infinite;
+      will-change: transform;
+    }
+
+    .pause-button {
+      cursor: pointer;
+      background-color: #c32f22;
+      padding: 5px 10px;
+      border-radius: 4px;
+      color: white;
+      font-weight: bold;
+      font-size: 1rem;
+      margin-left: 10px;
+      border: none;
+      position: absolute; /* Absolute positioning */
+      right: 10px; /* Position it at the right edge */
+    }
+
+    .pause-button:hover,
+    .pause-button:focus {
+      background-color: #e54e42;
+      outline: none;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Open Sans', sans-serif;
+      background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(9, 9, 121, 1) 24%, rgba(17, 145, 209, 1) 100%, rgba(1, 186, 238, 1) 100%, rgba(0, 212, 255, 1) 100%);
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    #layout-root { }
+
+    .hero {
+      background: linear-gradient(135deg, #003366, #005580);
+      color: #fff;
+      text-align: center;
+      padding: 40px 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 160px;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+      position: relative;
+      z-index: 3000;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.4);
+    }
+
+    .hero-content {
+      position: relative;
+      text-align: center;
+      color: #fff;
+      z-index: 2;
+    }
+
+    .hero-content h1 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 2.5rem;
+      text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+    }
+
+    .hero-content p {
+      font-size: 1rem;
+      font-weight: 500;
+      letter-spacing: 0.3px;
+      margin: 0;
+    }
+
+    .hero-content h2 {
+      font-size: 1.5rem;
+      margin-bottom: 20px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+
+    main {
+      opacity: 1 !important; /* Force visibility */
+      transform: translateY(0) !important;
+      padding-top: 30px;
+    }
+
+  main.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+    main h2 {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+      text-align: center;
+      text-shadow: 0 2px 6px rgba(0,0,0,0.4);
+      color: #fffbea;
+    }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .card {
+      background: linear-gradient(145deg, #2c3e50, #4ca1af); /* Stunning gradient */
+      padding: 1rem;
+      border-radius: 12px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+      transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      width: 100%; /* Ensures the card takes the full available space */
+      max-width: 350px; /* Keeps card width under control */
+      margin: 0 auto; /* Centers the card */
+    }
+
+    .card::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      bottom: 0;
+      width: 0%;
+      height: 4px;
+      background: #00e5ff;
+      transition: width 0.3s ease, left 0.3s ease;
+      border-radius: 2px;
+    }
+
+    .card:hover {
+      transform: translateY(-12px); /* Slightly larger elevation */
+      background: rgba(255, 255, 255, 0.1); /* Slightly darker to emphasize hover */
+      box-shadow: 0 12px 30px rgba(0,229,255,0.6); /* Stronger, more dynamic shadow */
+      filter: brightness(1.1); /* Adds a slight brightness effect on hover */
+    }
+
+    .card:hover::after {
+      width: 80%;
+      left: 10%;
+    }
+
+    .card i {
+      font-size: 1.8rem;
+      color: #00e5ff;
+      margin-bottom: 0.75rem;
+      pointer-events: none;
+    }
+
+    .card h3 {
+      font-size: 1.1rem;
+      margin-bottom: 0.3rem;
+      color: #fff;
+      pointer-events: none;
+      text-shadow: 0 0 6px rgba(0, 229, 255, 0.6); /* Soft glow effect */
+    }
+
+    .card p {
+      font-size: 0.85rem;
+      color: #e0f7fa;
+      line-height: 1.;
+      pointer-events: none;
+    }
+
+    a {
+      color: #a3d2ca;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    a:hover {
+      color: #ffffff;
+      text-decoration: underline;
+      transform: translateX(5px); /* Add a slight shift to the underline for interaction */
+    }
+
+    @media (max-width: 600px) {
+      .overlay {
+        font-size: 1.0rem;
+        padding: 0 2rem;
+        max-width: 1000px;
+      }
+
+  .hero-image {
+        width: 100%;
+        height: 100%; /* Increased height */
+        object-fit: cover;
+        display: block;
+        filter: brightness(70%);
+      }
+
+  .full-width-hero {
+  width: 100vw;
+  height: 280px;
+  position: relative;
+  overflow: hidden;
+  padding: 0;
+  margin: 0;
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+}
+
+   .card-grid {
+        display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* This will ensure cards are dynamically adjusted */
+  gap: 1.5rem;
+  margin-top: 2rem;
+      }
+    }
+
+    .image-text-hero {
+      position: relative;
+      max-width: 720px;
+      margin: 0 auto 2rem auto;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+    }
+
+    .hero-image {
+      width: 100%;
+      height: 100px;
+      object-fit: cover;
+      display: block;
+      filter: brightness(70%);
+      transition: filter 0.3s ease;
+    }
+
+    .image-text-hero:hover .hero-image {
+      filter: brightness(85%);
+    }
+
+    .overlay {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: #fffbea;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: clamp(1.5rem, 4vw, 1.8rem);
+      white-space: nowrap;
+      text-shadow: 2px 2px 6px rgba(0,0,0,0.8), 0 0 10px rgba(255,255,255,0.3);
+      text-align: center;
+      padding: 0 1rem;
+      pointer-events: none;
+    }
+
+    .overlay h2 {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 1.8rem;
+      color: #fffbea;
+      white-space: nowrap;
+      text-shadow: 1px 1px 6px rgba(0,0,0,0.6), 0 0 6px rgba(255,255,255,0.2);
+      text-align: center;
+    }
+
+.welcome-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.welcome-icon {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+  animation: pulse 2s infinite;
+}
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+</style>
+</head>
+
+<body>
+  <div id="layout-root">
+
+    <!-- Hero section with header -->
+  <header class="hero full-width-hero" role="banner">
+  <img src="Image-1.jpg" alt="Community Image" class="hero-image" />
+  <div class="overlay">
+      🙏 Welcome to Avishikta - I Type - A | Digital Frontier Shaping Tomorrow!
+    </div>
+</header>
+
+    <!-- Ticker BELOW header -->
+    <div class="ticker-wrapper" aria-label="News ticker" role="region" aria-live="polite">
+      <div class="ticker" id="ticker">
+        <span>🙏 Heartfelt welcome to all our esteemed members in our 19th AGM!!!</span>
+      </div>
+      <button class="pause-button" aria-pressed="false" aria-label="Pause or Play news ticker" id="pauseBtn">Pause</button>
+    </div>
+
+    <main role="main" tabindex="-1">
+      <h2>Engage > Empower > Elevate</h2>
+      <div class="card-grid">
+        <div class="card" tabindex="0" role="article" aria-label="Announcements">
+          <i class="fas fa-bullhorn" aria-hidden="true"></i>
+          <h3>Announcements</h3>
+          <p>Stay updated with the latest news</p>
+          <a href="#announcements" tabindex="0">Read More</a>
+        </div>
+        <div class="card" tabindex="0" role="article" aria-label="Events">
+          <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+          <h3>Events</h3>
+          <p>Join upcoming celebrations</p>
+          <a href="#events" tabindex="0">Learn More</a>
+        </div>
+        <div class="card" tabindex="0" role="article" aria-label="Resources">
+          <i class="fas fa-book" aria-hidden="true"></i>
+          <h3>Resources</h3>
+          <p>Access documents and useful resources</p>
+          <a href="#resources" tabindex="0">Explore</a>
+        </div>
+      </div>
+    </main>
+
+  <!-- Confetti script from CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <script src="layout.js" defer></script>
+
+  <script>
+    // Ticker pause/play functionality
+    const ticker = document.getElementById('ticker');
+    const pauseBtn = document.getElementById('pauseBtn');
+    let isPaused = false;
+
+    pauseBtn.addEventListener('click', () => {
+      isPaused = !isPaused;
+      if (isPaused) {
+        ticker.style.animationPlayState = 'paused';
+        pauseBtn.textContent = 'Play';
+        pauseBtn.setAttribute('aria-pressed', 'true');
+        pauseBtn.setAttribute('aria-label', 'Play news ticker');
+      } else {
+        ticker.style.animationPlayState = 'running';
+        pauseBtn.textContent = 'Pause';
+        pauseBtn.setAttribute('aria-pressed', 'false');
+        pauseBtn.setAttribute('aria-label', 'Pause news ticker');
+      }
+    });
+
+    // Welcome Overlay Countdown + Progress + Fade + Confetti
+
+    const mainContent = document.querySelector('main');
+
+    function runConfetti() {
+      const duration = 4 * 1000;
+      const end = Date.now() + duration;
+
+      (function frame() {
+        confetti({
+          particleCount: 5,
+          angle: 60,
+          spread: 55,
+          origin: { x: 0 },
+          colors: ['#bb0000', '#ffffff']
+        });
+        confetti({
+          particleCount: 5,
+          angle: 120,
+          spread: 55,
+          origin: { x: 1 },
+          colors: ['#bb0000', '#ffffff']
+        });
+
+        if (Date.now() < end) {
+          requestAnimationFrame(frame);
+        }
+      })();
+    }
+
+runConfetti();
+
+</script>
+</body>
+</html>

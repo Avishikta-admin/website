@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Useful Links | Avishikta Phase 1 Type - A RWA</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" />
+
+  <style>
+    /* Base & layout */
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #e6f0ff 0%, #ffffff 100%);
+      color: #1b1b1b;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    main {
+      max-width: 900px;
+      margin: 20px auto 60px;
+      padding: 0 20px;
+      flex: 1;
+      position: relative;
+      z-index: 2;
+      background: rgba(255 255 255 / 0.85);
+      border-radius: 16px;
+      box-shadow: 0 12px 20px rgb(42 114 216 / 0.2);
+      animation: fadeInUp 0.8s ease forwards;
+    }
+
+    /* Watermark background SVG */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      width: 400px;
+      height: 400px;
+      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" fill="%232a72d8" opacity="0.08" viewBox="0 0 64 64"><path d="M32 2L2 16v44h60V16L32 2zM30 54h-4v-4h4v4zm0-8h-4v-6h4v6zm16 8h-4v-4h4v4zm0-8h-4v-6h4v6zm-12-3v-11l8 7v4l-8-0.7z"/></svg>') no-repeat center/contain;
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+      z-index: 1;
+      user-select: none;
+    }
+
+    /* Banner styles */
+    .image-container {
+      position: relative;
+      max-width: 400px;
+      margin: 15px auto 8px;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 14px rgba(42, 114, 216, 0.25);
+    }
+
+    .image-container img {
+      display: block;
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      vertical-align: middle;
+      filter: brightness(0.85);
+      transition: filter 0.3s ease;
+    }
+
+    .image-container img:hover {
+      filter: brightness(1);
+    }
+
+    .image-overlay {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      background: linear-gradient(to top, rgba(42, 114, 216, 0.85), transparent);
+      color: white;
+      text-align: center;
+      font-size: 2rem;
+      font-weight: 700;
+      font-family: 'Segoe UI Black', Tahoma, Geneva, Verdana, sans-serif;
+      padding: 12px 0;
+      letter-spacing: 0.07em;
+      text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+      box-sizing: border-box;
+    }
+
+    /* Tagline below banner */
+    .tagline {
+      max-width: 400px;
+      margin: 8px auto 30px;
+      font-style: italic;
+      font-weight: 600;
+      font-size: 1.15rem;
+      color: #2a72d8;
+      text-align: center;
+      user-select: none;
+      text-shadow: 0 0 6px rgba(42, 114, 216, 0.4);
+    }
+
+    /* Accordion container */
+    .accordion {
+      max-width: 900px;
+      margin: 0 auto 40px;
+    }
+
+    /* Horizontally aligned accordion headers */
+    .accordion-headers {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+
+    /* Accordion header styles */
+    .accordion-header {
+      cursor: pointer;
+      padding: 12px 22px;
+      font-weight: 700;
+      font-size: 1.15rem;
+      user-select: none;
+      background-color: #f2f9ff;
+      border: 2px solid #2a72d8;
+      border-radius: 10px;
+      color: #2a72d8;
+      text-align: center;
+      transition: background-color 0.35s ease, color 0.35s ease, box-shadow 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      outline-offset: 3px;
+      position: relative;
+      box-shadow: 0 4px 8px rgba(42, 114, 216, 0.12);
+    }
+
+    .accordion-header:hover,
+    .accordion-header:focus-visible {
+      background-color: #2a72d8;
+      color: white;
+      box-shadow: 0 6px 16px rgba(42, 114, 216, 0.45);
+      outline: none;
+    }
+
+    /* Info icon with tooltip */
+    .info-icon {
+      font-size: 1.15rem;
+      color: #2a72d8;
+      cursor: help;
+      user-select: none;
+      transition: color 0.3s ease;
+      position: relative;
+    }
+
+    .info-icon:hover {
+      color: #1451a8;
+    }
+
+    .info-icon[aria-describedby] {
+      position: relative;
+    }
+
+    .tooltip {
+      position: absolute;
+      bottom: 110%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #2a72d8;
+      color: white;
+      padding: 6px 10px;
+      font-size: 0.85rem;
+      border-radius: 6px;
+      white-space: nowrap;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      z-index: 10;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+      user-select: none;
+    }
+
+    .info-icon:hover .tooltip,
+    .info-icon:focus-visible .tooltip {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    /* Accordion header icon */
+    .accordion-header .icon {
+      font-size: 1.6rem;
+      user-select: none;
+      transition: transform 0.35s ease;
+      display: inline-block;
+    }
+
+    .accordion-header.active .icon {
+      transform: rotate(90deg);
+    }
+
+    /* Accordion content */
+    .accordion-content {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 5px 12px rgba(42, 114, 216, 0.15);
+      padding: 16px 24px;
+      font-size: 1rem;
+      line-height: 1.5;
+      display: none;
+      margin-bottom: 28px;
+      max-width: 900px;
+      margin-left: auto;
+      margin-right: auto;
+      animation: fadeIn 0.6s ease forwards;
+    }
+
+    /* Table styling */
+    .content-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 12px;
+      font-size: 0.95rem;
+    }
+
+    .content-table th,
+    .content-table td {
+      padding: 8px 12px;
+      border: 1px solid #d6dbf7;
+      text-align: left;
+      vertical-align: middle;
+    }
+
+    .content-table th {
+      background-color: #2a72d8;
+      color: white;
+      font-weight: 700;
+      user-select: none;
+    }
+
+    .content-table tr:nth-child(even) {
+      background-color: #f9fbff;
+    }
+
+    .content-table td a {
+      color: #2a72d8;
+      text-decoration: none;
+      transition: text-decoration 0.25s ease;
+    }
+
+    .content-table td a:hover,
+    .content-table td a:focus-visible {
+      text-decoration: underline;
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+  </style>
+</head>
+
+<body>
+  <main>
+    <div class="image-container" aria-label="Useful Links banner with title">
+      <img src="Image-1.jpg" alt="Useful Links Banner" />
+      <div class="image-overlay">Useful Links</div>
+    </div>
+
+    <div class="tagline" aria-label="Page tagline">Empowering our community with trusted resources and vital contacts</div>
+
+    <section class="accordion" role="tablist" aria-label="Useful Links Categories">
+      <div class="accordion-headers">
+        <button class="accordion-header" role="tab" aria-selected="false" aria-controls="panel1" id="accordion1" tabindex="0">
+          <span class="icon" aria-hidden="true">🏛️</span>
+          Government
+          <span class="info-icon" tabindex="0" role="tooltip" aria-describedby="tooltip-gov" aria-label="More information about Government resources">
+            <i class="fa-solid fa-circle-info"></i>
+            <span class="tooltip" id="tooltip-gov">Links to government portals and services!</span>
+          </span>
+        </button>
+        <button class="accordion-header" role="tab" aria-selected="false" aria-controls="panel2" id="accordion2" tabindex="0">
+          <span class="icon" aria-hidden="true">🏘️</span>
+          Housing, Maintenance & Security
+          <span class="info-icon" tabindex="0" role="tooltip" aria-describedby="tooltip-hms" aria-label="More information about Housing and Security contacts">
+            <i class="fa-solid fa-circle-info"></i>
+            <span class="tooltip" id="tooltip-hms">Contacts for housing, maintenance, and security!</span>
+          </span>
+        </button>
+        <button class="accordion-header" role="tab" aria-selected="false" aria-controls="panel3" id="accordion3" tabindex="0">
+          <span class="icon" aria-hidden="true">🎓</span>
+          Education
+          <span class="info-icon" tabindex="0" role="tooltip" aria-describedby="tooltip-edu" aria-label="More information about Educational resources">
+            <i class="fa-solid fa-circle-info"></i>
+            <span class="tooltip" id="tooltip-edu">Links to online educational platforms and courses!</span>
+          </span>
+        </button>
+      </div>
+
+      <!-- Government Category -->
+      <div id="panel1" class="accordion-content" role="tabpanel" aria-labelledby="accordion1" tabindex="0">
+        <h3>Government Links:</h3>
+        <table class="content-table">
+          <thead>
+            <tr>
+              <th>Resource</th>
+              <th>Link</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>India Government Portal</td>
+              <td><a href="https://www.india.gov.in/" target="_blank" rel="noopener">India Government Portal</a></td>
+            </tr>
+            <tr>
+              <td>Kolkata Municipal Corporation</td>
+              <td><a href="https://www.kmcgov.in/" target="_blank" rel="noopener">Kolkata Municipal Corporation</a></td>
+            </tr>
+            <tr>
+              <td>Passport Services</td>
+              <td><a href="https://passportindia.gov.in/" target="_blank" rel="noopener">Passport Services</a></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Housing, Maintenance & Security Category -->
+      <div id="panel2" class="accordion-content" role="tabpanel" aria-labelledby="accordion2" tabindex="0">
+        <h3>Security Desk & Team Maintenance:</h3>
+        <table class="content-table">
+          <thead>
+            <tr>
+              <th>Contact Type</th>
+              <th>Phone Number</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Security Desk</td>
+              <td><a href="tel:+913324840130">+91 3324840130</a></td>
+            </tr>
+            <tr>
+              <td>Security Desk</td>
+              <td><a href="tel:+913348025239">+91 3348025239</a></td>
+            </tr>
+            <tr>
+              <td>Security Desk</td>
+              <td><a href="tel:+913335107320">+91 3335107320</a></td>
+            </tr>
+            <tr>
+              <td>Electrician 1</td>
+              <td>Placeholder for Electrician 1</td>
+            </tr>
+            <tr>
+              <td>Electrician 2</td>
+              <td>Placeholder for Electrician 2</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Education Category -->
+      <div id="panel3" class="accordion-content" role="tabpanel" aria-labelledby="accordion3" tabindex="0">
+        <h3>Education Resources:</h3>
+        <table class="content-table">
+          <thead>
+            <tr>
+              <th>Resource</th>
+              <th>Link</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Khan Academy</td>
+              <td><a href="https://www.khanacademy.org/" target="_blank" rel="noopener">Khan Academy</a></td>
+            </tr>
+            <tr>
+              <td>Coursera</td>
+              <td><a href="https://www.coursera.org/" target="_blank" rel="noopener">Coursera</a></td>
+            </tr>
+            <tr>
+              <td>edX Online Courses</td>
+              <td><a href="https://www.edx.org/" target="_blank" rel="noopener">edX Online Courses</a></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // Accordion behavior: only one panel open at a time
+    const headers = document.querySelectorAll('.accordion-header');
+    const panels = document.querySelectorAll('.accordion-content');
+
+    headers.forEach((header, idx) => {
+      header.addEventListener('click', () => {
+        const isActive = header.classList.contains('active');
+
+        headers.forEach((h, i) => {
+          h.classList.remove('active');
+          h.setAttribute('aria-selected', 'false');
+          panels[i].style.display = 'none';
+          panels[i].setAttribute('hidden', 'true');
+        });
+
+        if (!isActive) {
+          header.classList.add('active');
+          header.setAttribute('aria-selected', 'true');
+          panels[idx].style.display = 'block';
+          panels[idx].removeAttribute('hidden');
+        }
+      });
+
+      // Keyboard accessibility: Enter or Space toggles accordion
+      header.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          header.click();
+        }
+      });
+    });
+
+    // Initialize ARIA attributes on page load
+    panels.forEach(panel => panel.setAttribute('hidden', 'true'));
+  </script>
+
+  <script src="layout.js"></script>
+</body>
+
+</html>

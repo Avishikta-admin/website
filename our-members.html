@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="css/responsive-fix.css" />
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Avishikta Phase 1 LIG - Members Directory</title>
+
+<style>
+/* Body background styling */
+  body {
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  color: #333;
+  background: linear-gradient(135deg, #e0e7ff, #f5f7fa, #f0f4f8); /* Lighter shades of blue and gray */
+  background-size: 400% 400%; /* Smooth gradient effect */
+  animation: gradientShift 5s ease infinite; /* Slow gradient animation */
+}
+
+  .subtitle {
+  background: linear-gradient(90deg, #1e3a8a, #3b82f6); /* Deep blue to lighter blue gradient */
+      color: white;
+      padding: 12px 30px;
+      font-size: 1.4rem;
+      font-weight: 700;
+      text-align: center;
+      border-radius: 30px;
+      margin-bottom: 20px;
+      text-shadow: 0px 4px 8px rgba(0,0,0,0.3);
+}
+
+.subtitle:hover {
+  transform: scale(1.05);
+  cursor: default;
+}
+
+  #container {
+  background: #f0f0f0;
+  padding: 10px;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 1100px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  margin-top: 15px;
+  transform: translateY(0);
+  animation: floatUp 1s ease-out;
+  }
+
+@keyframes floatUp {
+  0% { transform: translateY(20px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+
+  /* Button styles */
+    .button-group {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .tower-button {
+      background-color: #1e40af;
+      color: white;
+      font-weight: 600;
+      padding: 12px 25px;
+      margin: 5px;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .tower-button:hover {
+      background-color: #3b82f6;
+      transform: scale(1.05);
+    }
+  .tower-button .toggle-sign {
+    margin-right: 8px;
+    font-weight: normal;
+  }
+  .members-table {
+    border-collapse: collapse;
+    width: 100%;
+    max-width: 600px;
+    margin: 10px auto 20px auto;
+    background: white;
+    border-radius: 5px;
+    overflow: hidden;
+  }
+  .members-table th,
+  .members-table td {
+    border: 1px solid #ccc;
+    padding: 8px 12px;
+    text-align: left;
+  }
+  .members-table th {
+    background: #0b3d91;
+    color: white;
+  }
+  .flat-link {
+    color: #0b3d91;
+    cursor: pointer;
+    text-decoration: underline;
+    position: relative; /* Needed for positioning the tooltip */
+  }
+
+  /* Tooltip text, initially hidden */
+.flat-link::after {
+  content: " Click to view member details";
+  position: absolute;
+  left: 100%; /* right after the text */
+  top: 50%;
+  transform: translateY(-50%);
+  white-space: nowrap;
+  background: #0b3d91;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  margin-left: 8px;
+  transition: none; /* No delay or fading */
+}
+
+/* Show tooltip immediately on hover and focus */
+.flat-link:hover::after,
+.flat-link:focus::after {
+  opacity: 1;
+  visibility: visible;
+}
+
+  #searchControls {
+    max-width: 600px;
+    margin: 0 auto 20px auto;
+    text-align: center;
+  }
+  #searchInput {
+    padding: 8px 10px;
+    width: 70%;
+    max-width: 350px;
+    font-size: 1rem;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+  }
+  #clearSearchBtn {
+    padding: 8px 12px;
+    margin-left: 8px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    border-radius: 4px;
+    border: 1px solid #0b3d91;
+    background: white;
+    color: #0b3d91;
+    font-weight: bold;
+    transform: scale(1.05);
+  }
+  #clearSearchBtn:hover {
+    background: #0b3d91;
+    color: white;
+  }
+  #modalOverlay {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.6);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+  }
+  #modalOverlay.active {
+    display: flex;
+  }
+  #modal {
+    background: white;
+    padding: 20px 25px;
+    border-radius: 6px;
+    max-width: 400px;
+    width: 90%;
+    box-shadow: 0 0 15px rgba(0,0,0,0.3);
+    position: relative;
+  }
+  #modal h3 {
+    margin-top: 0;
+    color: #0b3d91;
+  }
+  #modalContent table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  #modalContent td {
+    padding: 6px 8px;
+    border: 1px solid #ddd;
+  }
+  #modalContent td:first-child {
+    font-weight: bold;
+    width: 40%;
+    background: #f9f9f9;
+  }
+  #closeModalBtn {
+    position: absolute;
+    top: 8px; right: 10px;
+    font-size: 1.5rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #888;
+  }
+  #closeModalBtn:hover {
+    color: #0b3d91;
+  }
+  @media (max-width: 600px) {
+    header h1 {
+      font-size: 1rem;
+    }
+    .members-table {
+      max-width: 100%;
+    }
+    #searchInput {
+      width: 60%;
+    }
+  }
+
+/* Banner Styling */
+  #noticeBanner {
+    position: fixed;
+    top: 10px;
+    left: 75%;
+    transform: translateX(-50%);
+    background: linear-gradient(45deg, #ff6f61, #f8b400); /* Gradient color */
+    color: white;
+    font-weight: bold;
+    padding: 6px 12px;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    display: none; /* Hidden by default */
+    animation: fadeIn 1s ease-out forwards;
+    z-index: 9999;
+    font-size: 0.85rem;
+    max-width: 90%;
+    text-align: left;
+  }
+
+  /* Animation for fading in the banner */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Close button on the banner */
+  #closeBannerBtn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    position: absolute;
+    top: 8px;
+    right: 10px;
+    transition: color 0.3s ease;
+  }
+
+  #closeBannerBtn:hover {
+    color: #f0f0f0;
+  }
+
+</style>
+</head>
+
+<body>
+
+<p class="subtitle">Members Directory - Coming Soon!</p>
+
+ <!-- Beautiful Dummy Data Banner -->
+  <div id="noticeBanner">
+    <span>Kindly Note: This is dummy data for demonstration purposes!"</span>
+    <button id="closeBannerBtn" onclick="closeNotice()">×</button>
+  </div>
+
+<div id="container">
+  <div class="button-group" role="group" aria-label="Toggle Towers">
+    <button class="tower-button" data-tower="A"><span class="toggle-sign">+</span> Wing-A</button>
+    <button class="tower-button" data-tower="B"><span class="toggle-sign">+</span> Wing-B</button>
+    <button class="tower-button" data-tower="C"><span class="toggle-sign">+</span> Wing-C</button>
+    <button class="tower-button" data-tower="D"><span class="toggle-sign">+</span> Wing-D</button>
+  </div> <!-- Close the button-group div properly -->
+
+  <section id="memberSection" aria-live="polite" aria-label="Member list">
+    <div id="searchControls">
+      <input
+        type="search"
+        id="searchInput"
+        aria-label="Search members"
+        placeholder="Search by name or flat number..."
+        autocomplete="off"
+      />
+      <button id="clearSearchBtn" aria-label="Clear search input">Clear Search</button>
+    </div>
+    <div id="membersContainer">
+      <p style="text-align:center; color:#666;">Click a tower button above to view members.</p>
+    </div>
+  </section>
+</div>
+
+<!-- Modal -->
+<div id="modalOverlay" role="dialog" aria-modal="true" aria-labelledby="modalTitle" tabindex="-1">
+  <div id="modal">
+    <button id="closeModalBtn" aria-label="Close modal">&times;</button>
+    <h3 id="modalTitle">Member Details</h3>
+    <div id="modalContent"></div>
+  </div>
+</div>
+
+<script>
+// Your provided data format (arrays of [name, flat])
+const data = {
+  "A": [
+    ["John Doe", "A-1001"],
+    ["Jane Smith", "A-1002"],
+  ],
+  "B": [
+    ["Mary Clark", "B-1001"],
+    ["David Harris", "B-1002"],
+  ],
+  "C": [
+    ["Tom Scott", "C-1001"],
+    ["Jessica Carter", "C-1002"],
+  ],
+  "D": [
+    ["Liam Wilson", "D-1001"],
+    ["Sophia Lee", "D-1002"],
+  ]
+};
+
+// Flat passwords and extra details
+const flatData = {
+  "A-1001": {
+    password: "passa1001",
+    details: {
+      Name: "John Doe",
+      "Flat No": "A-1001",
+      Notes: "Corner flat on the 1st floor"
+    }
+  },
+  "A-1002": {
+    password: "passa1002",
+    details: {
+      Name: "Jane Smith",
+      "Flat No": "A-1002",
+      Notes: "Ground floor"
+    }
+  },
+  "B-1001": {
+    password: "passb1001",
+    details: {
+      Name: "Mary Clark",
+      "Flat No": "B-1001",
+      Notes: "Corner flat on the 2nd floor"
+    }
+  },
+  "B-1002": {
+    password: "passb1002",
+    details: {
+      Name: "David Harris",
+      "Flat No": "B-1002",
+      Notes: "South facing flat on the 3rd floor"
+    }
+  },
+  "C-1001": {
+    password: "passc1001",
+    details: {
+      Name: "Tom Scott",
+      "Flat No": "C-1001",
+      Notes: "WIP"
+    }
+  },
+  "C-1002": {
+    password: "passc1002",
+    details: {
+      Name: "Jessica Carter",
+      "Flat No": "C-1002",
+      Notes: "Middle flat on the 1st floor"
+    }
+  },
+  "D-1001": {
+    password: "passd1001",
+    details: {
+      Name: "Liam Wilson",
+      "Flat No": "D-1001",
+      Notes: "4th floor"
+    }
+  },
+  "D-1002": {
+    password: "passd1002",
+    details: {
+      Name: "Sophia Lee",
+      "Flat No": "D-1002",
+      Notes: "WIP"
+    }
+  }
+  // More dummy flats can be added here as needed
+};
+
+// Cache DOM elements
+const membersContainer = document.getElementById("membersContainer");
+const searchInput = document.getElementById("searchInput");
+const clearSearchBtn = document.getElementById("clearSearchBtn");
+const modalOverlay = document.getElementById("modalOverlay");
+const modalContent = document.getElementById("modalContent");
+const closeModalBtn = document.getElementById("closeModalBtn");
+
+// Track which towers are open
+let expandedTower = null;
+
+// Helper: Get members array with objects {name, flat}
+function getMembers(tower) {
+  return (data[tower] || []).map(([name, flat]) => ({ name, flat }));
+}
+
+// Create table for a tower members
+function createTable(towerName, members) {
+  const table = document.createElement("table");
+  table.className = "members-table";
+  table.setAttribute("data-tower", towerName);
+
+  const thead = document.createElement("thead");
+  thead.innerHTML = `<tr><th>Flat No.</th><th>Name</th></tr>`;
+  table.appendChild(thead);
+
+  const tbody = document.createElement("tbody");
+
+  members.forEach(({ name, flat }) => {
+    const tr = document.createElement("tr");
+
+    const tdFlat = document.createElement("td");
+    const flatLink = document.createElement("span");
+    flatLink.textContent = flat;
+    flatLink.className = "flat-link";
+    flatLink.tabIndex = 0;
+    flatLink.setAttribute("role", "button");
+    flatLink.addEventListener("click", () => openModal(flat));
+    flatLink.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        openModal(flat);
+      }
+    });
+    tdFlat.appendChild(flatLink);
+    tr.appendChild(tdFlat);
+
+    const tdName = document.createElement("td");
+    tdName.textContent = name;
+    tr.appendChild(tdName);
+
+    tbody.appendChild(tr);
+  });
+
+  table.appendChild(tbody);
+  return table;
+}
+
+// Render members depending on search and toggles
+function render() {
+  membersContainer.innerHTML = ""; // Clear the container
+
+  const q = searchInput.value.trim().toLowerCase();
+
+  // --- Search Mode ---
+  if (q.length > 0) {
+    const results = [];
+
+    Object.keys(data).forEach((tower) => {
+      getMembers(tower).forEach((member) => {
+        if (
+          member.name.toLowerCase().includes(q) ||
+          member.flat.toLowerCase().includes(q)
+        ) {
+          results.push({ ...member, tower });
+        }
+      });
+    });
+
+    if (results.length === 0) {
+      membersContainer.innerHTML =
+        '<p style="text-align:center; color:#666;">No members found.</p>';
+      return;
+    }
+
+    const table = document.createElement("table");
+    table.className = "members-table";
+    const thead = document.createElement("thead");
+    thead.innerHTML = "<tr><th>Flat No.</th><th>Name</th><th>Tower</th></tr>";
+    table.appendChild(thead);
+    const tbody = document.createElement("tbody");
+
+    results.forEach(({ flat, name, tower }) => {
+      const tr = document.createElement("tr");
+
+      const tdFlat = document.createElement("td");
+      const flatLink = document.createElement("span");
+      flatLink.textContent = flat;
+      flatLink.className = "flat-link";
+      flatLink.tabIndex = 0;
+      flatLink.setAttribute("role", "button");
+      flatLink.addEventListener("click", () => openModal(flat));
+      flatLink.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          openModal(flat);
+        }
+      });
+      tdFlat.appendChild(flatLink);
+      tr.appendChild(tdFlat);
+
+      const tdName = document.createElement("td");
+      tdName.textContent = name;
+      tr.appendChild(tdName);
+
+      const tdTower = document.createElement("td");
+      tdTower.textContent = tower;
+      tr.appendChild(tdTower);
+
+      tbody.appendChild(tr);
+    });
+
+    table.appendChild(tbody);
+    membersContainer.appendChild(table);
+    return;
+  }
+
+  // --- Tower Button Click Mode ---
+  if (!expandedTower) {
+    membersContainer.innerHTML =
+      '<p style="text-align:center; color:#666;">Click a tower button above to view members.</p>';
+    return;
+  }
+
+  const members = getMembers(expandedTower);
+  if (members.length > 0) {
+    const table = createTable(expandedTower, members);
+    membersContainer.appendChild(table);
+  } else {
+    const p = document.createElement("p");
+    p.style.textAlign = "center";
+    p.style.color = "#666";
+    p.textContent = `No members found for Tower ${expandedTower}.`;
+    membersContainer.appendChild(p);
+  }
+}
+
+// Open modal with password prompt
+function openModal(flatNo) {
+  if (!flatData[flatNo]) {
+    alert("Details not found for this flat!!!");
+    return;
+  }
+
+  const pwd = prompt(`Enter password for flat ${flatNo}:`);
+  if (pwd === null) return; // user canceled
+
+  if (pwd !== flatData[flatNo].password) {
+    alert("Not Authorized!!!");
+    return;
+  }
+
+  // Show details in modal
+  const details = flatData[flatNo].details;
+  let html = "<table>";
+  for (const key in details) {
+    html += `<tr><td>${key}</td><td>${details[key]}</td></tr>`;
+  }
+  html += "</table>";
+
+  modalContent.innerHTML = html;
+  modalOverlay.classList.add("active");
+  modalOverlay.focus();
+}
+
+// Close modal function
+function closeModal() {
+  modalOverlay.classList.remove("active");
+  modalContent.innerHTML = "";
+}
+
+// Toggle tower visibility and button sign change
+function toggleTower(e) {
+  const btn = e.currentTarget;
+  const tower = btn.getAttribute("data-tower");
+
+  if (expandedTower === tower) {
+    // Collapse the currently open tower
+    expandedTower = null;
+
+    // Reset all toggle signs to '+'
+    document.querySelectorAll(".tower-button .toggle-sign").forEach(sign => {
+      sign.textContent = "+";
+    });
+  } else {
+    // Collapse previous and open new tower
+    expandedTower = tower;
+
+    // Reset all toggle signs first
+    document.querySelectorAll(".tower-button .toggle-sign").forEach(sign => {
+      sign.textContent = "+";
+    });
+
+    // Set clicked button’s toggle sign to '–'
+    btn.querySelector(".toggle-sign").textContent = "–";
+  }
+
+  render();
+}
+
+// Clear search input and focus
+function clearSearch() {
+  searchInput.value = "";
+  render();
+  searchInput.focus();
+}
+
+// Event listeners
+document.querySelectorAll(".tower-button").forEach((btn) => {
+  btn.addEventListener("click", toggleTower);
+});
+
+searchInput.addEventListener("input", render);
+clearSearchBtn.addEventListener("click", clearSearch);
+closeModalBtn.addEventListener("click", closeModal);
+modalOverlay.addEventListener("click", (e) => {
+  if (e.target === modalOverlay) closeModal();
+});
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape" && modalOverlay.classList.contains("active")) {
+    closeModal();
+  }
+});
+
+// Initial render
+render();
+
+function getRandomColor() {
+  const r = Math.floor(Math.random() * 256);
+  const g = Math.floor(Math.random() * 256);
+  const b = Math.floor(Math.random() * 256);
+  return `rgb(${r}, ${g}, ${b})`;
+}
+
+// Function to apply a random gradient background
+function setRandomBackground() {
+  // Generate random colors
+  const color1 = getRandomColor();
+  const color2 = getRandomColor();
+  const color3 = getRandomColor();
+
+  // Set the background gradient
+  document.body.style.background = `linear-gradient(135deg, ${color1}, ${color2}, ${color3})`;
+}
+
+// Set the background color every 10 seconds
+setInterval(setRandomBackground, 5000);
+
+// Initial background color
+setRandomBackground();
+
+// Function to show the banner
+    function showNotice() {
+      document.getElementById("noticeBanner").style.display = "block";
+    }
+
+    // Function to close the notice
+    function closeNotice() {
+      document.getElementById("noticeBanner").style.display = "none";
+    }
+
+    // Automatically show the notice after 2 seconds for a better user experience
+    window.onload = function() {
+      setTimeout(showNotice, 2000); // Show the notice after 2 seconds
+    };
+
+</script>
+
+<script src="layout.js" defer></script>
+</body>
+</html>
