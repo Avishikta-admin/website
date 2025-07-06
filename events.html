@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Events & Gallery – AVISHIKTA - I Type - A RWA</title>
+  <link rel="stylesheet" href="css/responsive-fix.css" />
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #f4f6fa, #d3e0ea); /* Soft gradient background */
+      color: #333;
+    }
+
+    main {
+      max-width: 1200px;
+      margin: 0.2rem auto 2rem;
+      padding: 0.5rem 1rem 1rem;
+    }
+
+   #scrollToTop {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background-color: #ff6347;
+  color: white;
+  border-radius: 50%;
+  padding: 5px;
+  font-size: 1.6rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  border: none;
+  cursor: pointer;
+  z-index: 10000;
+  transition: background-color 0.3s ease;
+}
+
+#scrollToTop:hover {
+  background-color: #4b0082;
+}
+
+
+  .events-header {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start; /* Aligns content to the top */
+  text-align: center;
+  margin-top: 1;  /* Removes any top margin */
+  margin-bottom: 1.2rem;  /* Reduced margin */
+  animation: fadeInDown 0.8s ease-in-out;
+  background: linear-gradient(to right, #4b0082, #ff6347); /* Gradient background */
+  color: white;
+  padding: 1rem 1rem; /* Add some padding around */
+  border-radius: 12px; /* Soft rounded corners */
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  width: 90%; /* Makes the container take up 90% of the screen width */
+  max-width: 1200px; /* Optional: Add a max-width to prevent it from being too wide */
+  margin: 0 auto; /* Centers the container horizontally */
+  box-sizing: border-box; /* Ensures padding is inside the width */
+}
+
+.events-header h1 {
+  font-size: 1.95rem; /* Reduced font size for simplicity */
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); /* Subtle text shadow */
+  font-weight: bold;
+  letter-spacing: 0.05em;
+  margin: 0; /* Removed any bottom margin */
+  padding-top: 0; /* Removed extra padding */
+}
+
+.events-header p {
+  font-size: 1rem;
+  color: #4b0082; /* Deep purple */
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.5;
+  margin-top: 0.5rem; /* Slight margin to separate text from the heading */
+  background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent background */
+  padding: 10px;
+  border-radius: 8px;
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3); /* Optional: to enhance readability */
+}
+
+   .upcoming-events {
+      background: #fff7e6;
+      border-left: 5px solid #4b0082;
+      padding: 0.5rem 1rem;  /* Increased padding for a wider effect */
+      max-width: 600px;  /* Increased width of the container */
+      width: 95%;  /* Allow the container to expand to 100% of its parent */
+      margin: 0.5rem auto 1.5rem;  /* Centers the container */
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      box-shadow: 0 3px 12px rgba(75, 0, 130, 0.08);
+      border-radius: 8px;
+      color: #3a1a72;
+      font-size: 1rem;  /* Base font size */
+      line-height: 1.5;
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Smaller image grid */
+      gap: 16px;
+      padding-top: 0.5rem;
+      justify-items: center; /* Centering images in each grid cell */
+      align-items: start; /* This will vertically center the items */
+    }
+
+    .gallery-card {
+      position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s;
+  cursor: pointer;
+  display: flex; /* Using flex to center content inside each card */
+  flex-direction: column; /* Stacks the image and caption vertically */
+  justify-content: space-between; /* Ensure spacing between the image and caption */
+  width: 100%; /* Allow the card to fill the grid cell */
+  height: 100%; /* Ensure the card spans the entire height of the grid cell */
+    }
+
+    .gallery-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.15);
+    }
+
+    .gallery-card img {
+      width: 100%;
+      height: 150px; /* Reduced image size */
+      object-fit: cover;
+      display: block;
+      user-select: none;
+      pointer-events: auto;
+    }
+
+    .zoom-icon {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: rgba(0, 0, 0, 0.6);
+      color: #fff;
+      font-size: 1.5rem;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+    }
+
+    .card-caption {
+      padding: 4px 8px;             /* Less internal space */
+      text-align: center;
+      font-size: 0.8rem;            /* Smaller text */
+      background: #fafafa;
+      color: #444;
+      font-weight: bold;
+      height: 30px;                 /* Optional: fixed height */
+      display: flex;                /* For vertical centering */
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;            /* Prevents overflow text */
+      text-overflow: ellipsis;     /* Optional: add '...' if text is long */
+      white-space: nowrap;
+    }
+
+    /* Lightbox Modal */
+    #lightboxModal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(0, 0, 0, 0.88);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      z-index: 9999;
+      padding: 20px;
+    }
+
+    #lightboxImage {
+      max-width: 90%;
+      max-height: 80vh;
+      border-radius: 12px;
+      box-shadow: 0 0 24px rgba(255, 255, 255, 0.2);
+      pointer-events: none;
+    }
+
+    #closeBtn {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      font-size: 36px;
+      color: white;
+      cursor: pointer;
+      user-select: none;
+      z-index: 10001;
+    }
+
+    .no-download-msg {
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff;
+      padding: 12px 24px;
+      border-radius: 8px;
+      margin-top: 10px;
+      font-weight: 500;
+      text-align: center;
+    }
+
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 600px) {
+      .events-header h1 {
+        font-size: 1.8rem;
+        margin-top: 0;
+      }
+
+      .gallery-card img {
+        height: 140px; /* Slightly smaller for mobile */
+      }
+    }
+
+    .event-description-box {
+      background: #fef3f3;
+      border: 1px solid #f8dcdc;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      padding: 8px 20px;
+      border-radius: 10px;
+      text-align: justify;
+      text-justify: inter-word;
+      max-width: 99vw;
+      width: 1350px;
+      margin: 0 auto 2rem;
+      font-size: 0.94rem;
+      line-height: 1.48;
+      color: #333;
+    }
+
+    .upcoming-events h2 {
+      font-size: 1.3rem;
+      margin-bottom: 0.4rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      border-bottom: 1.5px solid #4b0082;
+      padding-bottom: 0.25rem;
+    }
+
+    .upcoming-events ul {
+      list-style-type: none;
+      padding-left: 0;
+      margin: 0;
+    }
+
+    .upcoming-events li {
+      margin-bottom: 0.3rem;
+      position: relative;
+      padding-left: 1rem;
+      font-weight: 500;
+    }
+
+    .upcoming-events li::before {
+      content: "•";
+      color: #4b0082;
+      position: absolute;
+      left: 0;
+      top: 0;
+      font-size: 1rem;
+      line-height: 1;
+    }
+
+    .upcoming-events time {
+      font-style: normal;
+      color: #6b3fa0;
+      font-weight: 600;
+    }
+
+    .download-container {
+      margin-top: 16px;
+      text-align: center;
+    }
+
+    .download-btn {
+      background-color: #cccccc;
+      color: #666;
+      border: none;
+      padding: 10px 20px;
+      font-size: 1rem;
+      border-radius: 6px;
+      cursor: not-allowed;
+      margin-bottom: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+      transition: background-color 0.3s ease;
+    }
+
+    .download-btn:disabled {
+      background-color: #bbb;
+      color: #555;
+    }
+
+    .no-download-msg {
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff;
+      padding: 8px 18px;
+      border-radius: 6px;
+      font-weight: 500;
+      font-size: 0.95rem;
+      display: inline-block;
+    }
+  </style>
+</head>
+
+<body oncontextmenu="return false">
+  <!-- layout.js inject: HEADER -->
+  <div id="layout-header"></div>
+
+  <main>
+    <section class="events-header">
+      <h1>Events & Celebrations</h1>
+      <p class="event-description-box">
+        "🏛️ Celebrating our shared moments — from festivals to cultural evenings — each gathering reflects the unity, spirit, and joy of our Avishikta Type-A community."
+      </p>
+    </section>
+
+    <section class="upcoming-events">
+      <h2>Upcoming Celebrations</h2>
+      <ul>
+        <!-- Updated events -->
+        <li><strong>Independence Day</strong> on <time datetime="2025-08-15">15th August, 2025</time></li>
+        <li><strong>Biswakarma Puja</strong> on <time datetime="2025-09-17">17th September, 2025</time></li>
+        <li><strong>Durga Puja</strong> from <time datetime="2025-09-28">28th September</time> to <time datetime="2025-10-02">2nd October, 2025</time></li>
+      </ul>
+    </section>
+
+    <section class="gallery-grid" aria-label="Photo gallery">
+      <div class="gallery-card" onclick="openLightbox('Image-1.jpg')">
+        <img src="image-1.jpg" alt="Annual Day Celebration" draggable="false">
+        <div class="zoom-icon">+</div>
+        <div class="card-caption">Annual Day Celebration</div>
+      </div>
+      <div class="gallery-card" onclick="openLightbox('Image-2.jpg')">
+        <img src="image-2.jpg" alt="Festive Lights Evening" draggable="false">
+        <div class="zoom-icon">+</div>
+        <div class="card-caption">Festive Lights Evening</div>
+      </div>
+      <div class="gallery-card" onclick="openLightbox('image-1.jpg')">
+        <img src="image-1.jpg" alt="Cultural Performance" draggable="false">
+        <div class="zoom-icon">+</div>
+        <div class="card-caption">Cultural Performance</div>
+      </div>
+      <div class="gallery-card" onclick="openLightbox('image-2.jpg')">
+        <img src="image-2.jpg" alt="New Year Bash" draggable="false">
+        <div class="zoom-icon">+</div>
+        <div class="card-caption">New Year Bash</div>
+      </div>
+    </section>
+  </main>
+
+<button id="scrollToTop" onclick="window.scrollTo(0, 0);" title="Go to the top">⬆️</button>
+
+  <!-- Lightbox -->
+  <div id="lightboxModal" onclick="closeLightbox()" role="dialog" aria-modal="true">
+    <span id="closeBtn" onclick="event.stopPropagation(); closeLightbox();" aria-label="Close preview">&times;</span>
+    <img id="lightboxImage" src="" alt="Zoomed Image">
+    <div class="download-container">
+      <button class="download-btn" disabled>⬇️ Download</button>
+      <div class="no-download-msg">🔒 Downloads are temporarily unavailable. Feature coming in the next release!!!</div>
+    </div>
+  </div>
+
+  <!-- layout.js inject: FOOTER -->
+  <div id="layout-footer"></div>
+
+  <script src="layout.js"></script>
+  <script>
+    // Inject layout from layout.js
+    document.getElementById('layout-header').innerHTML = layout.getHeader();
+    document.getElementById('layout-footer').innerHTML = layout.getFooter();
+
+    // Lightbox functionality
+    function openLightbox(src) {
+      document.getElementById("lightboxModal").style.display = "flex";
+      document.getElementById("lightboxImage").src = src;
+    }
+
+    function closeLightbox() {
+      document.getElementById("lightboxModal").style.display = "none";
+      document.getElementById("lightboxImage").src = "";
+    }
+  </script>
+</body>
+</html>

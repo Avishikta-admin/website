@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vision & Mission - AVISHIKTA PHASE – 1 LIG RWA</title>
+  <link rel="stylesheet" href="css/responsive-fix.css" />
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #ffe7db, #f9f9f9);
+      background-image:
+        radial-gradient(circle at 20px 20px, #f0e1d6 2px, transparent 3px),
+        radial-gradient(circle at 40px 40px, #f0e1d6 2px, transparent 3px);
+      background-size: 40px 40px;
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+    }
+
+    main {
+      flex: 1;
+      padding: 10px 20px;
+      max-width: 720px;
+      margin: 10px auto 0 auto;
+    }
+
+    .hero-combo {
+      position: relative;
+      text-align: center;
+      margin: 10px auto 20px;
+      max-width: 460px;
+    }
+
+    .hero-combo img {
+      width: 100%;
+      max-height: 170px;
+      object-fit: cover;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      filter: brightness(85%);
+      transition: filter 0.3s ease;
+    }
+
+    .hero-combo:hover img {
+      filter: brightness(100%);
+    }
+
+    .hero-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(255, 255, 255, 0.85);
+      color: #2a72d8;
+      font-size: 1.4rem;
+      font-weight: 600;
+      padding: 6px 18px;
+      border-radius: 14px 28px 14px 28px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      white-space: nowrap;
+      max-width: 90%;
+    }
+
+    section {
+      background: #d9f0ff;
+      border-radius: 10px;
+      padding: 10px 18px;
+      margin-bottom: 16px;
+      box-shadow: 0 4px 12px rgba(42, 114, 216, 0.1);
+      transition: box-shadow 0.3s ease;
+      user-select: none;
+    }
+
+    section:hover {
+      box-shadow: 0 6px 18px rgba(42, 114, 216, 0.25);
+    }
+
+    h2 {
+      color: #0b3d91;
+      font-size: 1rem;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      margin: 0;
+    }
+
+    h2 i {
+      margin-right: 10px;
+      color: #2a72d8;
+      font-size: 1.2rem;
+    }
+
+    h2::after {
+      content: "▼";
+      font-size: 1rem;
+      margin-left: auto;
+      transition: transform 0.3s ease;
+    }
+
+    h2.collapsed::after {
+      transform: rotate(-90deg);
+    }
+
+    .content {
+      font-size: 0.9rem;
+      line-height: 1.4;
+      color: #3b4c72;
+      text-align: justify;
+      margin-top: 5px;
+      max-height: 1000px;
+      overflow: hidden;
+      transition: max-height 0.4s ease, opacity 0.4s ease;
+      opacity: 1;
+    }
+
+    .content.collapsed {
+      max-height: 0;
+      opacity: 0;
+      margin-top: 0;
+      padding-top: 0;
+    }
+
+    .thank-you-note {
+      text-align: center;
+      margin-top: 6px;
+      font-style: italic;
+      color: #205295;
+      font-weight: 600;
+    }
+
+    @media (max-width: 600px) {
+      .hero-text {
+        font-size: 1.2rem;
+        padding: 6px 14px;
+      }
+
+      .hero-combo {
+        max-width: 92%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- layout.js will dynamically inject header and footer -->
+
+  <main>
+    <div class="hero-combo">
+      <img src="Image-1.jpg" alt="AVISHIKTA - I Community Image" />
+      <div class="hero-text">Vision & Mission</div>
+    </div>
+
+    <section>
+      <h2 id="vision-toggle" tabindex="0" aria-expanded="false" aria-controls="vision-content" class="collapsed">
+        <i class="fas fa-seedling"></i> 🌄 Our Vision
+      </h2>
+      <div id="vision-content" class="content collapsed" aria-hidden="true">
+        <p>
+          To be a shining example of community excellence — where every resident of <strong>Avishikta Phase – 1 LIG (Type – A)</strong> flourishes in a harmonious, inclusive, and vibrant neighborhood.
+          We envision a living environment guided by shared values of <strong>sustainability</strong>, <strong>mutual respect</strong>, and <strong>collective well-being</strong>, creating a sense of belonging for generations to come.
+        </p>
+      </div>
+    </section>
+
+    <section>
+      <h2 id="mission-toggle" tabindex="0" aria-expanded="false" aria-controls="mission-content" class="collapsed">
+        <i class="fas fa-hands-helping"></i> 🌟Our Mission
+      </h2>
+      <div id="mission-content" class="content collapsed" aria-hidden="true">
+        <p>
+          Our mission is to build a <strong>cohesive and empowered residential community</strong> through transparent governance, active participation, and continuous improvement.
+          We are committed to enhancing the quality of life for every member by maintaining <strong>safe, serene surroundings</strong> and delivering <strong>responsive services</strong> — all while nurturing the spirit of <strong>unity</strong>, <strong>dignity</strong>, and <strong>progress</strong> within <strong>Avishikta Phase – 1 Type – A</strong>.
+        </p>
+        <p class="thank-you-note">🙏 Thank you for being part of our community!</p>
+      </div>
+    </section>
+  </main>
+
+  <!-- Font Awesome -->
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+  <!-- layout.js for dynamic header/footer -->
+  <script src="layout.js"></script>
+
+  <!-- Toggle expand/collapse -->
+  <script>
+    function toggleSection(headerId, contentId) {
+      const header = document.getElementById(headerId);
+      const content = document.getElementById(contentId);
+      const isCollapsed = content.classList.contains('collapsed');
+
+      if (isCollapsed) {
+        content.classList.remove('collapsed');
+        header.classList.remove('collapsed');
+        header.setAttribute('aria-expanded', 'true');
+        content.setAttribute('aria-hidden', 'false');
+      } else {
+        content.classList.add('collapsed');
+        header.classList.add('collapsed');
+        header.setAttribute('aria-expanded', 'false');
+        content.setAttribute('aria-hidden', 'true');
+      }
+    }
+
+    document.getElementById('vision-toggle').addEventListener('click', () => {
+      toggleSection('vision-toggle', 'vision-content');
+    });
+
+    document.getElementById('mission-toggle').addEventListener('click', () => {
+      toggleSection('mission-toggle', 'mission-content');
+    });
+
+    ['vision-toggle', 'mission-toggle'].forEach(id => {
+      const header = document.getElementById(id);
+      header.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          header.click();
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>
