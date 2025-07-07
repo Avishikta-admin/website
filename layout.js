@@ -49,40 +49,6 @@
       color: #333;
     }
 
-/* Style for Hamburger Button */
-
-@media (max-width: 768px) {
-  .hamburger {
-    display: block;
-  }
-}
-
-.hamburger {
-  background: none;
-  border: none;
-  font-size: 30px;
-  color: white;
-  cursor: pointer;
-  position: absolute;
-  top: 20px;
-  left: 20px;
-  z-index: 10000;
-  display: none; /* Initially hidden */
-}
-
-/* Show Hamburger Button on mobile */
-/* Tooltip styling */
-.tooltip {
-  position: absolute;
-  background-color: #333;
-  color: white;
-  padding: 8px 12px;
-  border-radius: 4px;
-  font-size: 0.875rem;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-  z-index: 9999;
-}
-
     header, footer {
       font-family: 'Poppins', sans-serif;
       position: fixed;
@@ -173,7 +139,33 @@
       color: #00e6e6;
     }
 
-    @keyframes fadeInOut {
+/* Style for Hamburger Button */
+
+.hamburger {
+  background: none;
+  border: none;
+  font-size: 30px;
+  color: white;
+  cursor: pointer;
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  z-index: 10000;
+  display: none; /* Initially hidden */
+}
+
+.tooltip {
+  position: absolute;
+  background-color: #333;
+  color: white;
+  padding: 8px 12px;
+  border-radius: 4px;
+  font-size: 0.875rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  z-index: 9999;
+}
+
+  @keyframes fadeInOut {
   0%, 100% {
     opacity: 1;
   }
@@ -193,13 +185,13 @@
       color: #cfd8dc;
       box-shadow: 2px 0 15px rgba(0,0,0,0.3);
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      display: flex;
+      display: none;
       flex-direction: column;
       padding: 20px 12px;
-      z-index: 9998;
+      z-index: 9999;
       user-select:none;
       overflow-y: auto;
-      transition: background-color 0.3s ease;
+      transition: background-color 0.3s ease, transform 0.3s ease, opacity 0.3s ease;
     }
     nav#main-nav:hover {
       background-color: #003366;
@@ -348,80 +340,83 @@
     }
 
     /* Responsive tweaks */
-    @media (max-width: 768px) {
-      body {
-        padding-left: 0;
-      }
+    /* ✅ Mobile-specific styles for hamburger menu and responsive nav */
+@media (max-width: 768px) {
+  body {
+    padding-left: 0;
+  }
 
-     .hamburger {
-        display: block; /* Show hamburger button on mobile */
-      }
+  .hamburger {
+    display: block;
+  }
 
-     nav#main-nav {
+  nav#main-nav {
+    display: none;
+    position: fixed;
+    top: 54px;
+    left: 0;
+    width: 100%;
+    height: auto;
+    max-height: calc(100vh - 114px);
+    flex-direction: column;
+    overflow-y: auto;
+    padding: 10px 5px;
+    background-color: rgba(0, 0, 0, 0.9);
+    z-index: 9999;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    opacity: 0;
+    transform: translateY(-20px);
+    pointer-events: none;
+  }
+
+  nav#main-nav.open {
+    display: flex;
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  nav#main-nav ul {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  nav#main-nav ul ul {
+    display: none;
+    position: static;
+    padding-left: 20px;
+    background: none;
+    box-shadow: none;
+    border-radius: 0;
+  }
+
+  nav#main-nav ul ul.collapsed {
     display: none;
   }
 
-nav#main-nav.open {
-    display: flex;
-    flex-direction: column; /* Stack the items vertically */
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%; /* Take full width */
-    background-color: rgba(0, 0, 0, 0.8); /* Optional: Add a dark background */
-    padding-top: 60px; /* Adjust to prevent overlapping with header */
+  nav#main-nav ul ul:not(.collapsed) {
+    display: block;
   }
 
-      nav#main-nav {
-        position: fixed;
-        top: 54px;
-        left: 0;
-        width: 100%;
-        height: auto;
-        max-height: calc(100vh - 114px);
-        flex-direction: row;
-        overflow-x: auto;
-        padding: 10px 5px;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-      }
-      nav#main-nav ul {
-        display: flex;
-        flex-direction: column;
-        flex-wrap: nowrap;
-        gap: 12px;
-        overflow-x: auto;
-      }
-      nav#main-nav ul ul {
-        padding-left: 0;
-        margin-top: 0;
-        max-height: none;
-        position: absolute;
-        background-color: #001f3f;
-        box-shadow: 2px 2px 8px rgba(0,0,0,0.5);
-        border-radius: 6px;
-        display: none;
-        z-index: 3000;
-      }
-      nav#main-nav > ul > li:hover > ul,
-      nav#main-nav > ul > li:focus-within > ul {
-        display: block;
-      }
-      nav#main-nav li {
-        margin-top: 0;
-      }
-      nav#main-nav > ul > li > button.section-header {
-        font-size: 0.9rem;
-      }
-      nav#main-nav a {
-        font-size: 0.9rem;
-        padding: 6px 10px;
-      }
+  nav#main-nav a {
+    font-size: 0.9rem;
+    padding: 6px 10px;
+  }
 
-      @media (min-width: 769px) {
+  nav#main-nav > ul > li > button.section-header {
+    font-size: 0.9rem;
+    padding: 10px 12px;
+  }
+}
+
+
+   @media (min-width: 769px) {
   nav#main-nav.visible-desktop {
     display: flex;
   }
-    }
+}
   `;
   document.head.appendChild(style);
 
@@ -429,17 +424,14 @@ nav#main-nav.open {
   const headerHTML = `
     <header>
 
-    <button id="hamburger" aria-label="Toggle navigation" class="hamburger">
-      <i class="fas fa-bars"></i> <!-- Hamburger icon -->
-    </button>      
+    <button id="hamburger" class="hamburger" aria-label="Toggle menu" aria-expanded="false">
+  &#9776; <!-- This is the hamburger icon (three lines) -->
+</button>      
 
       AVISHIKTA PHASE – 1 LIG (TYPE – A) APARTMENT RESIDENTS’ WELFARE ASSOCIATION<br>
       369/1, PURBACHAL KALITALA ROAD, KOLKATA – 700078
     </header>
   `;
-
-  // Insert elements into DOM
-  document.body.insertAdjacentHTML("afterbegin", headerHTML);
 
   // Footer HTML - single line with heart and social links
   const footerHTML = `
@@ -501,6 +493,7 @@ nav#main-nav.open {
           <ul id="admin-submenu" class="collapsed" role="menu">
             <li role="none"><a href="#" role="menuitem" style="pointer-events: none;" title="Coming Soon..."><i class="fas fa-bullhorn" aria-hidden="true"></i> Manage Announcements</a></li>
             <li role="none"><a href="#" role="menuitem" style="pointer-events: none;" title="Coming Soon..."><i class="fas fa-users-cog" aria-hidden="true"></i> View Feedback</a></li>
+<li role="none"><a href="#" role="menuitem" style="pointer-events: none;" title="Coming Soon..."><i class="fas fa-file-upload" aria-hidden="true"></i> Upload Image</a></li>
           </ul>
         </li>
       </ul>
@@ -509,8 +502,8 @@ nav#main-nav.open {
 
   // Insert elements into DOM
   document.body.insertAdjacentHTML("afterbegin", headerHTML);
-  document.body.insertAdjacentHTML("beforeend", footerHTML);  
-  document.body.insertAdjacentHTML("afterbegin", navHTML);
+document.body.insertAdjacentHTML("afterbegin", navHTML);
+document.body.insertAdjacentHTML("beforeend", footerHTML);
 
   // Function to update the current time in the footer
   function formatTime() {
