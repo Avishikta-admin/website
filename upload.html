@@ -7,13 +7,13 @@
   <script src="layout.js" defer></script>
   <style>
     body {
-      bbackground: #f0f4f9;
+      background: #f0f4f9;
       font-family: 'Arial', sans-serif;
       color: #333;
       margin: 0;
       padding: 0;
       /* Increased padding to move content further to the right */
-      padding-left: 300px; /* Increase this value for more space */
+      padding-left: 500px; /* Increase this value for more space */
       padding-top: 120px; /* Adjust if needed based on your navbar height */
     }
 
@@ -29,8 +29,13 @@
 
     /* Adjust main content */
     main {
-      margin-top: 20px; /* Space between header and content */
-      padding: 0 20px;
+      margin-left: 50px;  /* Push main content to the right */
+      padding: 10px;
+      margin-top: 10px;   /* Adjust if your top header is fixed */
+      background: rgba(255, 255, 255, 0.96);
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      box-sizing: border-box;
     }
 
     h2 {
@@ -45,17 +50,16 @@
       justify-content: space-around;
       background-color: rgba(255, 255, 255, 0.9);
       border-radius: 12px;
-      padding: 20px;
-      margin-top: 30px;
+      padding: 10px;
+      margin-top: 20px;
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     }
 
     .upload-columns img {
-      max-width: 250px;
-      max-height: 300px;
-      object-fit: cover;
-      border-radius: 10px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      max-width: 300px;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
     }
 
     .dummy-upload-form {
@@ -70,8 +74,37 @@
     .upload-instructions {
       text-align: left;
       margin-top: 20px;
-      font-size: 1.1rem;
+      font-size: 1rem;
     }
+
+    .dummy-upload-form input[type="text"],
+    .dummy-upload-form input[type="file"] {
+  display: block;
+  width: 100%;
+  margin-top: 8px;
+  margin-bottom: 15px;
+  padding: 2px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.dummy-upload-form button {
+  background-color: #2c1452;
+  color: #fff;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: not-allowed;
+}
+
+.upload-placeholder {
+  margin-top: 20px;
+  color: #b0413e;
+  font-style: italic;
+}
+Let me know your exact sidebar width (#n
 
     /* For smaller screens */
     @media (max-width: 600px) {
