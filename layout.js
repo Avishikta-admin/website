@@ -477,7 +477,7 @@ nav#main-nav.open {
           <ul id="resources-submenu" role="menu">
             <li role="none"><a href="view-announcements.html" role="menuitem"><i class="fas fa-bullhorn" aria-hidden="true"></i> View Announcements</a></li>
             <li role="none"><a href="events.html" role="menuitem"><i class="fas fa-calendar-alt" aria-hidden="true"></i> Event Calendar</a></li>
-            <li role="none"><a href="MoM.html" role="menuitem"><i class="fas fa-file-alt" aria-hidden="true"></i> Meeting Minutes</a></li>
+            <li role="none"><a href="mom.html" role="menuitem"><i class="fas fa-file-alt" aria-hidden="true"></i> Meeting Minutes</a></li>
             <li role="none"><a href="general-guidelines.html" role="menuitem"><i class="fas fa-book" aria-hidden="true"></i> Community Guidelines</a></li>
             <li role="none"><a href="useful-links.html" role="menuitem"><i class="fas fa-headset" aria-hidden="true"></i> Helpdesk & Contacts</a></li>
           </ul>
