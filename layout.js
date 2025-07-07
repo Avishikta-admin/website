@@ -416,6 +416,11 @@ nav#main-nav.open {
         font-size: 0.9rem;
         padding: 6px 10px;
       }
+
+      @media (min-width: 769px) {
+  nav#main-nav.visible-desktop {
+    display: flex;
+  }
     }
   `;
   document.head.appendChild(style);
@@ -599,15 +604,34 @@ nav#main-nav.open {
     });
   }
 
-const navMenu = document.getElementById("main-nav");
-
 // Hamburger menu toggle functionality
+const navMenu = document.getElementById("main-nav");
 const hamburgerButton = document.getElementById("hamburger");
 
+function updateNavVisibility() {
+  const isMobile = window.innerWidth <= 768;
+
+  if (isMobile) {
+    navMenu.classList.remove("visible-desktop");
+    navMenu.classList.remove("open"); // Hide by default
+    hamburgerButton.style.display = "block";
+  } else {
+    navMenu.classList.add("visible-desktop");
+    navMenu.classList.add("open"); // Always show on desktop
+    hamburgerButton.style.display = "none";
+  }
+}
+
 hamburgerButton.addEventListener("click", () => {
-  // Toggle 'open' class on the nav to show or hide it
-  nav.classList.toggle("open");
+  navMenu.classList.toggle("open");
+  const isOpen = navMenu.classList.contains("open");
+  hamburgerButton.setAttribute("aria-expanded", isOpen);
 });
 
+// Initial check
+updateNavVisibility();
+
+// Update on resize
+window.addEventListener("resize", updateNavVisibility);
 
 })();
