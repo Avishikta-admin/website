@@ -8,11 +8,7 @@
   <style>
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(135deg, #ffe7db, #f9f9f9);
-      background-image:
-        radial-gradient(circle at 20px 20px, #f0e1d6 2px, transparent 3px),
-        radial-gradient(circle at 40px 40px, #f0e1d6 2px, transparent 3px);
-      background-size: 40px 40px;
+      background: linear-gradient(135deg, #fdfdfd, #e6f1ff);
       margin: 0;
       padding: 0;
       min-height: 100vh;
@@ -23,24 +19,24 @@
 
     main {
       flex: 1;
-      padding: 10px 20px;
-      max-width: 720px;
-      margin: 10px auto 0 auto;
+      padding: 20px;
+      max-width: 760px;
+      margin: 0 auto;
     }
 
     .hero-combo {
       position: relative;
       text-align: center;
-      margin: 10px auto 20px;
-      max-width: 460px;
+      margin: 10px auto 30px;
+      max-width: 480px;
     }
 
     .hero-combo img {
       width: 100%;
-      max-height: 170px;
+      max-height: 180px;
       object-fit: cover;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      border-radius: 14px;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
       filter: brightness(85%);
       transition: filter 0.3s ease;
     }
@@ -54,34 +50,33 @@
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      background: rgba(255, 255, 255, 0.85);
-      color: #2a72d8;
-      font-size: 1.4rem;
-      font-weight: 600;
-      padding: 6px 18px;
-      border-radius: 14px 28px 14px 28px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      background: rgba(255, 255, 255, 0.9);
+      color: #205295;
+      font-size: 1.5rem;
+      font-weight: 700;
+      padding: 8px 22px;
+      border-radius: 30px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
       white-space: nowrap;
       max-width: 90%;
     }
 
     section {
-      background: #d9f0ff;
+      background: #ffffff;
       border-radius: 10px;
-      padding: 10px 18px;
-      margin-bottom: 16px;
-      box-shadow: 0 4px 12px rgba(42, 114, 216, 0.1);
+      padding: 16px 22px;
+      margin-bottom: 24px;
+      box-shadow: 0 4px 16px rgba(42, 114, 216, 0.1);
       transition: box-shadow 0.3s ease;
-      user-select: none;
     }
 
     section:hover {
-      box-shadow: 0 6px 18px rgba(42, 114, 216, 0.25);
+      box-shadow: 0 8px 20px rgba(42, 114, 216, 0.2);
     }
 
     h2 {
-      color: #0b3d91;
-      font-size: 1rem;
+      color: #154c9c;
+      font-size: 1.1rem;
       font-weight: bold;
       display: flex;
       align-items: center;
@@ -91,8 +86,8 @@
 
     h2 i {
       margin-right: 10px;
-      color: #2a72d8;
       font-size: 1.2rem;
+      color: #2a72d8;
     }
 
     h2::after {
@@ -107,11 +102,11 @@
     }
 
     .content {
-      font-size: 0.9rem;
-      line-height: 1.4;
+      font-size: 0.95rem;
+      line-height: 1.6;
       color: #3b4c72;
       text-align: justify;
-      margin-top: 5px;
+      margin-top: 10px;
       max-height: 1000px;
       overflow: hidden;
       transition: max-height 0.4s ease, opacity 0.4s ease;
@@ -127,10 +122,19 @@
 
     .thank-you-note {
       text-align: center;
-      margin-top: 6px;
+      margin-top: 10px;
       font-style: italic;
-      color: #205295;
+      color: #1d4c90;
       font-weight: 600;
+    }
+
+    ul {
+      margin: 8px 0;
+      padding-left: 20px;
+    }
+
+    ul li {
+      margin-bottom: 6px;
     }
 
     @media (max-width: 600px) {
@@ -143,14 +147,15 @@
         max-width: 92%;
       }
     }
-    #scrollToTop {
+
+#scrollToTop {
   position: fixed;
   bottom: 50px; /* Reduced space from bottom */
-  right: 20px;  /* Reduced space from right */
+  right: 10px;  /* Reduced space from right */
   background-color: #ff6347;
   color: white;
   border-radius: 50%;
-  padding: 5px; /* Reduced padding */
+  padding: 10px; /* Reduced padding */
   font-size: 1rem; /* Smaller font size */
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   border: none;
@@ -172,15 +177,16 @@
 
 #scrollToTop:hover::after {
   content: " Go to top"; /* Text shown when hovered */
-  font-size: 1rem; /* Smaller text size */
+  font-size: 0.85rem; /* Smaller text size */
   color: white;
   margin-left: 8px; /* Small margin between icon and text */
 }
-    
   </style>
 </head>
 <body>
+
 <button id="scrollToTop" onclick="window.scrollTo(0, 0);" title="Go to the top">⬆️</button>
+
   <!-- layout.js will dynamically inject header and footer -->
 
   <main>
@@ -195,33 +201,45 @@
       </h2>
       <div id="vision-content" class="content collapsed" aria-hidden="true">
         <p>
-          To be a shining example of community excellence — where every resident of <strong>Avishikta Phase – 1 LIG (Type – A)</strong> flourishes in a harmonious, inclusive, and vibrant neighborhood.
-          We envision a living environment guided by shared values of <strong>sustainability</strong>, <strong>mutual respect</strong>, and <strong>collective well-being</strong>, creating a sense of belonging for generations to come.
+          To cultivate a model micro-community within <strong>Avishikta – I</strong>, where the 64 families of <strong>Type – A</strong> Housing flourish in dignity, harmony, and shared responsibility.
+        </p>
+        <p>
+          We envision a neighborhood that exemplifies <strong>sustainability</strong>, <strong>civic unity</strong>, and <strong>mutual empowerment</strong> — becoming a living expression of the values that strengthen the larger <strong>Avishikta Fraternity</strong>.
+        </p>
+        <p>
+          Together, we strive to create a vibrant and resilient residential environment that serves as a beacon of inclusive and compassionate community living.
         </p>
       </div>
     </section>
 
     <section>
       <h2 id="mission-toggle" tabindex="0" aria-expanded="false" aria-controls="mission-content" class="collapsed">
-        <i class="fas fa-hands-helping"></i> 🌟Our Mission
+        <i class="fas fa-hands-helping"></i> 🌟 Our Mission
       </h2>
       <div id="mission-content" class="content collapsed" aria-hidden="true">
         <p>
-          Our mission is to build a <strong>cohesive and empowered residential community</strong> through transparent governance, active participation, and continuous improvement.
-          We are committed to enhancing the quality of life for every member by maintaining <strong>safe, serene surroundings</strong> and delivering <strong>responsive services</strong> — all while nurturing the spirit of <strong>unity</strong>, <strong>dignity</strong>, and <strong>progress</strong> within <strong>Avishikta Phase – 1 Type – A</strong>.
+          Our mission is to foster a <strong>safe, inclusive, and vibrant</strong> living environment for the residents of <strong>Avishikta Phase – I Type – A (LIG)</strong>. Through community collaboration and transparent governance, we endeavor to:
         </p>
-        <p class="thank-you-note">🙏 Thank you for being part of our community!</p>
+        <ul>
+          <li>Preserve the dignity and collective voice of every resident</li>
+          <li>Strengthen neighborhood bonds through participation and trust</li>
+          <li>Maintain a clean, green, and well-managed space for all</li>
+        </ul>
+        <p>
+          While serving the needs of our 64-flat enclave, we remain rooted in the spirit of fraternity, working in synergy with our neighboring associations for the collective growth of Avishikta.
+        </p>
+        <p class="thank-you-note">🙏 Thank you for being an essential part of our journey!</p>
       </div>
     </section>
   </main>
 
-  <!-- Font Awesome -->
+  <!-- Font Awesome for icons -->
   <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 
-  <!-- layout.js for dynamic header/footer -->
+  <!-- layout.js injects navigation and footer -->
   <script src="layout.js"></script>
 
-  <!-- Toggle expand/collapse -->
+  <!-- Expand/Collapse toggle -->
   <script>
     function toggleSection(headerId, contentId) {
       const header = document.getElementById(headerId);
