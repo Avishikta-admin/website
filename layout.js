@@ -624,7 +624,14 @@ hamburgerButton.addEventListener("click", () => {
 // Initial check
 updateNavVisibility();
 
-// Update on resize
-window.addEventListener("resize", updateNavVisibility);
+// Debounced resize event to improve performance
+let resizeTimeout;
+
+window.addEventListener("resize", () => {
+  clearTimeout(resizeTimeout);
+  resizeTimeout = setTimeout(() => {
+    updateNavVisibility();
+  }, 150);
+});
 
 })();
