@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>FAQs | Avishikta Type-A RWA</title>
+  <link rel="icon" href="favicon.ico" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Poppins:wght@600&display=swap" rel="stylesheet">
+
+  <style>
+    /* Base Reset */
+    *, *::before, *::after { box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #f0f4ff 0%, #d9e4ff 100%);
+      color: #2c3e50;
+      margin: 0;
+      padding: 20px 15px 40px;
+      display: flex;
+      justify-content: center;
+      background-image: radial-gradient(circle, rgba(255,255,255,0.3) 2px, transparent 2px);
+      background-size: 40px 40px;
+    }
+
+    main {
+      background: #fff;
+      max-width: 850px;
+      width: 100%;
+      border-radius: 14px;
+      box-shadow: 0 10px 24px rgba(42, 114, 216, 0.12);
+      padding: 30px 40px 40px;
+      animation: fadeInUp 0.6s ease forwards;
+    }
+
+    h1 {
+      font-family: 'Poppins', sans-serif;
+      text-align: center;
+      color: #2a72d8;
+      font-size: 2.3rem;
+      margin: 0 0 10px;
+      font-weight: 700;
+      text-shadow: 0 2px 6px rgba(42,114,216,0.2);
+    }
+
+    p.subtitle {
+      text-align: center;
+      font-size: 1rem;
+      margin-bottom: 30px;
+      color: #4a5a75;
+      font-weight: 500;
+    }
+
+    /* FAQ Items */
+    .faq-item {
+      border-radius: 12px;
+      background: #f9fbff;
+      margin-bottom: 14px;
+      box-shadow: 0 6px 16px rgba(42, 114, 216, 0.08);
+      transition: box-shadow 0.3s ease;
+      cursor: pointer;
+      border: 1px solid transparent;
+    }
+
+    .faq-item:hover {
+      box-shadow: 0 10px 20px rgba(42, 114, 216, 0.15);
+      border-color: #a6c1ff;
+    }
+
+    .faq-item:focus-within {
+      outline: 2px solid #2a72d8;
+      border-color: #2a72d8;
+    }
+
+    .question {
+      padding: 16px 30px;
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: #1e3559;
+      display: flex;
+      justify-content: space-between;
+      background: linear-gradient(90deg, #e4f0ff 0%, #d6e5ff 100%);
+      border-radius: 12px;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    .faq-item.active .question {
+      background: linear-gradient(90deg, #2a72d8 0%, #1f59bb 100%);
+      color: #fff;
+      box-shadow: 0 4px 12px rgba(42,114,216,0.3);
+    }
+
+    .question:hover {
+      background: linear-gradient(90deg, #c3dafd 0%, #aecbfd 100%);
+    }
+
+    .question::after {
+      content: '+';
+      font-size: 1.8rem;
+      font-weight: 900;
+      color: #2a72d8;
+      transition: transform 0.3s ease, color 0.3s ease;
+    }
+
+    .faq-item.active .question::after {
+      content: '−';
+      color: #fff;
+      transform: rotate(180deg);
+    }
+
+    .answer {
+      max-height: 0;
+      overflow: hidden;
+      padding: 0 30px;
+      font-size: 0.95rem;
+      line-height: 1.6;
+      color: #33475b;
+      background: #f0f6ff;
+      border-left: 4px solid #2a72d8;
+      border-radius: 0 0 12px 12px;
+      opacity: 0;
+      transition: max-height 0.4s ease, padding 0.4s ease, opacity 0.4s ease;
+    }
+
+    .faq-item.active .answer {
+      padding: 14px 30px 18px;
+      max-height: 300px;
+      opacity: 1;
+    }
+
+    /* Animation */
+    @keyframes fadeInUp {
+      0% { opacity: 0; transform: translateY(20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Responsive */
+    @media (max-width: 650px) {
+      main {
+        padding: 24px 20px;
+      }
+      h1 {
+        font-size: 2rem;
+      }
+      .question {
+        font-size: 1rem;
+        padding: 14px 22px;
+      }
+      .answer {
+        font-size: 0.9rem;
+        padding: 12px 22px 16px;
+      }
+    }
+
+   #scrollToTop {
+  position: fixed;
+  bottom: 50px; /* Reduced space from bottom */
+  right: 10px;  /* Reduced space from right */
+  background-color: #ff6347;
+  color: white;
+  border-radius: 50%;
+  padding: 10px; /* Reduced padding */
+  font-size: 1rem; /* Smaller font size */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  border: none;
+  cursor: pointer;
+  z-index: 10000;
+  transition: background-color 0.3s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#scrollToTop:hover {
+  background-color: #4b0082;
+}
+
+#scrollToTop:focus {
+  outline: none; /* Remove focus outline */
+}
+
+#scrollToTop:hover::after {
+  content: " Go to top"; /* Text shown when hovered */
+  font-size: 0.85rem; /* Smaller text size */
+  color: white;
+  margin-left: 8px; /* Small margin between icon and text */
+}
+  </style>
+</head>
+
+<body>
+
+<button id="scrollToTop" onclick="window.scrollTo(0, 0);" title="Go to the top">⬆️</button>
+
+  <main>
+    <h1>Frequently Asked Questions</h1>
+    <p class="subtitle">Find quick answers to common questions about Avishikta - I Type-A RWA.</p>
+
+    <div class="faq-item" tabindex="0">
+      <div class="question">How do I book the community hall?</div>
+      <div class="answer">You can book the community hall by filling out the Community Hall Reservation Form available on the Download Center page and submitting it to the management office.</div>
+    </div>
+
+    <div class="faq-item" tabindex="0">
+      <div class="question">Where can I download the maintenance payment forms?</div>
+      <div class="answer">Maintenance payment forms are available for download in the Download Center under the PDF category.</div>
+    </div>
+
+    <div class="faq-item" tabindex="0">
+      <div class="question">What are the office hours for the management office?</div>
+      <div class="answer">The management office is open from Monday to Friday, 9:00 AM to 5:00 PM.</div>
+    </div>
+
+    <div class="faq-item" tabindex="0">
+      <div class="question">How can I contact the security service?</div>
+      <div class="answer">Security service contact numbers are listed on the Emergency Contacts page and on the notice board at the main gate.</div>
+    </div>
+
+    <div class="faq-item" tabindex="0">
+      <div class="question">Can I pay my maintenance fees online?</div>
+      <div class="answer">Currently, maintenance fees need to be paid at the management office in person. Online payments are being considered.</div>
+    </div>
+  </main>
+
+  <script>
+    const faqs = document.querySelectorAll('.faq-item');
+    faqs.forEach(item => {
+      const question = item.querySelector('.question');
+      
+      question.addEventListener('click', () => {
+        const isActive = item.classList.contains('active');
+        faqs.forEach(i => i.classList.remove('active'));
+        if (!isActive) item.classList.add('active');
+      });
+
+      item.addEventListener('keydown', e => {
+        if(e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          question.click();
+        }
+      });
+    });
+  </script>
+
+  <!-- Include layout structure -->
+  <script src="layout.js"></script>
+</body>
+</html>
+
