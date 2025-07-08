@@ -477,6 +477,7 @@
             <li role="none"><a href="mom.html" role="menuitem"><i class="fas fa-file-alt" aria-hidden="true"></i> Meeting Minutes</a></li>
             <li role="none"><a href="general-guidelines.html" role="menuitem"><i class="fas fa-book" aria-hidden="true"></i> Community Guidelines</a></li>
             <li role="none"><a href="useful-links.html" role="menuitem"><i class="fas fa-headset" aria-hidden="true"></i> Helpdesk & Contacts</a></li>
+            <li role="none"><a href="download-center.html" role="menuitem"><i class="fas fa-cloud-download-alt" aria-hidden="true"></i> Download-center</a></li>
           </ul>
         </li>
 
