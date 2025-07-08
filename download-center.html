@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Download Center | Avishikta - I Type-A RWA</title>
+  <link rel="icon" href="favicon.ico" type="image/x-icon" />
+  <style>
+    /* Reset & Body */
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f8f9fa;
+      margin: 0;
+      color: #2c3e50;
+    }
+    main {
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 30px 20px;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+      animation: fadeSlideIn 0.6s ease-out;
+    }
+    /* Title with images */
+    h1 {
+      font-size: 2rem;
+      color: #2a72d8;
+      text-align: center;
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 12px;
+    }
+    h1 img {
+      height: 38px;
+      border-radius: 6px;
+      object-fit: cover;
+      user-select: none;
+    }
+    p.sub {
+      text-align: center;
+      color: #555;
+      margin-bottom: 30px;
+    }
+
+    /* Categories */
+    .category {
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      margin-top: 40px;
+      overflow: hidden;
+    }
+    .category-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px;
+      background: #f1f5f9;
+      cursor: pointer;
+      user-select: none;
+    }
+    .category-header h2 {
+      margin: 0;
+      font-size: 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .category-header i.arrow {
+      transition: transform 0.3s ease;
+      color: #555;
+    }
+    .category.collapsed i.arrow {
+      transform: rotate(-90deg);
+    }
+
+    /* Tables */
+    .file-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 0.5rem;
+    }
+    .file-table th,
+    .file-table td {
+      padding: 12px 15px;
+      border-bottom: 1px solid #ddd;
+      vertical-align: middle;
+    }
+    .file-table thead {
+      background: #ecf0f1;
+      text-transform: uppercase;
+      font-size: 0.9rem;
+    }
+    .file-table tbody tr:hover {
+      background: #f1f6fb;
+    }
+
+    /* Buttons */
+    .actions {
+      display: inline-flex;
+      gap: 12px;
+      justify-content: center;
+    }
+    button.view-btn,
+    a.download-btn {
+      padding: 8px 14px;
+      border: none;
+      border-radius: 6px;
+      color: #fff;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: background 0.3s;
+      text-decoration: none;
+    }
+    button.view-btn {
+      background: #2980b9;
+    }
+    button.view-btn:hover {
+      background: #1f5f8b;
+    }
+    a.download-btn {
+      background: #27ae60;
+    }
+    a.download-btn:hover {
+      background: #1e8449;
+    }
+
+    /* Icons */
+    .icon-pdf i {
+      color: #e53935;
+    }
+    .icon-word i {
+      color: #2a5bd7;
+    }
+    .icon-excel i {
+      color: #27ae60;
+    }
+
+    /* Modal */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.6);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      padding: 20px;
+    }
+    .modal-overlay.active {
+      display: flex;
+    }
+    .modal-content {
+      position: relative;
+      width: 90%;
+      max-width: 900px;
+      height: 80vh;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .modal-content iframe {
+      width: 100%;
+      flex-grow: 1;
+      border: none;
+      border-radius: 0 0 8px 8px;
+    }
+    .modal-content button.close-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: none;
+      border: none;
+      font-size: 28px;
+      cursor: pointer;
+      color: #34495e;
+      user-select: none;
+      transition: color 0.3s ease;
+    }
+    .modal-content button.close-btn:hover,
+    .modal-content button.close-btn:focus {
+      color: #e74c3c;
+      outline: none;
+    }
+    .modal-footer {
+      padding: 12px 16px;
+      background: #f1f5f9;
+      text-align: center;
+    }
+    .modal-footer button {
+      background-color: #2980b9;
+      color: white;
+      padding: 8px 20px;
+      border-radius: 6px;
+      border: none;
+      font-weight: 600;
+      cursor: pointer;
+      user-select: none;
+      transition: background-color 0.3s ease;
+    }
+    .modal-footer button:hover,
+    .modal-footer button:focus {
+      background-color: #1f5f8b;
+      outline: none;
+    }
+
+    /* Animations */
+    @keyframes fadeSlideIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    #scrollToTop {
+      position: fixed;
+      bottom: 50px;
+      right: 20px;
+      background-color: #ff6347;
+      color: white;
+      border-radius: 50%;
+      padding: 5px;
+      font-size: 1rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      border: none;
+      cursor: pointer;
+      z-index: 10000;
+      transition: background-color 0.3s ease;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #scrollToTop:hover {
+      background-color: #4b0082;
+    }
+
+    #scrollToTop:focus {
+      outline: none;
+    }
+
+    #scrollToTop:hover::after {
+      content: " Go to top";
+      font-size: 1rem;
+      color: white;
+      margin-left: 8px;
+    }
+  </style>
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
+<body>
+
+<button id="scrollToTop" onclick="window.scrollTo(0, 0);" title="Go to the top">⬆️</button>
+
+<main>
+  <h1>
+    <img src="Image-1.jpg" alt="Image 1" />
+    <i class="fas fa-download"></i> Download Center
+    <img src="Image-2.jpg" alt="Image 2" />
+  </h1>
+  <p class="sub">All important forms and documents at your fingertips.</p>
+
+  <!-- PDF Category -->
+  <div class="category" id="pdf-section">
+    <div class="category-header" onclick="toggleSection('pdf-section')">
+      <h2 class="icon-pdf"><i class="fas fa-file-pdf"></i> PDF Files</h2>
+      <i class="fas fa-chevron-down arrow"></i>
+    </div>
+    <div class="category-body">
+      <table class="file-table">
+        <thead>
+          <tr>
+            <th>File Name</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Community Hall Reservation Form</td>
+            <td class="actions">
+              <button onclick="openModal('downloads/community-hall-reservation.pdf')" class="view-btn"><i class="fas fa-eye"></i> View</button>
+              <a href="downloads/community-hall-reservation.pdf" download class="download-btn"><i class="fas fa-cloud-download-alt"></i> Download</a>
+            </td>
+          </tr>
+          <tr>
+            <td>New Membership Form</td>
+            <td class="actions">
+              <button onclick="openModal('downloads/new-membership-form.pdf')" class="view-btn"><i class="fas fa-eye"></i> View</button>
+              <a href="downloads/new-membership-form.pdf" download class="download-btn"><i class="fas fa-cloud-download-alt"></i> Download</a>
+            </td>
+          </tr>
+          <tr>
+            <td>Relative Occupants Details</td>
+            <td class="actions">
+              <button onclick="openModal('downloads/relative-occupants.pdf')" class="view-btn"><i class="fas fa-eye"></i> View</button>
+              <a href="downloads/relative-occupants.pdf" download class="download-btn"><i class="fas fa-cloud-download-alt"></i> Download</a>
+            </td>
+          </tr>
+          <tr>
+            <td>Revised Rent Form</td>
+            <td class="actions">
+              <button onclick="openModal('/downloads/rent-form.pdf')" class="view-btn"><i class="fas fa-eye"></i> View</button>
+              <a href="downloads/rent-form.pdf" download class="download-btn"><i class="fas fa-cloud-download-alt"></i> Download</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Word Category -->
+  <div class="category collapsed" id="word-section">
+    <div class="category-header" onclick="toggleSection('word-section')">
+      <h2 class="icon-word"><i class="fas fa-file-word"></i> Word Documents</h2>
+      <i class="fas fa-chevron-down arrow"></i>
+    </div>
+    <div class="category-body" style="display: none">
+      <table class="file-table">
+        <thead>
+          <tr>
+            <th>File Name</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Sample Word Document 1</td>
+            <td class="actions">
+              <button onclick="openModal('/downloads/sample-word-1.docx')" class="view-btn">View</button>
+              <a href="/downloads/sample-word-1.docx" download class="download-btn">Download</a>
+            </td>
+          </tr>
+          <tr>
+            <td>Sample Word Document 2</td>
+            <td class="actions">
+              <button onclick="openModal('/downloads/sample-word-2.docx')" class="view-btn">View</button>
+              <a href="/downloads/sample-word-2.docx" download class="download-btn">Download</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Excel Category -->
+  <div class="category collapsed" id="excel-section">
+    <div class="category-header" onclick="toggleSection('excel-section')">
+      <h2 class="icon-excel"><i class="fas fa-file-excel"></i> Excel Sheets</h2>
+      <i class="fas fa-chevron-down arrow"></i>
+    </div>
+    <div class="category-body" style="display: none">
+      <table class="file-table">
+        <thead>
+          <tr>
+            <th>File Name</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Monthly Maintenance Tracker</td>
+            <td class="actions">
+              <button onclick="openModal('/downloads/maintenance-tracker.xlsx')" class="view-btn">View</button>
+              <a href="/downloads/maintenance-tracker.xlsx" download class="download-btn">Download</a>
+            </td>
+          </tr>
+          <tr>
+            <td>Dummy Financial Summary</td>
+            <td class="actions">
+              <button onclick="openModal('/downloads/financial-summary.xlsx')" class="view-btn">View</button>
+              <a href="/downloads/financial-summary.xlsx" download class="download-btn">Download</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</main>
+
+<!-- Modal Popup -->
+<div id="modal" class="modal-overlay" onclick="closeModal()">
+  <div class="modal-content" onclick="event.stopPropagation()">
+    <button class="close-btn" onclick="closeModal()" aria-label="Close modal">&times;</button>
+    <iframe src="" allowfullscreen></iframe>
+    <div class="modal-footer">
+      <button onclick="closeModal()">Close Preview</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  function toggleSection(id) {
+    const sec = document.getElementById(id);
+    const body = sec.querySelector('.category-body');
+    const arrow = sec.querySelector('.arrow');
+    const hidden = body.style.display === 'none';
+    body.style.display = hidden ? 'block' : 'none';
+    sec.classList.toggle('collapsed', !hidden);
+  }
+
+  function openModal(src) {
+    const modal = document.getElementById('modal');
+    modal.classList.add('active');
+    modal.querySelector('iframe').src = src;
+  }
+
+  function closeModal() {
+    const modal = document.getElementById('modal');
+    modal.classList.remove('active');
+    modal.querySelector('iframe').src = '';
+  }
+</script>
+
+<!-- Existing header/footer/nav file -->
+<script src="layout.js"></script>
+</body>
+</html>
