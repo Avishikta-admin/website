@@ -317,6 +317,13 @@
       border-radius: 6px;
       user-select:none;
     }
+    nav#main-nav > ul > li > a#faq-link {
+      color: #FFEBEB;
+      font-weight: 700;
+      padding: 12px 18px;
+      border-radius: 6px;
+      user-select:none;
+    }
     #assoc-submenu a > i {
       color: #00e676;
     }
@@ -459,10 +466,10 @@
             <i class="fas fa-building" aria-hidden="true"></i> Association
           </button>
           <ul id="assoc-submenu" role="menu">
-            <li role="none"><a href="about-us.html" role="menuitem"><i class="fas fa-info-circle" aria-hidden="true"></i> Who We Are</a></li>
-            <li role="none"><a href="vision-mission.html" role="menuitem"><i class="fas fa-eye" aria-hidden="true"></i> Vision & Mission</a></li>
-            <li role="none"><a href="governing-body.html" role="menuitem"><i class="fas fa-users" aria-hidden="true"></i> Executive Committee</a></li>
-            <li role="none"><a href="our-members.html" role="menuitem"><i class="fas fa-address-book" aria-hidden="true"></i> Residents Directory</a></li>
+            <li role="none"><a href="about-us.html" role="menuitem" title="About our association"><i class="fas fa-info-circle" aria-hidden="true"></i> Who We Are</a></li>
+            <li role="none"><a href="vision-mission.html" role="menuitem" title="Our vision & mission"><i class="fas fa-eye" aria-hidden="true"></i> Vision & Mission</a></li>
+            <li role="none"><a href="governing-body.html" role="menuitem" title="General body"><i class="fas fa-users" aria-hidden="true"></i> Executive Committee</a></li>
+            <li role="none"><a href="our-members.html" role="menuitem" title="Member details"><i class="fas fa-address-book" aria-hidden="true"></i> Residents Directory</a></li>
           </ul>
         </li>
 
@@ -472,19 +479,23 @@
             <i class="fas fa-folder" aria-hidden="true"></i> Resources
           </button>
           <ul id="resources-submenu" role="menu">
-            <li role="none"><a href="view-announcements.html" role="menuitem"><i class="fas fa-bullhorn" aria-hidden="true"></i> View Announcements</a></li>
-            <li role="none"><a href="events.html" role="menuitem"><i class="fas fa-calendar-alt" aria-hidden="true"></i> Event Calendar</a></li>
-            <li role="none"><a href="mom.html" role="menuitem"><i class="fas fa-file-alt" aria-hidden="true"></i> Meeting Minutes</a></li>
-            <li role="none"><a href="general-guidelines.html" role="menuitem"><i class="fas fa-book" aria-hidden="true"></i> Community Guidelines</a></li>
-            <li role="none"><a href="useful-links.html" role="menuitem"><i class="fas fa-headset" aria-hidden="true"></i> Helpdesk & Contacts</a></li>
-            <li role="none"><a href="download-center.html" role="menuitem"><i class="fas fa-cloud-download-alt" aria-hidden="true"></i> Download-center</a></li>
-            <li role="none"><a href="faq.html" role="menuitem"><i class="fas fa-question-circle" aria-hidden="true"></i>FAQs</a></li>
-          </ul>
+            <li role="none"><a href="view-announcements.html" role="menuitem" title="Check announcements"><i class="fas fa-bullhorn" aria-hidden="true"></i> View Announcements</a></li>
+            <li role="none"><a href="events.html" role="menuitem" title="View our community calendar and photo gallery"><i class="fas fa-calendar-alt" aria-hidden="true"></i> Events & Shared Moments</a></li>
+            <li role="none"><a href="mom.html" role="menuitem" title="MoM"><i class="fas fa-file-alt" aria-hidden="true"></i> Meeting Minutes</a></li>
+            <li role="none"><a href="general-guidelines.html" role="menuitem" title="General guidelines"><i class="fas fa-book" aria-hidden="true"></i> Community Guidelines</a></li>
+            <li role="none"><a href="useful-links.html" role="menuitem" title="Get help and find important contact information"><i class="fas fa-headset" aria-hidden="true"></i> Helpdesk & Contacts</a></li>
+            <li role="none"><a href="download-center.html" role="menuitem" title="Access important documents and forms for download"><i class="fas fa-cloud-download-alt" aria-hidden="true"></i> Download-center</a></li>
+        </ul>
         </li>
 
         <!-- Give Feedback -->
         <li>
-          <a href="feedback.html" id="give-feedback-link" role="menuitem"><i class="fas fa-comment-dots" aria-hidden="true"></i> Give Feedback</a>
+          <a href="feedback.html" id="give-feedback-link" role="menuitem" title="We value your feedback—let us know your thoughts"><i class="fas fa-comment-dots" aria-hidden="true"></i> Give Feedback</a>
+        </li>
+	
+	<!-- Help & FAQs -->
+	<li>
+          <li role="none"><a href="faq.html" id="faq-link" role="menuitem" title="Find answers to frequently asked questions"><i class="fas fa-question-circle" aria-hidden="true"></i>FAQs</a></li>
         </li>
 
         <!-- Admin Tools -->
