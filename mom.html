@@ -1,567 +1,404 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="css/responsive-fix.css" />
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Minutes of Meetings</title>
-
-  <!-- Fonts & Icons -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Minutes of Meetings</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-
-  <!-- Your styles -->
-  <link rel="stylesheet" href="css/responsive-fix.css" />
-  <link rel="stylesheet" href="styles.css" />
-
-  <!-- Quill Rich Text Editor -->
-  <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet" />
-
+  <!-- Your existing layout.js -->
+  <script src="layout.js" defer></script>
   <style>
+    /* Reset and base */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       font-family: 'Poppins', sans-serif;
-  margin: 0;
-  padding: 20px;
-  background: linear-gradient(135deg, #e0f7fa, #ffffff, #fce4ec);
-  background-size: 400% 400%;
-  animation: gradientAnimation 7s ease infinite;
-    }
-    .mom-container {
-      background: #fff;
-      border-radius: 6px;
-      box-shadow: 0 0 8px rgba(0,0,0,0.1);
-      margin-bottom: 20px;
-      overflow: hidden;
-    }
-    .mom-header {
-      background: #0073e6;
-      color: white;
-      padding: 12px 16px;
+      background: linear-gradient(135deg, #e0f7fa, #ffffff, #fce4ec);
+      background-size: 400% 400%;
+      animation: gradientAnimation 7s ease infinite;
+      color: #333;
+      min-height: 100vh;
       display: flex;
+      flex-direction: column;
       align-items: center;
-      justify-content: space-between;
-      cursor: pointer;
+      padding: 20px;
     }
-    .mom-header h2 {
-      margin: 0;
-      font-size: 1.1rem;
+    @keyframes gradientAnimation {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
     }
-    .btn-group {
-      display: flex;
-      gap: 8px;
+    main#contentWrapper {
+      max-width: 800px;
+      width: 100%;
+      margin: auto 60px;
+      padding: 0 10px;
     }
-    button {
-      background: white;
-      border: none;
-      color: #0073e6;
-      font-weight: bold;
-      padding: 6px 12px;
-      border-radius: 4px;
-      cursor: pointer;
+    /* Banner */
+    .mom-banner {
+      position: relative;
+      border-radius: 8px;
+      overflow: hidden;
+      margin-bottom: 20px;
+      margin-top: 40px;  /* Pushes banner down from top */
+      box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+    }
+    .mom-banner img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      display: block;
+    }
+    .mom-banner h2 {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: white;
+      font-size: 2rem;
+      background: rgba(0,0,0,0.6);
+      padding: 10px 20px;
+      border-radius: 6px;
+      text-shadow: 1px 1px 4px rgba(0,0,0,0.8);
       user-select: none;
     }
-    button:hover {
+    /* Controls */
+    #controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+      margin-bottom: 25px;
+    }
+    #controls input[type="text"], 
+    #controls select {
+      padding: 8px 14px;
+      font-size: 1rem;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      min-width: 180px;
+      flex-grow: 1;
+    }
+    #controls button {
+      padding: 8px 16px;
+      font-size: 1rem;
+      border-radius: 6px;
+      border: 1px solid #0073e6;
+      background: white;
+      color: #0073e6;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    #controls button:hover {
       background: #e6f0ff;
     }
-    .mom-content {
-      padding: 16px;
-      line-height: 1.5;
-      display: none;
-      white-space: pre-wrap;
-      font-size: 0.95rem;
-      user-select: none;
-    }
-    header {
+    .button-wrapper {
       display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 15px;
-      margin-bottom: 1em;
-      flex-wrap: wrap;
+      gap: 10px;
     }
-    #logo {
-      max-width: 100px;
-      height: auto;
-    }
-    #image1 {
-      max-width: 80px;
-      height: auto;
-    }
-    #associationName {
-      font-weight: bold;
-      font-size: 1.2rem;
-      max-width: 600px;
-      text-align: center;
-      line-height: 1.3;
-    }
-    #controls {
-      margin-bottom: 20px;
-      text-align: center;
-    }
-    #toast {
-      position: fixed;
-      top: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      background-color: #28a745;
-      box-shadow: 0 4px 12px rgba(40, 167, 69, 0.5);
-      font-weight: 600;
-      font-size: 0.7rem;
+    .action-btn, .delete-btn {
+      position: relative; /* needed for tooltip positioning */
+      background: #0073e6;
       color: white;
-      padding: 14px 24px;
-      border-radius: 8px;
-      visibility: hidden;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.4s ease, visibility 0.4s ease;
-      z-index: 1000;
+      border: none;
+      cursor: pointer;
+      border-radius: 6px;
+      padding: 8px 14px;
+      opacity: 0.9;
+      transition: opacity 0.3s ease;
     }
-    #toast.show {
-      visibility: visible;
-      opacity: 1;
-    }
-    button:disabled {
-      background: #f0f0f0;
-      color: #999;
-      cursor: not-allowed;
-      border: 1px solid #ccc;
-    }
-
-.mom-banner {
-  position: relative;
-  text-align: center;
-  margin: 35px auto;
-  max-width: 400px; /* Reduced overall width */
-  height: auto;
-  overflow: hidden; /* Ensures text doesn't overflow if image is cropped */
-  border-radius: 8px;
-  margin-bottom: 30px; /* or however much space you want */
-}
-
-.mom-banner img {
-  width: 100%;
-  height: 150px; /* 🔽 Set desired height here */
-  object-fit: cover; /* Keeps image centered and cropped nicely */
-  border-radius: 8px;
-  display: block;
-}
-
-.mom-banner h2 {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  margin: 0;
-  font-size: 1.5rem;
-  color: white;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  font-weight: 700;
-  text-shadow: 2px 2px 6px rgba(0,0,0,0.5);
-  background: rgba(0, 0, 0, 0.3);
-  padding: 5px 10px;
-  border-radius: 6px;
-}
-
-#searchInput:focus,
-#sortSelect:focus {
-  outline: none;
-  box-shadow: 0 0 6px #0073e6aa;
-  border-color: #0073e6;
-}
-
-#clearBtn:hover {
-  color: #004a99;
-}
-
-#momContainer {
-  margin-left: 30px;  /* Shift the content to the right, adjust this value based on your sidebar width */
-  padding: 20px;       /* Optional: Space around the content */
-}
-
-@media (max-width: 768px) {
-  #momContainer {
-    margin-left: 0;  /* No margin when on small screens */
-    padding: 10px;   /* Reduce padding on small screens */
-  }
-}
-
-/* Tooltip styling */
-button[data-tooltip] {
-  position: relative;
-}
-
-button[data-tooltip]::after {
+    
+    button[data-tooltip]::after {
   content: attr(data-tooltip);
   position: absolute;
-  bottom: 125%;
+  bottom: 125%; /* push tooltip above the button */
   left: 50%;
   transform: translateX(-50%);
-  background: #444;
+  background: rgba(0, 0, 0, 0.8);
   color: #fff;
   padding: 6px 10px;
-  border-radius: 4px;
-  white-space: nowrap;
+  border-radius: 6px;
   font-size: 0.75rem;
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.3s ease;
-  z-index: 10;
-}
-
-button[data-tooltip]:hover::after {
-  opacity: 1;
-}
-
-/* Add/Modify/Delete button styling */
-.action-btn, .delete-btn {
-  background: linear-gradient(to right, #0066cc, #3399ff);
-  color: white;
-  font-weight: bold;
-  border: none;
-  padding: 10px 20px;
-  margin: 8px 5px;
-  border-radius: 6px;
-  cursor: not-allowed;  /* Feature not yet active */
-  font-size: 0.95rem;
-  transition: background 0.3s ease, transform 0.2s ease;
-}
-
-.action-btn:hover, .delete-btn:hover {
-  background: linear-gradient(to right, #0052a3, #2a7bdc);
-  transform: scale(1.03);
-}
-
-/* ✅ Working Tooltip Styling */
-button[data-tooltip] {
-  position: relative;
-}
-
-button[data-tooltip]::after {
-  content: attr(data-tooltip);
-  position: absolute;
-  bottom: 110%;
-  left: 50%;
-  transform: translateX(-50%);
-  background: rgba(0, 0, 0, 0.8);
-  color: white;
-  padding: 6px 10px;
-  border-radius: 4px;
   white-space: nowrap;
-  font-size: 0.75rem;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.3s ease, transform 0.3s ease;
-  z-index: 9999;
+  z-index: 1000; /* make sure tooltip appears above everything */
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
 }
 
 button[data-tooltip]:hover::after {
   opacity: 1;
-  transform: translateX(-50%) translateY(-4px);
+  pointer-events: auto;
 }
 
-@keyframes gradientAnimation {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
 
-#scrollToTop {
-  position: fixed;
-  bottom: 50px; /* Reduced space from bottom */
-  right: 10px;  /* Reduced space from right */
-  background-color: #ff6347;
-  color: white;
-  border-radius: 50%;
-  padding: 10px; /* Reduced padding */
-  font-size: 1rem; /* Smaller font size */
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  border: none;
-  cursor: pointer;
-  z-index: 10000;
-  transition: background-color 0.3s ease;
+    .action-btn:hover, .delete-btn:hover {
+      opacity: 1;
+    }
+    /* MoM list */
+    #momList {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+    .mom-summary {
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      padding: 16px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .mom-summary h3 {
+      color: #0073e6;
+      font-size: 1.25rem;
+    }
+    .mom-summary .mom-date {
+      font-size: 0.9rem;
+      color: #555;
+    }
+    .mom-summary p {
+      font-size: 1rem;
+      line-height: 1.4;
+      color: #333;
+    }
+    .view-full-btn {
+      align-self: flex-start;
+      background: #0073e6;
+      color: white;
+      padding: 8px 16px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.95rem;
+      transition: background-color 0.3s ease;
+    }
+    .view-full-btn:hover {
+      background: #005bb5;
+    }
+    /* Modal */
+    #modalOverlay {
+      display: none;
+      position: fixed;
+      top:0; left:0; width:100%; height:100%;
+      background: rgba(0,0,0,0.6);
+      z-index: 10000;
+      justify-content: center;
+      align-items: center;
+    }
+    #modalOverlay.active {
+      display: flex;
+    }
+    #modalContent {
+      width: 100vw;
+  max-width: 1200px;   /* wider */
+  height: 95vh;        /* taller */
+  max-height: 95vh;
+  border-radius: 8px;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.35);
+    }
+    #modalHeader {
+      background: #0073e6;
+      color: white;
+      padding: 12px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: 600;
+      font-size: 1.1rem;
+    }
+    #modalCloseBtn {
+      background: transparent;
+      border: none;
+      font-size: 1.5rem;
+      color: white;
+      cursor: pointer;
+      line-height: 1;
+    }
+    #modalBody {
+      flex-grow: 1;
+      overflow: hidden;
+    }
+    #modalBody iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+    /* Scroll to top */
+    #scrollToTop {
+      position: fixed;
+      bottom: 50px;
+      right: 10px;
+      width: 40px;
+      height: 40px;
+      background: #ff6347;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      font-size: 22px;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 11000;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+      user-select: none;
+    }
+    #scrollToTop:hover {
+      background: #4b0082;
+    }
+
+   main#contentWrapper {
+  min-height: 1500px; /* or any large enough value */
 }
 
-#scrollToTop:hover {
-  background-color: #4b0082;
-}
-
-#scrollToTop:focus {
-  outline: none; /* Remove focus outline */
-}
-
-#scrollToTop:hover::after {
-  content: " Go to top"; /* Text shown when hovered */
-  font-size: 1rem; /* Smaller text size */
-  color: white;
-  margin-left: 8px; /* Small margin between icon and text */
-}
-
-</style>
-
-<script src="layout.js" defer></script>
-  <!-- Quill CSS and JS -->
-  <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
-  <script src="https://cdn.quilljs.com/1.3.6/quill.min.js"></script>
+  </style>
 </head>
-
 <body>
 
-<button id="scrollToTop" onclick="window.scrollTo(0, 0);" title="Go to the top">⬆️</button>
+<button id="scrollToTop" title="Go to top">&#8679;</button>
 
+<main id="contentWrapper">
+  <!-- Banner with image + text -->
+  <div class="mom-banner">
+    <img src="Image-1.jpg" alt="Meeting Banner" />
+    <h2>Minutes of Meetings</h2>
+  </div>
 
-<div class="mom-banner">
-  <img src="Image-1.jpg" alt="Association Banner" />
-  <h2>MoM</h2>
-</div>
-
-<div id="controls">
-  <input type="text" id="searchInput" placeholder="Search by title or date (YYYY-MM-DD)" aria-label="Search MoM" />
-  <select id="sortSelect" aria-label="Sort MoM">
-    <option value="desc">Sort by Date (Newest First)</option>
-    <option value="asc">Sort by Date (Oldest First)</option>
-  </select>
-    <button class="action-btn" data-tooltip="Coming Soon! Please Stay Tuned!">
-    <i class="fas fa-plus-circle"></i> Add/Modify MoM
-    </button>
-    <button class="delete-btn" data-tooltip="Coming Soon! Please Stay Tuned!">
-    <i class="fas fa-trash-alt"></i> Delete MoM
-    </button>
-    <button id="clearBtn" aria-label="Clear Search">Clear</button>
-    <button id="downloadBtn" aria-label="Download All Minutes" disabled>Download All</button>
-</div>
-
-<div id="momContainer">
-  <div class="mom-container" data-date="2025-05-25">
-    <div class="mom-header" tabindex="0">
-      <h2>Executive Committee Meeting | May 25, 2025 | Community Hall | 11:30 AM – 12:30 PM</h2>
-      <div class="btn-group">
-        <button class="toggle-btn">+</button>
-        <button class="download-btn" disabled>Download</button>
-      </div>
-    </div>
-<div class="mom-content" oncopy="return false;" oncut="return false;" onpaste="return false;" oncontextmenu="return false;">
-AVISHIKTA PHASE – 1 LIG (TYPE – A) APARTMENT RESIDENTS’ WELFARE ASSOCIATION
-Minutes of Meeting (MoM) | Executive Committee Meeting | May 25, 2025 | Community Hall | 11:30 AM – 12:30 PM
-Chairperson: Hon’ble President Mr. Pulak Mukhopadhyay
-________________________________________
-Agenda & Resolutions:
-1. Call to Order and Confirmation of Quorum: 
-The meeting was called to order by the Hon’ble President, and the quorum was confirmed.
-
-2. Presentation of Financial Report and Current Fund Status:
-The Secretary presented the financial report and the current fund status. Members reviewed and expressed satisfaction with the approach and clarity. 👉 (Refer to Annexure 1 & 2: Financial Report)
-
-3. Appointment of Auditor for FY 2024–25:
-Members discussed and agreed to reappoint the current auditor ‘R Nag & Associates’ for the FY 2024–25. The request for a fee hike by R Nag & Associates was reviewed. EC suggested requesting the firm to continue with the existing fee of ₹10,000.00 for FY 2024–25. If not agreeable, a maximum of 10% hike may be considered.
-Resolution 1: Resolved that the same auditor shall be reappointed to audit the association's accounts for the financial year 2024–25. Further resolved that the association shall request the auditor to maintain the existing fee of ₹10,000.00, and if not agreeable, a fee hike of up to 10% may be permitted.
-
-4. Salary Revisions:
-- Sri Subhash Chandra Pal (Office Executive): 10% hike approved.
-- Sri Sambhu Nath Singh (Housekeeping Staff): 10% hike approved.
-- Sri Parameshwar Mondal & Sri Jatin Dhara (Electricians): 10% hike approved, subject to alignment with prevailing rates in other associations.
-Resolution 2: Resolved that a 10% salary increment be approved for the Office Executive and Housekeeping staff. The Electricians, being shared across all three associations, are currently under review. Although our Executive Committee has approved a 10% hike, the final revision will be aligned with the increments decided by the other associations. All changes shall be effective from 1st April 2025.
-
-5. Project Updates:
-A detailed status report covering ongoing and proposed projects, new additions, scope, and estimated costs was presented and appreciated by members. 👉 (Refer to Annexures 1 & 3: Project Details and Cost Estimates)
-
-6. Fundraising Strategies:
-Various fundraising avenues were discussed and recommended for active exploration and evaluation.
-
-7. Open Floor Discussions:
-- A query regarding building extension and lift installation was raised. The Secretary informed that discussions are ongoing with concerned authorities and updates will be shared in due course.
-- Resolution 3: The committee was informed that Flat No. 1A-403 has been purchased by Ananya Banerjee from the Biswas family (Mr. Indrani Biswas, Mr. Kishor Biswas, and their son). The applicable membership fee is ₹45,000.00. Ananya Banerjee requested approval to remit the amount in four instalments. After due consideration, the Executive Committee, at its Sunday meeting, approved a revised payment schedule in three instalments, with the full amount to be cleared by August 2025, as detailed below:
-  1st Instalment: Rs. 10,000.00 | 2nd Instalment: Rs. 17,500.00 | 3rd Instalment: Rs. 17,500.00
-
-8. Tentative Date for AGM:
-After deliberation, it was decided to tentatively schedule the Annual General Meeting (AGM) on 27th July 2025.
-Resolution 4: Resolved that the AGM be tentatively scheduled for 27th July 2025.
-
-Closing Remarks:
-The Hon’ble President thanked all members for their active participation and contributions to the meeting’s success.
-
-Signatures:
-Pulak Mukhopadhyay, President | Niloy Pandit, Secretary
+  <!-- Controls: Search, Sort, Clear, Add/Edit, Delete -->
+  <div id="controls">
+    <input type="text" id="searchInput" placeholder="Search title or date…" />
+    <select id="sortSelect" aria-label="Sort MoMs">
+      <option value="desc">Newest First</option>
+      <option value="asc">Oldest First</option>
+    </select>
+    <button id="clearBtn" type="button">Clear</button>
+    <div class="button-wrapper">
+      <button class="action-btn" type="button" data-tooltip="Coming soon!!!">Add/Edit MoM</button>
+      <button class="delete-btn" type="button" data-tooltip="Coming soon!!!">Delete MoM</button>
     </div>
   </div>
 
-  <div class="mom-container" data-date="2024-12-22">
-    <div class="mom-header" tabindex="0">
-      <h2>General Body Meeting | December 22, 2024 | Community Hall | 5:00 PM</h2>
-      <div class="btn-group">
-        <button class="toggle-btn">+</button>
-        <button class="download-btn" disabled>Download</button>
-      </div>
+  <!-- List of MoMs -->
+  <div id="momList" aria-live="polite" aria-atomic="true"></div>
+</main>
+
+<!-- Modal overlay -->
+<div id="modalOverlay" role="dialog" aria-modal="true" aria-labelledby="modalTitle" tabindex="-1">
+  <div id="modalContent">
+    <div id="modalHeader">
+      <span id="modalTitle"></span>
+      <button id="modalCloseBtn" aria-label="Close modal">&times;</button>
     </div>
-    <div class="mom-content" oncopy="return false;" oncut="return false;" onpaste="return false;" oncontextmenu="return false;">
-Minutes of the General Body Meeting Held on 22nd December 2024
-
-On a crisp December evening, the General Body Meeting convened on December 22, 2024. This gathering, marked by spirited discussions and collaborative deliberations, reflected our shared commitment to common goals. The minutes captured not just decisions and resolutions, but the essence of our unity and dedication. Let these minutes guide us through future challenges and triumphs, reminding us of the strength in our collective endeavour.
-As we move forward, let us remember the words of Helen Keller: "Alone we can do so little; together we can do so much."
-
-Date: 22nd December 2024 | Time: 5:00 PM | Venue: Community Hall – 2nd Floor
-________________________________________
-
-Acronyms Used: MMC: Monthly Maintenance Charge | EC: Executive Committee | FD: Fixed Deposit | AGM: Annual General Meeting
-
-1. Call to Order: The meeting called to order with a warm welcome by the Hon’ble President.
-
-2. Presentation of the Current Financial Report: The Secretary presented an in-depth breakdown financial report shedding light on the association's current financial standing (FY 2024 – 25) along with proposed budget for the FY 2025-26. This report highlighted key financial metrics, projected cost & revenue, and strategic allocations designed to drive organizational growth and stability. The Secretary also highlighted the association's consistent budget deficit over the past few years to the members, emphasizing the need for financial adjustments. In the ensuing formal discussion, the Secretary emphasized the critical need to establish a goal aimed at reducing the fiscal deficit through disciplined spending. The following measures were taken to ensure the financial sustainability of our operations:
-
-o Enhancement of MMC: In the last AGM held on 14th July 2024, the provisionally accepted increase of ₹100 pertaining to MMC was re-assessed by the members in the light of the current financial situation and the proposed budget for the upcoming FY 2025 – 26. Finally, an increment of ₹150 was unanimously agreed upon, effective 1st April 2025. This adjustment aims to better support the association's finances and narrow the income – expenditure gap.
-
-o Revision of Discount Structure for One-Time Payment of MMC: The current discount policy on one payment of MMC has become a significant burden for an ailing establishment like ours. Amid the ongoing financial crisis, this policy fails to provide any tangible benefits to our Association. After thorough discussions with the members, the following revised rates will be effective from 1st April 2025.
-
- 6-Month Payments: The discount will be adjusted from the current 6% to 2%.
- 1-Year Payments: The discount will be adjusted from the current 6% to 4%.
- Members also expressed their intention to consider further reduction in the discount percentage of one-time payment from FY 2026 - 27 considering the association’s financial situation. This decision reflects a thoughtful and strategic response to the evolving economic landscape, aiming to create a more balanced and equitable financial framework for all members.
-
-3. Facilitating Common Area Capital Expenditures: To facilitate the capital expenditures for common areas, such as the renovation of the STP, road repairs, erection of security room at back gate etc. as detailed in the report, the house thoroughly reviewed the requirement, and it was unanimously decided to collect ADHOC payments of ₹2000 for each flat in two (2) instalments during January and April 2025.
-
-4. Embracing Opportunities Amid Financial Challenges: The residents expressed their concerns on the prevailing financial difficulties and the association’s inability to timely pay salaries, staff benefits and other financial dues. All members of the General Body assured their full support and cooperation for the smooth functioning of the Association.
-
-5. Approvals of Agenda Items: All members expressed their willingness to approve the agenda items to facilitate the necessary implementation of the decisions.
-
-6. Date of Next Meeting: The members unanimously agreed to hold the Executive Committee Meeting on 22nd February 2025.
-
-Closing Remarks: The meeting concluded with a heartfelt vote of thanks to the chair, echoing the spirit of cooperation and community solidarity.
-
-Signatures:
-Niloy Pandit, Secretary (Date: December 22, 2024)            Pulak Mukhopadhyay, President (Date: December 22, 2024)
-    </div>
-  </div>
-
-<div class="mom-container" data-date="2024-12-01">
-    <div class="mom-header" tabindex="0">
-      <h2>Executive Committee Meeting | December 01, 2024 | Community Hall | 11:00 AM</h2>
-      <div class="btn-group">
-        <button class="toggle-btn">+</button>
-        <button class="download-btn" disabled>Download</button>
-      </div>
-    </div>
-    <div class="mom-content" oncopy="return false;" oncut="return false;" onpaste="return false;" oncontextmenu="return false;">
-Minutes of the Executive Committee Meeting Held on 1st December 2024
-Date: 1st December 2024 | Time: 11:00 AM | Venue: Community Hall – 2nd Floor
-________________________________________
-
-Attendees: Pulak Mukhopadhyay (President), Bibhas Chatterjee (Vice President), Joykrishna Das (Treasurer), Niloy Pandit (Secretary), Anurag Singh (EC Member), Asis Majumber (EC Member), Prasanta Ghosh (EC Member)
-Absent: None
-
-1. Call to Order: Resolved that the meeting was officially called to order by the Hon’ble President.
-
-2. Formation of Quorum: Resolved that attendance was taken, and it was confirmed that a quorum was present.
-
-3. Approval of Previous Meeting Minutes:
-Resolved that the minutes from the meeting held on 27th October 2024 were reviewed and approved unanimously. A motion to approve the minutes was made by Niloy Pandit, seconded by Pulak Mukherjee.
-
-4. Financial Report:
-Resolved that an update on the current financial position was provided, including details on income, expenses, and the budget status. Every member present expressed their concern after reviewing the financial report and shared their opinions on how to address the situation.
-
-5. Restructuring Discount for One-Time Payments:
-Resolved that the discount percentage for one-time payments of 1 year and 6 months of monthly maintenance charges (MMC) be restructured. No further discount should be given for 6-month payments, and the discount for 1-year payments SHOULD be reduced from existing 6% to 5%. This decision will be presented at the GB Meeting to be held on 22nd December 2024 for final approval.
-
-6. Upcoming Projects and Costs:
-Resolved that various upcoming projects were discussed in detail. It was unanimously agreed that a one-time collection of ₹2000.00 should be made from each member to cover the significant costs of these projects.
-
-7. Proposed Maintenance Charge Hike:
-Resolved that, in light of increasing running costs, the maintenance charge will be increased from existing ₹850.00 to ₹1000.00 effective 1st April 2025. This proposal will also be presented at the GB Meeting to be held on 22nd December 2024 for final approval.
-
-8. Any Other Business (AOB):
-• Insufficient Lighting Issue:
-  o Discussion: Respected EC member Mr. Asis Majumder addressed the problem of lights on the side of the tower where he lives.
-  o Resolution: The Secretary assured him that the matter would be taken care of as soon as possible.
-
-9. Next Meeting Date:
-• Discussion: All the members unanimously agreed to hold the General Body Meeting on 22nd December 2024.
-• Resolution: The members requested the Hon’ble Secretary to issue notice immediately in this regard.
-
-10. Closing Address:
-The meeting ended with vote of thanks to the chair. Hon’ble President summarized the key decisions and thanked the attendees for their participation.
-
-Minutes Prepared By: Niloy Pandit (Secretary)
+    <div id="modalBody">
+      <iframe id="modalIframe" src="" title="Full Minutes of Meeting"></iframe>
     </div>
   </div>
 </div>
 
 <script>
-  // Toggle expand/collapse
-  document.querySelectorAll('.toggle-btn').forEach(button => {
-    button.addEventListener('click', () => {
-      const momContent = button.closest('.mom-container').querySelector('.mom-content');
-      if (momContent.style.display === 'block') {
-        momContent.style.display = 'none';
-        button.textContent = '+';
-      } else {
-        momContent.style.display = 'block';
-        button.textContent = '-';
-      }
-    });
-  });
+  const momData = [
+    { title: 'General Body Meeting', date: '2024-12-22', summary: 'Discussed annual budget and upcoming projects...', url: 'downloads/mom-2024-12-22-gb.pdf' },
+    { title: 'Committee Meeting Feb 2023', date: '2023-02-15', summary: 'Reviewed progress on current initiatives and tasks...', url: 'docs/Minutes-of-Meeting-2.pdf' },
+    { title: 'Special Session Mar 2023', date: '2023-03-10', summary: 'Focused on urgent policy changes and member feedback...', url: 'docs/Minutes-of-Meeting-3.pdf' }
+  ];
 
-  // Disable copy, cut, paste, right click on mom-content
-  document.querySelectorAll('.mom-content').forEach(content => {
-    content.addEventListener('copy', e => e.preventDefault());
-    content.addEventListener('cut', e => e.preventDefault());
-    content.addEventListener('paste', e => e.preventDefault());
-    content.addEventListener('contextmenu', e => e.preventDefault());
-  });
-
+  const momListEl = document.getElementById('momList');
   const searchInput = document.getElementById('searchInput');
   const sortSelect = document.getElementById('sortSelect');
   const clearBtn = document.getElementById('clearBtn');
-  const momContainer = document.getElementById('momContainer');
+  const modalOverlay = document.getElementById('modalOverlay');
+  const modalTitle = document.getElementById('modalTitle');
+  const modalIframe = document.getElementById('modalIframe');
+  const modalCloseBtn = document.getElementById('modalCloseBtn');
+  const scrollBtn = document.getElementById('scrollToTop');
 
-  function filterAndSort() {
-  const searchValue = searchInput.value.toLowerCase();
-  const sortOrder = sortSelect.value;
+  function renderList() {
+    const keyword = searchInput.value.trim().toLowerCase();
 
-  // Select all .mom-container directly inside momContainer
-  const moms = Array.from(momContainer.querySelectorAll(':scope > .mom-container'));  // ':scope >' ensures direct children only
+    // Filter by title or date (date as string contains keyword)
+    let filtered = momData.filter(m => 
+      !keyword || m.title.toLowerCase().includes(keyword) || m.date.includes(keyword)
+    );
 
-  console.log('Total MoMs found:', moms.length);
+    // Sort by date asc or desc
+    filtered.sort((a,b) => 
+      sortSelect.value === 'asc' 
+        ? new Date(a.date) - new Date(b.date)
+        : new Date(b.date) - new Date(a.date)
+    );
 
-  // Filter
-  moms.forEach(mom => {
-    const headerText = mom.querySelector('h2').textContent.toLowerCase();
-    if (headerText.includes(searchValue)) {
-      mom.style.display = '';
-    } else {
-      mom.style.display = 'none';
+    if (filtered.length === 0) {
+      momListEl.innerHTML = '<p>No matching MoMs found.</p>';
+      return;
+    }
+
+    momListEl.innerHTML = filtered.map((m, i) => `
+      <article class="mom-summary" tabindex="0" aria-label="Meeting titled ${m.title} held on ${m.date}">
+        <h3>${m.title}</h3>
+        <div class="mom-date">${m.date}</div>
+        <p>${m.summary}</p>
+        <button class="view-full-btn" data-index="${i}">View Detail MoM</button>
+      </article>
+    `).join('');
+
+    // Attach click to all view buttons
+    momListEl.querySelectorAll('.view-full-btn').forEach(btn => {
+      btn.onclick = () => openModal(filtered[btn.dataset.index]);
+    });
+  }
+
+  function openModal(m) {
+    modalTitle.textContent = `${m.title} — ${m.date}`;
+    modalIframe.src = m.url;
+    modalOverlay.classList.add('active');
+    modalOverlay.focus();
+  }
+
+  function closeModal() {
+    modalOverlay.classList.remove('active');
+    modalIframe.src = '';
+  }
+
+  // Event listeners
+  searchInput.addEventListener('input', renderList);
+  sortSelect.addEventListener('change', renderList);
+  clearBtn.addEventListener('click', () => {
+    searchInput.value = '';
+    sortSelect.value = 'desc';
+    renderList();
+  });
+
+  modalCloseBtn.addEventListener('click', closeModal);
+  modalOverlay.addEventListener('click', e => {
+    if (e.target === modalOverlay) closeModal();
+  });
+
+  window.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && modalOverlay.classList.contains('active')) {
+      closeModal();
     }
   });
 
-  // Sort only visible moms
-  const visibleMoms = moms.filter(mom => mom.style.display !== 'none');
-
-  visibleMoms.sort((a, b) => {
-    const dateA = new Date(a.dataset.date);
-    const dateB = new Date(b.dataset.date);
-    return sortOrder === 'asc' ? dateA - dateB : dateB - dateA;
+  window.addEventListener('scroll', () => {
+    scrollBtn.style.display = window.scrollY > 300 ? 'flex' : 'none';
   });
 
-  // Append sorted moms in order
-  visibleMoms.forEach(mom => momContainer.appendChild(mom));
-}
+  scrollBtn.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
 
-
-// Event listeners
-searchInput.addEventListener('input', filterAndSort);
-sortSelect.addEventListener('change', filterAndSort);
-clearBtn.addEventListener('click', () => {
-  searchInput.value = '';
-  filterAndSort();
-});
-
-// Initial sort descending on page load
-filterAndSort();
+  // Initial render
+  renderList();
+// Show/hide button on page load
+window.dispatchEvent(new Event('scroll'));
 
 </script>
-
-
-
 
 </body>
 </html>
