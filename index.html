@@ -469,12 +469,12 @@
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
   <script src="layout.js" defer></script>
 
-<!-- === GREETINGS MODAL === -->
-<div id="greetingModal" role="dialog" aria-modal="true" aria-labelledby="greetingTitle" aria-describedby="greetingMessage">
-  <div id="greetingModalContent">
+<!-- GREETINGS MODAL -->
+<div id="greetingModal" role="dialog" aria-modal="true" aria-labelledby="greetingTitle" aria-describedby="greetingMessage" style="display:none; justify-content:center; align-items:center; position:fixed; inset:0; background:rgba(0,0,0,0.7); z-index:9999;">
+  <div id="greetingModalContent" style="background:linear-gradient(135deg,#1e3c72,#2a5298);color:#fff; padding:2rem 2.5rem; border-radius:16px; max-width:420px; width:90%; text-align:center; box-shadow:0 10px 25px rgba(0,0,0,0.6);">
     <h2 id="greetingTitle">Welcome!</h2>
     <p id="greetingMessage">Thanks for visiting!</p>
-    <button id="closeGreetingBtn" aria-label="Close greeting popup">Close</button>
+    <button id="closeGreetingBtn" aria-label="Close greeting popup" style="background:#f39c12; color:#fff; border:none; padding:0.6rem 1.5rem; border-radius:8px; font-size:1rem; cursor:pointer;">Close</button>
   </div>
 </div>
 
@@ -530,76 +530,62 @@
       })();
     }
 
-runConfetti();
+window.addEventListener('DOMContentLoaded', () => {
+    const modal = document.getElementById('greetingModal');
+    const closeBtn = document.getElementById('closeGreetingBtn');
+    const title = document.getElementById('greetingTitle');
+    const message = document.getElementById('greetingMessage');
 
-window.addEventListener("DOMContentLoaded", () => {
-    const modal = document.getElementById("greetingModal");
-    const closeBtn = document.getElementById("closeGreetingBtn");
-    const title = document.getElementById("greetingTitle");
-    const message = document.getElementById("greetingMessage");
-
-    // Only show on homepage
-    const pathname = window.location.pathname;
-const isFile = window.location.protocol === 'file:';
-const isHomePage =
-  pathname.endsWith("index.html") ||
-  pathname === "/" ||
-  isFile;
-
-if (!isHomePage) return;
-
-
-    // If already shown on this device
-    if (localStorage.getItem("greetingShown")) return;
-
-    // Set time-based greeting
-    const hour = new Date().getHours();
-    let greetText = "Welcome!";
-    let greetMsg = "Thanks for visiting our community portal.";
-
-    if (hour < 12) {
-      greetText = "Good Morning!";
-      greetMsg = "Hope you have a fresh and productive day!";
-    } else if (hour < 17) {
-      greetText = "Good Afternoon!";
-      greetMsg = "Wishing you a great rest of the day.";
-    } else {
-      greetText = "Good Evening!";
-      greetMsg = "Relax and enjoy your time with us.";
+    // Check if modal already shown (using localStorage)
+    if (localStorage.getItem('greetingShown')) {
+      return; // Don't show modal again
     }
 
-    // Inject content
+    // Time-based greetings
+    const hour = new Date().getHours();
+    let greetText = 'Welcome!';
+    let greetMsg = 'Thanks for visiting our community portal.';
+
+    if (hour < 12) {
+      greetText = 'Good Morning!';
+      greetMsg = 'Hope you have a fresh and productive day!';
+    } else if (hour < 17) {
+      greetText = 'Good Afternoon!';
+      greetMsg = 'Wishing you a great rest of the day.';
+    } else {
+      greetText = 'Good Evening!';
+      greetMsg = 'Relax and enjoy your time with us.';
+    }
+
     title.textContent = greetText;
     message.textContent = greetMsg;
 
     // Show modal
-    modal.style.display = "flex";
-    setTimeout(() => modal.classList.add("show"), 10);
+    modal.style.display = 'flex';
+
+    // Close modal function
+    function closeGreeting() {
+      modal.style.display = 'none';
+      localStorage.setItem('greetingShown', 'true');
+    }
 
     // Close on button click
-    closeBtn.addEventListener("click", closeGreeting);
+    closeBtn.addEventListener('click', closeGreeting);
 
     // Close on outside click
-    window.addEventListener("click", (e) => {
+    modal.addEventListener('click', (e) => {
       if (e.target === modal) closeGreeting();
     });
 
     // Close on ESC key
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape" && modal.classList.contains("show")) {
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modal.style.display === 'flex') {
         closeGreeting();
       }
     });
-
-    // Close + remember
-    function closeGreeting() {
-      modal.classList.remove("show");
-      setTimeout(() => {
-        modal.style.display = "none";
-      }, 400);
-      localStorage.setItem("greetingShown", "true");
-    }
   });
+
+runConfetti();
 
 </script>
 
