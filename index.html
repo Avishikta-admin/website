@@ -420,6 +420,15 @@
 
 <body>
 
+<!-- GREETINGS MODAL -->
+<div id="greetingModal" role="dialog" aria-modal="true" aria-labelledby="greetingTitle" aria-describedby="greetingMessage">
+  <div id="greetingModalContent">
+    <h2 id="greetingTitle">Welcome!</h2>
+    <p id="greetingMessage">Thanks for visiting!</p>
+    <button id="closeGreetingBtn" aria-label="Close greeting popup">Close</button>
+  </div>
+</div>
+
 <div id="layout-root">
 
     <!-- Hero section with header -->
@@ -468,16 +477,6 @@
   <!-- Confetti script from CDN -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
   <script src="layout.js" defer></script>
-
-<!-- GREETINGS MODAL -->
-<div id="greetingModal" role="dialog" aria-modal="true" aria-labelledby="greetingTitle" aria-describedby="greetingMessage" style="display:none; justify-content:center; align-items:center; position:fixed; inset:0; background:rgba(0,0,0,0.7); z-index:9999;">
-  <div id="greetingModalContent" style="background:linear-gradient(135deg,#1e3c72,#2a5298);color:#fff; padding:2rem 2.5rem; border-radius:16px; max-width:420px; width:90%; text-align:center; box-shadow:0 10px 25px rgba(0,0,0,0.6);">
-    <h2 id="greetingTitle">Welcome!</h2>
-    <p id="greetingMessage">Thanks for visiting!</p>
-    <button id="closeGreetingBtn" aria-label="Close greeting popup" style="background:#f39c12; color:#fff; border:none; padding:0.6rem 1.5rem; border-radius:8px; font-size:1rem; cursor:pointer;">Close</button>
-  </div>
-</div>
-
 
   <script>
     // Ticker pause/play functionality
