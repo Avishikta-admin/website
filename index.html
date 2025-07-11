@@ -26,20 +26,24 @@
 
     .ticker-wrapper {
       position: relative;
-      height: 54px;
-      background: linear-gradient(0deg, rgba(195, 47, 34, 1) 12%, rgba(217, 99, 38, 1) 46%, rgba(253, 187, 45, 1) 100%);
-      overflow: visible;
-      z-index: 2500;
-      display: flex;
-      align-items: center;
-      font-weight: 700;
-      color: white;
-      font-size: 1.2rem;
-      letter-spacing: 0.05em;
-      font-family: 'Montserrat', sans-serif;
-      justify-content: space-between;
-      padding-right: 20px; /* Added padding on the right to give space for the button */
+  height: 54px;
+  background: linear-gradient(0deg, rgba(195, 47, 34, 1) 12%, rgba(217, 99, 38, 1) 46%, rgba(253, 187, 45, 1) 100%);
+  overflow: hidden;
+  z-index: 2500;
+  display: flex;
+  align-items: center;
+  font-weight: 700;
+  color: white;
+  font-size: 1.2rem;
+  letter-spacing: 0.05em;
+  font-family: 'Montserrat', sans-serif;
+  padding-right: 20px;
     }
+
+.ticker-container {
+  width: 100%;
+  overflow: hidden;
+}
 
     .ticker {
       display: inline-block;
@@ -342,11 +346,81 @@
   }
 }
 
+/* === GREETINGS MODAL STYLES === */
+#greetingModal {
+  display: none;
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 9999;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+#greetingModal.show {
+  display: flex;
+  opacity: 1;
+}
+
+#greetingModalContent {
+  background: linear-gradient(135deg, #1e3c72, #2a5298);
+  color: #fff;
+  padding: 2rem 2.5rem;
+  border-radius: 16px;
+  max-width: 420px;
+  width: 90%;
+  text-align: center;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.6);
+  animation: fadeInScale 0.4s ease forwards;
+  position: relative;
+}
+
+#greetingModalContent h2 {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+}
+
+#greetingModalContent p {
+  font-size: 1.1rem;
+  line-height: 1.4;
+  margin-bottom: 1.8rem;
+}
+
+#closeGreetingBtn {
+  background: #f39c12;
+  color: #fff;
+  border: none;
+  padding: 0.6rem 1.5rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+#closeGreetingBtn:hover {
+  background: #e67e22;
+}
+
+@keyframes fadeInScale {
+  0% {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+
 </style>
 </head>
 
 <body>
-  <div id="layout-root">
+
+<div id="layout-root">
 
     <!-- Hero section with header -->
   <header class="hero full-width-hero" role="banner">
@@ -357,12 +431,15 @@
 </header>
 
     <!-- Ticker BELOW header -->
-    <div class="ticker-wrapper" aria-label="News ticker" role="region" aria-live="polite">
-      <div class="ticker" id="ticker">
-        <span>🙏 Heartfelt welcome to all our esteemed members in our 19th AGM!!!</span>
-      </div>
-      <button class="pause-button" aria-pressed="false" aria-label="Pause or Play news ticker" id="pauseBtn">Pause</button>
+    <div class="ticker-wrapper">
+  <div class="ticker-container">
+    <div class="ticker" id="ticker">
+      <span>🙏 Heartfelt welcome to all our esteemed members in our 19th AGM!!!</span>
     </div>
+  </div>
+  <button class="pause-button" id="pauseBtn">Pause</button>
+</div>
+
 
     <main role="main" tabindex="-1">
       <h2>Engage > Empower > Elevate</h2>
@@ -391,6 +468,16 @@
   <!-- Confetti script from CDN -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
   <script src="layout.js" defer></script>
+
+<!-- === GREETINGS MODAL === -->
+<div id="greetingModal" role="dialog" aria-modal="true" aria-labelledby="greetingTitle" aria-describedby="greetingMessage">
+  <div id="greetingModalContent">
+    <h2 id="greetingTitle">Welcome!</h2>
+    <p id="greetingMessage">Thanks for visiting!</p>
+    <button id="closeGreetingBtn" aria-label="Close greeting popup">Close</button>
+  </div>
+</div>
+
 
   <script>
     // Ticker pause/play functionality
@@ -445,6 +532,76 @@
 
 runConfetti();
 
+window.addEventListener("DOMContentLoaded", () => {
+    const modal = document.getElementById("greetingModal");
+    const closeBtn = document.getElementById("closeGreetingBtn");
+    const title = document.getElementById("greetingTitle");
+    const message = document.getElementById("greetingMessage");
+
+    // Only show on homepage
+    const pathname = window.location.pathname;
+const isFile = window.location.protocol === 'file:';
+const isHomePage =
+  pathname.endsWith("index.html") ||
+  pathname === "/" ||
+  isFile;
+
+if (!isHomePage) return;
+
+
+    // If already shown on this device
+    if (localStorage.getItem("greetingShown")) return;
+
+    // Set time-based greeting
+    const hour = new Date().getHours();
+    let greetText = "Welcome!";
+    let greetMsg = "Thanks for visiting our community portal.";
+
+    if (hour < 12) {
+      greetText = "Good Morning!";
+      greetMsg = "Hope you have a fresh and productive day!";
+    } else if (hour < 17) {
+      greetText = "Good Afternoon!";
+      greetMsg = "Wishing you a great rest of the day.";
+    } else {
+      greetText = "Good Evening!";
+      greetMsg = "Relax and enjoy your time with us.";
+    }
+
+    // Inject content
+    title.textContent = greetText;
+    message.textContent = greetMsg;
+
+    // Show modal
+    modal.style.display = "flex";
+    setTimeout(() => modal.classList.add("show"), 10);
+
+    // Close on button click
+    closeBtn.addEventListener("click", closeGreeting);
+
+    // Close on outside click
+    window.addEventListener("click", (e) => {
+      if (e.target === modal) closeGreeting();
+    });
+
+    // Close on ESC key
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && modal.classList.contains("show")) {
+        closeGreeting();
+      }
+    });
+
+    // Close + remember
+    function closeGreeting() {
+      modal.classList.remove("show");
+      setTimeout(() => {
+        modal.style.display = "none";
+      }, 400);
+      localStorage.setItem("greetingShown", "true");
+    }
+  });
+
 </script>
+
 </body>
 </html>
