@@ -172,7 +172,7 @@
     /* NAVIGATION STYLES */
     nav#main-nav {
       position: fixed;
-      top: 125px;
+      top: 60px;
       left: 0;
       width: 260px;
       height: calc(100vh - 114px); /* header + footer height reduced */
@@ -183,10 +183,12 @@
       display: none;
       flex-direction: column;
       padding: 20px 12px;
-      z-index: 9999;
+      z-index: 10000;
       user-select:none;
       overflow-y: auto;
       transition: background-color 0.3s ease, transform 0.3s ease, opacity 0.3s ease;
+      transform: translateY(-20px); /* Menu starts slightly above */
+      pointer-events: none; /* Disable interaction when closed */
     }
     nav#main-nav:hover {
       background-color: #003366;
