@@ -9,6 +9,7 @@
   <style>
     body {
       margin: 0;
+     padding: 0;
       font-family: 'Segoe UI', sans-serif;
       background: linear-gradient(135deg, #f4f6fa, #d3e0ea); /* Soft gradient background */
       color: #333;
@@ -17,13 +18,14 @@
     main {
       max-width: 1200px;
       margin: 0.2rem auto 2rem;
-      padding: 0.5rem 1rem 1rem;
+      padding: 0rem 1rem 1rem;
+      box-sizing: border-box;
     }
 
-   #scrollToTop {
+  #scrollToTop {
   position: fixed;
-  bottom: 30px;
-  right: 30px;
+  bottom: 35px;
+  right: 10px;
   background-color: #ff6347;
   color: white;
   border-radius: 50%;
@@ -46,8 +48,8 @@
   flex-direction: column;
   justify-content: flex-start; /* Aligns content to the top */
   text-align: center;
-  margin-top: 1;  /* Removes any top margin */
-  margin-bottom: 1.2rem;  /* Reduced margin */
+  margin-top: 0;  /* Removes any top margin */
+  margin-bottom: 0.5rem;  /* Reduced margin */
   animation: fadeInDown 0.8s ease-in-out;
   background: linear-gradient(to right, #4b0082, #ff6347); /* Gradient background */
   color: white;
@@ -104,6 +106,7 @@
       padding-top: 0.5rem;
       justify-items: center; /* Centering images in each grid cell */
       align-items: start; /* This will vertically center the items */
+       margin-top: -15px; /* Negative margin to push the image up */
     }
 
     .gallery-card {
@@ -128,7 +131,7 @@
 
     .gallery-card img {
       width: 100%;
-      height: 150px; /* Reduced image size */
+      height: 120px; /* Reduced image size */
       object-fit: cover;
       display: block;
       user-select: none;
@@ -348,22 +351,22 @@
 
     <section class="gallery-grid" aria-label="Photo gallery">
       <div class="gallery-card" onclick="openLightbox('Image-1.jpg')">
-        <img src="Image-1.jpg" alt="Annual Day Celebration" draggable="false">
+        <img src="image-1.jpg" alt="Annual Day Celebration" draggable="false">
         <div class="zoom-icon">+</div>
         <div class="card-caption">Annual Day Celebration</div>
       </div>
       <div class="gallery-card" onclick="openLightbox('Image-2.jpg')">
-        <img src="Image-2.jpg" alt="Festive Lights Evening" draggable="false">
+        <img src="image-2.jpg" alt="Festive Lights Evening" draggable="false">
         <div class="zoom-icon">+</div>
         <div class="card-caption">Festive Lights Evening</div>
       </div>
       <div class="gallery-card" onclick="openLightbox('image-1.jpg')">
-        <img src="Image-1.jpg" alt="Cultural Performance" draggable="false">
+        <img src="image-1.jpg" alt="Cultural Performance" draggable="false">
         <div class="zoom-icon">+</div>
         <div class="card-caption">Cultural Performance</div>
       </div>
       <div class="gallery-card" onclick="openLightbox('image-2.jpg')">
-        <img src="Image-2.jpg" alt="New Year Bash" draggable="false">
+        <img src="image-2.jpg" alt="New Year Bash" draggable="false">
         <div class="zoom-icon">+</div>
         <div class="card-caption">New Year Bash</div>
       </div>
