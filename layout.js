@@ -68,7 +68,6 @@
       font-weight: 600;
       font-size: 0.95rem;
       line-height: 1.4;
-      z-index: 9998; /* Ensure header is below the nav */
     }
     footer {
       bottom: 0;
@@ -184,7 +183,7 @@
       display: none;
       flex-direction: column;
       padding: 20px 12px;
-      z-index: 10000;
+      z-index: 9999;
       user-select:none;
       overflow-y: auto;
       transition: background-color 0.3s ease, transform 0.3s ease, opacity 0.3s ease;
