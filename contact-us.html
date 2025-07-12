@@ -3,29 +3,35 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Contact Us | Avishikta Type - A RWA</title>
+  <title>Contact Us | Avishikta - I Type - A RWA</title>
 
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <link rel="stylesheet" href="css/responsive-fix.css" />
+  <script src="layout.js" defer></script>
 
   <style>
     body {
       font-family: 'Poppins', sans-serif;
       margin: 0;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      /* Further reduce top padding to push the whole content more up */
+      background-image: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
       color: #fff;
       display: flex;
       flex-direction: column;
       min-height: 100vh;
       overflow-x: hidden;
-      padding-top: 40px;
+      position: relative;
+      padding-top: 0px; /* Further reduced to push up */
       padding-bottom: 70px;
     }
 
     main {
       max-width: 860px;
-      margin: 40px auto 20px auto;
+      margin: 0 auto 20px auto; /* Removed top margin completely to push the container up */
       padding: 5px 20px;
       flex: 1;
       background: linear-gradient(145deg, #ffffffdd, #d3d3f0dd);
@@ -37,7 +43,7 @@
       gap: 10px;
       align-items: stretch;
       justify-content: center;
-      max-height: 520px; /* increased height more */
+      max-height: 520px;
       overflow: hidden;
     }
 
@@ -110,7 +116,7 @@
 
     .contact-info p {
       margin: 8px 0;
-      text-align: justify; /* make all paragraphs justified */
+      text-align: justify;
     }
 
     .contact-person-phone {
@@ -173,7 +179,6 @@
   </style>
 </head>
 <body>
-  <script src="layout.js"></script>
 
   <main role="main" aria-labelledby="contact-heading">
     <div class="image-container" aria-hidden="true">
@@ -182,33 +187,31 @@
     </div>
 
     <section class="contact-content">
+      <div class="contact-info" role="region" aria-label="Contact information">
+        <div class="contact-person-phone" aria-label="Contact persons">
+          <span><i class="fa-solid fa-user" style="color: #4A90E2;"></i><strong>&nbsp;Niloy Pandit - Secretary</strong></span>
+          <span><i class="fa-solid fa-phone" style="color: #28a745;"></i><strong>&nbsp;9433174699/8335094732</strong></span>
+          <span><i class="fa-solid fa-envelope" style="color: #FF5733;"></i><strong>&nbsp;EC Team Contact:&nbsp</strong><a href="mailto:atarwa2005@gmail.com">atarwa2005@gmail.com</a></span>
+          <span><i class="fa-solid fa-user" style="color: #4A90E2;"></i>&nbsp;Mr. Subhash Ch. Pal - Office Executive</span>
+          <span><i class="fa-solid fa-phone" style="color: #28a745;"></i>&nbsp9073599299</span>
+        </div>
 
-  <div class="contact-info" role="region" aria-label="Contact information">
-  <div class="contact-person-phone" aria-label="Contact persons">
-    <span><i class="fa-solid fa-user" style="color: #4A90E2;"></i><strong>&nbsp;Niloy Pandit - Secretary</strong></span>
-    <span><i class="fa-solid fa-phone" style="color: #28a745;"></i><strong>&nbsp;9433174699/8335094732</strong></span>
-    <span><i class="fa-solid fa-envelope" style="color: #FF5733;"></i><strong>&nbspEC Team Contact:&nbsp</strong><a href="mailto:atarwa2005@gmail.com">atarwa2005@gmail.com</a></span>
-    <span><i class="fa-solid fa-user" style="color: #4A90E2;"></i>&nbsp;Mr. Subhash Ch. Pal - Office Executive</span>
-    <span><i class="fa-solid fa-phone" style="color: #28a745;"></i>&nbsp9073599299</span>
-  </div>
+        <p class="office-hours" aria-label="Office Hours"><i class="fa-solid fa-clock" style="color: #FFA500;"></i>
+          Office Hours: Monday to Sunday — 9:00 AM to 12 O'clock and 4:00 PM to 6:00 PM (except Sunday afternoons)
+        </p>
 
-  <p class="office-hours" aria-label="Office Hours"><i class="fa-solid fa-clock" style="color: #FFA500;"></i>
-    Office Hours: Monday to Sunday — 9:00 AM to 12 O'clock and 4:00 PM to 6:00 PM (except Sunday afternoons)
-  </p>
+        <p>
+          We welcome your inquiries, suggestions, and feedback. Feel free to reach out by phone or visit our office during office hours. Your community team is always here to assist you.
+        </p>
 
-  <p>
-    We welcome your inquiries, suggestions, and feedback. Feel free to reach out by phone or visit our office during office hours. Your community team is always here to assist you.
-  </p>
+        <p>
+          We’re here to help! Feel free to reach out with questions, feedback, or suggestions — your voice matters in our community.
+        </p>
 
-  <p>
-    We’re here to help! Feel free to reach out with questions, feedback, or suggestions — your voice matters in our community.
-  </p>
-
-  <p>
-    Need special assistance? Call us or stop by — we’re always happy to help.
-  </p>
-</div>
-
+        <p>
+          Need special assistance? Call us or stop by — we’re always happy to help!
+        </p>
+      </div>
     </section>
   </main>
 </body>
