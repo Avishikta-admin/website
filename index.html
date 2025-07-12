@@ -24,21 +24,23 @@
       100% { transform: translateX(-100%); }
     }
 
-    .ticker-wrapper {
-      position: relative;
-  height: 54px;
-  background: linear-gradient(0deg, rgba(195, 47, 34, 1) 12%, rgba(217, 99, 38, 1) 46%, rgba(253, 187, 45, 1) 100%);
-  overflow: hidden;
-  z-index: 2500;
-  display: flex;
-  align-items: center;
-  font-weight: 700;
-  color: white;
-  font-size: 1.2rem;
-  letter-spacing: 0.05em;
-  font-family: 'Montserrat', sans-serif;
-  padding-right: 20px;
-    }
+  .ticker-wrapper {
+  position: relative;
+      height: 54px;
+      background: linear-gradient(0deg, rgba(195, 47, 34, 1) 12%, rgba(217, 99, 38, 1) 46%, rgba(253, 187, 45, 1) 100%);
+      overflow: visible;
+      z-index: 2500;
+      display: flex;
+      align-items: center;
+      font-weight: 700;
+      color: white;
+      font-size: 1.2rem;
+      letter-spacing: 0.05em;
+      font-family: 'Montserrat', sans-serif;
+      justify-content: space-between;
+      padding-right: 20px; /* Added padding on the right to give space for the button */
+}
+
 
 .ticker-container {
   width: 100%;
@@ -95,6 +97,7 @@
       color: #fff;
       text-align: center;
       padding: 40px 20px;
+      padding-top: 25px; /* Makes space for the ticker */
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -247,6 +250,14 @@
         max-width: 1000px;
       }
 
+    @media (max-width: 600px) {
+  .toast {
+    top: 70px;
+    font-size: 0.9rem;
+    padding: 10px 18px;
+  }
+}
+
   .hero-image {
         width: 100%;
         height: 100%; /* Increased height */
@@ -367,10 +378,10 @@
 #greetingModalContent {
   background: linear-gradient(135deg, #1e3c72, #2a5298);
   color: #fff;
-  padding: 2rem 2.5rem;
-  border-radius: 16px;
-  max-width: 420px;
-  width: 90%;
+  padding: 1.2rem 1.5rem;      /* ↓ Less padding */
+  border-radius: 12px;         /* ↓ Smaller corners */
+  max-width: 320px;            /* ↓ Narrower box */
+  width: 85%;                  /* Still responsive */
   text-align: center;
   box-shadow: 0 10px 25px rgba(0,0,0,0.6);
   animation: fadeInScale 0.4s ease forwards;
@@ -378,23 +389,23 @@
 }
 
 #greetingModalContent h2 {
-  font-size: 1.8rem;
-  margin-bottom: 1rem;
+  font-size: 1.4rem;
+  margin-bottom: 0.8rem;
 }
 
 #greetingModalContent p {
-  font-size: 1.1rem;
-  line-height: 1.4;
-  margin-bottom: 1.8rem;
+  font-size: 1rem;
+  line-height: 1.3;
+  margin-bottom: 1.2rem;
 }
 
 #closeGreetingBtn {
   background: #f39c12;
   color: #fff;
   border: none;
-  padding: 0.6rem 1.5rem;
-  border-radius: 8px;
-  font-size: 1rem;
+  padding: 0.5rem 1.2rem;
+  border-radius: 6px;
+  font-size: 0.95rem;
   cursor: pointer;
   transition: background 0.3s ease;
 }
@@ -414,24 +425,52 @@
   }
 }
 
+/* Toast Notification */
+.toast {
+  position: fixed;
+  top: 64px; /* 🟢 This pushes it below the ticker (ticker is 54px high) */
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(135deg, #00c6ff, #0072ff);
+  color: white;
+  padding: 12px 24px;
+  border-radius: 30px;
+  font-weight: bold;
+  font-family: 'Montserrat', sans-serif;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+  z-index: 99999;
+  opacity: 0;
+  animation: fadeInOut 15s ease-in-out forwards;
+}
+
+
+@keyframes fadeInOut {
+  0% { opacity: 0; transform: translate(-50%, -20px); }
+  10% { opacity: 1; transform: translate(-50%, 0); }
+  90% { opacity: 1; transform: translate(-50%, 0); }
+  100% { opacity: 0; transform: translate(-50%, -20px); }
+}
+
 
 </style>
 </head>
 
 <body>
 
+<div id="layout-root">
+
 <!-- GREETINGS MODAL -->
-<div id="greetingModal" role="dialog" aria-modal="true" aria-labelledby="greetingTitle" aria-describedby="greetingMessage">
+<div id="greetingModal">
   <div id="greetingModalContent">
+    <div class="welcome-icon">🌇</div>
     <h2 id="greetingTitle">Welcome!</h2>
     <p id="greetingMessage">Thanks for visiting!</p>
     <button id="closeGreetingBtn" aria-label="Close greeting popup">Close</button>
   </div>
 </div>
 
-<div id="layout-root">
-
-    <!-- Hero section with header -->
+  <!-- rest of page… -->
+<!-- Hero section with header -->
   <header class="hero full-width-hero" role="banner">
   <img src="Image-1.jpg" alt="Community Image" class="hero-image" />
   <div class="overlay">
@@ -439,16 +478,15 @@
     </div>
 </header>
 
-    <!-- Ticker BELOW header -->
+  <!-- Ticker BELOW header -->
     <div class="ticker-wrapper">
   <div class="ticker-container">
     <div class="ticker" id="ticker">
-      <span>🙏 Heartfelt welcome to all our esteemed members in our 19th AGM!!!</span>
+      <span>🎉 Celebrating the 19th AGM — Welcome, Esteemed Members!</span>
     </div>
   </div>
   <button class="pause-button" id="pauseBtn">Pause</button>
 </div>
-
 
     <main role="main" tabindex="-1">
       <h2>Engage > Empower > Elevate</h2>
@@ -479,6 +517,7 @@
   <script src="layout.js" defer></script>
 
   <script>
+
     // Ticker pause/play functionality
     const ticker = document.getElementById('ticker');
     const pauseBtn = document.getElementById('pauseBtn');
@@ -529,62 +568,82 @@
       })();
     }
 
-window.addEventListener('DOMContentLoaded', () => {
-    const modal = document.getElementById('greetingModal');
-    const closeBtn = document.getElementById('closeGreetingBtn');
-    const title = document.getElementById('greetingTitle');
-    const message = document.getElementById('greetingMessage');
+  window.addEventListener('DOMContentLoaded', () => {
+  const modal = document.getElementById('greetingModal');
+  const closeBtn = document.getElementById('closeGreetingBtn');
+  const title = document.getElementById('greetingTitle');
+  const message = document.getElementById('greetingMessage');
 
-    // Check if modal already shown (using localStorage)
-    if (localStorage.getItem('greetingShown')) {
-      return; // Don't show modal again
+  // Check if greeting was already shown
+  if (sessionStorage.getItem('greetingShown')) {
+    // Don't show modal again
+    return;
+  }
+
+  // Set greeting text based on time
+  const hour = new Date().getHours();
+  let greetText = 'Welcome!';
+  let greetMsg = 'Thanks for visiting our community portal!!!';
+
+  if (hour < 12) {
+    greetText = 'Good Morning, Respected Visitor!';
+    greetMsg = 'Wishing you a bright and productive day!';
+  } else if (hour < 17) {
+    greetText = 'Good Afternoon, Respected Visitor!';
+    greetMsg = 'Continue your day with a smile, we’re here for you!';
+  } else {
+    greetText = 'Good Evening, Respected Visitor!';
+    greetMsg = 'Kick Back, Relax, and Let Your Evening Unfold!';
+  }
+
+  title.textContent = greetText;
+  message.textContent = greetMsg;
+
+  // Show modal
+  modal.classList.add('show');
+  modal.style.display = 'flex';
+
+  // Run confetti only once when modal shows
+  runConfetti();
+
+  function showThankYouToast() {
+  const toast = document.createElement('div');
+  toast.className = 'toast';
+  toast.textContent = '🙏 Thanks for visiting again!';
+  document.body.appendChild(toast);
+
+  // Remove after animation
+  setTimeout(() => {
+    toast.remove();
+  }, 3100);
+}
+
+
+  function closeGreeting() {
+  modal.classList.remove('show');
+  setTimeout(() => {
+    modal.style.display = 'none';
+    sessionStorage.setItem('greetingShown', 'true');
+    showThankYouToast();  // ✅ <-- NEW toast trigger
+  }, 400);
+}
+
+
+  closeBtn.addEventListener('click', closeGreeting);
+
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) {
+      closeGreeting();
     }
-
-    // Time-based greetings
-    const hour = new Date().getHours();
-    let greetText = 'Welcome!';
-    let greetMsg = 'Thanks for visiting our community portal.';
-
-    if (hour < 12) {
-      greetText = 'Good Morning!';
-      greetMsg = 'Hope you have a fresh and productive day!';
-    } else if (hour < 17) {
-      greetText = 'Good Afternoon!';
-      greetMsg = 'Wishing you a great rest of the day.';
-    } else {
-      greetText = 'Good Evening!';
-      greetMsg = 'Relax and enjoy your time with us.';
-    }
-
-    title.textContent = greetText;
-    message.textContent = greetMsg;
-
-    // Show modal
-    modal.style.display = 'flex';
-
-    // Close modal function
-    function closeGreeting() {
-      modal.style.display = 'none';
-      localStorage.setItem('greetingShown', 'true');
-    }
-
-    // Close on button click
-    closeBtn.addEventListener('click', closeGreeting);
-
-    // Close on outside click
-    modal.addEventListener('click', (e) => {
-      if (e.target === modal) closeGreeting();
-    });
-
-    // Close on ESC key
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && modal.style.display === 'flex') {
-        closeGreeting();
-      }
-    });
   });
 
-runConfetti();
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal.classList.contains('show')) {
+      closeGreeting();
+    }
+  });
+
+});
 
 </script>
 
