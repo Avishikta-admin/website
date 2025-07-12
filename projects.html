@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Projects & Upgrades | Avishikta - I Type - A RWA</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+  <style>
+    /* Container for background and content to let layout.js handle main layout */
+    .page-container {
+      position: relative;
+      min-height: 60vh;          /* reduced from 80vh for sleeker height */
+      padding: 10px 20px 10px 20px; /* reduced bottom padding */
+      background: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1350&q=80') no-repeat center center fixed;
+      background-size: cover;
+      color: #333;
+      backdrop-filter: brightness(0.9);
+      box-sizing: border-box;
+      max-width: 900px;
+      margin: 20px auto 60px; /* less top margin, less bottom */
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    /* Overlay to soften background */
+    .page-container::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(255, 255, 255, 0.85);
+      pointer-events: none;
+      z-index: 0;
+      border-radius: 10px;
+    }
+
+    h1 {
+      font-family: 'Playfair Display', serif;
+      color: #4a3575;
+      text-align: center;
+      margin-bottom: 5px; /* slightly less */
+      font-weight: 700;
+      font-size: 2.0rem;
+      letter-spacing: 1.2px;
+      text-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      position: relative;
+      z-index: 1;
+    }
+    h2.section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      color: #4a3575;
+      margin: 10px 0 6px; /* super tight top & bottom */
+      border-bottom: 2px solid #4a3575;
+      padding-bottom: 6px;
+      letter-spacing: 1px;
+      position: relative;
+      z-index: 1;
+    }
+    .project {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+      padding: 20px;
+      margin-bottom: 12px;
+      overflow: hidden;
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+      position: relative;
+      z-index: 1;
+    }
+    main > section {
+      margin-top: 4px;
+      margin-bottom: 4px;
+    }
+    .project img {
+      width: 180px;
+      height: 120px;
+      object-fit: cover;
+      border-radius: 10px;
+      flex-shrink: 0;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    }
+    .project-content {
+      flex: 1;
+    }
+    .project-title {
+      font-size: 1.2rem;
+      color: #4a3575;
+      margin: 0 0 8px 0;
+      font-weight: 700;
+    }
+    .project-status {
+      font-weight: 600;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .status-completed {
+      color: #2a9d8f;
+    }
+    .status-ongoing {
+      color: #e9c46a;
+    }
+    .status-planned {
+      color: #f4a261;
+    }
+    .project-description {
+      font-size: 1rem;
+      line-height: 1.5;
+      color: #555;
+      text-align: justify;
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      .project {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+      .project img {
+        width: 100%;
+        height: auto;
+      }
+      .project-content {
+        width: 100%;
+      }
+    }
+
+    /* Go to Top button styling */
+    #goTopBtn {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: #4a3575;
+      color: white;
+      border: none;
+      padding: 12px 16px;
+      border-radius: 50%;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+      cursor: pointer;
+      font-size: 20px;
+      z-index: 1000;
+      opacity: 0.7;
+      transition: opacity 0.3s ease;
+    }
+    #goTopBtn:hover {
+      opacity: 1;
+      background: #6a5299;
+    }
+  </style>
+</head>
+<body>
+  <main class="page-container" aria-label="Projects and Upgrades">
+    <h1>Projects & Upgrades</h1>
+
+    <section aria-label="Ongoing Projects">
+      <h2 class="section-title">Ongoing Projects</h2>
+
+      <article class="project">
+        <img src="https://images.pexels.com/photos/2898199/pexels-photo-2898199.jpeg" alt="Utility Pole Maintenance" />
+        <div class="project-content">
+          <h2 class="project-title">Electrical Pole Maintenance & Painting</h2>
+          <div class="project-status status-ongoing">
+            <i class="fa-solid fa-spinner fa-spin"></i> Work in Progress
+          </div>
+          <p class="project-description">
+            We are currently repainting and reinforcing all community electrical poles to enhance safety and aesthetics. Expected completion: July 2025.
+          </p>
+        </div>
+      </article>
+    </section>
+
+    <section aria-label="Planned or Upcoming Projects">
+      <h2 class="section-title">Planned / Upcoming Projects</h2>
+
+      <article class="project">
+        <img src="Pump_room_renovation.jpg" alt="Pump Room Renovation" />
+        <div class="project-content">
+          <h2 class="project-title">Renovation and Painting of Pump Room</h2>
+          <div class="project-status status-planned">
+            <i class="fa-solid fa-hourglass-half"></i> Planned
+          </div>
+          <p class="project-description">
+            Scheduled renovation and fresh painting of the pump room to improve durability and aesthetics. This project aims to enhance operational reliability and maintain hygiene standards. Expected start: After Durga Puja.
+          </p>
+        </div>
+      </article>
+    </section>
+
+    <section aria-label="Completed Projects">
+      <h2 class="section-title">Completed Projects</h2>
+
+      <article class="project">
+        <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80" alt="Water Supply Improvement" />
+        <div class="project-content">
+          <h2 class="project-title">Community Drainage Maintenance</h2>
+          <div class="project-status status-completed"><i class="fa-solid fa-check-circle"></i> Completed</div>
+          <p class="project-description">
+            The comprehensive cleaning and maintenance of all stormwater and rainwater pipelines were successfully completed last month, significantly improving drainage efficiency and preventing potential flooding. This ensures a safer and more resilient environment for all residents.
+          </p>
+        </div>
+      </article>
+
+      <article class="project">
+        <img src="https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=600&q=80" alt="New CC Camera Installation" />
+        <div class="project-content">
+          <h2 class="project-title">Additional CCTV Installation</h2>
+          <div class="project-status status-completed"><i class="fa-solid fa-check-circle"></i> Completed</div>
+          <p class="project-description">
+            Installation of three(3) new CCTV cameras at key locations is completed to enhance security across the premises.
+          </p>
+        </div>
+      </article>
+
+      <article class="project">
+        <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80" alt="STP Repairing and Electro-Mechanical Works" />
+        <div class="project-content">
+          <h2 class="project-title">Civil Renovation and Electro-Mechanical Upliftment</h2>
+          <div class="project-status status-completed"><i class="fa-solid fa-check-circle"></i> Completed</div>
+          <p class="project-description">
+            The comprehensive renovation of the Sewage Treatment Plant (STP), including extensive electro-mechanical refurbishment, has been successfully completed to significantly enhance its operational efficiency. Following the upgrades, the STP is now running smoothly and reliably. Additionally, a long-pending replacement of a damaged MCB was carried out to ensure stable electrical connectivity and uninterrupted service.
+          </p>
+        </div>
+      </article>
+
+      <article class="project">
+        <img src="https://images.unsplash.com/photo-1556740749-887f6717d7e4?auto=format&fit=crop&w=600&q=80" alt="New Security Room at Gate 2" />
+        <div class="project-content">
+          <h2 class="project-title">New Security Room Construction at Gate 2</h2>
+          <div class="project-status status-completed"><i class="fa-solid fa-check-circle"></i> Completed</div>
+          <p class="project-description">
+            A modern, state-of-the-art security room has been constructed at Gate 2 to strengthen access control and enhance overall safety. Equipped with advanced surveillance technology and ergonomic design, this facility empowers security personnel to monitor premises effectively and respond swiftly, ensuring a safer environment for all residents.
+          </p>
+        </div>
+      </article>
+    </section>
+
+  </main>
+
+  <button id="goTopBtn" aria-label="Go to top" title="Go to top">
+    <i class="fa-solid fa-arrow-up"></i>
+  </button>
+
+  <script>
+    // Show button when scrolled down 100px
+    const goTopBtn = document.getElementById('goTopBtn');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 100) {
+        goTopBtn.style.display = 'block';
+      } else {
+        goTopBtn.style.display = 'none';
+      }
+    });
+
+    // Scroll smoothly to top on click
+    goTopBtn.addEventListener('click', () => {
+      window.scrollTo({top: 0, behavior: 'smooth'});
+    });
+
+    // Initially hide button
+    goTopBtn.style.display = 'none';
+  </script>
+
+  <script src="layout.js" defer></script>
+</body>
+</html>
