@@ -172,7 +172,7 @@
     /* NAVIGATION STYLES */
     nav#main-nav {
       position: fixed;
-      top: 54px;
+      top: 125px;
       left: 0;
       width: 260px;
       height: calc(100vh - 114px); /* header + footer height reduced */
