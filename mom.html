@@ -8,25 +8,23 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <!-- Your existing layout.js -->
   <script src="layout.js" defer></script>
-  <style>
+
+ <style>
     /* Reset and base */
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       font-family: 'Poppins', sans-serif;
-      background-image: url('Image-3.jpg');
-      background-size: cover;
+  background-image: url('Image-3.jpg');
+  background-size: cover;
+  background-position: center; /* Ensure the background image is centered */
   color: #333;
   min-height: 100vh;
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  justify-content: center; /* Center content horizontally */
+  align-items: center; /* Center content vertically */
   padding: 20px;
-  animation: fadeIn 1s ease-out;
-    }
-    @keyframes gradientAnimation {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
+  overflow-x: hidden; /* Prevent horizontal scroll */
+  flex-direction: column;
     }
     main#contentWrapper {
       max-width: 800px;
@@ -37,11 +35,14 @@
     /* Banner */
     .mom-banner {
       position: relative;
-      border-radius: 8px;
-      overflow: hidden;
-      margin-bottom: 20px;
-      margin-top: 5px;  /* Pushes banner down from top */
-      box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 20px;
+  margin-top: 5px;  /* Pushes banner down from top */
+  box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+  width: 100%;
+  max-width: 900px; /* Limit banner width */
+  height: 220px; /* Adjust height */
     }
     .mom-banner img {
       width: 100%;
@@ -61,13 +62,20 @@
       border-radius: 6px;
       text-shadow: 1px 1px 4px rgba(0,0,0,0.8);
       user-select: none;
-      animation: slideIn 1.5s ease-out;
+      opacity: 0; /* Initially invisible */
+      animation: fadeInText 2s forwards; /* Fade in with animation */
     }
-    @keyframes slideIn {
-  0% { transform: translateY(-50px); opacity: 0; }
-  100% { transform: translateY(0); opacity: 1; }
-}
-    /* Controls */
+@keyframes fadeInText {
+  0% {
+    0% { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
+  100% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1); /* Ends at normal size */
+  }
+}   
+ /* Controls */
     #controls {
       display: flex;
       flex-wrap: wrap;
@@ -180,17 +188,7 @@ button[data-tooltip]:hover::after {
   transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition */
 }
 
-/* Adding fade-in effect for the page load */
-@keyframes fadeIn {
-  0% { opacity: 0; }
-  100% { opacity: 1; }
-}
-
-body {
-  animation: fadeIn 1s ease-out;
-}
-
-    .view-full-btn {
+   .view-full-btn {
       align-self: flex-start;
       background: #0073e6;
       color: white;
@@ -280,9 +278,7 @@ body {
       background: #4b0082;
       animation: bounce 0.5s ease infinite;
     }
-
-
-   main#contentWrapper {
+  main#contentWrapper {
   min-height: 1500px; /* or any large enough value */
 }
 
