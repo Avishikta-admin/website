@@ -66,14 +66,15 @@
     }
 
     #guidelines {
-      max-width: 900px;
+      max-width: 1080px;
       width: 100%;
       background: #fff4e6;
       border-radius: 12px;
-      padding: 20px 25px;
+      padding: 30px 40px;
       color: #4a4a4a;
       box-shadow: 0 8px 15px rgba(0,0,0,0.15);
       margin-bottom: 40px;
+      margin: 0 auto 40px;  /* center with margin */
     }
 
     /* Additional styles for guidelines accordion */
@@ -85,11 +86,14 @@
       padding: 10px 15px;
       box-shadow: 0 2px 6px rgba(0,0,0,0.1);
       color: #2c2c3d;
+      max-width: 100%;    /* make sure details take full width */
     }
     summary {
       font-weight: 600;
       outline: none;
       user-select: none;
+      font-size: 1.1rem;  /* slightly bigger text */
+      padding-left: 10px; /* indent for arrow */
     }
     summary:focus {
       box-shadow: 0 0 0 3px #ffa05a;
@@ -109,7 +113,7 @@
       color: #4a4a4a;
     }
     p {
-      max-width: 900px;
+      max-width: 1080px;
       margin: 30px auto 40px auto;
       background: #fff4e6;
       padding: 15px 20px;
@@ -142,7 +146,7 @@
     }
 
   #image-and-title {
-  margin-top: 50px; /* adjust as needed, e.g., 80–120px */
+  margin-top: 0; /* adjust as needed, e.g., 80–120px */
 }
 
 .notice-box {
@@ -179,7 +183,8 @@
   display: flex;
   gap: 24px; /* space between image and notice */
   align-items: flex-start; /* align top edges */
-  max-width: 900px;  /* or whatever max width fits your design */
+  max-width: 1080px;  /* or whatever max width fits your design */
+  width: 100% !important;
   margin: 0 auto 40px; /* center container with some bottom margin */
   padding: 0 15px; /* some horizontal padding */
   flex-wrap: wrap; /* responsive wrap for small screens */
@@ -222,10 +227,10 @@
 
   </style>
 </head>
+
 <body>
-
+<main>
 <button id="scrollToTop" onclick="window.scrollTo(0, 0);" title="Go to the top">⬆️</button>
-
 
   <section id="image-and-title" aria-labelledby="community-guidelines-heading">
   <div class="flex-container">
@@ -333,5 +338,6 @@
   </section>
 
 <script src="layout.js"></script>
+</main>
 </body>
 </html>
