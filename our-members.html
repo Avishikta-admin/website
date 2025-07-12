@@ -282,20 +282,20 @@
 
 .image-carousel {
   position: relative;
-  width: 85%;
+  width: 75%;
   max-width: 800px;
   height: 200px; /* Reduced height */
-  margin: 15px auto 25px auto;
+  margin: 10px auto 20px auto;
   overflow: hidden;
   border-radius: 12px;
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.12);
 }
 
 .carousel-img {
   position: absolute;
   width: 100%;
   height: 100%;
-  object-fit: cover; /* Maintains aspect ratio and crops nicely */
+  object-fit: contain; /* Maintains aspect ratio and crops nicely */
   opacity: 0;
   transition: opacity 1s ease-in-out; /* 🔽 Faster transition */
   border-radius: 15px;
@@ -339,6 +339,122 @@
   color: white;
   margin-left: 8px; /* Small margin between icon and text */
 }
+
+/* Overlay for password modal */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-overlay.active {
+  display: flex;
+}
+
+.modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 400px;
+  width: 90%;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+  position: relative;
+  text-align: center;
+}
+
+.modal-title {
+  margin-bottom: 20px;
+  color: #0b3d91;
+}
+
+.password-input {
+  padding: 8px 10px;
+  width: 80%;
+  margin-bottom: 15px;
+  font-size: 1rem;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+.submit-btn {
+  padding: 10px 20px;
+  background-color: #1e40af;
+  color: white;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.submit-btn:hover {
+  background-color: #3b82f6;
+  transform: scale(1.05);
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px; right: 10px;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: #888;
+  cursor: pointer;
+}
+
+.close-btn:hover {
+  color: #0b3d91;
+}
+
+/* Toast notification */
+.toast {
+  position: fixed;
+  top: 250px;  /* Adjust this to push the toast down more */
+  left: 50%;  /* Center horizontally */
+  transform: translateX(-50%);  /* Center horizontally */
+  background-color: red;  /* Red background color */
+  color: white;
+  border-radius: 5px;
+  padding: 10px 15px;  /* Adjust padding for smaller toast */
+  font-size: 14px;  /* Smaller text */
+  opacity: 0;
+  visibility: hidden;
+  z-index: 9999;
+  transition: opacity 0.5s, visibility 0.5s;
+  max-width: 300px;  /* Smaller width */
+  min-width: 200px;  /* Minimum width */
+  height: 40px;  /* Set height */
+  text-align: center;
+}
+
+.toast.show {
+  opacity: 1;
+  visibility: visible;
+  animation: fadeInOut 10s;
+}
+
+@keyframes fadeInOut {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  10% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+}
+
 
 </style>
 </head>
@@ -632,22 +748,56 @@ function render() {
   }
 }
 
-// Open modal with password prompt
 function openModal(flatNo) {
   if (!flatData[flatNo]) {
-    alert("Details not found for this flat!!!");
+    showToast("Details not found for this flat!!!");
     return;
   }
 
-  const pwd = prompt(`Enter password for flat ${flatNo}:`);
-  if (pwd === null) return; // user canceled
+  // Clear the password input field
+  document.getElementById("passwordInput").value = '';
 
-  if (pwd !== flatData[flatNo].password) {
-    alert("Not Authorized!!!");
-    return;
-  }
+  // Show the password modal and set the flat number
+  document.getElementById("flatNumberDisplay").textContent = flatNo; 
+  document.getElementById("passwordModal").classList.add("active");
 
-  // Show details in modal
+  // Handle password submit action
+  document.getElementById("submitPasswordBtn").onclick = function() {
+    const pwd = document.getElementById("passwordInput").value.trim();
+    if (pwd === flatData[flatNo].password) {
+      showFlatDetails(flatNo);
+    } else {
+      showToast("Incorrect password!");
+    }
+    document.getElementById("passwordModal").classList.remove("active"); // Close modal after submission
+  };
+
+  // Close modal when clicking on close button or pressing 'Escape' key
+  document.getElementById("closePasswordModalBtn").onclick = closePasswordModal;
+  document.addEventListener("keydown", function(e) {
+    if (e.key === "Escape") {
+      closePasswordModal();
+    }
+  });
+}
+
+function showToast(message) {
+  const toast = document.getElementById("toast");
+  const toastMessage = document.getElementById("toastMessage");
+
+  toastMessage.textContent = message;
+  toast.classList.add("show");
+
+  // Hide toast after 10 seconds
+  setTimeout(function() {
+    toast.classList.remove("show");
+  }, 10000);
+}
+
+
+
+// Show flat details in the main modal
+function showFlatDetails(flatNo) {
   const details = flatData[flatNo].details;
   let html = "<table>";
   for (const key in details) {
@@ -655,10 +805,17 @@ function openModal(flatNo) {
   }
   html += "</table>";
 
-  modalContent.innerHTML = html;
-  modalOverlay.classList.add("active");
+  modalContent.innerHTML = html; // Set details inside the modal
+  modalOverlay.classList.add("active"); // Show the details modal
   modalOverlay.focus();
 }
+
+// Close password modal
+function closePasswordModal() {
+  document.getElementById("passwordModal").classList.remove("active");
+  document.getElementById("passwordInput").value = ""; // Clear input
+}
+
 
 // Close modal function
 function closeModal() {
@@ -778,5 +935,20 @@ setInterval(() => {
 
 <script src="layout.js" defer></script>
 </main>
+
+<!-- Password Modal -->
+<div id="passwordModal" class="modal-overlay" role="dialog" aria-hidden="true">
+  <div class="modal-content">
+    <button id="closePasswordModalBtn" class="close-btn" aria-label="Close Modal">&times;</button>
+    <h3 class="modal-title">Enter Password for Flat <span id="flatNumberDisplay"></span></h3>
+    <input type="password" id="passwordInput" class="password-input" placeholder="Enter Password" aria-label="Password Input" />
+    <button id="submitPasswordBtn" class="submit-btn">Submit</button>
+  </div>
+</div>
+
+<div id="toast" class="toast">
+  <p id="toastMessage">Incorrect password!</p>
+</div>
+
 </body>
 </html>
