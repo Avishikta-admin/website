@@ -8,30 +8,63 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Poppins:wght@600&display=swap" rel="stylesheet">
 
   <style>
-    /* Base Reset */
     *, *::before, *::after { box-sizing: border-box; }
 
-    body {
-      font-family: 'Inter', sans-serif;
-      background: linear-gradient(135deg, #f0f4ff 0%, #d9e4ff 100%);
-      color: #2c3e50;
-      margin: 0;
-      padding: 20px 15px 40px;
-      display: flex;
-      justify-content: center;
-      background-image: radial-gradient(circle, rgba(255,255,255,0.3) 2px, transparent 2px);
-      background-size: 40px 40px;
+  body {
+  margin: 0;
+  min-height: 100vh;
+  background-image: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  font-family: 'Inter', sans-serif;
+  color: #2c3e50;
+}
+
+    /* ✅ Breadcrumb Styles */
+    .breadcrumb {
+      position: relative;
+      font-size: 0.9rem;
+      color: #f5f5dc;
+      background-color: #003366;
+      padding: 6px 12px;
+      margin: 10px 0 20px 0;
+      border-radius: 6px;
+      display: inline-block;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+      user-select: none;
+      z-index: 1000;
+      white-space: nowrap;
     }
 
-    main {
-      background: #fff;
-      max-width: 850px;
-      width: 100%;
-      border-radius: 14px;
-      box-shadow: 0 10px 24px rgba(42, 114, 216, 0.12);
-      padding: 30px 40px 40px;
-      animation: fadeInUp 0.6s ease forwards;
+    .breadcrumb a {
+      color: #f5f5dc;
+      text-decoration: none;
+      font-weight: 600;
     }
+
+    .breadcrumb a:hover {
+      text-decoration: underline;
+      color: #fff;
+    }
+
+    .breadcrumb span {
+      font-weight: 600;
+      color: #f5f5dc;
+    }
+
+  main {
+  background: rgba(255, 255, 255, 0.9); /* slightly transparent so bg shows through */
+  max-width: 850px;
+  width: 100%;
+  border-radius: 14px;
+  box-shadow: 0 10px 24px rgba(42, 114, 216, 0.12);
+  padding: 30px 40px 40px;
+  animation: fadeInUp 0.6s ease forwards;
+  box-sizing: border-box;
+  margin: 0 auto; /* center fallback */
+}
 
     h1 {
       font-family: 'Poppins', sans-serif;
@@ -51,7 +84,6 @@
       font-weight: 500;
     }
 
-    /* FAQ Items */
     .faq-item {
       border-radius: 12px;
       background: #f9fbff;
@@ -128,13 +160,11 @@
       opacity: 1;
     }
 
-    /* Animation */
     @keyframes fadeInUp {
       0% { opacity: 0; transform: translateY(20px); }
       100% { opacity: 1; transform: translateY(0); }
     }
 
-    /* Responsive */
     @media (max-width: 650px) {
       main {
         padding: 24px 20px;
@@ -152,81 +182,101 @@
       }
     }
 
-   #scrollToTop {
-  position: fixed;
-  bottom: 50px; /* Reduced space from bottom */
-  right: 10px;  /* Reduced space from right */
-  background-color: #ff6347;
-  color: white;
-  border-radius: 50%;
-  padding: 10px; /* Reduced padding */
-  font-size: 1rem; /* Smaller font size */
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  border: none;
-  cursor: pointer;
-  z-index: 10000;
-  transition: background-color 0.3s ease;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
+    #scrollToTop {
+      position: fixed;
+      bottom: 50px;
+      right: 10px;
+      background-color: #ff6347;
+      color: white;
+      border-radius: 50%;
+      padding: 10px;
+      font-size: 1rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      border: none;
+      cursor: pointer;
+      z-index: 10000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
 
-#scrollToTop:hover {
-  background-color: #4b0082;
-}
+    #scrollToTop:hover {
+      background-color: #4b0082;
+    }
 
-#scrollToTop:focus {
-  outline: none; /* Remove focus outline */
-}
+    #scrollToTop:focus {
+      outline: none;
+    }
 
-#scrollToTop:hover::after {
-  content: " Go to top"; /* Text shown when hovered */
-  font-size: 0.85rem; /* Smaller text size */
-  color: white;
-  margin-left: 8px; /* Small margin between icon and text */
-}
+    #scrollToTop:hover::after {
+      content: " Go to top";
+      font-size: 0.85rem;
+      color: white;
+      margin-left: 8px;
+    }
   </style>
 </head>
 
 <body>
+  <button id="scrollToTop" onclick="window.scrollTo(0, 0);" title="Go to the top">⬆️</button>
 
-<button id="scrollToTop" onclick="window.scrollTo(0, 0);" title="Go to the top">⬆️</button>
+  <!-- ✅ Breadcrumb will be inserted here by layout.js -->
 
   <main>
     <h1>Frequently Asked Questions</h1>
     <p class="subtitle">Find quick answers to common questions about Avishikta - I Type-A RWA.</p>
 
     <div class="faq-item" tabindex="0">
+      <div class="question">By which date should the maintenance fees be paid each month?</div>
+      <div class="answer">⏰Maintenance fees for the current month must be paid on or before the 15th of the following month. A late fee of Rs. 50.00 will be charged if payment is made after this date.</div>
+    </div>
+
+     <div class="faq-item" tabindex="0">
       <div class="question">How do I book the community hall?</div>
-      <div class="answer">You can book the community hall by filling out the Community Hall Reservation Form available on the Download Center page and submitting it to the management office.</div>
+      <div class="answer">You can book the Community Hall by filling out the <i>Community Hall Reservation Form</i> available on the Download Center page and submitting it to the Association Office located at the Community Hall on the 1st Floor.</div>
     </div>
 
     <div class="faq-item" tabindex="0">
-      <div class="question">Where can I download the maintenance payment forms?</div>
-      <div class="answer">Maintenance payment forms are available for download in the Download Center under the PDF category.</div>
+      <div class="question">Whom should I contact for urgent maintenance issues?</div>
+      <div class="answer">📞 You can contact Mr. Subhash Ch. Pal, the Office Executive, at <b>9073599299</b>.</div>
     </div>
 
     <div class="faq-item" tabindex="0">
       <div class="question">What are the office hours for the management office?</div>
-      <div class="answer">The management office is open from Monday to Friday, 9:00 AM to 5:00 PM.</div>
+      <div class="answer">The management office is open from Monday to Saturday, <b>9:00 AM</b> to <b>12:00 Noon</b> and <b>4:00 PM</b> to <b>6:00 PM</b>. Sunday from <b>9:00 AM</b> to <b>12:00 Noon</b>.</div>
     </div>
 
     <div class="faq-item" tabindex="0">
       <div class="question">How can I contact the security service?</div>
-      <div class="answer">Security service contact numbers are listed on the Emergency Contacts page and on the notice board at the main gate.</div>
+      <div class="answer">Security service contact numbers are listed on the <b>Helpdesk & Contacts</b> page.</div>
     </div>
 
     <div class="faq-item" tabindex="0">
-      <div class="question">Can I pay my maintenance fees online?</div>
-      <div class="answer">Currently, maintenance fees need to be paid at the management office in person. Online payments are being considered.</div>
+      <div class="question">Can I pay my fees online?</div>
+      <div class="answer">Yes, you can conveniently pay your fees online using UPI apps like Google Pay, PhonePe, Paytm, or BHIM..</div>
     </div>
+
+    <div class="faq-item" tabindex="0">
+      <div class="question"> Are pets allowed in the society?</div>
+      <div class="answer">🐾 Yes, pets are allowed, but we request all pet owners to follow community guidelines (please check 'Community Guidelines' under 'RESOURCE' in the navigation bar.</div>
+    </div>
+
+     <div class="faq-item" tabindex="0">
+      <div class="question"> How can I submit feedback or suggestions to the RWA?</div>
+      <div class="answer">📝 You can email us at <b>atarwa2005@gmail.com</b> or drop a note in the suggestion box at the office. We value your input—it helps us serve you better!</div>
+    </div>
+
+    <div class="faq-item" tabindex="0">
+      <div class="question"> Where can I find the latest AGM minutes or community updates?</div>
+      <div class="answer">📂 Visit the "Download Center" and check the Meeting Minutes section. We regularly upload AGM, GB meeting records, and important circulars there.</div>
+    </div>
+
   </main>
 
   <script>
     const faqs = document.querySelectorAll('.faq-item');
     faqs.forEach(item => {
       const question = item.querySelector('.question');
-      
       question.addEventListener('click', () => {
         const isActive = item.classList.contains('active');
         faqs.forEach(i => i.classList.remove('active'));
@@ -234,7 +284,7 @@
       });
 
       item.addEventListener('keydown', e => {
-        if(e.key === 'Enter' || e.key === ' ') {
+        if (e.key === 'Enter' || e.key === ' ') {
           e.preventDefault();
           question.click();
         }
@@ -242,8 +292,7 @@
     });
   </script>
 
-  <!-- Include layout structure -->
-  <script src="layout.js"></script>
+<!-- ✅ This should be last -->
+<script src="layout.js" defer></script>
 </body>
 </html>
-
