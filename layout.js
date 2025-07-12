@@ -128,12 +128,7 @@
     footer .footer-links a.home-link i {
       color: #00e6e6;
     }
-    footer .footer-links a.facebook-link i {
-      color: #1877f2; /* Facebook Blue */
-    }
-    footer .footer-links a.instagram-link i {
-      color: #e1306c; /* Instagram gradient pink */
-    }
+    
     .blinking-text {
       animation: fadeInOut 2s ease-in-out infinite;
       color: #00e6e6;
@@ -418,12 +413,47 @@
   }
 }
 
-
-   @media (min-width: 769px) {
+  @media (min-width: 769px) {
   nav#main-nav.visible-desktop {
     display: flex;
   }
 }
+
+main {
+  position: relative; /* Ensure main is positioned for absolute children */
+}
+
+.breadcrumb {
+  position: relative;         /* allow it to flow naturally within the layout */
+  font-size: 0.9rem;
+  color: #f5f5dc;
+  background-color: #003366;
+  padding: 6px 10px;
+  margin: 16px 0 24px 40px;   /* consistent spacing from top and left */
+  border-radius: 6px;
+  display: inline-block;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+  user-select: none;
+  z-index: 1000;
+}
+
+.breadcrumb a {
+  color: #f5f5dc; /* light cream for links */
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.breadcrumb a:hover {
+  text-decoration: underline;
+  color: #fff;
+}
+
+.breadcrumb span {
+  font-weight: 600;
+  color: #f5f5dc; /* current page label light cream */
+}
+
+
   `;
   document.head.appendChild(style);
 
@@ -449,8 +479,6 @@
       </div>
       <div class="footer-links" aria-label="Footer navigation links">
         <a href="index.html" class="home-link"><i class="fas fa-home"></i> Home</a>
-        <a href="https://facebook.com" target="_blank" rel="noopener" class="facebook-link"><i class="fab fa-facebook"></i> Facebook</a>
-        <a href="https://instagram.com" target="_blank" rel="noopener" class="instagram-link"><i class="fab fa-instagram"></i> Instagram</a>
       </div>
       <div class="current-time" id="current-time"></div>
     </footer>
@@ -479,12 +507,13 @@
             <i class="fas fa-folder" aria-hidden="true"></i> Resources
           </button>
           <ul id="resources-submenu" role="menu">
-            <li role="none"><a href="view-announcements.html" role="menuitem" title="Check announcements"><i class="fas fa-bullhorn" aria-hidden="true"></i> View Announcements</a></li>
+            <li role="none"><a href="view-announcements.html" role="menuitem" title="Check announcements"><i class="fas fa-bullhorn" aria-hidden="true"></i> Newsletter</a></li>
             <li role="none"><a href="events.html" role="menuitem" title="View our community calendar and photo gallery"><i class="fas fa-calendar-alt" aria-hidden="true"></i> Events & Shared Moments</a></li>
             <li role="none"><a href="mom.html" role="menuitem" title="MoM"><i class="fas fa-file-alt" aria-hidden="true"></i> Meeting Minutes</a></li>
             <li role="none"><a href="general-guidelines.html" role="menuitem" title="General guidelines"><i class="fas fa-book" aria-hidden="true"></i> Community Guidelines</a></li>
-            <li role="none"><a href="useful-links.html" role="menuitem" title="Get help and find important contact information"><i class="fas fa-headset" aria-hidden="true"></i> Helpdesk & Contacts</a></li>
+            <li role="none"><a href="useful-links.html" role="menuitem" title="Get help and find important contact information"><i class="fas fa-headset" aria-hidden="true"></i> Contacts & Support</a></li>
             <li role="none"><a href="download-center.html" role="menuitem" title="Access important documents and forms for download"><i class="fas fa-cloud-download-alt" aria-hidden="true"></i> Download-center</a></li>
+            <li role="none"><a href="projects.html" role="menuitem" title="View projects and upgrades"><i class="fas fa-tools" aria-hidden="true" aria-hidden="true"></i> Projects & Upgrades</a></li>
         </ul>
         </li>
 
@@ -646,5 +675,67 @@ window.addEventListener("resize", () => {
     updateNavVisibility();
   }, 150);
 });
+
+function renderBreadcrumb() {
+  const breadcrumbMap = {
+    'index.html': ['Home'],
+    'about-us.html': ['Home', 'Association', 'Who We Are'],
+    'vision-mission.html': ['Home', 'Association', 'Vision & Mission'],
+    'governing-body.html': ['Home', 'Association', 'Executive Committee'],
+    'our-members.html': ['Home', 'Association', 'Residents Directory'],
+    'view-announcements.html': ['Home', 'Resources', 'Announcements'],
+    'mom.html': ['Home', 'Resources', 'Meeting Minutes'],
+    'events.html': ['Home', 'Resources', 'Event Calendar'],
+    'general-guidelines.html': ['Home', 'Resources', 'Community Guidelines'],
+    'download-center.html': ['Home', 'Resources', 'Download Center'],
+    'useful-links.html': ['Home', 'Resources', 'Helpdesk & Contacts'],
+    'feedback.html': ['Home', 'Give Feedback'],
+    'contact-us.html': ['Home', 'Get in Touch'],
+    'faq.html': ['Home', 'Help & FAQs'],
+    'projects.html': ['Home', 'Projects & Upgrades']
+  };
+
+  const pageLinks = {
+    'Home': 'index.html',
+    'Association': '#',
+    'Who We Are': 'about-us.html',
+    'Vision & Mission': 'vision-mission.html',
+    'Executive Committee': 'governing-body.html',
+    'Residents Directory': 'our-members.html',
+    'Resources': '#',
+    'Announcements': 'view-announcements.html',
+    'Meeting Minutes': 'mom.html',
+    'Event Calendar': 'events.html',
+    'Community Guidelines': 'general-guidelines.html',
+    'Download Center': 'download-center.html',
+    'Projects & Upgrades': 'projects.html',
+    'Helpdesk & Contacts': 'useful-links.html',
+    'Give Feedback': 'feedback.html',
+    'Get in Touch': 'contact-us.html',
+    'Help & FAQs': 'faq.html'
+  };
+
+  const fileName = window.location.pathname.split('/').pop();
+  const crumbs = breadcrumbMap[fileName];
+  if (!crumbs) return;
+
+  const breadcrumbNav = document.createElement('nav');
+  breadcrumbNav.className = 'breadcrumb';
+  breadcrumbNav.setAttribute('aria-label', 'breadcrumb');
+
+  breadcrumbNav.innerHTML = crumbs.map((label, i) => {
+    if (i === crumbs.length - 1) return `<span>${label}</span>`;
+    const href = pageLinks[label] || '#';
+    return `<a href="${href}">${label}</a> &gt; `;
+  }).join('');
+
+  // ✅ Insert breadcrumb ABOVE <main>, not inside it
+  const main = document.querySelector('main');
+  if (main && main.parentNode) {
+    main.parentNode.insertBefore(breadcrumbNav, main);
+  }
+}
+
+document.addEventListener('DOMContentLoaded', renderBreadcrumb);
 
 })();
