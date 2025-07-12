@@ -411,9 +411,10 @@
 }
 
 /* Toast notification */
+/* Toast container (background and overall design) */
 .toast {
   position: fixed;
-  top: 300px;  /* Adjust this to push the toast down more */
+  top: 300px;  /* Adjust this to push the toast further down */
   left: 50%;  /* Center horizontally */
   transform: translateX(-50%);  /* Center horizontally */
   background-color: red;  /* Red background color */
@@ -431,12 +432,14 @@
   text-align: center;
 }
 
+/* When toast is shown */
 .toast.show {
   opacity: 1;
   visibility: visible;
-  animation: fadeInOut 10s;
+  animation: fadeInOut 3s ease-out forwards;  /* Keep the 3s duration */
 }
 
+/* Animation for fade-in and fade-out */
 @keyframes fadeInOut {
   0% {
     opacity: 0;
@@ -454,6 +457,7 @@
     transform: translateY(20px);
   }
 }
+
 
 
 </style>
@@ -781,18 +785,29 @@ function openModal(flatNo) {
   });
 }
 
+// Function to show toast
 function showToast(message) {
-  const toast = document.getElementById("toast");
-  const toastMessage = document.getElementById("toastMessage");
+  var toast = document.createElement('div');
+  toast.className = 'toast';
+  toast.textContent = message;
+  document.body.appendChild(toast);
+  
+  // Show the toast
+  setTimeout(function () {
+    toast.classList.add('show');
+  }, 100);  // Slight delay before showing
 
-  toastMessage.textContent = message;
-  toast.classList.add("show");
-
-  // Hide toast after 10 seconds
-  setTimeout(function() {
-    toast.classList.remove("show");
-  }, 10000);
+  // Hide the toast after the animation duration (3 seconds in this case)
+  setTimeout(function () {
+    toast.classList.remove('show');
+    
+    // Remove the toast from the DOM after it fades out
+    setTimeout(function () {
+      toast.remove();
+    }, 500);  // Give time for the fade-out animation to finish (500ms)
+  }, 3000);  // Toast stays for 3 seconds (visible during fade-out)
 }
+
 
 
 
