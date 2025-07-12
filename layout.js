@@ -135,7 +135,6 @@
     }
 
 /* Style for Hamburger Button */
-
 .hamburger {
   background: none;
   border: none;
@@ -172,7 +171,7 @@
     /* NAVIGATION STYLES */
     nav#main-nav {
       position: fixed;
-      top: 60px;
+      top: 54px;
       left: 0;
       width: 260px;
       height: calc(100vh - 114px); /* header + footer height reduced */
@@ -187,8 +186,6 @@
       user-select:none;
       overflow-y: auto;
       transition: background-color 0.3s ease, transform 0.3s ease, opacity 0.3s ease;
-      transform: translateY(-20px); /* Menu starts slightly above */
-      pointer-events: none; /* Disable interaction when closed */
     }
     nav#main-nav:hover {
       background-color: #003366;
@@ -343,8 +340,8 @@
       border-radius: 4px;
     }
 
-    /* Responsive tweaks */
-    /* ✅ Mobile-specific styles for hamburger menu and responsive nav */
+/* Responsive tweaks */
+/* ✅ Mobile-specific styles for hamburger menu and responsive nav */
 @media (max-width: 768px) {
   body {
     padding-left: 0;
@@ -357,7 +354,7 @@
   nav#main-nav {
     display: none;
     position: fixed;
-    top: 54px;
+    top: 60px;
     left: 0;
     width: 100%;
     height: auto;
@@ -366,7 +363,7 @@
     overflow-y: auto;
     padding: 10px 5px;
     background-color: rgba(0, 0, 0, 0.9);
-    z-index: 9999;
+    z-index: 10000;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
     transition: transform 0.3s ease, opacity 0.3s ease;
     opacity: 0;
@@ -464,8 +461,8 @@ main {
     <header>
 
     <button id="hamburger" class="hamburger" aria-label="Toggle menu" aria-expanded="false">
-  &#9776; <!-- This is the hamburger icon (three lines) -->
-</button>      
+        &#9776; <!-- This is the hamburger icon (three lines) -->
+    </button>
 
       AVISHIKTA PHASE – 1 LIG (TYPE – A) APARTMENT RESIDENTS’ WELFARE ASSOCIATION<br>
       369/1, PURBACHAL KALITALA ROAD, KOLKATA – 700078
