@@ -12,12 +12,14 @@
   <link rel="stylesheet" href="css/responsive-fix.css" />
 
   <style>
+    /* Global Styles */
     html, body {
       margin: 0;
       padding: 0;
-      height: 100%;
       font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(135deg, #1f2f98, #3646ad);
+      background: linear-gradient(135deg, #0a174e, #2c3e6c);
+      color: #fff;
+      height: 100%;
       overflow-x: hidden;
       display: flex;
       flex-direction: column;
@@ -26,10 +28,10 @@
     main {
       flex-grow: 1;
       max-width: 900px;
-      margin: 20px auto;
-      background: rgba(255, 0, 0, 0.15);
+      margin: -20px auto 20px auto;
+      background: rgba(255, 0, 0, 0.1);
       border-radius: 20px;
-      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.25);
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.3);
       padding: 1rem 2rem 0.5rem 2rem;
       backdrop-filter: blur(12px);
       user-select: none;
@@ -55,32 +57,28 @@
       text-align: center;
       color: #ffeaa7;
       margin: 0 0 1rem 0;
-      text-shadow: 0 0 8px #ffeaa7aa;
       font-weight: 900;
       letter-spacing: 0.08em;
-      user-select: text;
       font-size: 1.8rem;
+      text-shadow: 0 0 8px #ffeaa7aa;
     }
 
     .subtitle {
       text-align: center;
-      margin-top: -0.4rem;
-      margin-bottom: 1rem;
       font-size: 1rem;
       font-style: italic;
       color: #fff8dc;
       text-shadow: 0 0 6px #00000033;
+      margin: -0.4rem 0 1rem 0;
     }
 
     details {
       background: rgba(0,0,0,0.15);
       border-radius: 12px;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.4);
       padding: 15px 20px;
       margin-top: 0.5rem;
       color: #fff;
       font-weight: 600;
-      user-select: text;
       transition: background-color 0.3s ease;
     }
 
@@ -92,7 +90,6 @@
       font-size: 1.15rem;
       font-weight: 700;
       cursor: pointer;
-      user-select: none;
       color: #ffeaa7;
       list-style: none;
       padding: 6px 0;
@@ -112,7 +109,6 @@
       font-weight: 900;
       margin-right: 8px;
       color: #ffeaa7;
-      text-shadow: 0 0 5px #ffc107aa;
     }
 
     details[open] summary:before {
@@ -139,7 +135,6 @@
       border: 1px solid rgba(255, 255, 255, 0.3);
       padding: 6px 10px;
       text-align: left;
-      user-select: text;
     }
 
     td i {
@@ -148,11 +143,10 @@
     }
 
     thead {
-      background: #ffc107cc;
+      background: #ffc107;
       color: #222;
       font-weight: 700;
       letter-spacing: 0.05em;
-      text-shadow: none;
     }
 
     tbody tr:nth-child(even) {
@@ -176,7 +170,7 @@
 
     @media (max-width: 600px) {
       main {
-        padding: 1rem 1rem 0.5rem 1rem;
+        padding: 1rem;
         max-width: 95%;
       }
 
@@ -194,40 +188,36 @@
     }
 
     td.highlight-cell {
-  position: relative;
-  cursor: help;
-  color: #fff9c4;
-  max-width: 100px;  /* keep it compact */
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-}
+      position: relative;
+      cursor: help;
+      color: #fff9c4;
+      max-width: 100px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
 
-td.highlight-cell:hover::after {
-  content: attr(data-highlight);
-  position: absolute;
-  left: 0;
-  bottom: 120%;
-  background: rgba(44, 20, 82, 0.9);
-  color: #fff;
-  padding: 6px 10px;
-  border-radius: 6px;
-  white-space: normal;
-  max-width: 250px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.4);
-  z-index: 10;
-  opacity: 1;
-  transition: opacity 0.3s ease;
-  pointer-events: none;
-}
+    td.highlight-cell:hover::after {
+      content: attr(data-highlight);
+      position: absolute;
+      left: 0;
+      bottom: 120%;
+      background: rgba(44, 20, 82, 0.9);
+      color: #fff;
+      padding: 6px 10px;
+      border-radius: 6px;
+      max-width: 250px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+      z-index: 10;
+      opacity: 1;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+    }
 
-td.highlight-cell::after {
-  opacity: 0;
-  content: '';
-  pointer-events: none;
-}
-
-
+    td.highlight-cell::after {
+      opacity: 0;
+      content: '';
+      pointer-events: none;
+    }
   </style>
 </head>
 
@@ -272,6 +262,6 @@ td.highlight-cell::after {
   <div id="footer"></div>
 
   <!-- layout.js must be loaded last -->
-  <script src="layout.js"></script>
+  <script src="layout.js" defer></script>
 </body>
 </html>
