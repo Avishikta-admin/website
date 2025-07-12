@@ -6,7 +6,6 @@
   <title>About Us | Avishikta Type - A RWA</title>
 
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css" />
 
   <style>
     html, body {
@@ -15,7 +14,7 @@
       font-family: 'Poppins', sans-serif;
       background: linear-gradient(135deg, #667eea, #764ba2);
       color: #222;
-      overflow-y: auto; /* ✅ Allow vertical scrolling */
+      overflow-y: auto;
       box-sizing: border-box;
       width: 100%;
     }
@@ -114,14 +113,14 @@
       }
     }
 
-  #scrollToTop {
+#scrollToTop {
   position: fixed;
   bottom: 50px; /* Reduced space from bottom */
-  right: 25px;  /* Reduced space from right */
+  right: 20px;  /* Reduced space from right */
   background-color: #ff6347;
   color: white;
   border-radius: 50%;
-  padding: 10px; /* Reduced padding */
+  padding: 5px; /* Reduced padding */
   font-size: 1rem; /* Smaller font size */
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   border: none;
@@ -143,15 +142,16 @@
 
 #scrollToTop:hover::after {
   content: " Go to top"; /* Text shown when hovered */
-  font-size: 0.85rem; /* Smaller text size */
+  font-size: 1rem; /* Smaller text size */
   color: white;
   margin-left: 8px; /* Small margin between icon and text */
 }
+
 </style>
 </head>
 <body>
 
-<button id="scrollToTop" onclick="window.scrollTo(0, 0);" title="Go to the top">⬆️</button>
+<button id="scrollToTop" title="Go to the top">⬆️</button>
 
   <!-- Layout Header & Navigation -->
   <div id="header"></div>
@@ -182,6 +182,18 @@
   <!-- Layout Footer -->
   <div id="footer"></div>
 
-  <script src="layout.js" defer></script>
+<script src="layout.js" defer></script>
+
+<script>
+  document.getElementById('scrollToTop').addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
+  });
+</script>
+
+
+</script>
+
 </body>
 </html>
