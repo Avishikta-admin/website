@@ -68,6 +68,7 @@
       font-weight: 600;
       font-size: 0.95rem;
       line-height: 1.4;
+      z-index: 9998; /* Ensure header is below the nav */
     }
     footer {
       bottom: 0;
