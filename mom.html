@@ -12,76 +12,70 @@
  <style>
     /* Reset and base */
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: 'Poppins', sans-serif;
-  background-image: url('Image-3.jpg');
-  background-size: cover;
-  background-position: center; /* Ensure the background image is centered */
-  color: #333;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center; /* Center content horizontally */
-  align-items: center; /* Center content vertically */
-  padding: 20px;
-  overflow-x: hidden; /* Prevent horizontal scroll */
-  flex-direction: column;
-    }
-    main#contentWrapper {
-      max-width: 800px;
+  body {
+      font-family: 'Nunito', sans-serif;
+      background-color: #f4f4f9;
+      color: #333;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 0;
+      margin: 0;
       width: 100%;
-      margin: auto 60px;
-      padding: 0 10px;
+      flex-direction: column;
     }
-    /* Banner */
-    .mom-banner {
-      position: relative;
-  border-radius: 8px;
-  overflow: hidden;
-  margin-bottom: 20px;
-  margin-top: 5px;  /* Pushes banner down from top */
-  box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+    main {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+  /* Banner */
+.mom-banner {
   width: 100%;
-  max-width: 900px; /* Limit banner width */
-  height: 220px; /* Adjust height */
-    }
-    .mom-banner img {
-      width: 100%;
       height: 180px;
-      object-fit: cover;
-      display: block;
-    }
-    .mom-banner h2 {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
+      background-image: url('Image-1.jpg');
+      background-size: cover;
+      background-position: center;
+      border-radius: 12px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       color: white;
-      font-size: 2rem;
-      background: rgba(0,0,0,0.6);
-      padding: 10px 20px;
-      border-radius: 6px;
-      text-shadow: 1px 1px 4px rgba(0,0,0,0.8);
-      user-select: none;
-      opacity: 0; /* Initially invisible */
-      animation: fadeInText 2s forwards; /* Fade in with animation */
-    }
-@keyframes fadeInText {
-  0% {
-    0% { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
-  100% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-  }
-  100% {
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(1); /* Ends at normal size */
-  }
-}   
+      text-align: center;
+      padding: 15px;
+}
+
+/* Image */
+.mom-banner img {
+  width: 100%;         /* Make image fill the width of the container */
+  height: 100%;        /* Make image fill the height of the container */
+  object-fit: cover;   /* Ensure image covers the full area */
+  display: block;      /* Make sure image is a block element */
+}
+
+/* Text */
+.mom-banner h2 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      background: rgba(0, 0, 0, 0.5);
+      padding: 12px 25px;
+      border-radius: 8px;
+}
+
+       
  /* Controls */
     #controls {
       display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
+      gap: 15px;
+      margin: 20px 0;
       justify-content: center;
-      margin-bottom: 25px;
+      align-items: center;
+      flex-wrap: wrap;
     }
     #controls input[type="text"], 
     #controls select {
@@ -94,11 +88,12 @@
     }
     #controls button {
       padding: 8px 16px;
-      font-size: 1rem;
+      font-size: 0.85rem;
+      font-weight: bold;
       border-radius: 6px;
       border: 1px solid #0073e6;
-      background: white;
-      color: #0073e6;
+      background-color: #007bff;
+      color: white;
       cursor: pointer;
       transition: background-color 0.3s ease;
     }
@@ -123,7 +118,7 @@
       transition: opacity 0.3s ease;
     }
     
-    button[data-tooltip]::after {
+  button[data-tooltip]::after {
   content: attr(data-tooltip);
   position: absolute;
   bottom: 125%; /* push tooltip above the button */
@@ -147,16 +142,18 @@ button[data-tooltip]:hover::after {
   pointer-events: auto;
 }
 
-
    .action-btn:hover, .delete-btn:hover {
       opacity: 1;
       transform: scale(1.05);
     }
     /* MoM list */
     #momList {
-      display: flex;
-      flex-direction: column;
-      gap: 18px;
+      display: flex; /* Flex layout instead of grid */
+      gap: 15px;
+      flex-wrap: nowrap; /* Prevent wrapping */
+      margin-top: 20px;
+      overflow-x: auto; /* Allow horizontal scrolling if necessary */
+      width: 100%; /* Ensure it takes up the full width of the parent container */
     }
     .mom-summary {
       background: white;
@@ -169,24 +166,27 @@ button[data-tooltip]:hover::after {
     }
     .mom-summary h3 {
       color: #0073e6;
-      font-size: 1.25rem;
+      font-size: 1.0rem;
+      white-space: nowrap;  /* Prevent text wrapping */
+      overflow: hidden;     /* Hide overflowed text */
+      text-overflow: ellipsis; /* Optional: Add ellipsis if text is cut off */
     }
     .mom-summary.mom-date {
-      font-size: 0.9rem;
+      font-size: 0.7rem;
       color: #555;
     }
     .mom-summary p {
-      font-size: 1rem;
+      font-size: 0.85rem;
       line-height: 1.4;
       color: #333;
       text-align: justify; /* Added justification */
     }
     /* Add hover effect on MoM summaries */
-.mom-summary:hover {
-  transform: translateY(-8px); /* Slightly lift the card */
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Enhanced shadow */
-  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition */
-}
+   .mom-summary:hover {
+      transform: translateY(-8px); /* Slightly lift the card */
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Enhanced shadow */
+      transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition */
+    }
 
    .view-full-btn {
       align-self: flex-start;
@@ -196,7 +196,7 @@ button[data-tooltip]:hover::after {
       border: none;
       border-radius: 6px;
       cursor: pointer;
-      font-size: 0.95rem;
+      font-size: 0.85rem;
       transition: background-color 0.3s ease;
     }
     .view-full-btn:hover {
@@ -278,20 +278,15 @@ button[data-tooltip]:hover::after {
       background: #4b0082;
       animation: bounce 0.5s ease infinite;
     }
-  main#contentWrapper {
-  min-height: 1500px; /* or any large enough value */
-}
-
-  </style>
+</style>
 </head>
 <body>
 
 <button id="scrollToTop" title="Go to top">&#8679;</button>
 
-<main id="contentWrapper">
+<main>
   <!-- Banner with image + text -->
   <div class="mom-banner">
-    <img src="Image-1.jpg" alt="Meeting Banner" />
     <h2>Minutes of Meetings</h2>
   </div>
 
