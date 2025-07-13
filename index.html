@@ -497,26 +497,6 @@
 
   <script>
 
-    // Ticker pause/play functionality
-    const ticker = document.getElementById('ticker');
-    const pauseBtn = document.getElementById('pauseBtn');
-    let isPaused = false;
-
-    pauseBtn.addEventListener('click', () => {
-      isPaused = !isPaused;
-      if (isPaused) {
-        ticker.style.animationPlayState = 'paused';
-        pauseBtn.textContent = 'Play';
-        pauseBtn.setAttribute('aria-pressed', 'true');
-        pauseBtn.setAttribute('aria-label', 'Play news ticker');
-      } else {
-        ticker.style.animationPlayState = 'running';
-        pauseBtn.textContent = 'Pause';
-        pauseBtn.setAttribute('aria-pressed', 'false');
-        pauseBtn.setAttribute('aria-label', 'Pause news ticker');
-      }
-    });
-
     // Welcome Overlay Countdown + Progress + Fade + Confetti
 
     const mainContent = document.querySelector('main');
