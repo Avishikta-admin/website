@@ -235,21 +235,35 @@
   #noticeBanner {
     position: fixed;
     top: 10px;
-    left: 75%;
+    left: 50%; /* Changed from 75% to center better on all screens */
     transform: translateX(-50%);
-    background: linear-gradient(45deg, #ff6f61, #f8b400); /* Gradient color */
-    color: white;
-    font-weight: bold;
-    padding: 6px 12px;
+    background-color: rgba(255, 248, 220, 0.7); /* Cornsilk/Light Gold */
+    color: #333333; /* Dark text for contrast */
+    font-weight: 600;
+    padding: 8px 14px;
     border-radius: 15px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     display: none; /* Hidden by default */
     animation: fadeIn 1s ease-out forwards;
     z-index: 9999;
-    font-size: 0.85rem;
+    font-size: 0.9rem;
     max-width: 90%;
-    text-align: left;
-  }
+    width: auto;
+    text-align: justify;
+    word-break: break-word;
+    line-height: 1.4;
+}
+
+/* Responsive adjustment for very small screens */
+@media (max-width: 480px) {
+    #noticeBanner {
+        font-size: 0.8rem;
+        padding: 10px;
+        border-radius: 10px;
+        max-width: 95%;
+    }
+}
+
 
   /* Animation for fading in the banner */
   @keyframes fadeIn {
@@ -282,9 +296,9 @@
 
 .image-carousel {
   position: relative;
-  width: 75%;
-  max-width: 800px;
-  height: 200px; /* Reduced height */
+  width: 50%; /* Responsive width */
+  max-width: 300px;
+  aspect-ratio: 4 / 3; /* Keeps aspect ratio on all devices */
   margin: 10px auto 20px auto;
   overflow: hidden;
   border-radius: 12px;
@@ -295,16 +309,17 @@
   position: absolute;
   width: 100%;
   height: 100%;
-  object-fit: contain; /* Maintains aspect ratio and crops nicely */
+  object-fit: cover; /* Fully fills container */
   opacity: 0;
-  transition: opacity 1s ease-in-out; /* 🔽 Faster transition */
-  border-radius: 15px;
+  transition: opacity 1s ease-in-out;
+  border-radius: 12px;
 }
 
 .carousel-img.active {
   opacity: 1;
   z-index: 2;
 }
+
 
 #scrollToTop {
   position: fixed;
@@ -467,7 +482,7 @@
 <main>
 <button id="scrollToTop" onclick="window.scrollTo(0, 0);" title="Go to the top">⬆️</button>
 
-<p class="subtitle">Members Directory - Coming Soon!</p>
+<p class="subtitle">Members Directory – Planned for Release (Pending Setup & Approval)</p>
 
 <div class="image-carousel">
   <img class="carousel-img active" src="Image-1.jpg" alt="Community Image 1" />
@@ -477,7 +492,7 @@
 
 <!-- Beautiful Dummy Data Banner -->
   <div id="noticeBanner">
-    <span>Kindly Note: This is dummy data for demonstration purposes!"</span>
+    <span>"Kindly Note: The directory will go live after database integration and members’ consent for displaying personal information."</span>
     <button id="closeBannerBtn" onclick="closeNotice()">×</button>
 </div>
 
@@ -947,7 +962,6 @@ setInterval(() => {
 }, 2000); // Change image every 2 seconds
 
 </script>
-
 <script src="layout.js" defer></script>
 </main>
 
