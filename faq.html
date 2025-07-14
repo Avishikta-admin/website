@@ -21,6 +21,19 @@
   font-family: 'Inter', sans-serif;
   color: #2c3e50;
 }
+html {
+  scroll-behavior: smooth;
+}
+
+h1 span, p.subtitle span {
+  transition: transform 0.3s ease;
+  display: inline-block;
+}
+
+h1 span:hover, p.subtitle span:hover {
+  transform: rotate(15deg) scale(1.2);
+  cursor: default;
+}
 
     /* ✅ Breadcrumb Styles */
     .breadcrumb {
@@ -73,6 +86,9 @@
       font-size: 2.3rem;
       margin: 0 0 10px;
       font-weight: 700;
+      border-bottom: 3px solid #2a72d8;
+      padding-bottom: 8px;
+      margin-bottom: 16px;
       text-shadow: 0 2px 6px rgba(42,114,216,0.2);
     }
 
@@ -102,6 +118,7 @@
     .faq-item:focus-within {
       outline: 2px solid #2a72d8;
       border-color: #2a72d8;
+      outline: 3px solid #2a72d8;
     }
 
     .question {
@@ -124,6 +141,7 @@
 
     .question:hover {
       background: linear-gradient(90deg, #c3dafd 0%, #aecbfd 100%);
+      text-align:justify;
     }
 
     .question::after {
@@ -152,6 +170,7 @@
       border-radius: 0 0 12px 12px;
       opacity: 0;
       transition: max-height 0.4s ease, padding 0.4s ease, opacity 0.4s ease;
+      text-align:justify;
     }
 
     .faq-item.active .answer {
@@ -223,52 +242,60 @@
   <!-- ✅ Breadcrumb will be inserted here by layout.js -->
 
   <main>
-    <h1>Frequently Asked Questions</h1>
-    <p class="subtitle">Find quick answers to common questions about Avishikta - I Type-A RWA.</p>
+    <h1><span aria-hidden="true" style="margin-right: 8px;">❓</span>Frequently Asked Questions</h1>
+<p class="subtitle"><span aria-hidden="true" style="margin-right: 6px;">🔍</span>Quick, easy answers to help you get the most out of your community experience.</p>
 
     <div class="faq-item" tabindex="0">
-      <div class="question">By which date should the maintenance fees be paid each month?</div>
-      <div class="answer">⏰Maintenance fees for the current month must be paid on or before the 15th of the following month. A late fee of Rs. 50.00 will be charged if payment is made after this date.</div>
+      <div class="question">⏰By which date should the maintenance fees be paid each month?</div>
+      <div class="answer">Maintenance fees for the current month must be paid on or before the 15th of the following month. A late fee of Rs. 50.00 will be charged if payment is made after this date.</div>
     </div>
 
-     <div class="faq-item" tabindex="0">
-      <div class="question">How do I book the community hall?</div>
+      <div class="faq-item" tabindex="0">
+      <div class="question">🔔What is the procedure for carrying out alterations, repairs, or installations within my flat?</div>
+      <div class="answer">While residents are free to carry out work within their flats, the Association must be informed at least 7 days in advance to ensure that safety, structural integrity, and community norms are upheld during the process. Hence,residents must: &nbsp;
+      <ul><li>Review the protocol available under Community Guidelines in the RESOURCE menu.</li>
+          <li>Download  (available soon in the Download-Center under RESOURCE menu after AGM approval) and submit the filled form  at the association office.</li></ul>
+      </div>
+      </div>     
+
+<div class="faq-item" tabindex="0">
+      <div class="question">📝How do I book the community hall?</div>
       <div class="answer">You can book the Community Hall by filling out the <i>Community Hall Reservation Form</i> available on the Download Center page and submitting it to the Association Office located at the Community Hall on the 1st Floor.</div>
     </div>
 
     <div class="faq-item" tabindex="0">
-      <div class="question">Whom should I contact for urgent maintenance issues?</div>
-      <div class="answer">📞 You can contact Mr. Subhash Ch. Pal, the Office Executive, at <b>9073599299</b>.</div>
+      <div class="question">📞Whom should I contact for urgent maintenance issues?</div>
+      <div class="answer"> You can contact Mr. Subhash Ch. Pal, the Office Executive, at <b>9073599299</b>.</div>
     </div>
 
     <div class="faq-item" tabindex="0">
-      <div class="question">What are the office hours for the management office?</div>
+      <div class="question">🕒What are the office hours for the management office?</div>
       <div class="answer">The management office is open from Monday to Saturday, <b>9:00 AM</b> to <b>12:00 Noon</b> and <b>4:00 PM</b> to <b>6:00 PM</b>. Sunday from <b>9:00 AM</b> to <b>12:00 Noon</b>.</div>
     </div>
 
     <div class="faq-item" tabindex="0">
-      <div class="question">How can I contact the security service?</div>
+      <div class="question">👮How can I contact the security service?</div>
       <div class="answer">Security service contact numbers are listed on the <b>Helpdesk & Contacts</b> page.</div>
     </div>
 
     <div class="faq-item" tabindex="0">
-      <div class="question">Can I pay my fees online?</div>
-      <div class="answer">Yes, you can conveniently pay your fees online using UPI apps like Google Pay, PhonePe, Paytm, or BHIM..</div>
+      <div class="question">📲Can I pay my fees online?</div>
+      <div class="answer">Yes, fees can be conveniently paid online using popular UPI apps such as Google Pay, PhonePe, Paytm, or BHIM</div>
     </div>
 
     <div class="faq-item" tabindex="0">
-      <div class="question"> Are pets allowed in the society?</div>
-      <div class="answer">🐾 Yes, pets are allowed, but we request all pet owners to follow community guidelines (please check 'Community Guidelines' under 'RESOURCE' in the navigation bar.</div>
+      <div class="question">🐾Are pets allowed in the society?</div>
+      <div class="answer">Yes, pets are allowed, but we request all pet owners to follow community guidelines (please check 'Community Guidelines' under 'RESOURCE' in the navigation bar.</div>
     </div>
 
      <div class="faq-item" tabindex="0">
-      <div class="question"> How can I submit feedback or suggestions to the RWA?</div>
-      <div class="answer">📝 You can email us at <b>atarwa2005@gmail.com</b> or drop a note in the suggestion box at the office. We value your input—it helps us serve you better!</div>
+      <div class="question">📩How can I submit feedback or suggestions to the RWA?</div>
+      <div class="answer">You can email us at <b>atarwa2005@gmail.com</b> or drop a note in the suggestion box at the office. We value your input—it helps us serve you better!</div>
     </div>
 
     <div class="faq-item" tabindex="0">
-      <div class="question"> Where can I find the latest AGM minutes or community updates?</div>
-      <div class="answer">📂 Visit the "Download Center" and check the Meeting Minutes section. We regularly upload AGM, GB meeting records, and important circulars there.</div>
+      <div class="question"> 📂Where can I find the latest AGM minutes or community updates?</div>
+      <div class="answer"> Visit the "Download Center" and check the Meeting Minutes section. We regularly upload AGM, GB meeting records, and important circulars there.</div>
     </div>
 
   </main>
