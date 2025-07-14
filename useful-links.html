@@ -13,7 +13,11 @@
     body {
       margin: 0;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(135deg, #e6f0ff 0%, #ffffff 100%);
+      background-image: url('Image-3.jpg');
+      background-repeat: no-repeat;
+      background-position: center center;
+      background-attachment: fixed;
+      background-size: cover;
       color: #1b1b1b;
       display: flex;
       flex-direction: column;
@@ -24,12 +28,13 @@
 
     main {
       max-width: 900px;
-      margin: 20px auto 60px;
+      margin: -5px auto 60px;
       padding: 0 20px;
       flex: 1;
       position: relative;
       z-index: 2;
-      background: rgba(255 255 255 / 0.85);
+      background: rgba(42, 114, 216, 0.15);
+      backdrop-filter: blur(8px);
       border-radius: 16px;
       box-shadow: 0 12px 20px rgb(42 114 216 / 0.2);
       animation: fadeInUp 0.8s ease forwards;
