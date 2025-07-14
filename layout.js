@@ -136,7 +136,7 @@
 
 /* Style for Hamburger Button */
 .hamburger {
-  background-color: #007bff; /* Bootstrap Blue */
+  background-color: #fd7e14; /* Bootstrap Blue */
   border: none;
   font-size: 30px;
   color: white; /* Icon color */
@@ -151,7 +151,7 @@
   transition: background-color 0.3s ease;
 }
 .hamburger:hover {
-  background-color: #0056b3; /* Darker blue on hover */
+  background-color: #e35d04; /* Darker blue on hover */
 }
 
 .tooltip {
