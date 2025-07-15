@@ -125,7 +125,7 @@
     main {
       opacity: 1 !important; /* Force visibility */
       transform: translateY(0) !important;
-      padding-top: 30px;
+      padding-top: 0;
     }
 
   main.visible {
@@ -423,7 +423,6 @@
   animation: fadeInOut 15s ease-in-out forwards;
 }
 
-
 @keyframes fadeInOut {
   0% { opacity: 0; transform: translate(-50%, -20px); }
   10% { opacity: 1; transform: translate(-50%, 0); }
@@ -431,7 +430,24 @@
   100% { opacity: 0; transform: translate(-50%, -20px); }
 }
 
+#goToTop {
+    position: fixed;
+    bottom: 1px;
+    right: 10px;
+    background-color: #0072ff;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    z-index: 1000;
+  }
 
+  #goToTop:hover {
+    background-color: #0056b3;
+  }
 </style>
 </head>
 
@@ -468,28 +484,53 @@
 </div>
 
     <main role="main" tabindex="-1">
-      <h2>Engage > Empower > Elevate</h2>
-      <div class="card-grid">
-        <div class="card" tabindex="0" role="article" aria-label="Announcements">
-          <i class="fas fa-bullhorn" aria-hidden="true"></i>
-          <h3>Announcements</h3>
-          <p>Stay updated with the latest news</p>
-          <a href="#announcements" tabindex="0">Read More</a>
-        </div>
-        <div class="card" tabindex="0" role="article" aria-label="Events">
-          <i class="fas fa-calendar-alt" aria-hidden="true"></i>
-          <h3>Events</h3>
-          <p>Join upcoming celebrations</p>
-          <a href="#events" tabindex="0">Learn More</a>
-        </div>
-        <div class="card" tabindex="0" role="article" aria-label="Resources">
-          <i class="fas fa-book" aria-hidden="true"></i>
-          <h3>Resources</h3>
-          <p>Access documents and useful resources</p>
-          <a href="#resources" tabindex="0">Explore</a>
-        </div>
+    <h2>Engage > Empower > Elevate</h2>
+    
+    <!-- Updated Card Grid with More Cards -->
+    <div class="card-grid">
+      <div class="card" tabindex="0" role="article" aria-label="Community Engagement">
+        <i class="fas fa-users" aria-hidden="true"></i>
+        <h3>Community Engagement</h3>
+        <p>Participate in discussions to shape our community</p>
+        <a href="#community-engagement" tabindex="0">Join Now</a>
       </div>
-    </main>
+      <div class="card" tabindex="0" role="article" aria-label="Educational Resources">
+        <i class="fas fa-book" aria-hidden="true"></i>
+        <h3>Community Resources</h3>
+        <p>Find guides and workshops for your everyday needs</p>
+        <a href="#education" tabindex="0">Explore</a>
+      </div>
+      <div class="card" tabindex="0" role="article" aria-label="Resident Collaboration">
+        <i class="fas fa-handshake" aria-hidden="true"></i>
+        <h3>Collaborative Projects</h3>
+        <p>Work together for a stronger neighborhood</p>
+        <a href="#collaboration" tabindex="0">Collaborate</a>
+      </div>
+      <div class="card" tabindex="0" role="article" aria-label="Neighborhood Support">
+        <i class="fas fa-users-cog" aria-hidden="true"></i>
+        <h3>Neighborhood Support</h3>
+        <p>Access services and support for residents</p>
+        <a href="#support" tabindex="0">Get Support</a>
+      </div>
+      <div class="card" tabindex="0" role="article" aria-label="Events & Activities">
+        <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+        <h3>Events & Activities</h3>
+        <p>Join us for fun community events</p>
+        <a href="#events" tabindex="0">See Events</a>
+      </div>
+      <div class="card" tabindex="0" role="article" aria-label="Neighborhood Connections">
+        <i class="fas fa-users" aria-hidden="true"></i>
+        <h3>Connect with Neighbors</h3>
+        <p>Strengthen your ties with those around you</p>
+        <a href="#network" tabindex="0">Join the Network</a>
+      </div>
+    </div>
+
+    <!-- Go to Top Button -->
+    <button id="goToTop" class="go-to-top-btn" onclick="scrollToTop()" aria-label="Go to top">
+        ↑ Go to Top
+    </button>
+</main>
 
   <!-- Confetti script from CDN -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
@@ -501,31 +542,41 @@
 
     const mainContent = document.querySelector('main');
 
-    function runConfetti() {
-      const duration = 4 * 1000;
-      const end = Date.now() + duration;
+  function runConfetti() {
+  const duration = 4 * 1000;  // Confetti lasts for 4 seconds
+  const end = Date.now() + duration;
 
-      (function frame() {
-        confetti({
-          particleCount: 5,
-          angle: 60,
-          spread: 55,
-          origin: { x: 0 },
-          colors: ['#bb0000', '#ffffff']
-        });
-        confetti({
-          particleCount: 5,
-          angle: 120,
-          spread: 55,
-          origin: { x: 1 },
-          colors: ['#bb0000', '#ffffff']
-        });
-
-        if (Date.now() < end) {
-          requestAnimationFrame(frame);
-        }
-      })();
+  (function frame() {
+    confetti({
+      particleCount: 30,  // Increased particle count for a denser effect
+      angle: 60,
+      spread: 100,  // Increased spread for a wider effect
+      origin: { x: 0 },  // Left side
+      colors: ['#ff0000', '#ff7300', '#fffb00', '#00ff00', '#00bfff', '#800080', '#ff1493', '#ff69b4', '#f0e68c', '#adff2f'] // More colors
+    });
+    confetti({
+      particleCount: 30,  // Increased particle count for a denser effect
+      angle: 120,
+      spread: 100,  // Increased spread for a wider effect
+      origin: { x: 1 },  // Right side
+      colors: ['#ff0000', '#ff7300', '#fffb00', '#00ff00', '#00bfff', '#800080', '#ff1493', '#ff69b4', '#f0e68c', '#adff2f'] // More colors
+    });
+    confetti({
+      particleCount: 30,  // Increased particle count
+      angle: 0,
+      spread: 200,  // Spread across 200 degrees for full coverage
+      origin: { x: 0.5 },  // Center origin
+      colors: ['#ff0000', '#ff7300', '#fffb00', '#00ff00', '#00bfff', '#800080', '#ff1493', '#ff69b4', '#f0e68c', '#adff2f'] // More colors
+    });
+    
+    // Continue the animation until the duration is over
+    if (Date.now() < end) {
+      requestAnimationFrame(frame);
     }
+  })();
+}
+
+
 
   window.addEventListener('DOMContentLoaded', () => {
   const modal = document.getElementById('greetingModal');
@@ -605,6 +656,11 @@
 });
 
 </script>
-
+<script>
+// Function to scroll to the top
+function scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
 </body>
 </html>
