@@ -21,8 +21,8 @@
     body {
       background-color: var(--light-bg);
       font-family: 'Arial', sans-serif;
-      font-size: 1em;
-      line-height: 1.6;
+      font-size: 0.9em; /* Reduced the base font size */
+      line-height: 1.5; /* Adjusted line height for better readability */
       color: #333;
       margin: 0;
       padding: 0;
@@ -60,26 +60,26 @@
       margin: 0 auto;
       border: 2.5px solid var(--border-blue);
       border-radius: 12px;
-      padding: 30px 35px 40px 35px;
+      padding: 25px 30px 35px 30px; /* Reduced padding */
       box-shadow: 0 10px 25px rgba(59, 130, 246, 0.2);
       position: relative;
     }
 
     .flyer-icon {
       position: absolute;
-      top: -28px;
+      top: -24px; /* Adjusted top position */
       left: 50%;
       transform: translateX(-50%);
       background-color: var(--primary-blue);
-      width: 56px;
-      height: 56px;
+      width: 50px; /* Reduced icon size */
+      height: 50px; /* Reduced icon size */
       border-radius: 50%;
       box-shadow: 0 2px 8px rgba(0,0,0,0.15);
       display: flex;
       justify-content: center;
       align-items: center;
       color: white;
-      font-size: 32px;
+      font-size: 28px; /* Reduced font size */
       font-weight: 700;
       font-family: 'Georgia', serif;
       user-select: none;
@@ -90,8 +90,8 @@
       color: var(--primary-blue);
       font-family: 'Georgia', serif;
       font-weight: 600;
-      font-size: 1.5em;
-      margin: 20px 0 15px 0; /* 👈 Reduced top & bottom */
+      font-size: 1.3em; /* Reduced font size */
+      margin: 15px 0 12px 0; /* Reduced top & bottom margin */
       text-align: center;
       letter-spacing: 0.03em;
     }
@@ -99,8 +99,8 @@
     .section-header {
       color: var(--accent-blue);
       font-family: 'Georgia', serif;
-      font-size: 1.3em;
-      margin: 28px 0 12px 0;
+      font-size: 1.1em; /* Reduced font size */
+      margin: 22px 0 10px 0; /* Reduced margin */
       display: flex;
       align-items: center;
       gap: 0.5em;
@@ -116,20 +116,20 @@
     .feedback-section,
     .alert-box p {
       font-family: 'Merriweather', serif;
-      font-size: 1.05em;
-      line-height: 1.75;
+      font-size: 1em; /* Reduced font size */
+      line-height: 1.6; /* Slightly adjusted line height */
       color: #444;
       text-align: justify;
-      margin-bottom: 15px;
+      margin-bottom: 12px; /* Reduced margin */
     }
 
     ul {
       padding-left: 25px;
-      margin-bottom: 20px;
+      margin-bottom: 18px; /* Reduced margin */
     }
 
     .agenda-item {
-      margin-bottom: 10px;
+      margin-bottom: 8px; /* Reduced margin */
       padding-left: 6px;
       border-left: 3px solid var(--accent-blue);
       transition: background-color 0.3s ease;
@@ -144,50 +144,50 @@
     .alert-box {
       background-color: #e3f2ff;
       border-left: 6px solid var(--accent-blue);
-      padding: 20px;
+      padding: 18px;
       border-radius: 12px;
       box-shadow: 0 4px 18px rgba(59, 130, 246, 0.15);
       font-family: 'Merriweather', serif;
-      font-size: 1.05em;
+      font-size: 1em; /* Reduced font size */
       line-height: 1.45;
-      margin-top: 30px;
-      margin-bottom: 18px;
+      margin-top: 25px; /* Reduced margin */
+      margin-bottom: 16px; /* Reduced margin */
       text-align: justify;
       color: var(--primary-blue);
     }
 
     .alert-box strong {
-      font-size: 1.15em;
+      font-size: 1.1em; /* Reduced font size */
       user-select: none;
     }
 
     .feedback-section {
-      font-size: 1.05em;
+      font-size: 1em; /* Reduced font size */
       color: var(--primary-blue);
       font-weight: 600;
-      margin-top: 15px;
-      margin-bottom: 18px;
+      margin-top: 12px; /* Reduced margin */
+      margin-bottom: 16px; /* Reduced margin */
     }
 
     hr {
-      margin-top: 50px;
+      margin-top: 40px; /* Reduced margin */
       border: 0;
       border-top: 1.5px solid var(--border-blue);
       opacity: 0.3;
     }
 
     .footer-note {
-      font-size: 0.9em;
+      font-size: 0.85em; /* Reduced font size */
       color: #555;
       line-height: 1.4;
-      margin-top: 15px;
+      margin-top: 12px; /* Reduced margin */
       text-align: center;
       font-style: italic;
     }
 
     p, ul, li {
       margin-top: 0;
-      margin-bottom: 8px;
+      margin-bottom: 6px; /* Reduced margin */
     }
 
     @media (max-width: 1024px) {
@@ -198,17 +198,17 @@
     @media (max-width: 768px) {
       #nav { position: static; width: 100%; height: auto; padding: 15px 20px; }
       main { margin-left: 0; padding: 20px; margin-top: 20px; }
-      .flyer-icon { width: 48px; height: 48px; font-size: 28px; top: -24px; }
-      h2 { font-size: 1.8em; }
-      .section-header { font-size: 1.15em; }
+      .flyer-icon { width: 48px; height: 48px; font-size: 26px; top: -24px; }
+      h2 { font-size: 1.6em; } /* Reduced size on smaller screens */
+      .section-header { font-size: 1.1em; }
     }
 
     @media (max-width: 480px) {
-      body { font-size: 0.95em; }
-      .flyer-card { padding: 20px; }
-      h2 { font-size: 1.6em; }
-      .section-header { font-size: 1.05em; }
-      .agenda-item { margin-left: 12px; font-size: 1em; }
+      body { font-size: 0.85em; } /* Reduced font size on small screens */
+      .flyer-card { padding: 18px; }
+      h2 { font-size: 1.4em; } /* Reduced size on smaller screens */
+      .section-header { font-size: 1em; }
+      .agenda-item { margin-left: 12px; font-size: 0.95em; }
     }
 
 #scrollToTop {
