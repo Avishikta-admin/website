@@ -45,7 +45,6 @@
       padding-bottom: 60px; /* reduced footer height */
       padding-left: 260px; /* nav width */
       background-color: #f4f6f9;
-      transition: padding-left 0.3s ease;
       color: #333;
     }
 
@@ -126,7 +125,7 @@
       outline: none;
     }
     footer .footer-links a.home-link i {
-      color: #00e6e6;
+      color: #80e0e8;
     }
     
     .blinking-text {
@@ -136,7 +135,7 @@
 
 /* Style for Hamburger Button */
 .hamburger {
-  background-color: #fd7e14; /* Vibrant orange */
+  background-color: #fd7e14; /* Bootstrap Blue */
   border: none;
   font-size: 30px;
   color: white; /* Icon color */
@@ -148,10 +147,10 @@
   padding: 10px;
   border-radius: 6px; /* Rounded corners */
   display: none; /* Initially hidden */
-  transition: background-color 0.3s ease;
 }
+
 .hamburger:hover {
-  background-color: #e35d04; /* Darker orange on hover */
+  background-color: #e35d04; /* Darker blue on hover */
 }
 
 .tooltip {
@@ -191,7 +190,6 @@
       z-index: 9999;
       user-select:none;
       overflow-y: auto;
-      transition: background-color 0.3s ease, transform 0.3s ease, opacity 0.3s ease;
     }
     nav#main-nav:hover {
       background-color: #003366;
@@ -221,7 +219,6 @@
       user-select: none;
       text-align: left;
       border-radius: 6px;
-      transition: background-color 0.25s ease, box-shadow 0.25s ease;
       position: relative;
       box-shadow: inset 0 0 0 0 #00bcd4;
     }
@@ -246,7 +243,6 @@
       right: 18px;
       top: 50%;
       transform: translateY(-50%);
-      transition: transform 0.3s ease;
       color: #00bcd4;
       font-size: 14px;
     }
@@ -258,7 +254,6 @@
       margin-top: 8px;
       max-height: 1000px;
       overflow: hidden;
-      transition: max-height 0.4s ease;
       will-change: max-height;
     }
     nav#main-nav ul ul.collapsed {
@@ -266,7 +261,6 @@
       margin-top: 0;
       opacity: 0;
       pointer-events: none;
-      transition: max-height 0.35s ease, opacity 0.25s ease;
     }
     nav#main-nav ul ul li {
       margin-top: 10px;
@@ -281,7 +275,6 @@
       gap: 12px;
       padding: 8px 15px;
       border-radius: 6px;
-      transition: background-color 0.25s ease, color 0.25s ease;
       user-select:none;
     }
     nav#main-nav a:hover,
@@ -371,7 +364,6 @@
     background-color: rgba(0, 0, 0, 0.9);
     z-index: 10000;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-    transition: transform 0.3s ease, opacity 0.3s ease;
     opacity: 0;
     transform: translateY(-20px);
     pointer-events: none;
@@ -457,9 +449,7 @@ main {
   font-weight: 600;
   color: #f5f5dc; /* current page label light cream */
 }
-
-
-  `;
+`;
   document.head.appendChild(style);
 
   // Header HTML
@@ -516,20 +506,36 @@ main {
             <li role="none"><a href="events.html" role="menuitem" title="View our community calendar and photo gallery"><i class="fas fa-calendar-alt" aria-hidden="true"></i> Events & Shared Moments</a></li>
             <li role="none"><a href="mom.html" role="menuitem" title="MoM"><i class="fas fa-file-alt" aria-hidden="true"></i> Meeting Minutes</a></li>
             <li role="none"><a href="general-guidelines.html" role="menuitem" title="General guidelines"><i class="fas fa-book" aria-hidden="true"></i> Community Guidelines</a></li>
-            <li role="none"><a href="useful-links.html" role="menuitem" title="Get help and find important contact information"><i class="fas fa-headset" aria-hidden="true"></i> Contacts & Support</a></li>
+<li role="none"><a href="useful-links.html" role="menuitem" title="Helpdesk & Contacts"><i class="fas fa-book" aria-hidden="true"></i> Support Hub</a></li>
             <li role="none"><a href="download-center.html" role="menuitem" title="Access important documents and forms for download"><i class="fas fa-cloud-download-alt" aria-hidden="true"></i> Download-center</a></li>
             <li role="none"><a href="projects.html" role="menuitem" title="View projects and upgrades"><i class="fas fa-tools" aria-hidden="true" aria-hidden="true"></i> Projects & Upgrades</a></li>
         </ul>
         </li>
 
-        <!-- Give Feedback -->
+        <!-- Get Involved -->
         <li>
-          <a href="feedback.html" id="give-feedback-link" role="menuitem" title="We value your feedback—let us know your thoughts"><i class="fas fa-comment-dots" aria-hidden="true"></i> Give Feedback</a>
+          <button class="section-header" aria-expanded="false" aria-controls="GetInvolved-submenu" tabindex="0" role="menuitem">
+            <i class="fas fa-hands-helping" aria-hidden="true"></i> Get Involved
+          </button>
+          <ul id="GetInvolved-submenu" role="menu">
+        <li> <a href="feedback.html" id="give-feedback-link" role="menuitem" title="We value your feedback—let us know your thoughts"><i class="fas fa-comment-dots" aria-hidden="true"></i> Give Feedback</a>
         </li>
-	
-	<!-- Help & FAQs -->
-	<li>
+	<li> <a href="volunteer.html" id="give-feedback-link" role="menuitem" title="Come forward to provide volunteer service"><i class="fas fa-hands-helping" aria-hidden="true"></i>Volunteer Opportunities</a>
+        </li>
+        </ul>
+        </li>
+
+       <!-- Help & Contact -->
+       <li>
+         <button class="section-header" style="color: #ffb6c1;" aria-expanded="false" aria-controls="HelpnContact-submenu" tabindex="0" role="menuitem">
+  		<i class="fas fa-info-circle" aria-hidden="true"></i> Get in Touch
+	</button>
+
+        <ul id="HelpnContact-submenu" role="menu">
+	<li> <a href="contact-us.html" id="give-contact-us-link" role="menuitem" title="We are here to hear you"><i class="fas fa-envelope" aria-hidden="true"></i> Contact Us</a></li>
           <li role="none"><a href="faq.html" id="faq-link" role="menuitem" title="Find answers to frequently asked questions"><i class="fas fa-question-circle" aria-hidden="true"></i>FAQs</a></li>
+        </li>
+	</ul>
         </li>
 
         <!-- Admin Tools -->
@@ -547,8 +553,8 @@ main {
     </nav>
   `;
 
-  // Insert elements into DOM
-  document.body.insertAdjacentHTML("afterbegin", headerHTML);
+// Insert elements into DOM
+document.body.insertAdjacentHTML("afterbegin", headerHTML);
 document.body.insertAdjacentHTML("afterbegin", navHTML);
 document.body.insertAdjacentHTML("beforeend", footerHTML);
 
@@ -620,6 +626,12 @@ document.body.insertAdjacentHTML("beforeend", footerHTML);
 
   document.getElementById("resources-submenu").classList.add("collapsed");
   document.querySelector('button[aria-controls="resources-submenu"]').setAttribute("aria-expanded", "false");
+
+  document.getElementById("HelpnContact-submenu").classList.add("collapsed");
+  document.querySelector('button[aria-controls="HelpnContact-submenu"]').setAttribute("aria-expanded", "false");
+
+  document.getElementById("GetInvolved-submenu").classList.add("collapsed");
+  document.querySelector('button[aria-controls="GetInvolved-submenu"]').setAttribute("aria-expanded", "false");
 
   document.getElementById("admin-submenu").classList.add("collapsed");
   document.querySelector('button[aria-controls="admin-submenu"]').setAttribute("aria-expanded", "false");
@@ -694,10 +706,11 @@ function renderBreadcrumb() {
     'general-guidelines.html': ['Home', 'Resources', 'Community Guidelines'],
     'download-center.html': ['Home', 'Resources', 'Download Center'],
     'useful-links.html': ['Home', 'Resources', 'Helpdesk & Contacts'],
-    'feedback.html': ['Home', 'Give Feedback'],
-    'contact-us.html': ['Home', 'Get in Touch'],
-    'faq.html': ['Home', 'Help & FAQs'],
-    'projects.html': ['Home', 'Projects & Upgrades']
+    'projects.html': ['Home', 'Resources','Projects & Upgrades'],
+    'feedback.html': ['Home', 'Get Involved','Give Feedback'],
+    'volunteer.html': ['Home', 'Get Involved','Volunteer Opportunities'],
+    'contact-us.html': ['Home', 'Get in Touch','Ready to hear you'],
+    'faq.html': ['Home', 'Get in Touch','FAQs']
   };
 
   const pageLinks = {
@@ -714,10 +727,13 @@ function renderBreadcrumb() {
     'Community Guidelines': 'general-guidelines.html',
     'Download Center': 'download-center.html',
     'Projects & Upgrades': 'projects.html',
-    'Helpdesk & Contacts': 'useful-links.html',
+    'Support Hub': 'useful-links.html',
+    'Get Involved': '#',
     'Give Feedback': 'feedback.html',
-    'Get in Touch': 'contact-us.html',
-    'Help & FAQs': 'faq.html'
+    'Volunteer Opportunities': 'volunteer.html',
+    'Get in Touch': '#',
+    'Ready to hear you': 'contact-us.html',
+    'FAQs': 'faq.html'
   };
 
   const fileName = window.location.pathname.split('/').pop();
