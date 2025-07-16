@@ -9,7 +9,7 @@
   <style>
     body {
       margin: 0;
-     padding: 0;
+      padding: 0;
       font-family: 'Segoe UI', sans-serif;
       background: linear-gradient(135deg, #f4f6fa, #d3e0ea); /* Soft gradient background */
       color: #333;
@@ -22,69 +22,68 @@
       box-sizing: border-box;
     }
 
-  #scrollToTop {
-  position: fixed;
-  bottom: 35px;
-  right: 10px;
-  background-color: #ff6347;
-  color: white;
-  border-radius: 50%;
-  padding: 5px;
-  font-size: 1.6rem;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  border: none;
-  cursor: pointer;
-  z-index: 10000;
-  transition: background-color 0.3s ease;
-}
+    #scrollToTop {
+      position: fixed;
+      bottom: 35px;
+      right: 10px;
+      background-color: #ff6347;
+      color: white;
+      border-radius: 50%;
+      padding: 5px;
+      font-size: 1.6rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      border: none;
+      cursor: pointer;
+      z-index: 10000;
+      transition: background-color 0.3s ease;
+    }
 
-#scrollToTop:hover {
-  background-color: #4b0082;
-}
+    #scrollToTop:hover {
+      background-color: #4b0082;
+    }
 
+    .events-header {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start; /* Aligns content to the top */
+      text-align: center;
+      margin-top: 0;  /* Removes any top margin */
+      margin-bottom: 0.5rem;  /* Reduced margin */
+      animation: fadeInDown 0.8s ease-in-out;
+      background: linear-gradient(to right, #4b0082, #ff6347); /* Gradient background */
+      color: white;
+      padding: 1rem 1rem; /* Add some padding around */
+      border-radius: 12px; /* Soft rounded corners */
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+      width: 90%; /* Makes the container take up 90% of the screen width */
+      max-width: 1200px; /* Optional: Add a max-width to prevent it from being too wide */
+      margin: 0 auto; /* Centers the container horizontally */
+      box-sizing: border-box; /* Ensures padding is inside the width */
+    }
 
-  .events-header {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start; /* Aligns content to the top */
-  text-align: center;
-  margin-top: 0;  /* Removes any top margin */
-  margin-bottom: 0.5rem;  /* Reduced margin */
-  animation: fadeInDown 0.8s ease-in-out;
-  background: linear-gradient(to right, #4b0082, #ff6347); /* Gradient background */
-  color: white;
-  padding: 1rem 1rem; /* Add some padding around */
-  border-radius: 12px; /* Soft rounded corners */
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
-  width: 90%; /* Makes the container take up 90% of the screen width */
-  max-width: 1200px; /* Optional: Add a max-width to prevent it from being too wide */
-  margin: 0 auto; /* Centers the container horizontally */
-  box-sizing: border-box; /* Ensures padding is inside the width */
-}
+    .events-header h1 {
+      font-size: 1.95rem; /* Reduced font size for simplicity */
+      text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); /* Subtle text shadow */
+      font-weight: bold;
+      letter-spacing: 0.05em;
+      margin: 0; /* Removed any bottom margin */
+      padding-top: 0; /* Removed extra padding */
+    }
 
-.events-header h1 {
-  font-size: 1.95rem; /* Reduced font size for simplicity */
-  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); /* Subtle text shadow */
-  font-weight: bold;
-  letter-spacing: 0.05em;
-  margin: 0; /* Removed any bottom margin */
-  padding-top: 0; /* Removed extra padding */
-}
+    .events-header p {
+      font-size: 1rem;
+      color: #4b0082; /* Deep purple */
+      max-width: 600px;
+      margin: 0 auto;
+      line-height: 1.2;
+      margin-top: 0.5rem; /* Slight margin to separate text from the heading */
+      background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent background */
+      padding: 10px;
+      border-radius: 8px;
+      text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3); /* Optional: to enhance readability */
+    }
 
-.events-header p {
-  font-size: 1rem;
-  color: #4b0082; /* Deep purple */
-  max-width: 600px;
-  margin: 0 auto;
-  line-height: 1.5;
-  margin-top: 0.5rem; /* Slight margin to separate text from the heading */
-  background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent background */
-  padding: 10px;
-  border-radius: 8px;
-  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3); /* Optional: to enhance readability */
-}
-
-   .upcoming-events {
+    .upcoming-events {
       background: #fff7e6;
       border-left: 5px solid #4b0082;
       padding: 0.5rem 1rem;  /* Increased padding for a wider effect */
@@ -95,8 +94,8 @@
       box-shadow: 0 3px 12px rgba(75, 0, 130, 0.08);
       border-radius: 8px;
       color: #3a1a72;
-      font-size: 1rem;  /* Base font size */
-      line-height: 1.5;
+      font-size: 0.9rem;  /* Base font size */
+      line-height: 1.2;
     }
 
     .gallery-grid {
@@ -106,22 +105,22 @@
       padding-top: 0.5rem;
       justify-items: center; /* Centering images in each grid cell */
       align-items: start; /* This will vertically center the items */
-       margin-top: -15px; /* Negative margin to push the image up */
+      margin-top: -15px; /* Negative margin to push the image up */
     }
 
     .gallery-card {
       position: relative;
-  border-radius: 12px;
-  overflow: hidden;
-  background: #fff;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s;
-  cursor: pointer;
-  display: flex; /* Using flex to center content inside each card */
-  flex-direction: column; /* Stacks the image and caption vertically */
-  justify-content: space-between; /* Ensure spacing between the image and caption */
-  width: 100%; /* Allow the card to fill the grid cell */
-  height: 100%; /* Ensure the card spans the entire height of the grid cell */
+      border-radius: 12px;
+      overflow: hidden;
+      background: #fff;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s;
+      cursor: pointer;
+      display: flex; /* Using flex to center content inside each card */
+      flex-direction: column; /* Stacks the image and caption vertically */
+      justify-content: space-between; /* Ensure spacing between the image and caption */
+      width: 100%; /* Allow the card to fill the grid cell */
+      height: 100%; /* Ensure the card spans the entire height of the grid cell */
     }
 
     .gallery-card:hover {
@@ -152,6 +151,44 @@
       align-items: center;
       justify-content: center;
       pointer-events: none;
+    }
+
+    .download-btn {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: rgba(0, 0, 0, 0.6);
+      color: #fff;
+      font-size: 1.4rem;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.3s ease;
+      user-select: none;
+      z-index: 10;
+    }
+    .download-btn:hover {
+      background: rgba(255, 99, 71, 0.9);
+    }
+    .download-btn[aria-label]:hover::after {
+      content: attr(aria-label);
+      position: absolute;
+      top: 45px;
+      left: 10px;
+      background: #4b0082;
+      color: #fff;
+      font-size: 0.75rem;
+      padding: 3px 6px;
+      border-radius: 4px;
+      white-space: nowrap;
+      pointer-events: none;
+      opacity: 0.9;
+      z-index: 20;
     }
 
     .card-caption {
@@ -254,156 +291,300 @@
     }
 
     .upcoming-events h2 {
-      font-size: 1.3rem;
+      font-size: 1.1em;
       margin-bottom: 0.4rem;
       font-weight: 700;
       letter-spacing: 0.02em;
       text-transform: uppercase;
       border-bottom: 1.5px solid #4b0082;
-      padding-bottom: 0.25rem;
+      padding-bottom: 0.3rem;
     }
 
-    .upcoming-events ul {
-      list-style-type: none;
-      padding-left: 0;
-      margin: 0;
+    /* Upload Container with center alignment and shadow */
+    #uploadContainer {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 12px 16px;
+      margin: 1rem auto 1rem;
+      max-width: 600px;
+      background: #fafafa;
+      border-radius: 12px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
     }
 
-    .upcoming-events li {
-      margin-bottom: 0.3rem;
-      position: relative;
-      padding-left: 1rem;
-      font-weight: 500;
-    }
-
-    .upcoming-events li::before {
-      content: "•";
-      color: #4b0082;
-      position: absolute;
-      left: 0;
-      top: 0;
+    #imageUpload {
+      display: none;
       font-size: 1rem;
-      line-height: 1;
-    }
-
-    .upcoming-events time {
-      font-style: normal;
-      color: #6b3fa0;
       font-weight: 600;
-    }
-
-    .download-container {
-      margin-top: 16px;
-      text-align: center;
-    }
-
-    .download-btn {
-      background-color: #cccccc;
-      color: #666;
+      color: #4b0082;
+      cursor: pointer;
+      border-radius: 12px;
+      padding: 10px 14px;
+      background: linear-gradient(90deg, #4b0082, #ff6347);
       border: none;
-      padding: 10px 20px;
-      font-size: 1rem;
-      border-radius: 6px;
-      cursor: not-allowed;
-      margin-bottom: 8px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-      transition: background-color 0.3s ease;
+      box-shadow: 0 4px 14px rgba(75, 0, 130, 0.3);
+      transition: all 0.25s ease-in-out;
+      width: 100%;
+      max-width: 360px;
     }
 
-    .download-btn:disabled {
-      background-color: #bbb;
-      color: #555;
+    #imageUpload:hover {
+      background: linear-gradient(90deg, #ff6347, #4b0082);
+      color: white;
+      box-shadow: 0 6px 20px rgba(255, 99, 71, 0.6);
     }
 
-    .no-download-msg {
-      background: rgba(255, 255, 255, 0.1);
-      color: #fff;
-      padding: 8px 18px;
-      border-radius: 6px;
-      font-weight: 500;
-      font-size: 0.95rem;
-      display: inline-block;
-    }
-  </style>
+#customUploadButton {
+  display: inline-block;
+  padding: 12px 20px;
+  background: linear-gradient(90deg, #4b0082, #ff6347);
+  color: white;
+  font-weight: 600;
+  font-size: 1rem;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  text-align: center;
+}
+
+#customUploadButton:hover {
+  background: linear-gradient(90deg, #ff6347, #4b0082);
+  box-shadow: 0 8px 20px rgba(255, 99, 71, 0.4);
+}
+
+/* Caption Modal Styles */
+#captionModal {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+}
+
+#captionModalContent {
+  background: #fff;
+  padding: 20px 30px;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  width: 90%;
+  max-width: 400px;
+}
+
+#captionModalContent h3 {
+  margin-top: 0;
+  font-size: 1.2rem;
+  color: #4b0082;
+}
+
+#captionInput {
+  width: 100%;
+  padding: 10px;
+  font-size: 1rem;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+.caption-modal-buttons {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.caption-modal-buttons button {
+  padding: 8px 16px;
+  font-size: 1rem;
+  cursor: pointer;
+  border: none;
+  border-radius: 8px;
+  transition: 0.3s;
+}
+
+#captionOkBtn {
+  background-color: #4b0082;
+  color: white;
+}
+
+#captionCancelBtn {
+  background-color: #ccc;
+}
+#captionOkBtn:hover {
+  background-color: #5f10a1;
+}
+#captionCancelBtn:hover {
+  background-color: #999;
+}
+
+</style>
 </head>
+<body>
 
-<body oncontextmenu="return false">
-  <!-- layout.js inject: HEADER -->
-  <div id="layout-header"></div>
+<main>
+  <button id="scrollToTop" title="Scroll to Top">⇧</button>
 
-  <main>
-    <section class="events-header">
-      <h1>Events & Celebrations</h1>
-      <p class="event-description-box">
-        "🏛️ Celebrating our shared moments — from festivals to cultural evenings — each gathering reflects the unity, spirit, and joy of our Avishikta Type-A community."
-      </p>
-    </section>
+  <section class="events-header" aria-label="Events and Gallery Header">
+    <h1>Events & Photo Gallery</h1>
+    <p>Welcome to the event and gallery section of Avishikta - I Type - A RWA! Enjoy the beautiful memories captured in our photo gallery.</p>
+  </section>
 
-    <section class="upcoming-events">
-      <h2>Upcoming Celebrations</h2>
-      <ul>
-        <!-- Updated events -->
-        <li><strong>Independence Day</strong> on <time datetime="2025-08-15">15th August, 2025</time></li>
-        <li><strong>Biswakarma Puja</strong> on <time datetime="2025-09-17">17th September, 2025</time></li>
-        <li><strong>Durga Puja</strong> from <time datetime="2025-09-28">28th September</time> to <time datetime="2025-10-02">2nd October, 2025</time></li>
-      </ul>
-    </section>
+  <section class="upcoming-events" aria-labelledby="upcomingEventsHeading">
+    <h2 id="upcomingEventsHeading">Upcoming Events</h2>
+    <p>Stay tuned for following upcoming exciting events, and more...</p>
+    <ul>
+    <li> 19th Annual General Meeting to be held on July 27, 2025</li><li>Biswakarma Puja - September 17, 2025</li><li>Durga Puja - Sun, 28 Sept, 2025 – Thu, 2 Oct, 2025</li>
+    </ul>
+  </section>
 
-    <section class="gallery-grid" aria-label="Photo gallery">
-      <div class="gallery-card" onclick="openLightbox('Image-1.jpg')">
-        <img src="Image-1.jpg" alt="Annual Day Celebration" draggable="false">
-        <div class="zoom-icon">+</div>
-        <div class="card-caption">Annual Day Celebration</div>
-      </div>
-      <div class="gallery-card" onclick="openLightbox('Image-2.jpg')">
-        <img src="Image-2.jpg" alt="Festive Lights Evening" draggable="false">
-        <div class="zoom-icon">+</div>
-        <div class="card-caption">Festive Lights Evening</div>
-      </div>
-      <div class="gallery-card" onclick="openLightbox('image-1.jpg')">
-        <img src="Image-1.jpg" alt="Cultural Performance" draggable="false">
-        <div class="zoom-icon">+</div>
-        <div class="card-caption">Cultural Performance</div>
-      </div>
-      <div class="gallery-card" onclick="openLightbox('image-2.jpg')">
-        <img src="Image-2.jpg" alt="New Year Bash" draggable="false">
-        <div class="zoom-icon">+</div>
-        <div class="card-caption">New Year Bash</div>
-      </div>
-    </section>
-  </main>
+  <div id="uploadContainer">
+  <label for="imageUpload" id="customUploadButton">📤 Upload Your Image</label>
+  <input type="file" id="imageUpload" accept="image/*" aria-label="Upload an image" />
+</div>
 
-<button id="scrollToTop" onclick="window.scrollTo(0, 0);" title="Go to the top">⬆️</button>
-
-  <!-- Lightbox -->
-  <div id="lightboxModal" onclick="closeLightbox()" role="dialog" aria-modal="true">
-    <span id="closeBtn" onclick="event.stopPropagation(); closeLightbox();" aria-label="Close preview">&times;</span>
-    <img id="lightboxImage" src="" alt="Zoomed Image">
-    <div class="download-container">
-      <button class="download-btn" disabled>⬇️ Download</button>
-      <div class="no-download-msg">🔒 Downloads are temporarily unavailable. Feature coming in the next release!!!</div>
+  <section aria-label="Image Gallery" class="gallery-grid" id="gallery">
+    <!-- Static gallery cards -->
+    <div class="gallery-card">
+      <button class="download-btn" aria-label="Download Image">&#x2B07;</button>
+      <img src="Image-1.jpg" alt="Event 1" />
+      <span class="zoom-icon" aria-hidden="true">🔍</span>
+      <div class="card-caption">Event 1</div>
     </div>
+    <div class="gallery-card">
+      <button class="download-btn" aria-label="Download Image">&#x2B07;</button>
+      <img src="Image-2.jpg" alt="Event 2" />
+      <span class="zoom-icon" aria-hidden="true">🔍</span>
+      <div class="card-caption">Event 2</div>
+    </div>
+    <div class="gallery-card">
+      <button class="download-btn" aria-label="Download Image">&#x2B07;</button>
+      <img src="Image-1.jpg" alt="Event 3" />
+      <span class="zoom-icon" aria-hidden="true">🔍</span>
+      <div class="card-caption">Event 3</div>
+    </div>
+
+    <!-- Uploaded images will be appended here dynamically -->
+  </section>
+
+  <!-- Lightbox modal -->
+  <div id="lightboxModal" role="dialog" aria-modal="true" aria-labelledby="lightboxTitle" aria-describedby="lightboxDesc" tabindex="-1">
+    <button id="closeBtn" aria-label="Close lightbox">&times;</button>
+    <img id="lightboxImage" alt="" />
   </div>
 
-  <!-- layout.js inject: FOOTER -->
-  <div id="layout-footer"></div>
+<!-- Caption Modal -->
+<!-- Place this HTML near the end of <body> (before </body>) -->
+<div id="captionModal" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.6); z-index:9999; justify-content:center; align-items:center;">
+  <div style="background:#fff; padding:20px 30px; border-radius:10px; box-shadow:0 0 15px rgba(0,0,0,0.2); text-align:center; width:90%; max-width:400px;">
+    <h3 style="margin-top:0;">Enter Image Caption</h3>
+    <input type="text" id="captionInput" placeholder="Enter a caption..." style="width:100%; padding:10px; margin:15px 0; border-radius:5px; border:1px solid #ccc;" />
+    <div style="display:flex; justify-content:flex-end; gap:10px;">
+      <button id="captionCancelBtn" style="padding:8px 14px; background:#999; color:#fff; border:none; border-radius:5px;">Cancel</button>
+      <button id="captionOkBtn" style="padding:8px 14px; background:#4b0082; color:#fff; border:none; border-radius:5px;">OK</button>
+    </div>
+  </div>
+</div>
 
-  <script src="layout.js"></script>
-  <script>
-    // Inject layout from layout.js
-    document.getElementById('layout-header').innerHTML = layout.getHeader();
-    document.getElementById('layout-footer').innerHTML = layout.getFooter();
 
-    // Lightbox functionality
-    function openLightbox(src) {
-      document.getElementById("lightboxModal").style.display = "flex";
-      document.getElementById("lightboxImage").src = src;
+</main>
+
+<script>
+  // Scroll-to-top 
+  document.getElementById('scrollToTop').onclick = () => window.scrollTo({ top: 0, behavior: 'smooth' });
+
+  // Lightbox handlers
+  const lb = document.getElementById('lightboxModal'),
+        lbImg = document.getElementById('lightboxImage');
+  document.getElementById('gallery').onclick = e => {
+    const card = e.target.closest('.gallery-card');
+    if (!card) return;
+
+    if (e.target.matches('.download-btn')) {
+      const img = card.querySelector('img');
+      if (img) {
+        const a = document.createElement('a');
+        a.href = img.src;
+        a.download = img.alt || 'download';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+      }
+      return;
     }
 
-    function closeLightbox() {
-      document.getElementById("lightboxModal").style.display = "none";
-      document.getElementById("lightboxImage").src = "";
+    if (e.target.matches('img, .zoom-icon')) {
+      const img = card.querySelector('img');
+      lbImg.src = img.src;
+      lbImg.alt = img.alt;
+      lb.style.display = 'flex';
     }
-  </script>
+  };
+  document.getElementById('closeBtn').onclick = () => lb.style.display = 'none';
+  lb.onclick = e => { if (e.target === lb) lb.style.display = 'none'; };
+  window.addEventListener('keydown', e => { if (e.key === 'Escape') lb.style.display = 'none'; });
+
+  // State & modal  
+  const imageUpload = document.getElementById('imageUpload'),
+        gallery = document.getElementById('gallery'),
+        captionModal = document.getElementById('captionModal'),
+        captionInput = document.getElementById('captionInput'),
+        okBtn = document.getElementById('captionOkBtn'),
+        cancelBtn = document.getElementById('captionCancelBtn');
+  let pendingFile = null;
+
+  imageUpload.onchange = e => {
+    const file = e.target.files[0];
+    if (!file || !file.type.startsWith('image/')) return;
+    pendingFile = file;
+    captionInput.value = '';
+    captionModal.style.display = 'flex';
+    imageUpload.value = '';
+  };
+
+  okBtn.onclick = () => {
+    const caption = captionInput.value.trim() || pendingFile.name;
+    const reader = new FileReader();
+    reader.onload = e => {
+      const src = e.target.result;
+      addImageToGallery(src, caption);
+      saveToLocal(src, caption);
+    };
+    reader.readAsDataURL(pendingFile);
+    captionModal.style.display = 'none';
+  };
+
+  cancelBtn.onclick = () => captionModal.style.display = 'none';
+
+  function addImageToGallery(src, name) {
+    const card = document.createElement('div');
+    card.className = 'gallery-card';
+    card.innerHTML = `
+      <button class="download-btn" aria-label="Download Image">⬇️</button>
+      <img src="${src}" alt="${name}">
+      <span class="zoom-icon">🔍</span>
+      <div class="card-caption">${name}</div>`;
+    gallery.appendChild(card);
+  }
+
+  function saveToLocal(src, name) {
+    const arr = JSON.parse(localStorage.getItem('uploadedImages') || '[]');
+    arr.push({ src, name });
+    localStorage.setItem('uploadedImages', JSON.stringify(arr));
+  }
+
+  function loadFromLocal() {
+    JSON.parse(localStorage.getItem('uploadedImages') || '[]').forEach(o => addImageToGallery(o.src, o.name));
+  }
+
+  window.addEventListener('load', loadFromLocal);
+</script>
+
+<script src="layout.js" defer></script>
 </body>
 </html>
