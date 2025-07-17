@@ -342,7 +342,7 @@ main {
 <div class="top-controls">
   <button id="toggleAllBtn" onclick="toggleAll()">🔼 Expand All</button>
   <input
-    type="text"
+    type="search"
     id="searchInput"
     placeholder="🔍 Search documents..."
     oninput="filterDocuments()"
@@ -566,14 +566,47 @@ let allExpanded = false;
 
 function filterDocuments() {
   const input = document.getElementById("searchInput").value.toLowerCase();
-  const rows = document.querySelectorAll(".file-table tbody tr");
+  const categories = document.querySelectorAll(".category");
 
-  rows.forEach(row => {
-    const text = row.textContent.toLowerCase();
-    row.style.display = text.includes(input) ? "" : "none";
+  categories.forEach(category => {
+    const tbodyRows = category.querySelectorAll("tbody tr");
+    let categoryHasMatch = false;
+
+    tbodyRows.forEach(row => {
+      const text = row.textContent.toLowerCase();
+      if (text.includes(input)) {
+        row.style.display = "";  // Show matching row
+        categoryHasMatch = true;
+      } else {
+        row.style.display = "none";  // Hide non-matching row
+      }
+    });
+
+    const categoryBody = category.querySelector(".category-body");
+
+    if (input.length > 0) {
+      if (categoryHasMatch) {
+        // Show & expand category if any row matches
+        category.style.removeProperty('display'); // show category container itself if hidden
+        category.classList.remove("collapsed");
+        categoryBody.style.display = "";  // Show the body
+      } else {
+        // Hide category entirely if no match inside
+        category.style.display = "none";
+      }
+    } else {
+      // When search cleared, reset all categories and rows
+
+      category.style.removeProperty('display');  // Show all categories
+      category.classList.add("collapsed");       // Collapse all categories
+      categoryBody.style.display = "none";       // Hide category body
+
+      tbodyRows.forEach(row => {
+        row.style.display = ""; // Show all rows again
+      });
+    }
   });
 }
-
 
 window.addEventListener("scroll", function () {
   const scrollButton = document.getElementById("scrollToTop");
