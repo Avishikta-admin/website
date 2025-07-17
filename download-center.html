@@ -37,7 +37,7 @@ main {
       display: flex;
       justify-content: center;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
     }
     h1 img {
       height: 38px;
@@ -48,7 +48,7 @@ main {
     p.sub {
       text-align: center;
       color: #555;
-      margin-bottom: 30px;
+      margin-bottom: 12px;
     }
 
     /* Categories */
@@ -69,7 +69,7 @@ main {
     }
     .category-header h2 {
       margin: 0;
-      font-size: 1.2rem;
+      font-size: 1.0rem;
       display: flex;
       align-items: center;
       gap: 0.5rem;
@@ -79,7 +79,7 @@ main {
       color: #555;
     }
     .category.collapsed i.arrow {
-      transform: rotate(-90deg);
+      transform: rotate(180deg);
     }
 
     /* Tables */
@@ -222,7 +222,31 @@ main {
       outline: none;
     }
 
-    /* Animations */
+.toggle-all-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 15px;
+}
+
+.toggle-all-buttons button {
+  padding: 8px 16px;
+  background-color: #6c5ce7;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+.toggle-all-buttons button:hover {
+  background-color: #4834d4;
+}
+
+/* Animations */
     @keyframes fadeSlideIn {
       from {
         opacity: 0;
@@ -248,7 +272,7 @@ main {
       cursor: pointer;
       z-index: 10000;
       transition: background-color 0.3s ease;
-      display: flex;
+      display: none;
       justify-content: center;
       align-items: center;
     }
@@ -267,8 +291,41 @@ main {
       color: white;
       margin-left: 8px;
     }
-  </style>
-  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+.top-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+.top-controls input {
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+}
+
+#toggleAllBtn {
+  background-color: #2980b9;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+#toggleAllBtn:hover {
+  background-color: #1f5f8b;
+}
+
+
+</style>
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </head>
 <body>
 
@@ -282,7 +339,52 @@ main {
   </h1>
   <p class="sub">All important forms and documents at your fingertips!</p>
 
+<div class="top-controls">
+  <button id="toggleAllBtn" onclick="toggleAll()">🔼 Expand All</button>
+  <input
+    type="text"
+    id="searchInput"
+    placeholder="🔍 Search documents..."
+    oninput="filterDocuments()"
+    aria-label="Search documents"
+  />
+</div>
+
   <!-- PDF Category -->
+
+<!-- Meeting Minutes Category -->
+<div class="category collapsed" id="mom-section">
+  <div class="category-header" onclick="toggleSection('mom-section')">
+    <h2 class="icon-pdf"><i class="fas fa-file-alt"></i> Meeting Minutes (AGM & GB)</h2>
+    <i class="fas fa-chevron-down arrow"></i>
+  </div>
+  <div class="category-body" style="display: none">
+    <table class="file-table">
+      <thead>
+        <tr>
+          <th>Meeting Date</th>
+          <th>Title</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>December 2024</td>
+          <td>General Body Meeting</td>
+          <td class="actions">
+            <button onclick="openModal('downloads/mom-2024-12-22-gb.pdf')" class="view-btn"><i class="fas fa-eye"></i> View</button>
+            <a href="downloads/mom-2024-12-22-gb.pdf" download class="download-btn"><i class="fas fa-cloud-download-alt"></i> Download</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="modal-footer" style="font-size: 0.85rem; color: #555; margin-top: 1rem; text-align: center;">
+      <em><b>Note:</b> These MoMs are shared strictly for internal use by Avishikta - I Type A residents. Redistribution is not permitted without written approval from the Executive Committee.</em>
+    </div>
+  </div>
+</div>
+
   <div class="category collapsed" id="pdf-section">
     <div class="category-header" onclick="toggleSection('pdf-section')">
       <h2 class="icon-pdf"><i class="fas fa-file-pdf"></i> Association Forms & Templates</h2>
@@ -319,7 +421,7 @@ main {
             </td>
           </tr>
           <tr>
-            <td>Revised Rent Form</td>
+            <td>Rent Form</td>
             <td class="actions">
               <button onclick="openModal('downloads/rent-form.pdf')" class="view-btn"><i class="fas fa-eye"></i> View</button>
               <a href="downloads/rent-form.pdf" download class="download-btn"><i class="fas fa-cloud-download-alt"></i> Download</a>
@@ -367,7 +469,7 @@ main {
   <!-- Excel Category -->
   <div class="category collapsed" id="excel-section">
     <div class="category-header" onclick="toggleSection('excel-section')">
-      <h2 class="icon-excel"><i class="fas fa-file-excel"></i> Excel Sheets</h2>
+      <h2 class="icon-excel"><i class="fas fa-file-excel"></i> Spreadsheet</h2>
       <i class="fas fa-chevron-down arrow"></i>
     </div>
     <div class="category-body" style="display: none">
@@ -398,38 +500,6 @@ main {
     </div>
   </div>
 
-<!-- Meeting Minutes Category -->
-<div class="category collapsed" id="mom-section">
-  <div class="category-header" onclick="toggleSection('mom-section')">
-    <h2 class="icon-pdf"><i class="fas fa-file-alt"></i> Meeting Minutes (AGM & GB)</h2>
-    <i class="fas fa-chevron-down arrow"></i>
-  </div>
-  <div class="category-body" style="display: none">
-    <table class="file-table">
-      <thead>
-        <tr>
-          <th>Meeting Date</th>
-          <th>Title</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>December 2024</td>
-          <td>General Body Meeting</td>
-          <td class="actions">
-            <button onclick="openModal('downloads/mom-2024-12-22-gb.pdf')" class="view-btn"><i class="fas fa-eye"></i> View</button>
-            <a href="downloads/mom-2024-12-22-gb.pdf" download class="download-btn"><i class="fas fa-cloud-download-alt"></i> Download</a>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-
-    <div class="modal-footer" style="font-size: 0.85rem; color: #555; margin-top: 1rem; text-align: center;">
-      <em><b>Note:</b> These MoMs are shared strictly for internal use by Avishikta - I Type A residents. Redistribution is not permitted without written approval from the Executive Committee.</em>
-    </div>
-  </div>
-</div>
 
 
 </main>
@@ -447,13 +517,18 @@ main {
 
 <script>
   function toggleSection(id) {
-    const sec = document.getElementById(id);
-    const body = sec.querySelector('.category-body');
-    const arrow = sec.querySelector('.arrow');
-    const hidden = body.style.display === 'none';
-    body.style.display = hidden ? 'block' : 'none';
-    sec.classList.toggle('collapsed', !hidden);
-  }
+  const sec = document.getElementById(id);
+  const body = sec.querySelector('.category-body');
+  const arrow = sec.querySelector('.arrow');
+  const hidden = body.style.display === 'none';
+
+  body.style.display = hidden ? 'block' : 'none';
+  sec.classList.toggle('collapsed', !hidden);
+
+  // Update emoji arrow
+  arrow.textContent = hidden ? '🔼' : '🔽';
+}
+
 
   function openModal(src) {
     const modal = document.getElementById('modal');
@@ -466,9 +541,52 @@ main {
     modal.classList.remove('active');
     modal.querySelector('iframe').src = '';
   }
+
+let allExpanded = false;
+
+  function toggleAll() {
+    const sections = document.querySelectorAll('.category');
+    const toggleBtn = document.getElementById('toggleAllBtn');
+
+    sections.forEach(section => {
+      const body = section.querySelector('.category-body');
+      if (allExpanded) {
+        body.style.display = 'none';
+        section.classList.add('collapsed');
+      } else {
+        body.style.display = 'block';
+        section.classList.remove('collapsed');
+      }
+    });
+
+    // Update button text/icon
+    allExpanded = !allExpanded;
+    toggleBtn.innerHTML = allExpanded ? '🔼 Collapse All' : '🔽 Expand All';
+  }
+
+function filterDocuments() {
+  const input = document.getElementById("searchInput").value.toLowerCase();
+  const rows = document.querySelectorAll(".file-table tbody tr");
+
+  rows.forEach(row => {
+    const text = row.textContent.toLowerCase();
+    row.style.display = text.includes(input) ? "" : "none";
+  });
+}
+
+
+window.addEventListener("scroll", function () {
+  const scrollButton = document.getElementById("scrollToTop");
+  if (window.scrollY > 300) {
+    scrollButton.style.display = "flex";
+  } else {
+    scrollButton.style.display = "none";
+  }
+});
+
 </script>
 
 <!-- Existing header/footer/nav file -->
-<script src="layout.js"></script>
+<script src="layout.js" defer></script>
 </body>
 </html>
