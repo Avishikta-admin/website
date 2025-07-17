@@ -521,7 +521,7 @@ main {
 
         <!-- Get Involved -->
         <li>
-          <button class="section-header" aria-expanded="false" aria-controls="GetInvolved-submenu" tabindex="0" role="menuitem">
+          <button class="section-header" style="color: #D2B48C;" aria-expanded="false" aria-controls="GetInvolved-submenu" tabindex="0" role="menuitem">
             <i class="fas fa-hands-helping" aria-hidden="true"></i> Get Involved
           </button>
           <ul id="GetInvolved-submenu" role="menu">
