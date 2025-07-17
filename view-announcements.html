@@ -225,9 +225,15 @@
   cursor: pointer;
   z-index: 10000;
   transition: background-color 0.3s ease;
-  display: flex;
+  display: none;
   justify-content: center;
   align-items: center;
+  opacity: 0;
+}
+
+#scrollToTop.show {
+  display: flex;
+  opacity: 1;
 }
 
 #scrollToTop:hover {
@@ -245,12 +251,12 @@
   margin-left: 8px; /* Small margin between icon and text */
 }
 
-  </style>
+</style>
 </head>
 
 <body>
 
-<button id="scrollToTop" onclick="window.scrollTo(0, 0);" title="Go to the top">⬆️</button>
+<button id="scrollToTop" onclick="window.scrollTo({top: 0, behavior: 'smooth'});" title="Go to the top">⬆️</button>
 
   <div id="header"></div>
   <div id="nav"></div>
@@ -320,5 +326,18 @@
       </div>
     </article>
   </main>
+
+<script>
+const scrollToTopBtn = document.getElementById('scrollToTop');
+
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 100) {
+    scrollToTopBtn.classList.add('show');
+  } else {
+    scrollToTopBtn.classList.remove('show');
+  }
+});
+</script>
+
 </body>
 </html>
