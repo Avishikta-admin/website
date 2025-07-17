@@ -449,6 +449,15 @@ main {
   font-weight: 600;
   color: #f5f5dc; /* current page label light cream */
 }
+
+#main-nav a.active-page {
+  background-color: rgba(0, 188, 212, 0.3);
+  color: #fff;
+  border-radius: 4px;
+  padding: 2px 6px;
+}
+
+
 `;
   document.head.appendChild(style);
 
@@ -520,7 +529,7 @@ main {
           <ul id="GetInvolved-submenu" role="menu">
         <li> <a href="feedback.html" id="give-feedback-link" role="menuitem" title="We value your feedback—let us know your thoughts"><i class="fas fa-comment-dots" aria-hidden="true"></i> Give Feedback</a>
         </li>
-	<li> <a href="volunteer.html" id="give-feedback-link" role="menuitem" title="Come forward to provide volunteer service"><i class="fas fa-hands-helping" aria-hidden="true"></i>Volunteer Opportunities</a>
+	<li> <a href="volunteer.html" id="volunteer-link" role="menuitem" title="Come forward to provide volunteer service"><i class="fas fa-hands-helping" aria-hidden="true"></i>Volunteer Opportunities</a>
         </li>
         </ul>
         </li>
@@ -702,10 +711,10 @@ function renderBreadcrumb() {
     'our-members.html': ['Home', 'Association', 'Residents Directory'],
     'view-announcements.html': ['Home', 'Resources', 'Announcements'],
     'mom.html': ['Home', 'Resources', 'Meeting Minutes'],
-    'events.html': ['Home', 'Resources', 'Event Calendar'],
+    'events.html': ['Home', 'Resources', 'Events & Shared Moments'],
     'general-guidelines.html': ['Home', 'Resources', 'Community Guidelines'],
     'download-center.html': ['Home', 'Resources', 'Download Center'],
-    'useful-links.html': ['Home', 'Resources', 'Helpdesk & Contacts'],
+    'useful-links.html': ['Home', 'Resources', 'Support Hub'],
     'projects.html': ['Home', 'Resources','Projects & Upgrades'],
     'feedback.html': ['Home', 'Get Involved','Give Feedback'],
     'volunteer.html': ['Home', 'Get Involved','Volunteer Opportunities'],
@@ -757,6 +766,16 @@ function renderBreadcrumb() {
   }
 }
 
-document.addEventListener('DOMContentLoaded', renderBreadcrumb);
+document.addEventListener('DOMContentLoaded', () => {
+  renderBreadcrumb();
 
+  // Highlight current nav link
+  const currentPath = window.location.pathname.split('/').pop();
+  document.querySelectorAll('#main-nav a').forEach(link => {
+    const linkPath = link.getAttribute('href');
+    if (linkPath === currentPath) {
+      link.classList.add('active-page');
+    }
+  });
+});
 })();
