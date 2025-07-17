@@ -477,7 +477,7 @@ main {
     <footer>
       <div class="footer-credit" aria-label="Developed by credit">
         Designed, Developed and Maintained with <span class="heart">❤</span> by <strong><span class="blinking-text">Niloy Pandit</span></strong> |
-        &copy; 2025 Avishikta - I Type - A RWA. All rights reserved.
+        &copy; 2025 Avishikta - I &nbsp;Type - A &nbsp;RWA. All rights reserved.
       </div>
       <div class="footer-links" aria-label="Footer navigation links">
         <a href="index.html" class="home-link"><i class="fas fa-home"></i> Home</a>
