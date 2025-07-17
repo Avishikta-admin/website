@@ -13,7 +13,7 @@
   // Disable right-click functionality
   document.addEventListener('contextmenu', function (event) {
     event.preventDefault();  // Prevent the right-click menu from showing
-    alert("Right-click is disabled on this page.");  // Alert the user
+    alert("Right-click is disabled on this page!");  // Alert the user
   });
 
   // Disable text selection (for copy-paste prevention)
@@ -24,13 +24,13 @@
   // Disable copy functionality
   document.addEventListener('copy', function (event) {
     event.preventDefault();  // Prevent the copy action
-    alert("Copying is disabled on this page.");  // Alert the user
+    alert("Copying is disabled on this page!");  // Alert the user
   });
 
   // Disable paste functionality
   document.addEventListener('paste', function (event) {
     event.preventDefault();  // Prevent the paste action
-    alert("Pasting is disabled on this page.");  // Alert the user
+    alert("Pasting is disabled on this page!");  // Alert the user
   });
 
   // Styles for header, footer, and nav
@@ -456,8 +456,6 @@ main {
   border-radius: 4px;
   padding: 2px 6px;
 }
-
-
 `;
   document.head.appendChild(style);
 
@@ -479,7 +477,7 @@ main {
     <footer>
       <div class="footer-credit" aria-label="Developed by credit">
         Designed, Developed and Maintained with <span class="heart">❤</span> by <strong><span class="blinking-text">Niloy Pandit</span></strong> |
-        &copy; 2025 Avishikta Type - A RWA. All rights reserved.
+        &copy; 2025 Avishikta - I Type - A RWA. All rights reserved.
       </div>
       <div class="footer-links" aria-label="Footer navigation links">
         <a href="index.html" class="home-link"><i class="fas fa-home"></i> Home</a>
