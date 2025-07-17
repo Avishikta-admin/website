@@ -86,7 +86,7 @@
       background: linear-gradient(to top, rgba(42, 114, 216, 0.85), transparent);
       color: white;
       text-align: center;
-      font-size: 2rem;
+      font-size: 1.5rem;
       font-weight: 700;
       font-family: 'Segoe UI Black', Tahoma, Geneva, Verdana, sans-serif;
       padding: 12px 0;
@@ -288,21 +288,22 @@
 
 #scrollToTop {
   position: fixed;
-  bottom: 50px; /* Reduced space from bottom */
-  right: 10px;  /* Reduced space from right */
+  bottom: 30px; /* reduced bottom spacing */
+  right: 15px;  /* adjusted right spacing */
   background-color: #ff6347;
   color: white;
   border-radius: 50%;
-  padding: 10px; /* Reduced padding */
-  font-size: 1rem; /* Smaller font size */
+  padding: 8px; /* smaller padding */
+  font-size: 0.85rem; /* smaller font size */
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   border: none;
   cursor: pointer;
   z-index: 10000;
-  transition: background-color 0.3s ease;
-  display: flex;
+  transition: background-color 0.3s ease, opacity 0.3s ease;
+  display: none; /* hide by default */
   justify-content: center;
   align-items: center;
+  opacity: 0;
 }
 
 #scrollToTop:hover {
@@ -315,12 +316,17 @@
 
 #scrollToTop:hover::after {
   content: " Go to top"; /* Text shown when hovered */
-  font-size: 0.85rem; /* Smaller text size */
+  font-size: 0.75rem; /* Smaller text size */
   color: white;
-  margin-left: 8px; /* Small margin between icon and text */
+  margin-left: 6px; /* Small margin between icon and text */
 }
 
-  </style>
+#scrollToTop.show {
+  display: flex;
+  opacity: 1;
+}
+
+</style>
 </head>
 
 <body>
@@ -330,7 +336,7 @@
   <main>
     <div class="image-container" aria-label="Useful Links banner with title">
       <img src="Image-1.jpg" alt="Useful Links Banner" />
-      <div class="image-overlay">Useful Links</div>
+      <div class="image-overlay">Useful Links & Contacts</div>
     </div>
 
     <div class="tagline" aria-label="Page tagline">Empowering our community with trusted resources and vital contacts</div>
@@ -485,9 +491,20 @@
 
     // Initialize ARIA attributes on page load
     panels.forEach(panel => panel.setAttribute('hidden', 'true'));
-  </script>
 
-  <script src="layout.js" defer></script>
+const scrollToTopBtn = document.getElementById('scrollToTop');
+
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 100) {
+    scrollToTopBtn.classList.add('show');
+  } else {
+    scrollToTopBtn.classList.remove('show');
+  }
+});
+
+</script>
+
+<script src="layout.js" defer></script>
 </body>
 
 </html>
