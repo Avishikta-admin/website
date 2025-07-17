@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>General Guidelines - Avishikta Phase 1 LIG RWA</title>
+  <title>General Guidelines | Avishikta - 1 Type - A RWA</title>
 
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
@@ -75,6 +75,7 @@
       box-shadow: 0 8px 15px rgba(0,0,0,0.15);
       margin-bottom: 40px;
       margin: 0 auto 40px;  /* center with margin */
+      text-align:justify;
     }
 
     /* Additional styles for guidelines accordion */
@@ -192,23 +193,29 @@
 
 
 #scrollToTop {
-  position: fixed;
-  bottom: 50px; /* Reduced space from bottom */
-  right: 20px;  /* Reduced space from right */
-  background-color: #ff6347;
-  color: white;
-  border-radius: 50%;
-  padding: 5px; /* Reduced padding */
-  font-size: 1rem; /* Smaller font size */
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  border: none;
-  cursor: pointer;
-  z-index: 10000;
-  transition: background-color 0.3s ease;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
+      position: fixed;
+      bottom: 50px;
+      right: 20px;
+      background-color: #ff6347;
+      color: white;
+      border-radius: 50%;
+      padding: 5px;
+      font-size: 1rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      border: none;
+      cursor: pointer;
+      z-index: 10000;
+      transition: background-color 0.3s ease;
+      display: none;
+      opacity: 0;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #scrollToTop.show {
+      display: flex;
+      opacity: 1;
+    }
 
 #scrollToTop:hover {
   background-color: #4b0082;
@@ -256,8 +263,7 @@
       <summary><span class="arrow">&#9656;</span> Financial Contributions:</summary>
       <ul>
         <li>Please set a reminder to pay your Monthly Maintenance Charge (MMC) by 15th of each month to avoid incurring a late fine of Rs. 50.00.</li>
-        <li>If Monthly Maintenance Charge remains unpaid for 3 months or more, related services will be temporarily suspended until dues are cleared.
-This action is not the association’s intent, but a necessary step to ensure fairness and maintain smooth operations.</li>
+        <li>IF MMC IS UNPAID FOR TWO MONTHS OR MORE, ALL MMC – RELATED SERVICES WILL BE TEMPORARILY SUSPENDED UNTIL DUES ARE CLEARED.</li>
       </ul>
     </details>
 
@@ -292,7 +298,7 @@ This action is not the association’s intent, but a necessary step to ensure fa
       <summary><span class="arrow">&#9656;</span> Alterations / Repairs / Installation Protocol:</summary>
       <ul>
         <li>Please notify the Association at least 3 days in prior to commencing any renovation / repair / installation (e.g., AC units, Dish antennas, etc.) work.</li>
-        <li>Work Window: 9:00 AM – 6:00 PM || Quiet Window: 1:00 PM – 4:00 PM (no noisy work permitted)</li>
+        <li>Work Window: 8:00 AM – 6:00 PM || Quiet Window: 1:00 PM – 4:00 PM (no noisy work permitted)</li>
         <li>Ensure no work causes disruption or inconvenience to neighbouring residents.</li>
         <li>Dispose of any debris or unserviceable materials within seven (7) days of production.</li>
         <li>Kindly ensure no work compromises the structural safety or stability of the building.</li>
@@ -335,8 +341,26 @@ This action is not the association’s intent, but a necessary step to ensure fa
         <li>Be mindful of noise created by pets, such as barking, especially during night hours.</li>
       </ul>
     </details>
+
   </section>
-<script src="layout.js" defer></script>
+
+<script>
+  const scrollToTopBtn = document.getElementById('scrollToTop');
+
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 100) {
+      scrollToTopBtn.classList.add('show');
+    } else {
+      scrollToTopBtn.classList.remove('show');
+    }
+  });
+
+  scrollToTopBtn.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+</script>
+
+<script src="layout.js"></script>
 </main>
 </body>
 </html>
