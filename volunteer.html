@@ -35,61 +35,139 @@
       color: #444;
     }
 
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 25px;
-    }
+  .grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+  max-width: 100%;    /* limits grid max width */
+  margin: 0 auto;       /* center grid */
+  padding: 10px 15px;   /* padding around grid */
+}
 
-    .card {
-      background: #ffffff;
-      border-radius: 12px;
-      padding: 18px;
-      border-left: 8px solid #0077cc;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.06);
-    }
+.card {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 22px 20px;    /* slightly more padding */
+  border-left: 8px solid #0077cc;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: default;       /* default pointer */
+}
 
-    .card:nth-child(1) { background-color: #e6f4ea; border-left-color: #4caf50; }
-    .card:nth-child(2) { background-color: #fff4e6; border-left-color: #ff9800; }
-    .card:nth-child(3) { background-color: #e6f0ff; border-left-color: #0077cc; }
-    .card:nth-child(4) { background-color: #f9e6f4; border-left-color: #c2185b; }
-    .card:nth-child(5) { background-color: #f0f4f9; border-left-color: #0288d1; }
-    .card:nth-child(6) { background-color: #f3f3e6; border-left-color: #9e9d24; }
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12);
+}
 
-    .card h3 {
-      margin-top: 0;
-      margin-bottom: 8px;
-      color: #222;
-      font-size: 1.3em;
-    }
+.card:nth-child(1) { background-color: #e6f4ea; border-left-color: #4caf50; }
+.card:nth-child(2) { background-color: #fff4e6; border-left-color: #ff9800; }
+.card:nth-child(3) { background-color: #e6f0ff; border-left-color: #0077cc; }
+.card:nth-child(4) { background-color: #f9e6f4; border-left-color: #c2185b; }
+.card:nth-child(5) { background-color: #f0f4f9; border-left-color: #0288d1; }
+.card:nth-child(6) { background-color: #f3f3e6; border-left-color: #9e9d24; }
 
-    .card p {
-      margin: 5px 0;
-      color: #333;
-      line-height: 1.4;
-    }
+.card h3 {
+  margin-top: 0;
+  margin-bottom: 12px;
+  color: #222;
+  font-size: 1.0em;
+  font-weight: 700;
+}
 
-    .card a {
-      display: inline-block;
-      margin-top: 8px;
-      text-decoration: none;
-      color: #fff;
-      background-color: #0077cc;
-      padding: 8px 12px;
-      border-radius: 5px;
-      font-weight: bold;
-    }
+.card p {
+  margin: 6px 0;
+  color: #333;
+  line-height: 1.4;
+  font-size: 0.95rem;
+  text-align: justify;
+}
 
-    .card a:hover {
-      background-color: #005fa3;
-    }
+.card a {
+  display: inline-block;
+  margin-top: 12px;
+  text-decoration: none;
+  color: #fff;
+  background-color: #0077cc;
+  padding: 10px 14px;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
 
-    .note {
-      margin-top: 50px;
-      text-align: center;
-      font-size: 0.95em;
-      color: #555;
-    }
+.card a:hover,
+.card a:focus {
+  background-color: #005fa3;
+  outline: none;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  .grid {
+    gap: 15px;
+    padding: 10px;
+  }
+  
+  .card {
+    padding: 18px 15px;
+  }
+  
+  .card h3 {
+    font-size: 1.2em;
+  }
+  
+  .card p {
+    font-size: 0.95rem;
+  }
+  
+  .card a {
+    padding: 8px 12px;
+    font-size: 0.9rem;
+  }
+}
+
+
+  .note {
+  margin-top: 50px;
+  text-align: center;
+  font-size: 0.95em;
+  color: white;
+  background-color: #0072ff;
+  padding: 15px 20px;
+  border-radius: 8px;
+  max-width: 700px;       /* max width for larger screens */
+  margin-left: 20%;       /* push right on large screens */
+  margin-right: auto;
+  box-shadow: 0 4px 8px rgba(0, 114, 255, 0.4);
+}
+
+/* Responsive tweaks */
+@media (max-width: 768px) { /* tablets and smaller */
+  .note {
+    max-width: 90%;       /* take almost full width */
+    margin-left: auto;    /* center horizontally */
+    margin-right: auto;
+  }
+}
+
+@media (max-width: 480px) { /* mobile phones */
+  .note {
+    font-size: 0.9em;     /* slightly smaller font */
+    padding: 12px 15px;   /* adjust padding */
+  }
+}
+
+
+.note a {
+  color: #e0f0ff;
+  text-decoration: underline;
+  font-weight: 600;
+}
+
+.note a:hover {
+  color: #b3d1ff;
+}
+
 
     #topBtn {
       display: none;
@@ -112,59 +190,90 @@
     #topBtn:hover {
       background-color: #005fa3;
     }
-  </style>
+
+.intro-box {
+  background: linear-gradient(135deg, #e6f0ff 0%, #cce5ff 100%); /* light blue gradient */
+  color: #00509e; /* deep blue text */
+  padding: 10px 15px;
+  border-radius: 16px;
+  box-shadow: 0 8px 16px rgba(0, 80, 158, 0.2);
+  max-width: 900px;
+  margin: 5px auto;
+  text-align: center;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.intro-box h1 {
+  margin-bottom: 12px;
+  font-weight: 700;
+  font-size: 1.8rem;
+  text-shadow: none; /* removed shadow for cleaner look */
+}
+
+.intro-box p.intro {
+  font-size: 1rem;
+  line-height: 1.5;
+  font-weight: 500;
+  max-width: 600px;
+  margin: 0 auto;
+  text-shadow: none; /* remove shadow for clarity */
+}
+
+</style>
 </head>
 <body>
 
   <div id="header"></div>
 
   <main id="main">
-    <h1>Volunteer Opportunities</h1>
-    <p class="intro">Contribute your time and talent to make our community stronger! Browse through open volunteer roles and express your interest using the form below.</p>
+    <div class="intro-box">
+  <h1>Volunteer Opportunities</h1>
+  <p class="intro">Contribute your time and talent to make our community stronger! Browse through open volunteer roles and express your interest using the form below.</p>
+</div>
 
     <div class="grid">
-      <div class="card">
-        <h3>🌿 Gardening Club Lead</h3>
-        <p><strong>Time:</strong> 2 hrs/week</p>
-        <p><strong>Description:</strong> Help beautify our shared spaces and coordinate green drives.</p>
-        <a href="https://forms.gle/XtqUXdxkLKtjJU7M6" target="_blank">Express Interest</a>
-      </div>
+  <div class="card">
+    <h3>🌿 Gardening Club Lead</h3>
+    <p><strong>Time:</strong> 2 hrs/week</p>
+    <p><strong>Description:</strong> Lead efforts to beautify shared gardens and green spaces, organize planting days, and encourage sustainable practices.</p>
+    <a href="https://forms.gle/XtqUXdxkLKtjJU7M6" target="_blank">Express Interest</a>
+  </div>
 
-      <div class="card">
-        <h3>🎉 Community Event Planner</h3>
-        <p><strong>Time:</strong> 4 hrs/month</p>
-        <p><strong>Description:</strong> Plan fun, inclusive events and bring neighbors together.</p>
-        <a href="https://forms.gle/XtqUXdxkLKtjJU7M6" target="_blank">Express Interest</a>
-      </div>
+  <div class="card">
+    <h3>🎉 Community Event Planner</h3>
+    <p><strong>Time:</strong> 4 hrs/month</p>
+    <p><strong>Description:</strong> Organize inclusive social events that foster neighborly connections and a stronger sense of community.</p>
+    <a href="https://forms.gle/XtqUXdxkLKtjJU7M6" target="_blank">Express Interest</a>
+  </div>
 
-      <div class="card">
-        <h3>🛠 Maintenance Helper</h3>
-        <p><strong>Time:</strong> 1 hr/week</p>
-        <p><strong>Description:</strong> Track and assist with small repair or upkeep tasks.</p>
-        <a href="https://forms.gle/XtqUXdxkLKtjJU7M6" target="_blank">Express Interest</a>
-      </div>
+  <div class="card">
+    <h3>🛠 Maintenance Helper</h3>
+    <p><strong>Time:</strong> 1 hr/week</p>
+    <p><strong>Description:</strong> Assist with routine inspections, minor repairs, and coordinating maintenance requests to keep our community safe and well-maintained.</p>
+    <a href="https://forms.gle/XtqUXdxkLKtjJU7M6" target="_blank">Express Interest</a>
+  </div>
 
-      <div class="card">
-        <h3>📰 Newsletter Contributor</h3>
-        <p><strong>Time:</strong> 4 hrs/month</p>
-        <p><strong>Description:</strong> Write stories and updates for our monthly newsletter.</p>
-        <a href="https://forms.gle/XtqUXdxkLKtjJU7M6" target="_blank">Express Interest</a>
-      </div>
+  <div class="card">
+    <h3>📰 Newsletter Contributor</h3>
+    <p><strong>Time:</strong> 4 hrs/month</p>
+    <p><strong>Description:</strong> Help create and distribute a monthly newsletter sharing community news, events, and important updates.</p>
+    <a href="https://forms.gle/XtqUXdxkLKtjJU7M6" target="_blank">Express Interest</a>
+  </div>
 
-      <div class="card">
-        <h3>💻 Digital Notice Board Helper</h3>
-        <p><strong>Time:</strong> 1–2 hrs/week</p>
-        <p><strong>Description:</strong> Help post notices and alerts to our website and WhatsApp.</p>
-        <a href="https://forms.gle/XtqUXdxkLKtjJU7M6" target="_blank">Express Interest</a>
-      </div>
+  <div class="card">
+    <h3>💻 Digital Notice Board Helper</h3>
+    <p><strong>Time:</strong> 1–2 hrs/week</p>
+    <p><strong>Description:</strong> Manage digital communications by updating the community website and social channels with relevant notices and announcements.</p>
+    <a href="https://forms.gle/XtqUXdxkLKtjJU7M6" target="_blank">Express Interest</a>
+  </div>
 
-      <div class="card">
-        <h3>📋 Treasury Assistant</h3>
-        <p><strong>Time:</strong> 2 hrs/month</p>
-        <p><strong>Description:</strong> Support the treasurer with records and reminders (non-financial).</p>
-        <a href="https://forms.gle/XtqUXdxkLKtjJU7M6" target="_blank">Express Interest</a>
-      </div>
-    </div>
+  <div class="card">
+    <h3>📋 Finance & Records Assistant</h3>
+    <p><strong>Time:</strong> 2 hrs/month</p>
+    <p><strong>Description:</strong> Assist with maintaining transparent financial records, tracking expenses, and supporting the community treasurer.</p>
+    <a href="https://forms.gle/XtqUXdxkLKtjJU7M6" target="_blank">Express Interest</a>
+  </div>
+</div>
 
     <p class="note">
       Don't see your fit? Email us at <a href="mailto:atarwa@gmail.com">atarwa@gmail.com</a> and we’ll find the right role for you!
