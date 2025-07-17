@@ -517,7 +517,7 @@ main {
             <li role="none"><a href="general-guidelines.html" role="menuitem" title="General guidelines"><i class="fas fa-book" aria-hidden="true"></i> Community Guidelines</a></li>
 <li role="none"><a href="useful-links.html" role="menuitem" title="Helpdesk & Contacts"><i class="fas fa-book" aria-hidden="true"></i> Support Hub</a></li>
             <li role="none"><a href="download-center.html" role="menuitem" title="Access important documents and forms for download"><i class="fas fa-cloud-download-alt" aria-hidden="true"></i> Download-center</a></li>
-            <li role="none"><a href="projects.html" role="menuitem" title="View projects and upgrades"><i class="fas fa-tools" aria-hidden="true" aria-hidden="true"></i> Projects & Upgrades</a></li>
+            <li role="none"><a href="projects.html" role="menuitem" title="View projects and upgrades"><i class="fas fa-tools" aria-hidden="true" aria-hidden="true"></i> Project Status & Updates</a></li>
         </ul>
         </li>
 
@@ -715,7 +715,7 @@ function renderBreadcrumb() {
     'general-guidelines.html': ['Home', 'Resources', 'Community Guidelines'],
     'download-center.html': ['Home', 'Resources', 'Download Center'],
     'useful-links.html': ['Home', 'Resources', 'Support Hub'],
-    'projects.html': ['Home', 'Resources','Projects & Upgrades'],
+    'projects.html': ['Home', 'Resources','Project Status & Updates'],
     'feedback.html': ['Home', 'Get Involved','Give Feedback'],
     'volunteer.html': ['Home', 'Get Involved','Volunteer Opportunities'],
     'contact-us.html': ['Home', 'Get in Touch','Ready to hear you'],
@@ -735,7 +735,7 @@ function renderBreadcrumb() {
     'Event Calendar': 'events.html',
     'Community Guidelines': 'general-guidelines.html',
     'Download Center': 'download-center.html',
-    'Projects & Upgrades': 'projects.html',
+    'Project Status & Updates': 'projects.html',
     'Support Hub': 'useful-links.html',
     'Get Involved': '#',
     'Give Feedback': 'feedback.html',
