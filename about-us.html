@@ -17,6 +17,7 @@
       overflow-y: auto;
       box-sizing: border-box;
       width: 100%;
+      min-height: 200vh; /* Added to force scroll */
     }
 
     body {
@@ -113,46 +114,46 @@
       }
     }
 
-#scrollToTop {
-  position: fixed;
-  bottom: 50px; /* Reduced space from bottom */
-  right: 20px;  /* Reduced space from right */
-  background-color: #ff6347;
-  color: white;
-  border-radius: 50%;
-  padding: 5px; /* Reduced padding */
-  font-size: 1rem; /* Smaller font size */
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  border: none;
-  cursor: pointer;
-  z-index: 10000;
-  transition: background-color 0.3s ease;
-  display: none;
-  opacity: 0;
-  justify-content: center;
-  align-items: center;
-}
+    #scrollToTop {
+      position: fixed;
+      bottom: 50px;
+      right: 20px;
+      background-color: #ff6347;
+      color: white;
+      border-radius: 50%;
+      padding: 5px;
+      font-size: 1rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      border: none;
+      cursor: pointer;
+      z-index: 10000;
+      transition: background-color 0.3s ease;
+      display: none;
+      opacity: 0;
+      justify-content: center;
+      align-items: center;
+    }
 
-#scrollToTop.show {
-  display: flex;
-  opacity: 1;
-}
-#scrollToTop:hover {
-  background-color: #4b0082;
-}
+    #scrollToTop.show {
+      display: flex;
+      opacity: 1;
+    }
 
-#scrollToTop:focus {
-  outline: none; /* Remove focus outline */
-}
+    #scrollToTop:hover {
+      background-color: #4b0082;
+    }
 
-#scrollToTop:hover::after {
-  content: " Go to top"; /* Text shown when hovered */
-  font-size: 1rem; /* Smaller text size */
-  color: white;
-  margin-left: 8px; /* Small margin between icon and text */
-}
+    #scrollToTop:focus {
+      outline: none;
+    }
 
-</style>
+    #scrollToTop:hover::after {
+      content: " Go to top";
+      font-size: 1rem;
+      color: white;
+      margin-left: 8px;
+    }
+  </style>
 </head>
 <body>
 
@@ -180,33 +181,28 @@
       Our association takes pride in fostering a spirit of unity and cooperation among members, encouraging active participation in cultural, social, and environmental initiatives that enhance our shared living experience. From organizing community events to advocating for sustainable living practices, we strive to build not just houses, but a welcoming home where every voice is valued and every resident feels connected.
     </p>
     <p>
-      We invite all members to join hands in shaping a future filled with harmony, mutual respect, and continuous growth — together creating a resilient and caring neighborhood for generations to come. Thank you for being an integral part of our association journey at Avishikta Housing. Let’s continue to grow, support, and thrive as one family.
+      We invite all members to join hands in shaping a future filled with harmony, mutual respect, and continuous growth — together creating a resilient and caring neighborhood for generations to come. Thank you for being an integral part of our association journey at Avishikta - I Housing. Let’s continue to grow, support, and thrive as one family.
     </p>
   </main>
 
   <!-- Layout Footer -->
   <div id="footer"></div>
 
-<script src="layout.js" defer></script>
-
 <script>
-  document.getElementById('scrollToTop').addEventListener('click', () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-    document.body.scrollTop = 0;
-    document.documentElement.scrollTop = 0;
+  const scrollToTopBtn = document.getElementById('scrollToTop');
+
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 100) {
+      scrollToTopBtn.classList.add('show');
+    } else {
+      scrollToTopBtn.classList.remove('show');
+    }
   });
 
-const scrollToTopBtn = document.getElementById('scrollToTop');
-
-window.addEventListener('scroll', () => {
-  if (window.scrollY > 100) {
-    scrollToTopBtn.classList.add('show');
-  } else {
-    scrollToTopBtn.classList.remove('show');
-  }
-});
-  
+  scrollToTopBtn.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
 </script>
-</script>
+<script src="layout.js" defer></script>
 </body>
 </html>
