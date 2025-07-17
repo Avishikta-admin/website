@@ -17,6 +17,12 @@
   />
 
   <style>
+
+  :root {
+    --bg-color: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(9, 9, 121, 1) 24%, rgba(17, 145, 209, 1) 100%, rgba(1, 186, 238, 1) 100%, rgba(0, 212, 255, 1) 100%);
+    --text-color: #fff;
+  }
+
     /* Your existing styles here... */
     /* Keyframes for ticker animation */
     @keyframes scroll-left {
@@ -61,14 +67,37 @@
     }
 
     body {
-      font-family: 'Open Sans', sans-serif;
-      background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(9, 9, 121, 1) 24%, rgba(17, 145, 209, 1) 100%, rgba(1, 186, 238, 1) 100%, rgba(0, 212, 255, 1) 100%);
-      color: #fff;
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-      overflow-x: hidden;
-    }
+    font-family: 'Open Sans', sans-serif;
+    background: var(--bg-color);
+    color: var(--text-color);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    overflow-x: hidden;
+    margin: 0;
+    padding: 20px;
+    transition: background 0.3s, color 0.3s;
+  }
+
+  body.dark {
+    --bg-color: #121212;
+    --text-color: #e0e0e0;
+  }
+
+  #darkModeToggle {
+    padding: 10px 20px;
+    background: #0072ff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    align-self: flex-start;
+  }
+
+  #darkModeToggle:hover {
+    background: #005bb5;
+  }
 
     #layout-root { }
 
@@ -230,7 +259,7 @@
         max-width: 1000px;
       }
 
-    @media (max-width: 600px) {
+   @media (max-width: 600px) {
   .toast {
     top: 70px;
     font-size: 0.9rem;
@@ -456,7 +485,7 @@
 <div id="layout-root">
 
 <!-- GREETINGS MODAL -->
-<div id="greetingModal">
+<div id="greetingModal" role="dialog" aria-modal="true" aria-labelledby="greetingTitle" aria-describedby="greetingMessage">
   <div id="greetingModalContent">
     <div class="welcome-icon">🌇</div>
     <h2 id="greetingTitle">Welcome!</h2>
@@ -465,7 +494,7 @@
   </div>
 </div>
 
-  <!-- rest of page… -->
+<!-- rest of page… -->
 <!-- Hero section with header -->
   <header class="hero full-width-hero" role="banner">
   <img src="Image-1.jpg" alt="Community Image" class="hero-image" />
@@ -473,6 +502,8 @@
       🙏 Welcome to Avishikta - I Type - A | Digital Frontier Shaping Tomorrow!
     </div>
 </header>
+
+<button id="darkModeToggle">Dark Mode</button>
 
   <!-- Ticker BELOW header -->
     <div class="ticker-wrapper">
@@ -543,7 +574,7 @@
     const mainContent = document.querySelector('main');
 
   function runConfetti() {
-  const duration = 4 * 1000;  // Confetti lasts for 4 seconds
+  const duration = 2 * 1000;  // Confetti lasts for 4 seconds
   const end = Date.now() + duration;
 
   (function frame() {
@@ -596,14 +627,14 @@
   let greetMsg = 'Thanks for visiting our community portal!!!';
 
   if (hour < 12) {
-    greetText = 'Good Morning, Respected Visitor!';
-    greetMsg = 'Wishing you a bright and productive day!';
+    greetText = '🌅 Namaskar Respected Visitor – Wishing You a Bright & Warm Morning';
+    greetMsg = 'May your day be filled with energy and positivity!';
   } else if (hour < 17) {
-    greetText = 'Good Afternoon, Respected Visitor!';
-    greetMsg = 'Continue your day with a smile, we’re here for you!';
+    greetText = '🌤️ Good Afternoon, Respected Visitor – Wishing You a Joyful and Productive Day';
+    greetMsg = 'May your afternoon be filled with inspiration and success!';
   } else {
-    greetText = 'Good Evening, Respected Visitor!';
-    greetMsg = 'Kick Back, Relax, and Let Your Evening Unfold!';
+    greetText = '🌆 Good Evening, Respected Visitor – Wishing You a Calm and Restful Night';
+    greetMsg = 'Kick back, relax, and let your evening unfold for a wonderful tomorrow!';
   }
 
   title.textContent = greetText;
@@ -619,7 +650,7 @@
   function showThankYouToast() {
   const toast = document.createElement('div');
   toast.className = 'toast';
-  toast.textContent = '🙏 Thanks for visiting again!';
+  toast.textContent = '🙏 Thanks for visiting us again!';
   document.body.appendChild(toast);
 
   // Remove after animation
@@ -662,5 +693,14 @@ function scrollToTop() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 </script>
+
+<script>
+  const toggle = document.getElementById('darkModeToggle');
+  toggle.addEventListener('click', () => {
+    const darkModeEnabled = document.body.classList.toggle('dark');
+    toggle.textContent = darkModeEnabled ? 'Light Mode' : 'Dark Mode';
+  });
+</script>
+
 </body>
 </html>
