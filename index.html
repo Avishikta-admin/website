@@ -398,7 +398,7 @@
 }
 
 #greetingModalContent h2 {
-  font-size: 1.4rem;
+  font-size: 1.0rem;
   margin-bottom: 0.8rem;
 }
 
@@ -573,6 +573,10 @@
 
     const mainContent = document.querySelector('main');
 
+  function runConfetti() {
+  const duration = 1.5 * 1000;  // Reduced duration to 1.5 seconds for faster sparkling
+  const end = Date.now() + duration;
+
   (function frame() {
     // Add confetti with some randomness in the particle count, spread, angle, etc.
     confetti({
@@ -614,7 +618,6 @@
 }
 
 
-
   window.addEventListener('DOMContentLoaded', () => {
   const modal = document.getElementById('greetingModal');
   const closeBtn = document.getElementById('closeGreetingBtn');
@@ -633,13 +636,13 @@
   let greetMsg = 'Thanks for visiting our community portal!!!';
 
   if (hour < 12) {
-    greetText = '🌅 Namaskar Respected Visitor – Wishing You a Bright & Warm Morning';
-    greetMsg = 'May your day be filled with energy and positivity!';
+    greetText = '🌅 Namaskar!';
+    greetMsg = 'May your day shine with positivity and boundless energy!';
   } else if (hour < 17) {
-    greetText = '🌤️ Good Afternoon, Respected Visitor – Wishing You a Joyful and Productive Day';
-    greetMsg = 'May your afternoon be filled with inspiration and success!';
+    greetText = '🌤️ Good Afternoon!';
+    greetMsg = 'Wishing You a Joyful and Productive Day';
   } else {
-    greetText = '🌆 Good Evening, Respected Visitor – Wishing You a Calm and Restful Night';
+    greetText = '🌆 Good Evening!';
     greetMsg = 'Kick back, relax, and let your evening unfold for a wonderful tomorrow!';
   }
 
