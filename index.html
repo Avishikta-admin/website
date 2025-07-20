@@ -573,33 +573,39 @@
 
     const mainContent = document.querySelector('main');
 
-  function runConfetti() {
-  const duration = 2 * 1000;  // Confetti lasts for 4 seconds
-  const end = Date.now() + duration;
-
   (function frame() {
+    // Add confetti with some randomness in the particle count, spread, angle, etc.
     confetti({
-      particleCount: 30,  // Increased particle count for a denser effect
-      angle: 60,
-      spread: 100,  // Increased spread for a wider effect
-      origin: { x: 0 },  // Left side
-      colors: ['#ff0000', '#ff7300', '#fffb00', '#00ff00', '#00bfff', '#800080', '#ff1493', '#ff69b4', '#f0e68c', '#adff2f'] // More colors
+      particleCount: 20,  // Increased particle count for denser confetti
+      angle: Math.random() * 180,  // Random angle for more dynamic spread
+      spread: 150 + Math.random() * 50,  // Random spread to make it look more natural
+      origin: { x: Math.random() },  // Random origin for more randomness
+      colors: ['#ff0000', '#ff7300', '#fffb00', '#00ff00', '#00bfff', '#800080', '#ff1493', '#ff69b4', '#f0e68c', '#adff2f'],
+      scalar: 1.0 + Math.random() * 0.5,  // Smaller particle size (lower range)
+      drift: Math.random() * 3,  // Random drift for a more natural effect
+      gravity: 0.5 + Math.random() * 0.5,  // Slight random gravity for more fluid motion
     });
     confetti({
-      particleCount: 30,  // Increased particle count for a denser effect
-      angle: 120,
-      spread: 100,  // Increased spread for a wider effect
-      origin: { x: 1 },  // Right side
-      colors: ['#ff0000', '#ff7300', '#fffb00', '#00ff00', '#00bfff', '#800080', '#ff1493', '#ff69b4', '#f0e68c', '#adff2f'] // More colors
+      particleCount: 20,  // Increased density
+      angle: Math.random() * 180,  // Random angle
+      spread: 150 + Math.random() * 50,  // Random spread
+      origin: { x: Math.random() },  // Random horizontal origin
+      colors: ['#ff0000', '#ff7300', '#fffb00', '#00ff00', '#00bfff', '#800080', '#ff1493', '#ff69b4', '#f0e68c', '#adff2f'],
+      scalar: 1.0 + Math.random() * 0.5,  // Smaller particle size (lower range)
+      drift: Math.random() * 3,  // Random drift
+      gravity: 0.5 + Math.random() * 0.5,  // Random gravity
     });
     confetti({
-      particleCount: 30,  // Increased particle count
-      angle: 0,
-      spread: 200,  // Spread across 200 degrees for full coverage
+      particleCount: 20,  // Slightly fewer particles for the middle confetti
+      angle: Math.random() * 180,  // Random angles
+      spread: 200,  // Spread across a wider area
       origin: { x: 0.5 },  // Center origin
-      colors: ['#ff0000', '#ff7300', '#fffb00', '#00ff00', '#00bfff', '#800080', '#ff1493', '#ff69b4', '#f0e68c', '#adff2f'] // More colors
+      colors: ['#ff0000', '#ff7300', '#fffb00', '#00ff00', '#00bfff', '#800080', '#ff1493', '#ff69b4', '#f0e68c', '#adff2f'],
+      scalar: 1.0 + Math.random() * 0.5,  // Smaller particle size (lower range)
+      drift: Math.random() * 3,  // Random drift
+      gravity: 0.5 + Math.random() * 0.5,  // Random gravity
     });
-    
+
     // Continue the animation until the duration is over
     if (Date.now() < end) {
       requestAnimationFrame(frame);
