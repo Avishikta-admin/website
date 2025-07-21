@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Contact Us | Avishikta - I Type - A RWA</title>
-
+  <meta name="description" content="Reach out to Avishikta - I Type - A RWA. Get in touch with the executive committee or office staff for queries, feedback, and support." />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <link rel="stylesheet" href="css/responsive-fix.css" />
@@ -29,9 +29,17 @@
       padding-bottom: 70px;
     }
 
-    main {
+    body::before {
+  content: "";
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0, 0, 0, 0.25); /* Adjust to darken */
+  z-index: -1;
+}
+
+      main {
       max-width: 860px;
-      margin: 0 auto 20px auto; /* Removed top margin completely to push the container up */
+      margin: 0 auto 10px auto; /* Removed top margin completely to push the container up */
       padding: 5px 20px;
       flex: 1;
       background: linear-gradient(145deg, #ffffffdd, #d3d3f0dd);
@@ -151,6 +159,9 @@
     }
 
     @media (max-width: 600px) {
+      body {
+         padding-bottom: 120px;
+      }
       main {
         flex-wrap: wrap;
         max-height: none;
@@ -186,7 +197,7 @@
       <div class="overlay-text" id="contact-heading">Contact Us</div>
     </div>
 
-    <section class="contact-content">
+   <section class="contact-content">
       <div class="contact-info" role="region" aria-label="Contact information">
         <div class="contact-person-phone" aria-label="Contact persons">
           <span><i class="fa-solid fa-user" style="color: #4A90E2;"></i><strong>&nbsp;Niloy Pandit - Secretary</strong></span>
@@ -209,7 +220,7 @@
         </p>
 
         <p>
-          Need special assistance? Call us or stop by — we’re always happy to help!
+          Need special assistance? Call us or stop by — we’re always happy to help.
         </p>
       </div>
     </section>
