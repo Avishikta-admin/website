@@ -273,6 +273,29 @@
         font-size: 0.95rem;
       }
     }
+
+#scrollToTop {
+      position: fixed;
+      bottom: 40px;
+      right: 25px;
+      background-color: #3b82f6;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      padding: 10px 12px;
+      font-size: 20px;
+      cursor: pointer;
+      z-index: 999;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      display: none;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+
+    #scrollToTop:hover {
+      background-color: #1e3a8a;
+      transform: scale(1.1);
+    }
+    
   </style>
 </head>
 
@@ -328,6 +351,25 @@
     });
   </script>
 
+<button id="scrollToTop" title="Back to Top">⬆️</button>
+
+  <script>
+    // Scroll to top button logic (same as before)
+    const scrollBtn = document.getElementById("scrollToTop");
+
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 200) {
+        scrollBtn.style.display = "block";
+      } else {
+        scrollBtn.style.display = "none";
+      }
+    });
+
+    scrollBtn.addEventListener("click", () => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  </script>
+  
 <script src="layout.js" defer></script>
 </body>
 </html>
