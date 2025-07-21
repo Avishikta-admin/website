@@ -40,6 +40,8 @@
       overflow-x: hidden;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
+      padding-left: 0;
+      padding-right: 0;
     }
 
     h1 {
@@ -58,11 +60,13 @@
 
     #announcements-container {
       max-width: 900px;
-      width: 100%;
+      width: auto;
       display: flex;
       flex-direction: column;
-      gap: 2.0rem;
+      gap: 2rem;
       margin: 0 auto; /* This centers the container horizontally */
+      padding: 0 1rem;
+      box-sizing: border-box;
     }
 
     /* Announcement Card */
