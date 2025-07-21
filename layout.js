@@ -511,7 +511,7 @@ main {
             <i class="fas fa-folder" aria-hidden="true"></i> Resources
           </button>
           <ul id="resources-submenu" role="menu">
-            <li role="none"><a href="view-announcements.html" role="menuitem" title="Check announcements"><i class="fas fa-bullhorn" aria-hidden="true"></i> Community Spotlight</a></li>
+            <li role="none"><a href="view-announcements.html" role="menuitem" title="Check announcements"><i class="fas fa-bullhorn" aria-hidden="true"></i> Association Highlights & Community Buzz</a></li>
             <li role="none"><a href="events.html" role="menuitem" title="View our community calendar and photo gallery"><i class="fas fa-calendar-alt" aria-hidden="true"></i> Events & Shared Moments</a></li>
             <li role="none"><a href="mom.html" role="menuitem" title="MoM"><i class="fas fa-file-alt" aria-hidden="true"></i> Meeting Minutes</a></li>
             <li role="none"><a href="new-resident-guide.html" role="menuitem" title="New Resident Guide"><i class="fas fa-house-user" aria-hidden="true"></i></i> New Resident Guide</a></li>
@@ -710,7 +710,7 @@ function renderBreadcrumb() {
     'vision-mission.html': ['Home', 'Association', 'Vision & Mission'],
     'governing-body.html': ['Home', 'Association', 'Executive Committee'],
     'our-members.html': ['Home', 'Association', 'Residents Directory'],
-    'view-announcements.html': ['Home', 'Resources', 'Community Spotlight'],
+    'view-announcements.html': ['Home', 'Resources', 'Association Highlights & Community Buzz'],
     'mom.html': ['Home', 'Resources', 'Meeting Minutes'],
     'new-resident-guide.html': ['Home', 'Resources', 'New Resident Guideline'],
     'events.html': ['Home', 'Resources', 'Events & Shared Moments'],
@@ -732,7 +732,7 @@ function renderBreadcrumb() {
     'Executive Committee': 'governing-body.html',
     'Residents Directory': 'our-members.html',
     'Resources': '#',
-    'Community Spotlight': 'view-announcements.html',
+    'Association Highlights & Community Buzz': 'view-announcements.html',
     'Meeting Minutes': 'mom.html',
     'New Resident Guideline': 'new-resident-guide.html',
     'Event Calendar': 'events.html',
