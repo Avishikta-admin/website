@@ -512,6 +512,7 @@ main {
             <li role="none"><a href="view-announcements.html" role="menuitem" title="Check announcements"><i class="fas fa-bullhorn" aria-hidden="true"></i> Newsletter</a></li>
             <li role="none"><a href="events.html" role="menuitem" title="View our community calendar and photo gallery"><i class="fas fa-calendar-alt" aria-hidden="true"></i> Events & Shared Moments</a></li>
             <li role="none"><a href="mom.html" role="menuitem" title="MoM"><i class="fas fa-file-alt" aria-hidden="true"></i> Meeting Minutes</a></li>
+	    <li role="none"><a href="new-resident-guide.html" role="menuitem" title="New Resident Guide"><i class="fas fa-house-user" aria-hidden="true"></i></i> New Resident Guide</a></li>
             <li role="none"><a href="general-guidelines.html" role="menuitem" title="General guidelines"><i class="fas fa-book" aria-hidden="true"></i> Community Guidelines</a></li>
 <li role="none"><a href="useful-links.html" role="menuitem" title="Helpdesk & Contacts"><i class="fas fa-book" aria-hidden="true"></i> Support Hub</a></li>
             <li role="none"><a href="download-center.html" role="menuitem" title="Access important documents and forms for download"><i class="fas fa-cloud-download-alt" aria-hidden="true"></i> Download-center</a></li>
