@@ -13,7 +13,7 @@
   // Disable right-click functionality
   document.addEventListener('contextmenu', function (event) {
     event.preventDefault();  // Prevent the right-click menu from showing
-    alert("Right-click is disabled on this page!");  // Alert the user
+    alert("Right-click is disabled on this page.");  // Alert the user
   });
 
   // Disable text selection (for copy-paste prevention)
@@ -24,13 +24,13 @@
   // Disable copy functionality
   document.addEventListener('copy', function (event) {
     event.preventDefault();  // Prevent the copy action
-    alert("Copying is disabled on this page!");  // Alert the user
+    alert("Copying is disabled on this page.");  // Alert the user
   });
 
   // Disable paste functionality
   document.addEventListener('paste', function (event) {
     event.preventDefault();  // Prevent the paste action
-    alert("Pasting is disabled on this page!");  // Alert the user
+    alert("Pasting is disabled on this page.");  // Alert the user
   });
 
   // Styles for header, footer, and nav
@@ -456,6 +456,8 @@ main {
   border-radius: 4px;
   padding: 2px 6px;
 }
+
+
 `;
   document.head.appendChild(style);
 
@@ -509,10 +511,10 @@ main {
             <i class="fas fa-folder" aria-hidden="true"></i> Resources
           </button>
           <ul id="resources-submenu" role="menu">
-            <li role="none"><a href="view-announcements.html" role="menuitem" title="Check announcements"><i class="fas fa-bullhorn" aria-hidden="true"></i> Newsletter</a></li>
+            <li role="none"><a href="view-announcements.html" role="menuitem" title="Check announcements"><i class="fas fa-bullhorn" aria-hidden="true"></i> Community Spotlight</a></li>
             <li role="none"><a href="events.html" role="menuitem" title="View our community calendar and photo gallery"><i class="fas fa-calendar-alt" aria-hidden="true"></i> Events & Shared Moments</a></li>
             <li role="none"><a href="mom.html" role="menuitem" title="MoM"><i class="fas fa-file-alt" aria-hidden="true"></i> Meeting Minutes</a></li>
-	    <li role="none"><a href="new-resident-guide.html" role="menuitem" title="New Resident Guide"><i class="fas fa-house-user" aria-hidden="true"></i></i> New Resident Guide</a></li>
+            <li role="none"><a href="new-resident-guide.html" role="menuitem" title="New Resident Guide"><i class="fas fa-house-user" aria-hidden="true"></i></i> New Resident Guide</a></li>
             <li role="none"><a href="general-guidelines.html" role="menuitem" title="General guidelines"><i class="fas fa-book" aria-hidden="true"></i> Community Guidelines</a></li>
 <li role="none"><a href="useful-links.html" role="menuitem" title="Helpdesk & Contacts"><i class="fas fa-book" aria-hidden="true"></i> Support Hub</a></li>
             <li role="none"><a href="download-center.html" role="menuitem" title="Access important documents and forms for download"><i class="fas fa-cloud-download-alt" aria-hidden="true"></i> Download-center</a></li>
@@ -708,8 +710,9 @@ function renderBreadcrumb() {
     'vision-mission.html': ['Home', 'Association', 'Vision & Mission'],
     'governing-body.html': ['Home', 'Association', 'Executive Committee'],
     'our-members.html': ['Home', 'Association', 'Residents Directory'],
-    'view-announcements.html': ['Home', 'Resources', 'Announcements'],
+    'view-announcements.html': ['Home', 'Resources', 'Community Spotlight'],
     'mom.html': ['Home', 'Resources', 'Meeting Minutes'],
+    'new-resident-guide.html': ['Home', 'Resources', 'New Resident Guideline'],
     'events.html': ['Home', 'Resources', 'Events & Shared Moments'],
     'general-guidelines.html': ['Home', 'Resources', 'Community Guidelines'],
     'download-center.html': ['Home', 'Resources', 'Download Center'],
@@ -729,8 +732,9 @@ function renderBreadcrumb() {
     'Executive Committee': 'governing-body.html',
     'Residents Directory': 'our-members.html',
     'Resources': '#',
-    'Announcements': 'view-announcements.html',
+    'Community Spotlight': 'view-announcements.html',
     'Meeting Minutes': 'mom.html',
+    'New Resident Guideline': 'new-resident-guide.html',
     'Event Calendar': 'events.html',
     'Community Guidelines': 'general-guidelines.html',
     'Download Center': 'download-center.html',
