@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Official page of Avishikta - I Type - A RWA. Stay informed, get involved, and build a stronger association.">
   <title>Avishikta - I Type - A RWA</title>
 
   <!-- Google Fonts -->
@@ -23,6 +24,23 @@
     --text-color: #fff;
   }
 
+  body {
+    font-family: 'Open Sans', sans-serif;
+    background: var(--bg-color);
+    color: var(--text-color);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    overflow-x: hidden;
+    margin: 0;
+    padding: 0;
+    transition: background 0.3s, color 0.3s;
+  }
+
+html, body {
+  overflow-x: hidden;
+}
+
     /* Your existing styles here... */
     /* Keyframes for ticker animation */
     @keyframes scroll-left {
@@ -30,23 +48,32 @@
       100% { transform: translateX(-100%); }
     }
 
-  .ticker-wrapper {
-  position: relative;
-      height: 54px;
-      background: linear-gradient(0deg, rgba(195, 47, 34, 1) 12%, rgba(217, 99, 38, 1) 46%, rgba(253, 187, 45, 1) 100%);
-      overflow: visible;
-      z-index: 2500;
-      display: flex;
-      align-items: center;
-      font-weight: 700;
-      color: white;
-      font-size: 1.2rem;
-      letter-spacing: 0.05em;
-      font-family: 'Montserrat', sans-serif;
-      justify-content: space-between;
-      padding-right: 20px; /* Added padding on the right to give space for the button */
+/* Gradient animation */
+@keyframes moveGradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 200% 50%;
+  }
 }
 
+  .ticker-wrapper {
+  background: linear-gradient(90deg, #ff6a00, #ee0979, #ff6a00);
+  background-size: 200% 100%;
+  animation: moveGradient 6s linear infinite;
+  color: white;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  height: 50px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.2rem;
+  overflow: hidden;
+  padding-left: 20px;
+  padding-right: 20px;
+  margin: 0;
+}
 
 .ticker-container {
   width: 100%;
@@ -66,33 +93,24 @@
       box-sizing: border-box;
     }
 
-    body {
-    font-family: 'Open Sans', sans-serif;
-    background: var(--bg-color);
-    color: var(--text-color);
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    overflow-x: hidden;
-    margin: 0;
-    padding: 20px;
-    transition: background 0.3s, color 0.3s;
-  }
-
   body.dark {
     --bg-color: #121212;
     --text-color: #e0e0e0;
   }
 
   #darkModeToggle {
-    padding: 10px 20px;
+    padding: 10px 10px;
     background: #0072ff;
     color: white;
+    position: fixed;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s;
     align-self: flex-start;
+    top: 60px;
+    right: 10px;
+    z-index: 1000;
   }
 
   #darkModeToggle:hover {
@@ -105,13 +123,13 @@
       background: linear-gradient(135deg, #003366, #005580);
       color: #fff;
       text-align: center;
-      padding: 40px 20px;
-      padding-top: 25px; /* Makes space for the ticker */
+      padding: 10px 5px;
+      padding-top: 5px; /* Makes space for the ticker */
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      min-height: 160px;
+      min-height: 100px;
       box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
       position: relative;
       z-index: 3000;
@@ -162,21 +180,42 @@
   transform: translateY(0);
 }
 
-    main h2 {
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 700;
-      font-size: 1.8rem;
-      margin-bottom: 1rem;
-      text-align: center;
-      text-shadow: 0 2px 6px rgba(0,0,0,0.4);
-      color: #fffbea;
-    }
+  main h2 {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 800;
+  font-size: 1.5rem;
+  text-align: center;
+  margin: 1rem auto 1.5rem;
+  margin-top: -2.0rem; /* smaller top margin */
+  padding-top: 0;
+
+  background: linear-gradient(
+    90deg,
+    #ffffff,
+    #f0f0f0,
+    #ffffff
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: whiteGlow 1s ease-in-out infinite;
+}
+
+@keyframes whiteGlow {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
 
     .card-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 1.5rem;
       margin-top: 2rem;
+      padding: 0 2rem 3rem;
     }
 
     .card {
@@ -219,14 +258,14 @@
     }
 
     .card i {
-      font-size: 1.8rem;
+      font-size: 1.5rem;
       color: #00e5ff;
       margin-bottom: 0.75rem;
       pointer-events: none;
     }
 
     .card h3 {
-      font-size: 1.1rem;
+      font-size: 1.0rem;
       margin-bottom: 0.3rem;
       color: #fff;
       pointer-events: none;
@@ -259,6 +298,8 @@
         max-width: 1000px;
       }
 
+   
+
    @media (max-width: 600px) {
   .toast {
     top: 70px;
@@ -274,6 +315,16 @@
         display: block;
         filter: brightness(70%);
       }
+
+@media (max-width: 600px) {
+  .hero {
+    min-height: 80px;
+  }
+
+  .hero-image {
+    height: 100px;
+  }
+}
 
   .full-width-hero {
   width: 100vw;
@@ -461,22 +512,117 @@
 
 #goToTop {
     position: fixed;
-    bottom: 1px;
-    right: 10px;
-    background-color: #0072ff;
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    border-radius: 5px;
-    font-size: 0.85rem;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    z-index: 1000;
+      bottom: 1px;
+      right: 10px;
+      background: #fff;
+      color: #003366;
+      border: none;
+      border-radius: 50%;
+      width: 45px;
+      height: 45px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      transition: background 0.3s, transform 0.3s;
   }
 
   #goToTop:hover {
     background-color: #0056b3;
   }
+
+.testimonials {
+  margin: -1.0rem auto;
+  max-width: 700px;
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff; /* white text */
+  font-style: italic;
+  font-size: 1.0rem;
+  font-weight: 600; /* semi-bold for better emphasis */
+  text-align: center;
+  min-height: 1em; /* keep height consistent */
+  position: relative;
+}
+
+.testimonial {
+  display: none;
+  animation: fadeIn 3s ease-in forwards;
+}
+
+.testimonial.active {
+  display: block;
+}
+
+/* Fade animation */
+@keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+
+#map-popup {
+    position: fixed;
+    bottom: 70px;
+    right: 20px;
+    width: 320px;
+    height: 240px;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+    background: white;
+    overflow: hidden;
+    z-index: 1000;
+    display: none;
+  }
+
+  #map-popup iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+
+  #map-toggle-btn {
+    position: fixed;
+    bottom: 435px;
+    right: 20px;
+    background: linear-gradient(90deg, #f5e6c4, #d7c1a3);
+    color: #003366;
+    border: none;
+    padding: 12px 20px;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    z-index: 1001;
+    transition: background 0.3s, transform 0.3s;
+  }
+
+  #map-toggle-btn:hover {
+    background: linear-gradient(90deg, #d7c1a3, #f5e6c4);
+    transform: translateY(-3px);
+  }
+
+.typing-container {
+  text-align: center;
+  margin: 3rem auto 1.5rem; /* Adds space above and below */
+  font-size: 1rem;
+  color: #f5e6c4; /* Light cream color */
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 700; /* Bold */
+  min-height: 30px;
+  padding: 0.5rem 1rem;
+  max-width: 80%;
+  border-top: 3px solid #d7c1a3;
+}
+
+#typing-text::after {
+  content: '|';
+  animation: blink 1s step-start infinite;
+  color: #f5e6c4;
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+
 </style>
 </head>
 
@@ -494,6 +640,14 @@
   </div>
 </div>
 
+<div class="ticker-wrapper">
+  <div class="ticker-container">
+    <div class="ticker" id="ticker">
+      <span>🎉 Celebrating the 19th AGM — Welcome, Esteemed Members!</span>
+    </div>
+  </div>
+</div>
+
 <!-- rest of page… -->
 <!-- Hero section with header -->
   <header class="hero full-width-hero" role="banner">
@@ -505,62 +659,69 @@
 
 <button id="darkModeToggle">Dark Mode</button>
 
-  <!-- Ticker BELOW header -->
-    <div class="ticker-wrapper">
-  <div class="ticker-container">
-    <div class="ticker" id="ticker">
-      <span>🎉 Celebrating the 19th AGM — Welcome, Esteemed Members!</span>
-    </div>
-  </div>
+<button id="map-toggle-btn">📍 Show Map</button>
+<div id="map-popup">
+  <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3685.896188561506!2d88.39841147507572!3d22.508077779537675!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a027157cc327c1b%3A0xfe9d5576fd4d1272!2sAvishikta%20Phase%201!5e0!3m2!1sen!2sin!4v1753114166780!5m2!1sen!2sin" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+    allowfullscreen=""
+    loading="lazy"
+    referrerpolicy="no-referrer-when-downgrade"
+  ></iframe>
 </div>
 
+  <!-- Ticker BELOW header -->
     <main role="main" tabindex="-1">
     <h2>Engage > Empower > Elevate</h2>
-    
+
+ 
+    <!-- TESTIMONIAL SLIDER -->
+<section class="testimonials">
+  <div class="testimonial active">🌟 “Such a welcoming and peaceful community!” – R. Sen</div>
+  <div class="testimonial">🌟 “The digital initiatives are truly impressive.” – A. Mukherjee</div>
+  <div class="testimonial">🌟 “I love the greenery and events!” – B. Moitra</div>
+</section>
+
+<!-- Typing Animation Section -->
+<div class="typing-container">
+  <span id="typing-text"></span>
+</div>
+
+
     <!-- Updated Card Grid with More Cards -->
     <div class="card-grid">
       <div class="card" tabindex="0" role="article" aria-label="Community Engagement">
         <i class="fas fa-users" aria-hidden="true"></i>
         <h3>Community Engagement</h3>
-        <p>Participate in discussions to shape our community</p>
-        <a href="#community-engagement" tabindex="0">Join Now</a>
+        <p>Your Voice Matters, Let’s Grow Together</p>
       </div>
       <div class="card" tabindex="0" role="article" aria-label="Educational Resources">
         <i class="fas fa-book" aria-hidden="true"></i>
-        <h3>Community Resources</h3>
-        <p>Find guides and workshops for your everyday needs</p>
-        <a href="#education" tabindex="0">Explore</a>
+        <h3>Green Living</h3>
+        <p>Eco-conscious efforts for a better tomorrow</p>
       </div>
       <div class="card" tabindex="0" role="article" aria-label="Resident Collaboration">
         <i class="fas fa-handshake" aria-hidden="true"></i>
         <h3>Collaborative Projects</h3>
         <p>Work together for a stronger neighborhood</p>
-        <a href="#collaboration" tabindex="0">Collaborate</a>
       </div>
       <div class="card" tabindex="0" role="article" aria-label="Neighborhood Support">
         <i class="fas fa-users-cog" aria-hidden="true"></i>
         <h3>Neighborhood Support</h3>
         <p>Access services and support for residents</p>
-        <a href="#support" tabindex="0">Get Support</a>
       </div>
       <div class="card" tabindex="0" role="article" aria-label="Events & Activities">
         <i class="fas fa-calendar-alt" aria-hidden="true"></i>
         <h3>Events & Activities</h3>
         <p>Join us for fun community events</p>
-        <a href="#events" tabindex="0">See Events</a>
       </div>
       <div class="card" tabindex="0" role="article" aria-label="Neighborhood Connections">
         <i class="fas fa-users" aria-hidden="true"></i>
-        <h3>Connect with Neighbors</h3>
-        <p>Strengthen your ties with those around you</p>
-        <a href="#network" tabindex="0">Join the Network</a>
+        <h3>Safety & Security</h3>
+        <p>Reliable protection around the clock</p>
       </div>
     </div>
 
-    <!-- Go to Top Button -->
-    <button id="goToTop" class="go-to-top-btn" onclick="scrollToTop()" aria-label="Go to top">
-        ↑ Go to Top
-    </button>
+   <button id="goToTop" class="go-to-top-btn" onclick="scrollToTop()" aria-label="Go to top">↑</button>
+
 </main>
 
   <!-- Confetti script from CDN -->
@@ -709,6 +870,73 @@ function scrollToTop() {
     const darkModeEnabled = document.body.classList.toggle('dark');
     toggle.textContent = darkModeEnabled ? 'Light Mode' : 'Dark Mode';
   });
+</script>
+
+<script>
+  const testimonials = document.querySelectorAll('.testimonial');
+  let index = 0;
+
+  setInterval(() => {
+    testimonials[index].classList.remove('active');
+    index = (index + 1) % testimonials.length;
+    testimonials[index].classList.add('active');
+  }, 4000); // changes every 4 seconds
+</script>
+
+<script>
+  const mapToggleBtn = document.getElementById('map-toggle-btn');
+  const mapPopup = document.getElementById('map-popup');
+
+  mapToggleBtn.addEventListener('click', () => {
+    if (mapPopup.style.display === 'block') {
+      mapPopup.style.display = 'none';
+      mapToggleBtn.textContent = '📍 Show Map';
+    } else {
+      mapPopup.style.display = 'block';
+      mapToggleBtn.textContent = 'Hide Map';
+    }
+  });
+</script>
+
+<script>
+  // Typing animation logic
+  const phrases = [
+  "Proudly Serving Avishikta - I Type - A RWA!",
+  "Stronger Together as One Community!",
+  "Nurturing Our Green Spaces!",
+  "Committed to Safety & Peace!",
+  "Fostering Friendship & Trust!",
+  "Building a Sustainable Future!",
+  "Your Voice, Our Strength!"
+];
+
+  const typingText = document.getElementById("typing-text");
+  let currentPhrase = 0;
+  let currentChar = 0;
+  let isDeleting = false;
+
+  function type() {
+    const phrase = phrases[currentPhrase];
+    if (isDeleting) {
+      currentChar--;
+    } else {
+      currentChar++;
+    }
+
+    typingText.textContent = phrase.substring(0, currentChar);
+
+    if (!isDeleting && currentChar === phrase.length) {
+      setTimeout(() => { isDeleting = true; }, 1500);
+    } else if (isDeleting && currentChar === 0) {
+      isDeleting = false;
+      currentPhrase = (currentPhrase + 1) % phrases.length;
+    }
+
+    const typingSpeed = isDeleting ? 50 : 100;
+    setTimeout(type, typingSpeed);
+  }
+
+  type();
 </script>
 
 </body>
