@@ -66,17 +66,14 @@
 
     /* Announcement Card */
     .flyer-card {
-      background: var(--card-bg);
-      border-radius: var(--border-radius);
-      box-shadow: 0 10px 30px var(--shadow-color);
-      padding: 2.4rem 3rem 3rem;
-      position: relative;
-      overflow: hidden;
-      border: 3px solid transparent;
-      cursor: pointer;
-      transform-style: preserve-3d;
-      transition: box-shadow 0.35s ease, border 0.35s ease, transform 0.3s ease;
-    }
+  position: relative;
+  padding: 3.2rem 3rem 3rem;
+  border-radius: var(--border-radius);
+  box-shadow: 0 10px 30px var(--shadow-color);
+  cursor: pointer;
+  overflow: visible; /* <--- allow icon to overflow */
+  transition: box-shadow 0.35s ease, border 0.35s ease, transform 0.3s ease;
+}
     .flyer-card::before {
       content: '';
       position: absolute;
