@@ -71,7 +71,7 @@
     }
 
     .events-header h1 {
-      font-size: 1.95rem; /* Reduced font size for simplicity */
+      font-size: 1.85rem; /* Reduced font size for simplicity */
       text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); /* Subtle text shadow */
       font-weight: bold;
       letter-spacing: 0.05em;
@@ -80,30 +80,33 @@
     }
 
     .events-header p {
-      font-size: 1rem;
-      color: #4b0082; /* Deep purple */
-      max-width: 600px;
-      margin: 0 auto;
-      line-height: 1.2;
-      margin-top: 0.5rem; /* Slight margin to separate text from the heading */
-      background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent background */
-      padding: 10px;
-      border-radius: 8px;
-      text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3); /* Optional: to enhance readability */
+      font-size: 0.9rem;
+  color: #4b0082; /* Deep purple */
+  white-space: nowrap;  /* Prevents text from breaking into a new line */
+  overflow: hidden; /* Ensures text doesn't spill out of the container */
+  text-overflow: ellipsis; /* Adds '...' when the text overflows */
+  max-width: 100%;  /* Allows the paragraph to span the full width of the container */
+  margin: 0 auto;
+  line-height: 1.2;
+  margin-top: 0.5rem; /* Slight margin to separate text from the heading */
+  background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent background */
+  padding: 10px;
+  border-radius: 8px;
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3); /* Optional: to enhance readability */
     }
 
     .upcoming-events {
       background: #fff7e6;
       border-left: 5px solid #4b0082;
       padding: 0.5rem 1rem;  /* Increased padding for a wider effect */
-      max-width: 600px;  /* Increased width of the container */
+      max-width: 800px;  /* Increased width of the container */
       width: 95%;  /* Allow the container to expand to 100% of its parent */
       margin: 0.5rem auto 1.5rem;  /* Centers the container */
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       box-shadow: 0 3px 12px rgba(75, 0, 130, 0.08);
       border-radius: 8px;
       color: #3a1a72;
-      font-size: 0.9rem;  /* Base font size */
+      font-size: 0.85rem;  /* Base font size */
       line-height: 1.2;
     }
 
@@ -282,6 +285,17 @@
         height: 140px; /* Slightly smaller for mobile */
       }
     }
+
+@media (min-width: 601px) and (max-width: 1024px) {
+  /* Styles for tablets and small laptops */
+  .events-header h1 {
+    font-size: 2rem;
+  }
+
+  .gallery-card img {
+    height: 180px;
+  }
+}
 
     .event-description-box {
       background: #fef3f3;
@@ -788,6 +802,30 @@
       alert('Incorrect password. Try again.');
     }
   };
+
+// Scroll to Top Button functionality
+  const scrollToTopButton = document.getElementById('scrollToTop');
+
+  // Function to show the scroll button when the user scrolls down
+  function toggleScrollButton() {
+    if (window.scrollY > 100) { // You can adjust this value as needed
+      scrollToTopButton.classList.add('show'); // Show the button
+    } else {
+      scrollToTopButton.classList.remove('show'); // Hide the button
+    }
+  }
+
+  // Add scroll event listener to window
+  window.addEventListener('scroll', toggleScrollButton);
+
+  // Function to smoothly scroll to the top when the button is clicked
+  scrollToTopButton.addEventListener('click', () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth', // Smooth scroll animation
+    });
+  });
+
 </script>
 
 
