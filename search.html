@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search</title>
+    <style>
+        /* Reset default styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to bottom, #f5a3c7, #f06595); /* Gradient background */
+            color: #333;
+            height: 100vh;
+            display: flex;
+            justify-content: flex-start;
+            align-items: flex-start;
+            flex-direction: column;
+        }
+
+        /* Search Container */
+        .search-container {
+            width: 100%;
+            max-width: 800px;
+            margin-top: 70px;
+            padding: 30px;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            position: relative;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .search-container h2 {
+            color: #f06595;
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+
+        /* Input Box Styling */
+        .search-wrapper {
+            position: relative;
+            width: 100%;
+        }
+
+        input[type="text"] {
+            width: calc(100% - 30px);
+            padding: 15px 5px 15px 10px;
+            font-size: 18px;
+            border-radius: 10px;
+            border: 1px solid #ddd;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        input[type="text"]:focus {
+            border-color: #f06595;
+            box-shadow: 0 0 10px rgba(240, 101, 149, 0.6);
+        }
+
+        /* Adding the search icon */
+        .search-wrapper::before {
+            content: '🔍';
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 15px;
+            color: #f06595;
+        }
+
+        /* Clear Button (X) */
+        .clear-search {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #f06595;
+            font-size: 15px;
+            display: none;
+        }
+
+        /* Example Searches Section */
+        .example-searches {
+            background-color: #f9e0ec;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .example-searches h3 {
+            font-size: 20px;
+            color: #f06595;
+            margin-bottom: 10px;
+        }
+
+        .example-searches ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .example-searches ul li {
+            display: inline-block;
+            margin: 5px 10px;
+            padding: 10px;
+            background-color: #ff6b6b;
+            color: white;
+            border-radius: 25px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .example-searches ul li:hover {
+            background-color: #ff385c;
+        }
+
+        /* Search Results */
+        #searchResults {
+            margin-top: 20px;
+            text-align: left;
+            font-size: 16px;
+        }
+
+        .result-item {
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            transition: background-color 0.3s;
+        }
+
+        .result-item:hover {
+            background-color: #f2f2f2;
+        }
+
+        .result-item h3 {
+            margin: 0;
+            font-size: 15px;
+            color: #333;
+        }
+
+        .result-item p {
+            font-size: 14px;
+            color: #777;
+        }
+
+        .result-item a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .result-item a:hover {
+            text-decoration: underline;
+        }
+
+        /* Skeleton Loader */
+        .skeleton-loader {
+            background-color: #f0f0f0;
+            margin: 10px 0;
+            border-radius: 10px;
+            height: 60px;
+        }
+
+        /* CSS Spinner */
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        #loadingSpinner {
+            display: none;
+            width: 50px;
+            height: 50px;
+            border: 6px solid #f3f3f3;
+            border-top: 6px solid #f06595;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        /* Scroll to Top Button */
+        #scrollToTopBtn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            padding: 15px;
+            font-size: 20px;
+            cursor: pointer;
+            display: none;
+            transition: opacity 0.3s ease;
+        }
+
+        #scrollToTopBtn:hover {
+            background-color: #ff385c;
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .search-container {
+                margin-top: 20px;
+                padding: 20px;
+                width: 90%;
+            }
+
+            .search-container h2 {
+                font-size: 24px;
+            }
+
+            input[type="text"] {
+                font-size: 16px;
+                padding: 12px 10px;
+            }
+
+            .clear-search {
+                font-size: 18px;
+                right: 15px;
+            }
+
+            .example-searches h3 {
+                font-size: 18px;
+            }
+
+            .example-searches ul li {
+                font-size: 14px;
+                padding: 8px 14px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <script src="layout.js" defer></script>
+
+    <div class="search-container">
+        <h2>Search the Website</h2>
+
+        <div class="search-wrapper">
+            <input type="text" id="searchInput" placeholder="Type to search..." onkeyup="searchFunction()">
+            <span id="clearSearch" class="clear-search" onclick="clearSearch()">×</span>
+        </div>
+
+        <div id="loadingSpinner"></div>
+
+        <div class="example-searches">
+            <h3>Example Searches:</h3>
+            <ul>
+                <li>Who</li>
+                <li>Events</li>
+                <li>New Resident</li>
+                <li>Feedback</li>
+                <li>Rules</li>
+            </ul>
+        </div>
+
+        <div id="searchResults"></div>
+
+        <div id="suggestionsList" style="display:none;"></div>
+    </div>
+
+    <button id="scrollToTopBtn" onclick="scrollToTop()">↑</button>
+
+    <script>
+        // Array to store page details for search
+        const pages = [
+            { title: "Who We Are", url: "about-us.html", content: "About the association's purpose, history, and members." },
+            { title: "Vision & Mission", url: "vision-mission.html", content: "The vision and mission statement of our association." },
+            { title: "Executive Committee", url: "governing-body.html", content: "Information about the governing body and its members." },
+            { title: "Residents Directory", url: "our-members.html", content: "A list of all residents and their contact information." },
+            { title: "Association Highlights & Community Buzz", url: "view-announcements.html", content: "Latest news and updates about the association." },
+            { title: "Event Calendar", url: "events.html", content: "List of upcoming events and important dates." },
+            { title: "Meeting Minutes", url: "mom.html", content: "Minutes from past meetings and discussions." },
+            { title: "New Resident Guide", url: "new-resident-guide.html", content: "Helpful guide for new residents in the community." },
+            { title: "Community Guidelines", url: "general-guidelines.html", content: "The guidelines and rules for living in the community." }
+        ];
+
+        let debounceTimer;
+
+        function searchFunction() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            const results = document.getElementById('searchResults');
+            const clearButton = document.getElementById('clearSearch');
+            const loadingSpinner = document.getElementById('loadingSpinner');
+            const suggestionsList = document.getElementById('suggestionsList');
+
+            // Debounce the search to avoid frequent calls
+            clearTimeout(debounceTimer);
+            loadingSpinner.style.display = "block";
+            results.innerHTML = "";
+            suggestionsList.innerHTML = "";
+
+            debounceTimer = setTimeout(() => {
+                if (!query.trim()) {
+                    clearButton.style.display = "none";
+                    loadingSpinner.style.display = "none";
+                    return;
+                }
+
+                clearButton.style.display = "block";
+
+                // Filter pages based on the query
+                const filteredPages = pages.filter(page =>
+                    page.title.toLowerCase().includes(query) || page.content.toLowerCase().includes(query)
+                );
+
+                setTimeout(() => {
+                    loadingSpinner.style.display = "none";
+
+                    if (filteredPages.length > 0) {
+                        results.innerHTML = `<p>Found ${filteredPages.length} result(s)</p>`;
+                        filteredPages.forEach(page => {
+                            const div = document.createElement('div');
+                            div.classList.add('result-item');
+                            div.innerHTML = `
+                                <h3><a href="${page.url}">${highlightText(page.title, query)}</a></h3>
+                                <p>${highlightText(page.content, query)}</p>
+                            `;
+                            results.appendChild(div);
+                        });
+                    } else {
+                        results.innerHTML = '<p>No results found. Try another search.</p>';
+                    }
+                }, 500);
+            }, 300);
+        }
+
+        function highlightText(text, query) {
+            if (!query) return text;
+            const regex = new RegExp(`(${query})`, 'gi');
+            return text.replace(regex, '<span class="highlighted-text">$1</span>');
+        }
+
+        function showSuggestions(query) {
+            const suggestionsList = document.getElementById('suggestionsList');
+            const filteredPages = pages.filter(page => page.title.toLowerCase().includes(query));
+            suggestionsList.innerHTML = "";
+            filteredPages.forEach(page => {
+                const div = document.createElement('div');
+                div.classList.add('suggestion-item');
+                div.innerHTML = `<a href="${page.url}">${page.title}</a>`;
+                suggestionsList.appendChild(div);
+            });
+            suggestionsList.style.display = filteredPages.length > 0 ? 'block' : 'none';
+        }
+
+        function clearSearch() {
+            document.getElementById('searchInput').value = "";
+            document.getElementById('searchResults').innerHTML = "";
+            document.getElementById('clearSearch').style.display = "none";
+            document.getElementById('suggestionsList').style.display = "none";
+        }
+
+        document.getElementById('searchInput').addEventListener('input', function () {
+            const query = this.value.trim().toLowerCase();
+            showSuggestions(query);
+        });
+
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        window.addEventListener('scroll', function () {
+            const scrollToTopBtn = document.getElementById('scrollToTopBtn');
+            if (window.scrollY > 500) {
+                scrollToTopBtn.style.display = 'block';
+            } else {
+                scrollToTopBtn.style.display = 'none';
+            }
+        });
+    </script>
+
+</body>
+
+</html>
