@@ -222,12 +222,73 @@
       position: relative;
       box-shadow: inset 0 0 0 0 #00bcd4;
     }
+
+/* Submenu visibility on hover (for mouse) and active (for touch) */
+nav#main-nav > ul > li:hover > ul,
+nav#main-nav > ul > li:active > ul {
+  display: block; /* Show the submenu */
+  opacity: 1; /* Make sure the submenu becomes visible */
+  visibility: visible; /* Ensure it's visible */
+  max-height: 1000px; /* Allow the submenu to expand */
+  transition: opacity 0.3s ease, visibility 0s, max-height 0.3s ease; /* Smooth transition */
+  pointer-events: auto; /* Allow clicking */
+  position: relative; /* Ensure it's properly positioned */
+  z-index: 999; /* Ensure it's in front */
+}
+
+/* Styling for submenu items */
+nav#main-nav > ul > li > ul > li a {
+  padding-left: 32px;
+  color: #ffffff;
+  text-decoration: none;
+  display: block;
+}
+
+
+/* Submenu (collapsed state) when not hovered or tapped */
+nav#main-nav > ul > li > ul {
+  display: none;  /* Start as hidden */
+  opacity: 0; /* Hidden state */
+  visibility: hidden; /* Hidden state */
+  max-height: 0; /* Collapsed */
+  pointer-events: none; /* Block clicks initially */
+  transition: opacity 0.3s ease, max-height 0.3s ease, visibility 0s 0.3s;
+}
+
+/* Show Submenu on Hover (Desktop) */
+nav#main-nav > ul > li:hover > ul {
+  display: block;
+  opacity: 1;
+  visibility: visible;
+  max-height: 500px;  /* You can adjust the height if needed */
+  pointer-events: auto;  /* Enable interaction */
+}
+
+
+/* Mobile Click: Show Submenu when clicked */
+nav#main-nav > ul > li.active > ul {
+  display: block;
+  opacity: 1;
+  visibility: visible;
+  max-height: 500px;
+  pointer-events: auto;
+}
+
     nav#main-nav > ul > li > button.section-header:hover,
     nav#main-nav > ul > li > button.section-header:focus {
       background-color: rgba(0, 188, 212, 0.15);
       outline: none;
       box-shadow: inset 4px 0 0 0 #00bcd4;
     }
+
+/* Active (tap) state for section headers (touch) */
+@media (pointer: coarse) { /* Only applies to touch devices */
+  nav#main-nav > ul > li > button.section-header:active {
+    background-color: rgba(0, 188, 212, 0.15); /* Same as hover */
+    box-shadow: inset 4px 0 0 0 #00bcd4; /* Ensure the active state has similar effects */
+  }
+}
+
     nav#main-nav > ul > li > button.section-header > i.fas {
       font-size: 20px;
       min-width: 20px;
@@ -248,7 +309,21 @@
     }
     nav#main-nav > ul > li > button.section-header[aria-expanded="true"]::after {
       transform: translateY(-50%) rotate(180deg);
+      transition: transform 0.3s ease; /* Smooth transition */
     }
+
+    /* Hover for links inside the submenu */
+nav#main-nav > ul > li > ul > li > a:hover,
+nav#main-nav > ul > li > ul > li > a:focus {
+  background-color: rgba(0, 188, 212, 0.3); /* Highlight submenu links */
+  color: #ffffff;
+}
+
+/* Make submenu links clickable even if parent is active or hovered */
+nav#main-nav ul ul a {
+  pointer-events: auto; /* Make sure submenu links are clickable */
+}
+
     nav#main-nav ul ul {
       padding-left: 32px;
       margin-top: 8px;
@@ -283,6 +358,34 @@
       color: #ffffff;
       outline: none;
     }
+
+/* Initially hide submenus */
+nav#main-nav > ul > li > ul.submenu {
+  display: none;
+  opacity: 0;
+  max-height: 0;
+  overflow: hidden;
+  transition: all 0.3s ease-out;
+  pointer-events: none;
+}
+
+/* On hover (desktop), show submenu */
+nav#main-nav > ul > li:hover > ul.submenu {
+  display: block;
+  opacity: 1;
+  max-height: 500px;
+  pointer-events: auto;
+}
+
+/* On click (mobile), show submenu */
+nav#main-nav > ul > li.active > ul.submenu {
+  display: block;
+  opacity: 1;
+  max-height: 500px;
+  pointer-events: auto;
+}
+
+
     nav#main-nav a > i.fas {
       min-width: 18px;
       font-size: 18px;
@@ -468,7 +571,6 @@ main {
     <button id="hamburger" class="hamburger" aria-label="Toggle menu" aria-expanded="false">
         &#9776; <!-- This is the hamburger icon (three lines) -->
     </button>
-
       AVISHIKTA PHASE – 1 LIG (TYPE – A) APARTMENT RESIDENTS’ WELFARE ASSOCIATION<br>
       369/1, PURBACHAL KALITALA ROAD, KOLKATA – 700078
     </header>
@@ -769,6 +871,8 @@ function renderBreadcrumb() {
   }
 }
 
+//Code to click + hover
+
 document.addEventListener('DOMContentLoaded', () => {
   renderBreadcrumb();
 
@@ -780,5 +884,54 @@ document.addEventListener('DOMContentLoaded', () => {
       link.classList.add('active-page');
     }
   });
+
+  // Hover functionality for desktop (submenu appears on hover)
+  document.querySelectorAll('.section-header').forEach(button => {
+    button.addEventListener('mouseenter', () => {
+      const submenu = button.nextElementSibling; // Get the associated submenu
+      if (submenu && submenu.classList.contains('submenu')) {
+        submenu.style.display = 'block';
+        submenu.style.opacity = '1';
+        submenu.style.maxHeight = '500px';
+        submenu.style.pointerEvents = 'auto';
+      }
+    });
+
+    button.addEventListener('mouseleave', () => {
+      const submenu = button.nextElementSibling;
+      if (submenu && submenu.classList.contains('submenu')) {
+        submenu.style.display = 'none';
+        submenu.style.opacity = '0';
+        submenu.style.maxHeight = '0';
+        submenu.style.pointerEvents = 'none';
+      }
+    });
+  });
+
+  // Click functionality for mobile (toggle submenu visibility on click)
+  document.querySelectorAll('.section-header').forEach(button => {
+    button.addEventListener('click', () => {
+      const submenu = button.nextElementSibling; // Get the associated submenu
+      if (submenu && submenu.classList.contains('submenu')) {
+        const isVisible = submenu.style.display === 'block';
+
+        if (isVisible) {
+          submenu.style.display = 'none';
+          submenu.style.opacity = '0';
+          submenu.style.maxHeight = '0';
+          submenu.style.pointerEvents = 'none';
+          button.classList.remove('active');
+        } else {
+          submenu.style.display = 'block';
+          submenu.style.opacity = '1';
+          submenu.style.maxHeight = '500px';
+          submenu.style.pointerEvents = 'auto';
+          button.classList.add('active'); // Mark as active
+        }
+      }
+    });
+  });
 });
+
+
 })();
