@@ -374,7 +374,12 @@ nav#main-nav ul ul a {
       outline: none;
     }
 
-
+.submenu {
+  display: none;
+}
+.submenu[aria-hidden="false"] {
+  display: block;
+}
 
 
 
@@ -393,6 +398,22 @@ nav#main-nav ul[role="menu"] > li > ul.submenu {
   pointer-events: none;
   transition: max-height 0.3s ease, opacity 0.3s ease;
   position: relative; /* keep positioning */
+}
+
+/* Show submenu when parent <li> has .open class */
+nav#main-nav > ul > li.open > ul.submenu {
+  display: block !important;
+  opacity: 1 !important;
+  max-height: 500px !important;
+  pointer-events: auto !important;
+}
+
+nav#main-nav > ul > li > ul.submenu {
+  display: none;
+  opacity: 0;
+  max-height: 0;
+  pointer-events: none;
+  transition: max-height 0.3s ease, opacity 0.3s ease;
 }
 
 /* On hover (desktop), show submenu */
@@ -527,6 +548,8 @@ nav#main-nav ul.submenu {
 nav#main-nav li.open > ul.submenu {
   display: block;
 }
+
+
 
 
   nav#main-nav a {
@@ -741,35 +764,6 @@ document.body.insertAdjacentHTML("beforeend", footerHTML);
   // Update time every second
   setInterval(formatTime, 1000);
 
- // Navigation toggle functionality for collapsible sections
-  const nav = document.getElementById("main-nav");
-  nav.querySelectorAll("button.section-header").forEach(button => {
-    button.addEventListener("click", () => {
-      const expanded = button.getAttribute("aria-expanded") === "true";
-      const submenuId = button.getAttribute("aria-controls");
-      const submenu = document.getElementById(submenuId);
-
-      // Toggle aria-expanded and submenu visibility
-      if (submenu) {
-        if (expanded) {
-          button.setAttribute("aria-expanded", "false");
-          submenu.classList.add("collapsed");
-        } else {
-          button.setAttribute("aria-expanded", "true");
-          submenu.classList.remove("collapsed");
-        }
-      }
-    });
-
-    // Keyboard accessibility: toggle on Enter or Space
-    button.addEventListener("keydown", (e) => {
-      if (e.key === "Enter" || e.key === " ") {
-        e.preventDefault();
-        button.click();
-      }
-    });
-  });
-
   // Automatically expand Association and Resources sections on load, collapse Admin Tools
   document.getElementById("assoc-submenu").classList.add("collapsed");
   document.querySelector('button[aria-controls="assoc-submenu"]').setAttribute("aria-expanded", "false");
@@ -922,7 +916,7 @@ function renderBreadcrumb() {
 document.addEventListener('DOMContentLoaded', () => {
   renderBreadcrumb();
 
-  // Highlight current nav link
+  // Highlight active link
   const currentPath = window.location.pathname.split('/').pop();
   document.querySelectorAll('#main-nav a').forEach(link => {
     if (link.getAttribute('href') === currentPath) {
@@ -930,18 +924,26 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // Click to toggle submenu
+  // Unified click + keyboard support for menu toggles
   document.querySelectorAll('#main-nav > ul > li > button.section-header').forEach(button => {
+    const parentLi = button.closest('li');
+    const submenuId = button.getAttribute('aria-controls');
+    const submenu = document.getElementById(submenuId);
+
+    // Toggle submenu on click
     button.addEventListener('click', () => {
-      const parentLi = button.closest('li');
+      console.log('Clicked:', button.textContent);
       const isOpen = parentLi.classList.contains('open');
 
-      // Close all others
+      // Close all open submenus
       document.querySelectorAll('#main-nav > ul > li.open').forEach(li => {
         if (li !== parentLi) {
           li.classList.remove('open');
-          const otherBtn = li.querySelector('button.section-header');
-          if (otherBtn) otherBtn.setAttribute('aria-expanded', 'false');
+          const btn = li.querySelector('button.section-header');
+          if (btn) btn.setAttribute('aria-expanded', 'false');
+
+          const sub = document.getElementById(btn?.getAttribute('aria-controls'));
+          if (sub) sub.setAttribute('aria-hidden', 'true');
         }
       });
 
@@ -949,13 +951,15 @@ document.addEventListener('DOMContentLoaded', () => {
       if (isOpen) {
         parentLi.classList.remove('open');
         button.setAttribute('aria-expanded', 'false');
+        submenu.setAttribute('aria-hidden', 'true');
       } else {
         parentLi.classList.add('open');
         button.setAttribute('aria-expanded', 'true');
+        submenu.setAttribute('aria-hidden', 'false');
       }
     });
 
-    // Keyboard accessibility
+    // Keyboard: toggle on Enter or Space
     button.addEventListener('keydown', e => {
       if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
@@ -964,6 +968,5 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 });
-
 
 })();
