@@ -2,390 +2,463 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Search</title>
-    <style>
-        /* Reset default styles */
-        body {
-            font-family: 'Arial', sans-serif;
-            margin: 0;
-            padding: 0;
-            background: linear-gradient(to bottom, #f5a3c7, #f06595); /* Gradient background */
-            color: #333;
-            height: 100vh;
-            display: flex;
-            justify-content: flex-start;
-            align-items: flex-start;
-            flex-direction: column;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Search</title>
+  <script src="layout.js" defer></script>
+  <style>
+    /* Reset and base */
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(90deg, #ff9a9e, #fad0c4);
+      color: #333;
+      min-height: 100vh;
+      display: flex;
+      justify-content: flex-start;
+      align-items: flex-start;
+      flex-direction: column;
+      /* Smooth font rendering */
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
 
-        /* Search Container */
-        .search-container {
-            width: 100%;
-            max-width: 800px;
-            margin-top: 70px;
-            padding: 30px;
-            background-color: rgba(255, 255, 255, 0.9);
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-            text-align: center;
-            position: relative;
-            margin-left: auto;
-            margin-right: auto;
-        }
+    /* Container */
+    .search-container {
+      width: 100%;
+      max-width: 700px;
+      margin: 20px auto 60px auto;
+      padding: 30px 40px;
+      background-color: rgba(255, 255, 255, 0.95);
+      border-radius: 14px;
+      box-shadow: 0 8px 24px rgba(240, 101, 149, 0.25);
+      text-align: center;
+      position: relative;
+      margin-left: 260px; /* Adjust if your sidebar width differs */
+    }
 
-        .search-container h2 {
-            color: #f06595;
-            font-size: 28px;
-            margin-bottom: 20px;
-        }
+    @media (max-width: 768px) {
+  	.search-container {
+    	margin-left: 15px; /* back to small margin on mobile */
+  	}
+    }
 
-        /* Input Box Styling */
-        .search-wrapper {
-            position: relative;
-            width: 100%;
-        }
+    /* Heading */
+    .search-container h2 {
+      	background: linear-gradient(90deg, #f7c6d4, #f06595);
+  	-webkit-background-clip: text;
+  	-webkit-text-fill-color: transparent;
+  	background-clip: text;
+  	text-fill-color: transparent;
+    }
 
-        input[type="text"] {
-            width: calc(100% - 30px);
-            padding: 15px 5px 15px 10px;
-            font-size: 18px;
-            border-radius: 10px;
-            border: 1px solid #ddd;
-            outline: none;
-            transition: all 0.3s ease;
-        }
+    /* Search input wrapper */
+    .search-wrapper {
+      position: relative;
+      width: 100%;
+      max-width: 100%;
+      margin-bottom: 30px;
+    }
 
-        input[type="text"]:focus {
-            border-color: #f06595;
-            box-shadow: 0 0 10px rgba(240, 101, 149, 0.6);
-        }
+    /* Input field */
+    input[type="text"] {
+      width: 100%;
+      padding: 14px 45px 14px 40px;
+      font-size: 18px;
+      border-radius: 10px;
+      border: 2px solid #e3a5bc;
+      outline: none;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+      box-sizing: border-box;
+      color: #444;
+      background-color: #fff;
+      font-weight: 500;
+    }
 
-        /* Adding the search icon */
-        .search-wrapper::before {
-            content: '🔍';
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 15px;
-            color: #f06595;
-        }
+    input[type="text"]::placeholder {
+      color: #d78fa1;
+      font-style: italic;
+    }
 
-        /* Clear Button (X) */
-        .clear-search {
-            position: absolute;
-            right: 20px;
-            top: 50%;
-            transform: translateY(-50%);
-            cursor: pointer;
-            color: #f06595;
-            font-size: 15px;
-            display: none;
-        }
+    input[type="text"]:focus {
+      border-color: #d43766;
+      box-shadow: 0 0 12px rgba(212, 55, 102, 0.5);
+      background-color: #fff;
+      color: #222;
+    }
 
-        /* Example Searches Section */
-        .example-searches {
-            background-color: #f9e0ec;
-            padding: 20px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-        }
+    /* Search icon inside input */
+    .search-wrapper::before {
+      content: '🔍';
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 20px;
+      color: #d43766;
+      pointer-events: none;
+    }
 
-        .example-searches h3 {
-            font-size: 20px;
-            color: #f06595;
-            margin-bottom: 10px;
-        }
+    /* Clear (X) button */
+    .clear-search {
+      position: absolute;
+      right: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
+      color: #d43766;
+      font-size: 20px;
+      user-select: none;
+      display: none;
+      transition: color 0.3s ease;
+    }
 
-        .example-searches ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
+    .clear-search:hover {
+      color: #a02649;
+    }
 
-        .example-searches ul li {
-            display: inline-block;
-            margin: 5px 10px;
-            padding: 10px;
-            background-color: #ff6b6b;
-            color: white;
-            border-radius: 25px;
-            font-size: 16px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
+    /* Example Searches box */
+    .example-searches {
+      background-color: #f7d3de;
+      padding: 22px 30px;
+      border-radius: 14px;
+      margin-bottom: 30px;
+      box-shadow: 0 3px 10px rgba(240, 101, 149, 0.15);
+      user-select: none;
+    }
 
-        .example-searches ul li:hover {
-            background-color: #ff385c;
-        }
+    .example-searches h3 {
+      font-size: 1.4rem;
+      color: #d43766;
+      margin-bottom: 15px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
 
-        /* Search Results */
-        #searchResults {
-            margin-top: 20px;
-            text-align: left;
-            font-size: 16px;
-        }
+    .example-searches ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+    }
 
-        .result-item {
-            background-color: #f9f9f9;
-            padding: 15px;
-            border-radius: 10px;
-            margin-bottom: 10px;
-            transition: background-color 0.3s;
-        }
+    .example-searches ul li {
+      background-color: #d43766;
+      color: white;
+      border-radius: 25px;
+      font-size: 16px;
+      padding: 10px 18px;
+      cursor: pointer;
+      font-weight: 600;
+      user-select: none;
+      transition: background-color 0.3s ease;
+      box-shadow: 0 2px 8px rgba(212, 55, 102, 0.3);
+    }
 
-        .result-item:hover {
-            background-color: #f2f2f2;
-        }
+    .example-searches ul li:hover {
+      background-color: #a02649;
+      box-shadow: 0 3px 12px rgba(160, 38, 73, 0.6);
+    }
 
-        .result-item h3 {
-            margin: 0;
-            font-size: 15px;
-            color: #333;
-        }
+    /* Search results */
+    #searchResults {
+      margin-top: 10px;
+      text-align: left;
+      font-size: 16px;
+      color: #444;
+      max-height: 300px;
+      overflow-y: auto;
+      padding-right: 6px;
+    }
 
-        .result-item p {
-            font-size: 14px;
-            color: #777;
-        }
+    .result-item {
+      background-color: #fff0f3;
+      padding: 15px 18px;
+      border-radius: 12px;
+      margin-bottom: 14px;
+      box-shadow: 0 1px 5px rgba(212, 55, 102, 0.1);
+      transition: background-color 0.3s ease;
+    }
 
-        .result-item a {
-            text-decoration: none;
-            color: inherit;
-        }
+    .result-item:hover {
+      background-color: #ffd6e1;
+    }
 
-        .result-item a:hover {
-            text-decoration: underline;
-        }
+    .result-item h3 {
+      margin: 0 0 6px 0;
+      font-size: 17px;
+      color: #b92e59;
+    }
 
-        /* Skeleton Loader */
-        .skeleton-loader {
-            background-color: #f0f0f0;
-            margin: 10px 0;
-            border-radius: 10px;
-            height: 60px;
-        }
+    .result-item p {
+      font-size: 14px;
+      color: #666;
+      margin: 0;
+      line-height: 1.3;
+    }
 
-        /* CSS Spinner */
-        @keyframes spin {
-            0% {
-                transform: rotate(0deg);
-            }
+    .result-item a {
+      text-decoration: none;
+      color: inherit;
+      font-weight: 600;
+      transition: color 0.3s ease;
+    }
 
-            100% {
-                transform: rotate(360deg);
-            }
-        }
+    .result-item a:hover {
+      text-decoration: underline;
+      color: #d43766;
+    }
 
-        #loadingSpinner {
-            display: none;
-            width: 50px;
-            height: 50px;
-            border: 6px solid #f3f3f3;
-            border-top: 6px solid #f06595;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-        }
+    /* Highlighted search term */
+    .highlighted-text {
+      background-color: #f9c2d1;
+      padding: 0 4px;
+      border-radius: 4px;
+      font-weight: 700;
+      color: #a02649;
+    }
 
-        /* Scroll to Top Button */
-        #scrollToTopBtn {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 50%;
-            padding: 15px;
-            font-size: 20px;
-            cursor: pointer;
-            display: none;
-            transition: opacity 0.3s ease;
-        }
+    /* Skeleton loader styling */
+    .skeleton-loader {
+      background-color: #ffe6ee;
+      margin: 10px 0;
+      border-radius: 10px;
+      height: 60px;
+    }
 
-        #scrollToTopBtn:hover {
-            background-color: #ff385c;
-        }
+    /* Spinner animation */
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
 
-        /* Mobile Responsiveness */
-        @media (max-width: 768px) {
-            .search-container {
-                margin-top: 20px;
-                padding: 20px;
-                width: 90%;
-            }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
 
-            .search-container h2 {
-                font-size: 24px;
-            }
+    #loadingSpinner {
+      display: none;
+      width: 50px;
+      height: 50px;
+      border: 6px solid #ffe6ee;
+      border-top: 6px solid #d43766;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 10;
+    }
 
-            input[type="text"] {
-                font-size: 16px;
-                padding: 12px 10px;
-            }
+    /* Scroll to Top Button */
+    #scrollToTopBtn {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background-color: #d43766;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      padding: 15px;
+      font-size: 20px;
+      cursor: pointer;
+      display: none;
+      transition: background-color 0.3s ease;
+      box-shadow: 0 4px 12px rgba(212, 55, 102, 0.6);
+      z-index: 15;
+    }
 
-            .clear-search {
-                font-size: 18px;
-                right: 15px;
-            }
+    #scrollToTopBtn:hover {
+      background-color: #a02649;
+    }
 
-            .example-searches h3 {
-                font-size: 18px;
-            }
+    /* Mobile Responsiveness */
+    @media (max-width: 768px) {
+      .search-container {
+        margin: 30px 15px 50px 15px;
+        padding: 25px 20px;
+        width: auto;
+      }
 
-            .example-searches ul li {
-                font-size: 14px;
-                padding: 8px 14px;
-            }
-        }
-    </style>
+      .search-container h2 {
+        font-size: 1.6rem;
+      }
+
+      input[type="text"] {
+        font-size: 16px;
+        padding: 12px 45px 12px 38px;
+      }
+
+      .clear-search {
+        font-size: 18px;
+        right: 12px;
+      }
+
+      .example-searches h3 {
+        font-size: 1.2rem;
+      }
+
+      .example-searches ul li {
+        font-size: 14px;
+        padding: 9px 14px;
+      }
+
+      #searchResults {
+        font-size: 15px;
+        max-height: 250px;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
-    <script src="layout.js" defer></script>
-
+  <main>
     <div class="search-container">
-        <h2>Search the Website</h2>
+      <h2>Search the Website</h2>
 
-        <div class="search-wrapper">
-            <input type="text" id="searchInput" placeholder="Type to search..." onkeyup="searchFunction()">
-            <span id="clearSearch" class="clear-search" onclick="clearSearch()">×</span>
-        </div>
+      <div class="search-wrapper">
+        <input type="text" id="searchInput" placeholder="Type to search..." onkeyup="searchFunction()" />
+        <span id="clearSearch" class="clear-search" onclick="clearSearch()">×</span>
+      </div>
 
-        <div id="loadingSpinner"></div>
+      <div id="loadingSpinner"></div>
 
-        <div class="example-searches">
-            <h3>Example Searches:</h3>
-            <ul>
-                <li>Who</li>
-                <li>Events</li>
-                <li>New Resident</li>
-                <li>Feedback</li>
-                <li>Rules</li>
-            </ul>
-        </div>
+      <div class="example-searches">
+        <h3>Example Searches:</h3>
+        <ul>
+          <li>Who</li>
+          <li>Events</li>
+          <li>New Resident</li>
+          <li>Feedback</li>
+          <li>Rules</li>
+        </ul>
+      </div>
 
-        <div id="searchResults"></div>
+      <div id="searchResults"></div>
 
-        <div id="suggestionsList" style="display:none;"></div>
+      <div id="suggestionsList" style="display:none;"></div>
     </div>
 
     <button id="scrollToTopBtn" onclick="scrollToTop()">↑</button>
+  </main>
 
-    <script>
-        // Array to store page details for search
-        const pages = [
-            { title: "Who We Are", url: "about-us.html", content: "About the association's purpose, history, and members." },
-            { title: "Vision & Mission", url: "vision-mission.html", content: "The vision and mission statement of our association." },
-            { title: "Executive Committee", url: "governing-body.html", content: "Information about the governing body and its members." },
-            { title: "Residents Directory", url: "our-members.html", content: "A list of all residents and their contact information." },
-            { title: "Association Highlights & Community Buzz", url: "view-announcements.html", content: "Latest news and updates about the association." },
-            { title: "Event Calendar", url: "events.html", content: "List of upcoming events and important dates." },
-            { title: "Meeting Minutes", url: "mom.html", content: "Minutes from past meetings and discussions." },
-            { title: "New Resident Guide", url: "new-resident-guide.html", content: "Helpful guide for new residents in the community." },
-            { title: "Community Guidelines", url: "general-guidelines.html", content: "The guidelines and rules for living in the community." }
-        ];
+  <script>
+    // Your existing JS remains exactly the same — no changes needed
 
-        let debounceTimer;
+    // Array to store page details for search
+    const pages = [
+      { title: "Who We Are", url: "about-us.html", content: "About the association's purpose, history, and members." },
+      { title: "Vision & Mission", url: "vision-mission.html", content: "The vision and mission statement of our association." },
+      { title: "Executive Committee", url: "governing-body.html", content: "Information about the governing body and its members." },
+      { title: "Residents Directory", url: "our-members.html", content: "A list of all residents and their contact information." },
+      { title: "Association Highlights & Community Buzz", url: "view-announcements.html", content: "Latest news and updates about the association." },
+      { title: "Event Calendar", url: "events.html", content: "List of upcoming events and important dates." },
+      { title: "Meeting Minutes", url: "mom.html", content: "Minutes from past meetings and discussions." },
+      { title: "New Resident Guide", url: "new-resident-guide.html", content: "Helpful guide for new residents in the community." },
+      { title: "Community Guidelines", url: "general-guidelines.html", content: "The guidelines and rules for living in the community." }
+    ];
 
-        function searchFunction() {
-            const query = document.getElementById('searchInput').value.toLowerCase();
-            const results = document.getElementById('searchResults');
-            const clearButton = document.getElementById('clearSearch');
-            const loadingSpinner = document.getElementById('loadingSpinner');
-            const suggestionsList = document.getElementById('suggestionsList');
+    let debounceTimer;
 
-            // Debounce the search to avoid frequent calls
-            clearTimeout(debounceTimer);
-            loadingSpinner.style.display = "block";
-            results.innerHTML = "";
-            suggestionsList.innerHTML = "";
+    function searchFunction() {
+      const query = document.getElementById('searchInput').value.toLowerCase();
+      const results = document.getElementById('searchResults');
+      const clearButton = document.getElementById('clearSearch');
+      const loadingSpinner = document.getElementById('loadingSpinner');
+      const suggestionsList = document.getElementById('suggestionsList');
 
-            debounceTimer = setTimeout(() => {
-                if (!query.trim()) {
-                    clearButton.style.display = "none";
-                    loadingSpinner.style.display = "none";
-                    return;
-                }
+      // Debounce the search to avoid frequent calls
+      clearTimeout(debounceTimer);
+      loadingSpinner.style.display = "block";
+      results.innerHTML = "";
+      suggestionsList.innerHTML = "";
 
-                clearButton.style.display = "block";
+      debounceTimer = setTimeout(() => {
+        if (!query.trim()) {
+          clearButton.style.display = "none";
+          loadingSpinner.style.display = "none";
+          return;
+        }
 
-                // Filter pages based on the query
-                const filteredPages = pages.filter(page =>
-                    page.title.toLowerCase().includes(query) || page.content.toLowerCase().includes(query)
-                );
+        clearButton.style.display = "block";
 
-                setTimeout(() => {
-                    loadingSpinner.style.display = "none";
+        // Filter pages based on the query
+        const filteredPages = pages.filter(page =>
+          page.title.toLowerCase().includes(query) || page.content.toLowerCase().includes(query)
+        );
 
-                    if (filteredPages.length > 0) {
-                        results.innerHTML = `<p>Found ${filteredPages.length} result(s)</p>`;
-                        filteredPages.forEach(page => {
-                            const div = document.createElement('div');
-                            div.classList.add('result-item');
-                            div.innerHTML = `
+        setTimeout(() => {
+          loadingSpinner.style.display = "none";
+
+          if (filteredPages.length > 0) {
+            results.innerHTML = `<p>Found ${filteredPages.length} result(s)</p>`;
+            filteredPages.forEach(page => {
+              const div = document.createElement('div');
+              div.classList.add('result-item');
+              div.innerHTML = `
                                 <h3><a href="${page.url}">${highlightText(page.title, query)}</a></h3>
                                 <p>${highlightText(page.content, query)}</p>
                             `;
-                            results.appendChild(div);
-                        });
-                    } else {
-                        results.innerHTML = '<p>No results found. Try another search.</p>';
-                    }
-                }, 500);
-            }, 300);
-        }
-
-        function highlightText(text, query) {
-            if (!query) return text;
-            const regex = new RegExp(`(${query})`, 'gi');
-            return text.replace(regex, '<span class="highlighted-text">$1</span>');
-        }
-
-        function showSuggestions(query) {
-            const suggestionsList = document.getElementById('suggestionsList');
-            const filteredPages = pages.filter(page => page.title.toLowerCase().includes(query));
-            suggestionsList.innerHTML = "";
-            filteredPages.forEach(page => {
-                const div = document.createElement('div');
-                div.classList.add('suggestion-item');
-                div.innerHTML = `<a href="${page.url}">${page.title}</a>`;
-                suggestionsList.appendChild(div);
+              results.appendChild(div);
             });
-            suggestionsList.style.display = filteredPages.length > 0 ? 'block' : 'none';
-        }
+          } else {
+            results.innerHTML = '<p>No results found. Try another search.</p>';
+          }
+        }, 500);
+      }, 300);
+    }
 
-        function clearSearch() {
-            document.getElementById('searchInput').value = "";
-            document.getElementById('searchResults').innerHTML = "";
-            document.getElementById('clearSearch').style.display = "none";
-            document.getElementById('suggestionsList').style.display = "none";
-        }
+    function highlightText(text, query) {
+      if (!query) return text;
+      const regex = new RegExp(`(${query})`, 'gi');
+      return text.replace(regex, '<span class="highlighted-text">$1</span>');
+    }
 
-        document.getElementById('searchInput').addEventListener('input', function () {
-            const query = this.value.trim().toLowerCase();
-            showSuggestions(query);
-        });
+    function showSuggestions(query) {
+      const suggestionsList = document.getElementById('suggestionsList');
+      const filteredPages = pages.filter(page => page.title.toLowerCase().includes(query));
+      suggestionsList.innerHTML = "";
+      filteredPages.forEach(page => {
+        const div = document.createElement('div');
+        div.classList.add('suggestion-item');
+        div.innerHTML = `<a href="${page.url}">${page.title}</a>`;
+        suggestionsList.appendChild(div);
+      });
+      suggestionsList.style.display = filteredPages.length > 0 ? 'block' : 'none';
+    }
 
-        function scrollToTop() {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
+    function clearSearch() {
+      document.getElementById('searchInput').value = "";
+      document.getElementById('searchResults').innerHTML = "";
+      document.getElementById('clearSearch').style.display = "none";
+      document.getElementById('suggestionsList').style.display = "none";
+    }
 
-        window.addEventListener('scroll', function () {
-            const scrollToTopBtn = document.getElementById('scrollToTopBtn');
-            if (window.scrollY > 500) {
-                scrollToTopBtn.style.display = 'block';
-            } else {
-                scrollToTopBtn.style.display = 'none';
-            }
-        });
-    </script>
+    document.getElementById('searchInput').addEventListener('input', function () {
+      const query = this.value.trim().toLowerCase();
+      showSuggestions(query);
+    });
+
+    function scrollToTop() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    window.addEventListener('scroll', function () {
+      const scrollToTopBtn = document.getElementById('scrollToTopBtn');
+      if (window.scrollY > 500) {
+        scrollToTopBtn.style.display = 'block';
+      } else {
+        scrollToTopBtn.style.display = 'none';
+      }
+    });
+  </script>
 
 </body>
 
