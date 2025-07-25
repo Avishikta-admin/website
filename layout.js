@@ -223,18 +223,31 @@
       box-shadow: inset 0 0 0 0 #00bcd4;
     }
 
-/* Submenu visibility on hover (for mouse) and active (for touch) */
-nav#main-nav > ul > li:hover > ul,
-nav#main-nav > ul > li:active > ul {
-  display: block; /* Show the submenu */
-  opacity: 1; /* Make sure the submenu becomes visible */
-  visibility: visible; /* Ensure it's visible */
-  max-height: 1000px; /* Allow the submenu to expand */
-  transition: opacity 0.3s ease, visibility 0s, max-height 0.3s ease; /* Smooth transition */
-  pointer-events: auto; /* Allow clicking */
-  position: relative; /* Ensure it's properly positioned */
-  z-index: 999; /* Ensure it's in front */
+
+/* Hide submenu by default */
+
+/* Show submenu when li has 'open' class */
+nav#main-nav ul[role="menu"] > li.open > ul {
+  display: block;
 }
+
+/* Rotate arrow when li has 'open' */
+nav#main-nav ul[role="menu"] > li > button.section-header::after {
+  content: "▼"; /* down arrow */
+  float: right;
+  transition: transform 0.3s ease;
+  transform-origin: center;
+}
+
+nav#main-nav ul[role="menu"] > li.open > button.section-header::after {
+  transform: rotate(180deg); /* arrow up */
+}
+
+
+/* Submenu visibility on hover (for mouse) and active (for touch) */
+
+
+
 
 /* Styling for submenu items */
 nav#main-nav > ul > li > ul > li a {
@@ -312,7 +325,7 @@ nav#main-nav > ul > li.active > ul {
       transition: transform 0.3s ease; /* Smooth transition */
     }
 
-    /* Hover for links inside the submenu */
+/* Hover for links inside the submenu */
 nav#main-nav > ul > li > ul > li > a:hover,
 nav#main-nav > ul > li > ul > li > a:focus {
   background-color: rgba(0, 188, 212, 0.3); /* Highlight submenu links */
@@ -325,7 +338,7 @@ nav#main-nav ul ul a {
 }
 
     nav#main-nav ul ul {
-      padding-left: 32px;
+      padding-left: 5px;
       margin-top: 8px;
       max-height: 1000px;
       overflow: hidden;
@@ -360,13 +373,21 @@ nav#main-nav ul ul a {
     }
 
 /* Initially hide submenus */
-nav#main-nav > ul > li > ul.submenu {
-  display: none;
-  opacity: 0;
+
+nav#main-nav ul[role="menu"] > li.open > ul.submenu {
+  max-height: 500px;  /* enough to show all submenu items */
+  opacity: 1;
+  pointer-events: auto;
+}
+
+nav#main-nav ul[role="menu"] > li > ul.submenu {
+  display: block;  /* Important: submenu always display block */
   max-height: 0;
+  opacity: 0;
   overflow: hidden;
-  transition: all 0.3s ease-out;
   pointer-events: none;
+  transition: max-height 0.3s ease, opacity 0.3s ease;
+  position: relative; /* keep positioning */
 }
 
 /* On hover (desktop), show submenu */
@@ -384,7 +405,6 @@ nav#main-nav > ul > li.active > ul.submenu {
   max-height: 500px;
   pointer-events: auto;
 }
-
 
     nav#main-nav a > i.fas {
       min-width: 18px;
@@ -593,76 +613,86 @@ main {
   // Nav HTML updated per your menu mapping
   const navHTML = `
     <nav id="main-nav" aria-label="Main navigation">
-      <ul role="menu">
-        <!-- Association -->
-        <li>
-          <button class="section-header" aria-expanded="true" aria-controls="assoc-submenu" tabindex="0" role="menuitem">
-            <i class="fas fa-building" aria-hidden="true"></i> Association
-          </button>
-          <ul id="assoc-submenu" role="menu">
-            <li role="none"><a href="about-us.html" role="menuitem" title="About our association"><i class="fas fa-info-circle" aria-hidden="true"></i> Who We Are</a></li>
-            <li role="none"><a href="vision-mission.html" role="menuitem" title="Our vision & mission"><i class="fas fa-eye" aria-hidden="true"></i> Vision & Mission</a></li>
-            <li role="none"><a href="governing-body.html" role="menuitem" title="General body"><i class="fas fa-users" aria-hidden="true"></i> Executive Committee</a></li>
-            <li role="none"><a href="our-members.html" role="menuitem" title="Member details"><i class="fas fa-address-book" aria-hidden="true"></i> Residents Directory</a></li>
-          </ul>
-        </li>
+  <ul role="menu">
 
-        <!-- Resources -->
-        <li>
-          <button class="section-header" aria-expanded="true" aria-controls="resources-submenu" tabindex="0" role="menuitem">
-            <i class="fas fa-folder" aria-hidden="true"></i> Resources
-          </button>
-          <ul id="resources-submenu" role="menu">
-            <li role="none"><a href="view-announcements.html" role="menuitem" title="Check announcements"><i class="fas fa-bullhorn" aria-hidden="true"></i> Association Highlights & Community Buzz</a></li>
-            <li role="none"><a href="events.html" role="menuitem" title="View our community calendar and photo gallery"><i class="fas fa-calendar-alt" aria-hidden="true"></i> Events & Shared Moments</a></li>
-            <li role="none"><a href="mom.html" role="menuitem" title="MoM"><i class="fas fa-file-alt" aria-hidden="true"></i> Meeting Minutes</a></li>
-            <li role="none"><a href="new-resident-guide.html" role="menuitem" title="New Resident Guide"><i class="fas fa-house-user" aria-hidden="true"></i></i> New Resident Guide</a></li>
-            <li role="none"><a href="general-guidelines.html" role="menuitem" title="General guidelines"><i class="fas fa-book" aria-hidden="true"></i> Community Guidelines</a></li>
-<li role="none"><a href="useful-links.html" role="menuitem" title="Helpdesk & Contacts"><i class="fas fa-book" aria-hidden="true"></i> Support Hub</a></li>
-            <li role="none"><a href="download-center.html" role="menuitem" title="Access important documents and forms for download"><i class="fas fa-cloud-download-alt" aria-hidden="true"></i> Download-center</a></li>
-            <li role="none"><a href="projects.html" role="menuitem" title="View projects and upgrades"><i class="fas fa-tools" aria-hidden="true" aria-hidden="true"></i> Project Status & Updates</a></li>
-        </ul>
-        </li>
-
-        <!-- Get Involved -->
-        <li>
-          <button class="section-header" style="color: #D2B48C;" aria-expanded="false" aria-controls="GetInvolved-submenu" tabindex="0" role="menuitem">
-            <i class="fas fa-hands-helping" aria-hidden="true"></i> Get Involved
-          </button>
-          <ul id="GetInvolved-submenu" role="menu">
-        <li> <a href="feedback.html" id="give-feedback-link" role="menuitem" title="We value your feedback—let us know your thoughts"><i class="fas fa-comment-dots" aria-hidden="true"></i> Give Feedback</a>
-        </li>
-	<li> <a href="volunteer.html" id="volunteer-link" role="menuitem" title="Come forward to provide volunteer service"><i class="fas fa-hands-helping" aria-hidden="true"></i>Volunteer Opportunities</a>
-        </li>
-        </ul>
-        </li>
-
-       <!-- Help & Contact -->
-       <li>
-         <button class="section-header" style="color: #ffb6c1;" aria-expanded="false" aria-controls="HelpnContact-submenu" tabindex="0" role="menuitem">
-  		<i class="fas fa-info-circle" aria-hidden="true"></i> Get in Touch
-	</button>
-
-        <ul id="HelpnContact-submenu" role="menu">
-	<li> <a href="contact-us.html" id="give-contact-us-link" role="menuitem" title="We are here to hear you"><i class="fas fa-envelope" aria-hidden="true"></i> Contact Us</a></li>
-          <li role="none"><a href="faq.html" id="faq-link" role="menuitem" title="Find answers to frequently asked questions"><i class="fas fa-question-circle" aria-hidden="true"></i>FAQs</a></li>
-        </li>
-	</ul>
-        </li>
-
-        <!-- Admin Tools -->
-        <li class="admin-only">
-          <button class="section-header" aria-expanded="false" aria-controls="admin-submenu" tabindex="0" role="menuitem">
-            <i class="fas fa-tools" aria-hidden="true"></i> Admin Tools
-          </button>
-          <ul id="admin-submenu" class="collapsed" role="menu">
-            <li role="none"><a href="#" role="menuitem" style="pointer-events: none;" title="Coming Soon..."><i class="fas fa-bullhorn" aria-hidden="true"></i> Manage Announcements</a></li>
-            <li role="none"><a href="#" role="menuitem" style="pointer-events: none;" title="Coming Soon..."><i class="fas fa-users-cog" aria-hidden="true"></i> View Feedback</a></li>
-<li role="none"><a href="#" role="menuitem" style="pointer-events: none;" title="Coming Soon..."><i class="fas fa-file-upload" aria-hidden="true"></i> Upload Image</a></li>
-          </ul>
-        </li>
+    <!-- Association -->
+    <li>
+      <button class="section-header" aria-expanded="true" aria-controls="assoc-submenu" tabindex="0" role="menuitem">
+        <i class="fas fa-building" aria-hidden="true"></i> Association
+      </button>
+      <ul id="assoc-submenu" class="submenu" role="menu" aria-hidden="false">
+        <li role="none"><a href="about-us.html" role="menuitem" title="About our association"><i class="fas fa-info-circle" aria-hidden="true"></i> Who We Are</a></li>
+        <li role="none"><a href="vision-mission.html" role="menuitem" title="Our vision & mission"><i class="fas fa-eye" aria-hidden="true"></i> Vision & Mission</a></li>
+        <li role="none"><a href="governing-body.html" role="menuitem" title="General body"><i class="fas fa-users" aria-hidden="true"></i> Executive Committee</a></li>
+        <li role="none"><a href="our-members.html" role="menuitem" title="Member details"><i class="fas fa-address-book" aria-hidden="true"></i> Residents Directory</a></li>
       </ul>
-    </nav>
+    </li>
+
+    <!-- Resources -->
+    <li>
+      <button class="section-header" aria-expanded="true" aria-controls="resources-submenu" tabindex="0" role="menuitem">
+        <i class="fas fa-folder" aria-hidden="true"></i> Resources
+      </button>
+      <ul id="resources-submenu" class="submenu" role="menu" aria-hidden="false">
+        <li role="none"><a href="view-announcements.html" role="menuitem" title="Check announcements"><i class="fas fa-bullhorn" aria-hidden="true"></i> News & Buzz</a></li>
+        <li role="none"><a href="events.html" role="menuitem" title="View our community calendar and photo gallery"><i class="fas fa-calendar-alt" aria-hidden="true"></i> Events & Shared Moments</a></li>
+        <li role="none"><a href="mom.html" role="menuitem" title="MoM"><i class="fas fa-file-alt" aria-hidden="true"></i> Meeting Minutes</a></li>
+        <li role="none"><a href="new-resident-guide.html" role="menuitem" title="New Resident Guide"><i class="fas fa-house-user" aria-hidden="true"></i> New Resident Guide</a></li>
+        <li role="none"><a href="general-guidelines.html" role="menuitem" title="General guidelines"><i class="fas fa-book" aria-hidden="true"></i> Community Guidelines</a></li>
+        <li role="none"><a href="useful-links.html" role="menuitem" title="Helpdesk & Contacts"><i class="fas fa-book" aria-hidden="true"></i> Support Hub</a></li>
+        <li role="none"><a href="download-center.html" role="menuitem" title="Access important documents and forms for download"><i class="fas fa-cloud-download-alt" aria-hidden="true"></i> Download-center</a></li>
+        <li role="none"><a href="projects.html" role="menuitem" title="View projects and upgrades"><i class="fas fa-tools" aria-hidden="true"></i> Project Status & Updates</a></li>
+      </ul>
+    </li>
+
+    <!-- Get Involved -->
+    <li>
+      <button class="section-header" style="color: #D2B48C;" aria-expanded="false" aria-controls="GetInvolved-submenu" tabindex="0" role="menuitem">
+        <i class="fas fa-hands-helping" aria-hidden="true"></i> Get Involved
+      </button>
+      <ul id="GetInvolved-submenu" class="submenu" role="menu" aria-hidden="true">
+        <li role="none"><a href="feedback.html" id="give-feedback-link" role="menuitem" title="We value your feedback—let us know your thoughts"><i class="fas fa-comment-dots" aria-hidden="true"></i> Give Feedback</a></li>
+        <li role="none"><a href="volunteer.html" id="volunteer-link" role="menuitem" title="Come forward to provide volunteer service"><i class="fas fa-hands-helping" aria-hidden="true"></i> Volunteer Opportunities</a></li>
+      </ul>
+    </li>
+
+    <!-- Help & Contact -->
+    <li>
+      <button class="section-header" style="color: #ffb6c1;" aria-expanded="false" aria-controls="HelpnContact-submenu" tabindex="0" role="menuitem">
+        <i class="fas fa-info-circle" aria-hidden="true"></i> Get in Touch
+      </button>
+      <ul id="HelpnContact-submenu" class="submenu" role="menu" aria-hidden="true">
+        <li role="none"><a href="contact-us.html" id="give-contact-us-link" role="menuitem" title="We are here to hear you"><i class="fas fa-envelope" aria-hidden="true"></i> Contact Us</a></li>
+        <li role="none"><a href="faq.html" id="faq-link" role="menuitem" title="Find answers to frequently asked questions"><i class="fas fa-question-circle" aria-hidden="true"></i> FAQs</a></li>
+      </ul>
+    </li>
+
+    <!-- Find & Explore Menu -->
+    <li>
+      <button class="section-header" style="color: #D2B48C;" aria-expanded="false" aria-controls="instant-access-submenu" tabindex="0" role="menuitem">
+        <i class="fas fa-bolt" aria-hidden="true"></i> Find & Explore
+      </button>
+      <ul id="instant-access-submenu" class="submenu" role="menu" aria-hidden="true">
+        <li role="none"><a href="event-calendar.html" id="event-calendar-link" role="menuitem" title="View the event calendar"><i class="fas fa-calendar-alt" aria-hidden="true"></i> Event Calendar</a></li>
+        <li role="none"><a href="search.html" id="quick-search-link" role="menuitem" title="Instantly search any site"><i class="fas fa-search" aria-hidden="true"></i> Site Search</a></li>
+      </ul>
+    </li>
+
+    <!-- Admin Tools -->
+    <li class="admin-only">
+      <button class="section-header" aria-expanded="false" aria-controls="admin-submenu" tabindex="0" role="menuitem">
+        <i class="fas fa-tools" aria-hidden="true"></i> Admin Tools
+      </button>
+      <ul id="admin-submenu" class="submenu collapsed" role="menu" aria-hidden="true">
+        <li role="none"><a href="#" role="menuitem" style="pointer-events: none;" title="Coming Soon..."><i class="fas fa-bullhorn" aria-hidden="true"></i> Manage Announcements</a></li>
+        <li role="none"><a href="#" role="menuitem" style="pointer-events: none;" title="Coming Soon..."><i class="fas fa-users-cog" aria-hidden="true"></i> View Feedback</a></li>
+        <li role="none"><a href="#" role="menuitem" style="pointer-events: none;" title="Coming Soon..."><i class="fas fa-file-upload" aria-hidden="true"></i> Upload Image</a></li>
+      </ul>
+    </li>
+
+  </ul>
+</nav>
+
   `;
 
 // Insert elements into DOM
@@ -745,6 +775,9 @@ document.body.insertAdjacentHTML("beforeend", footerHTML);
   document.getElementById("GetInvolved-submenu").classList.add("collapsed");
   document.querySelector('button[aria-controls="GetInvolved-submenu"]').setAttribute("aria-expanded", "false");
 
+  document.getElementById("instant-access-submenu").classList.add("collapsed");
+  document.querySelector('button[aria-controls="instant-access-submenu"]').setAttribute("aria-expanded", "false");
+
   document.getElementById("admin-submenu").classList.add("collapsed");
   document.querySelector('button[aria-controls="admin-submenu"]').setAttribute("aria-expanded", "false");
 
@@ -812,7 +845,7 @@ function renderBreadcrumb() {
     'vision-mission.html': ['Home', 'Association', 'Vision & Mission'],
     'governing-body.html': ['Home', 'Association', 'Executive Committee'],
     'our-members.html': ['Home', 'Association', 'Residents Directory'],
-    'view-announcements.html': ['Home', 'Resources', 'Association Highlights & Community Buzz'],
+    'view-announcements.html': ['Home', 'Resources', 'News & Buzz'],
     'mom.html': ['Home', 'Resources', 'Meeting Minutes'],
     'new-resident-guide.html': ['Home', 'Resources', 'New Resident Guideline'],
     'events.html': ['Home', 'Resources', 'Events & Shared Moments'],
@@ -823,7 +856,9 @@ function renderBreadcrumb() {
     'feedback.html': ['Home', 'Get Involved','Give Feedback'],
     'volunteer.html': ['Home', 'Get Involved','Volunteer Opportunities'],
     'contact-us.html': ['Home', 'Get in Touch','Ready to hear you'],
-    'faq.html': ['Home', 'Get in Touch','FAQs']
+    'faq.html': ['Home', 'Get in Touch','FAQs'],
+    'search.html': ['Home', 'Find & Explore','Site Search'],
+    'event-calendar.html': ['Home', 'Find & Explore','Event Calendar']
   };
 
   const pageLinks = {
@@ -834,7 +869,7 @@ function renderBreadcrumb() {
     'Executive Committee': 'governing-body.html',
     'Residents Directory': 'our-members.html',
     'Resources': '#',
-    'Association Highlights & Community Buzz': 'view-announcements.html',
+    'News & Buzz': 'view-announcements.html',
     'Meeting Minutes': 'mom.html',
     'New Resident Guideline': 'new-resident-guide.html',
     'Event Calendar': 'events.html',
@@ -847,7 +882,10 @@ function renderBreadcrumb() {
     'Volunteer Opportunities': 'volunteer.html',
     'Get in Touch': '#',
     'Ready to hear you': 'contact-us.html',
-    'FAQs': 'faq.html'
+    'FAQs': 'faq.html',
+    'Instant Access': '#',
+    'Site Search': 'search.html',
+    'Event Calendar': 'event-calendar.html'
   };
 
   const fileName = window.location.pathname.split('/').pop();
@@ -885,53 +923,66 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // Hover functionality for desktop (submenu appears on hover)
-  document.querySelectorAll('.section-header').forEach(button => {
-    button.addEventListener('mouseenter', () => {
-      const submenu = button.nextElementSibling; // Get the associated submenu
-      if (submenu && submenu.classList.contains('submenu')) {
-        submenu.style.display = 'block';
-        submenu.style.opacity = '1';
-        submenu.style.maxHeight = '500px';
-        submenu.style.pointerEvents = 'auto';
+  // Toggle submenu on click for mobile/touch and desktop
+  document.querySelectorAll('nav#main-nav > ul > li > button.section-header').forEach(button => {
+  button.addEventListener('click', () => {
+    const parentLi = button.closest('li');
+    if (!parentLi) return;
+
+    // Toggle 'open' class on the parent li
+    const isOpen = parentLi.classList.contains('open');
+    
+    // Close all other open menus except this one
+    document.querySelectorAll('nav#main-nav > ul > li.open').forEach(li => {
+      if (li !== parentLi) {
+        li.classList.remove('open');
+        li.querySelector('button.section-header').setAttribute('aria-expanded', 'false');
       }
     });
 
-    button.addEventListener('mouseleave', () => {
-      const submenu = button.nextElementSibling;
-      if (submenu && submenu.classList.contains('submenu')) {
-        submenu.style.display = 'none';
-        submenu.style.opacity = '0';
-        submenu.style.maxHeight = '0';
-        submenu.style.pointerEvents = 'none';
-      }
-    });
+    if (isOpen) {
+      parentLi.classList.remove('open');
+      button.setAttribute('aria-expanded', 'false');
+    } else {
+      parentLi.classList.add('open');
+      button.setAttribute('aria-expanded', 'true');
+    }
   });
 
-  // Click functionality for mobile (toggle submenu visibility on click)
-  document.querySelectorAll('.section-header').forEach(button => {
-    button.addEventListener('click', () => {
-      const submenu = button.nextElementSibling; // Get the associated submenu
-      if (submenu && submenu.classList.contains('submenu')) {
-        const isVisible = submenu.style.display === 'block';
-
-        if (isVisible) {
-          submenu.style.display = 'none';
-          submenu.style.opacity = '0';
-          submenu.style.maxHeight = '0';
-          submenu.style.pointerEvents = 'none';
-          button.classList.remove('active');
-        } else {
-          submenu.style.display = 'block';
-          submenu.style.opacity = '1';
-          submenu.style.maxHeight = '500px';
-          submenu.style.pointerEvents = 'auto';
-          button.classList.add('active'); // Mark as active
-        }
-      }
-    });
+  // Optional: keyboard accessibility (Enter or Space toggles menu)
+  button.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      button.click();
+    }
   });
 });
 
+
+  // Keep submenu open when mouse enters submenu or button, close when leaves both
+  document.querySelectorAll('nav#main-nav > ul > li').forEach(li => {
+    const button = li.querySelector('button.section-header');
+    const submenu = li.querySelector('ul.submenu');
+
+    if (!button || !submenu) return;
+
+    let timeoutId;
+
+    const closeMenu = () => {
+      li.classList.remove('open');
+      button.setAttribute('aria-expanded', 'false');
+    };
+
+    li.addEventListener('mouseenter', () => {
+      clearTimeout(timeoutId);
+      li.classList.add('open');
+      button.setAttribute('aria-expanded', 'true');
+    });
+
+    li.addEventListener('mouseleave', () => {
+      timeoutId = setTimeout(closeMenu, 300); // small delay to allow moving into submenu
+    });
+  });
+});
 
 })();
