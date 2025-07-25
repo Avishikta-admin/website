@@ -200,6 +200,8 @@
       margin: 0;
       flex-grow: 1;
     }
+
+    
     nav#main-nav li {
       margin-top: 18px;
     }
@@ -372,8 +374,11 @@ nav#main-nav ul ul a {
       outline: none;
     }
 
-/* Initially hide submenus */
 
+
+
+
+/* Initially hide submenus */
 nav#main-nav ul[role="menu"] > li.open > ul.submenu {
   max-height: 500px;  /* enough to show all submenu items */
   opacity: 1;
@@ -514,13 +519,15 @@ nav#main-nav > ul > li.active > ul.submenu {
     border-radius: 0;
   }
 
-  nav#main-nav ul ul.collapsed {
-    display: none;
-  }
 
-  nav#main-nav ul ul:not(.collapsed) {
-    display: block;
-  }
+nav#main-nav ul.submenu {
+  display: none;
+}
+
+nav#main-nav li.open > ul.submenu {
+  display: block;
+}
+
 
   nav#main-nav a {
     font-size: 0.9rem;
@@ -612,15 +619,15 @@ main {
 
   // Nav HTML updated per your menu mapping
   const navHTML = `
-    <nav id="main-nav" aria-label="Main navigation">
+<nav id="main-nav" aria-label="Main navigation" role="menubar">
   <ul role="menu">
 
     <!-- Association -->
-    <li>
-      <button class="section-header" aria-expanded="true" aria-controls="assoc-submenu" tabindex="0" role="menuitem">
+    <li role="none">
+      <button class="section-header" aria-expanded="false" aria-controls="assoc-submenu" tabindex="0" role="menuitem">
         <i class="fas fa-building" aria-hidden="true"></i> Association
       </button>
-      <ul id="assoc-submenu" class="submenu" role="menu" aria-hidden="false">
+      <ul id="assoc-submenu" class="submenu" role="menu" aria-hidden="true">
         <li role="none"><a href="about-us.html" role="menuitem" title="About our association"><i class="fas fa-info-circle" aria-hidden="true"></i> Who We Are</a></li>
         <li role="none"><a href="vision-mission.html" role="menuitem" title="Our vision & mission"><i class="fas fa-eye" aria-hidden="true"></i> Vision & Mission</a></li>
         <li role="none"><a href="governing-body.html" role="menuitem" title="General body"><i class="fas fa-users" aria-hidden="true"></i> Executive Committee</a></li>
@@ -629,11 +636,11 @@ main {
     </li>
 
     <!-- Resources -->
-    <li>
-      <button class="section-header" aria-expanded="true" aria-controls="resources-submenu" tabindex="0" role="menuitem">
+    <li role="none">
+      <button class="section-header" aria-expanded="false" aria-controls="resources-submenu" tabindex="0" role="menuitem">
         <i class="fas fa-folder" aria-hidden="true"></i> Resources
       </button>
-      <ul id="resources-submenu" class="submenu" role="menu" aria-hidden="false">
+      <ul id="resources-submenu" class="submenu" role="menu" aria-hidden="true">
         <li role="none"><a href="view-announcements.html" role="menuitem" title="Check announcements"><i class="fas fa-bullhorn" aria-hidden="true"></i> News & Buzz</a></li>
         <li role="none"><a href="events.html" role="menuitem" title="View our community calendar and photo gallery"><i class="fas fa-calendar-alt" aria-hidden="true"></i> Events & Shared Moments</a></li>
         <li role="none"><a href="mom.html" role="menuitem" title="MoM"><i class="fas fa-file-alt" aria-hidden="true"></i> Meeting Minutes</a></li>
@@ -646,7 +653,7 @@ main {
     </li>
 
     <!-- Get Involved -->
-    <li>
+    <li role="none">
       <button class="section-header" style="color: #D2B48C;" aria-expanded="false" aria-controls="GetInvolved-submenu" tabindex="0" role="menuitem">
         <i class="fas fa-hands-helping" aria-hidden="true"></i> Get Involved
       </button>
@@ -657,7 +664,7 @@ main {
     </li>
 
     <!-- Help & Contact -->
-    <li>
+    <li role="none">
       <button class="section-header" style="color: #ffb6c1;" aria-expanded="false" aria-controls="HelpnContact-submenu" tabindex="0" role="menuitem">
         <i class="fas fa-info-circle" aria-hidden="true"></i> Get in Touch
       </button>
@@ -668,7 +675,7 @@ main {
     </li>
 
     <!-- Find & Explore Menu -->
-    <li>
+    <li role="none">
       <button class="section-header" style="color: #D2B48C;" aria-expanded="false" aria-controls="instant-access-submenu" tabindex="0" role="menuitem">
         <i class="fas fa-bolt" aria-hidden="true"></i> Find & Explore
       </button>
@@ -679,11 +686,11 @@ main {
     </li>
 
     <!-- Admin Tools -->
-    <li class="admin-only">
+    <li class="admin-only" role="none">
       <button class="section-header" aria-expanded="false" aria-controls="admin-submenu" tabindex="0" role="menuitem">
         <i class="fas fa-tools" aria-hidden="true"></i> Admin Tools
       </button>
-      <ul id="admin-submenu" class="submenu collapsed" role="menu" aria-hidden="true">
+      <ul id="admin-submenu" class="submenu" role="menu" aria-hidden="true">
         <li role="none"><a href="#" role="menuitem" style="pointer-events: none;" title="Coming Soon..."><i class="fas fa-bullhorn" aria-hidden="true"></i> Manage Announcements</a></li>
         <li role="none"><a href="#" role="menuitem" style="pointer-events: none;" title="Coming Soon..."><i class="fas fa-users-cog" aria-hidden="true"></i> View Feedback</a></li>
         <li role="none"><a href="#" role="menuitem" style="pointer-events: none;" title="Coming Soon..."><i class="fas fa-file-upload" aria-hidden="true"></i> Upload Image</a></li>
@@ -692,6 +699,7 @@ main {
 
   </ul>
 </nav>
+
 
   `;
 
@@ -917,72 +925,45 @@ document.addEventListener('DOMContentLoaded', () => {
   // Highlight current nav link
   const currentPath = window.location.pathname.split('/').pop();
   document.querySelectorAll('#main-nav a').forEach(link => {
-    const linkPath = link.getAttribute('href');
-    if (linkPath === currentPath) {
+    if (link.getAttribute('href') === currentPath) {
       link.classList.add('active-page');
     }
   });
 
-  // Toggle submenu on click for mobile/touch and desktop
-  document.querySelectorAll('nav#main-nav > ul > li > button.section-header').forEach(button => {
-  button.addEventListener('click', () => {
-    const parentLi = button.closest('li');
-    if (!parentLi) return;
+  // Click to toggle submenu
+  document.querySelectorAll('#main-nav > ul > li > button.section-header').forEach(button => {
+    button.addEventListener('click', () => {
+      const parentLi = button.closest('li');
+      const isOpen = parentLi.classList.contains('open');
 
-    // Toggle 'open' class on the parent li
-    const isOpen = parentLi.classList.contains('open');
-    
-    // Close all other open menus except this one
-    document.querySelectorAll('nav#main-nav > ul > li.open').forEach(li => {
-      if (li !== parentLi) {
-        li.classList.remove('open');
-        li.querySelector('button.section-header').setAttribute('aria-expanded', 'false');
+      // Close all others
+      document.querySelectorAll('#main-nav > ul > li.open').forEach(li => {
+        if (li !== parentLi) {
+          li.classList.remove('open');
+          const otherBtn = li.querySelector('button.section-header');
+          if (otherBtn) otherBtn.setAttribute('aria-expanded', 'false');
+        }
+      });
+
+      // Toggle current
+      if (isOpen) {
+        parentLi.classList.remove('open');
+        button.setAttribute('aria-expanded', 'false');
+      } else {
+        parentLi.classList.add('open');
+        button.setAttribute('aria-expanded', 'true');
       }
     });
 
-    if (isOpen) {
-      parentLi.classList.remove('open');
-      button.setAttribute('aria-expanded', 'false');
-    } else {
-      parentLi.classList.add('open');
-      button.setAttribute('aria-expanded', 'true');
-    }
-  });
-
-  // Optional: keyboard accessibility (Enter or Space toggles menu)
-  button.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault();
-      button.click();
-    }
-  });
-});
-
-
-  // Keep submenu open when mouse enters submenu or button, close when leaves both
-  document.querySelectorAll('nav#main-nav > ul > li').forEach(li => {
-    const button = li.querySelector('button.section-header');
-    const submenu = li.querySelector('ul.submenu');
-
-    if (!button || !submenu) return;
-
-    let timeoutId;
-
-    const closeMenu = () => {
-      li.classList.remove('open');
-      button.setAttribute('aria-expanded', 'false');
-    };
-
-    li.addEventListener('mouseenter', () => {
-      clearTimeout(timeoutId);
-      li.classList.add('open');
-      button.setAttribute('aria-expanded', 'true');
-    });
-
-    li.addEventListener('mouseleave', () => {
-      timeoutId = setTimeout(closeMenu, 300); // small delay to allow moving into submenu
+    // Keyboard accessibility
+    button.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        button.click();
+      }
     });
   });
 });
+
 
 })();
