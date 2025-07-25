@@ -35,6 +35,14 @@
             margin-bottom: 20px;  /* Reduced margin-bottom to balance */
         }
 
+        .calendar-header h1 {
+  		background: linear-gradient(90deg, #ff7e5f 0%, #feb47b 50%, #28a745 100%);
+  		-webkit-background-clip: text;
+  		-webkit-text-fill-color: transparent;
+  		background-clip: text;
+  		color: transparent;
+	}
+
         .calendar-header h2 {
             font-size: 20px;
             color: #333;
@@ -264,11 +272,14 @@
             margin: 0;
             font-size: 12px;
         }
-    </style>
+
+</style>
 </head>
 
 <body>
 
+<main>
+ 
     <div class="calendar-container">
         <!-- Search for Events -->
         <div class="search-container">
@@ -300,6 +311,8 @@
             <div class="reminder-note" id="reminderNote"></div>
         </div>
     </div>
+
+</main>
 
 <script>
     // Event data for each date
@@ -453,7 +466,6 @@ document.getElementById("nextMonthBtn").onclick = () => {
 
 // Call the function initially to generate the calendar for the first time
 generateCalendar();
-
 
 
 // Search button functionality
