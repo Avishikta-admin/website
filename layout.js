@@ -35,20 +35,21 @@
   document.head.appendChild(iconLink);
 
   // 2. Header HTML
-  const headerHTML = `
-    <header id="page-header" role="banner" aria-label="Site Header">
-      <button id="hamburger" class="hamburger" aria-label="Toggle menu" aria-expanded="false">
-        <i class="fas fa-bars"></i>
-      </button>
-      <button id="nav-collapse-toggle" aria-label="Toggle navigation sidebar" aria-expanded="true" class="collapse-toggle" title="Collapse menu">
-        <i class="fas fa-angle-left"></i>
-      </button>
-      <div class="header-text">
-        AVISHIKTA PHASE – 1 LIG (TYPE – A) APARTMENT RESIDENTS’ WELFARE ASSOCIATION<br>
-        369/1, PURBACHAL KALITALA ROAD, KOLKATA – 700078
-      </div>
-    </header>
-  `;
+ const headerHTML = `
+  <header id="page-header" role="banner" aria-label="Site Header">
+    <button id="hamburger" type="button" class="hamburger" aria-label="Toggle menu" aria-expanded="false">
+      <i class="fas fa-bars"></i>
+    </button>
+    <button id="nav-collapse-toggle" type="button" aria-label="Toggle navigation sidebar" aria-expanded="true" class="collapse-toggle" title="Collapse menu">
+      <i class="fas fa-angle-left"></i>
+    </button>
+    <div class="header-text">
+      AVISHIKTA PHASE – 1 LIG (TYPE – A) APARTMENT RESIDENTS’ WELFARE ASSOCIATION<br>
+      369/1, PURBACHAL KALITALA ROAD, KOLKATA – 700078
+    </div>
+  </header>
+`;
+
 
   // 3. Footer HTML
   const footerHTML = `
@@ -65,7 +66,7 @@
 `;
 
 
-  const navHTML = `
+const navHTML = `
 <nav id="main-nav" role="navigation" aria-label="Primary navigation" class="nav-open">
   <ul>
     <li><a href="index.html" class="nav-link"><i class="fas fa-home"></i> Home</a></li>
@@ -169,18 +170,14 @@
   </ul>
 </li>
 
-
- 
 </ul>
 </nav>
 `;
 
-
-
   // 5. Inject header, nav, footer into body
   document.body.insertAdjacentHTML('afterbegin', headerHTML);
-  document.body.insertAdjacentHTML('afterbegin', navHTML);
-  document.body.insertAdjacentHTML('beforeend', footerHTML);
+document.body.insertAdjacentHTML('afterbegin', navHTML);
+document.body.insertAdjacentHTML('beforeend', footerHTML);
 
   // 6. Insert breadcrumb above main
   function renderBreadcrumb() {
@@ -354,13 +351,32 @@
   background: #1e2a47;
   color: #fff;
   overflow-y: auto;
-  transition: transform 0.3s ease;
   z-index: 9998;
+
+  /* Start hidden */
+  display: none;
+  /* Optional for fade effect */
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
 
 #main-nav.nav-open {
-  transform: translateX(0);
+  display: block;
+  opacity: 1;
 }
+
+
+/* Your main content wrapper */
+#page-content {
+  margin-left: 260px;
+  transition: margin-left 0.3s ease;
+}
+
+/* When nav closed, page content margin removed */
+.nav-closed #page-content {
+  margin-left: 0;
+}
+
 
 #main-nav.nav-collapsed {
   transform: translateX(-220px);
@@ -517,8 +533,6 @@ li.locked .submenu,
 .disabled-link i {
   color: #aaa !important;
 }
-
-
 
     /* Breadcrumb */
     nav.breadcrumb {
@@ -742,24 +756,25 @@ sectionHeaders.forEach(button => {
 });
 
 
-  // On resize, adjust hamburger/nav visibility
-  function updateLayout() {
-    const isMobile = window.innerWidth <= 768;
-    if (isMobile) {
-      nav.classList.remove("nav-collapsed");
-      nav.classList.remove("nav-open");
-      hamburger.style.display = "block";
-      collapseToggle.style.display = "none";
-      document.body.style.paddingLeft = "0";
-      hamburger.setAttribute("aria-expanded", false);
-    } else {
-      nav.classList.remove("nav-open");
-      hamburger.style.display = "none";
-      collapseToggle.style.display = "block";
-      document.body.style.paddingLeft = nav.classList.contains("nav-collapsed") ? "40px" : "260px";
-      collapseToggle.setAttribute("aria-expanded", !nav.classList.contains("nav-collapsed"));
-    }
+function updateLayout() {
+  const isMobile = window.innerWidth <= 768;
+  if (isMobile) {
+    nav.classList.remove("nav-collapsed");
+    // DON'T forcibly remove nav-open here — keep current state
+    hamburger.style.display = "block";
+    collapseToggle.style.display = "none";
+    document.body.style.paddingLeft = "0";
+    // Only set aria-expanded if you want to sync with current class
+    hamburger.setAttribute("aria-expanded", nav.classList.contains("nav-open"));
+  } else {
+    nav.classList.remove("nav-open");
+    hamburger.style.display = "none";
+    collapseToggle.style.display = "block";
+    document.body.style.paddingLeft = nav.classList.contains("nav-collapsed") ? "40px" : "260px";
+    collapseToggle.setAttribute("aria-expanded", !nav.classList.contains("nav-collapsed"));
   }
+}
+
 
   updateLayout();
 
