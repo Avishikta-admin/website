@@ -341,7 +341,7 @@ document.body.insertAdjacentHTML('beforeend', footerHTML);
       color: #feb47b;
     }
 
-    /* Nav Styles */
+/* Nav Styles */
 #main-nav {
   position: fixed;
   top: 54px;
@@ -352,11 +352,7 @@ document.body.insertAdjacentHTML('beforeend', footerHTML);
   color: #fff;
   overflow-y: auto;
   z-index: 9998;
-
-  /* Start hidden */
-  display: block;
-  /* Optional for fade effect */
-  opacity: 0;
+  display: none; /* hide nav by default on mobile */
   transition: opacity 0.3s ease;
 }
 
@@ -366,18 +362,15 @@ document.body.insertAdjacentHTML('beforeend', footerHTML);
   pointer-events: auto;
 }
 
+@media (min-width: 768px) {
+  .nav-menu {
+    display: flex; /* or block, depending on layout */
+  }
 
-/* Your main content wrapper */
-#page-content {
-  margin-left: 260px;
-  transition: margin-left 0.3s ease;
+  .hamburger {
+    display: none;
+  }
 }
-
-/* When nav closed, page content margin removed */
-.nav-closed #page-content {
-  margin-left: 0;
-}
-
 
 #main-nav.nav-collapsed {
   transform: translateX(-220px);
@@ -394,6 +387,21 @@ document.body.insertAdjacentHTML('beforeend', footerHTML);
 #main-nav ul li {
   border-bottom: 1px solid #324060;
 }
+
+@media (max-width: 767px) {
+  #hamburger {
+    display: block;
+  }
+
+  .nav-menu {
+    display: none; /* Hide menu by default on mobile */
+  }
+
+  .nav-menu.show {
+    display: block; /* Show menu when hamburger is clicked */
+  }
+}
+
 
 /* Home link: icon + text aligned left with gap */
 #main-nav ul li a.nav-link {
