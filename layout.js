@@ -354,7 +354,7 @@ document.body.insertAdjacentHTML('beforeend', footerHTML);
   z-index: 9998;
 
   /* Start hidden */
-  display: none;
+  display: block;
   /* Optional for fade effect */
   opacity: 0;
   transition: opacity 0.3s ease;
@@ -363,6 +363,7 @@ document.body.insertAdjacentHTML('beforeend', footerHTML);
 #main-nav.nav-open {
   display: block;
   opacity: 1;
+  pointer-events: auto;
 }
 
 
