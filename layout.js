@@ -175,7 +175,7 @@ const navHTML = `
 `;
 
   // 5. Inject header, nav, footer into body
-  document.body.insertAdjacentHTML('afterbegin', headerHTML);
+document.body.insertAdjacentHTML('afterbegin', headerHTML);
 document.body.insertAdjacentHTML('afterbegin', navHTML);
 document.body.insertAdjacentHTML('beforeend', footerHTML);
 
@@ -352,7 +352,7 @@ document.body.insertAdjacentHTML('beforeend', footerHTML);
   color: #fff;
   overflow-y: auto;
   z-index: 9998;
-  display: none; /* hide nav by default on mobile */
+  display: block; /* hide nav by default on mobile */
   transition: opacity 0.3s ease;
 }
 
@@ -393,12 +393,12 @@ document.body.insertAdjacentHTML('beforeend', footerHTML);
     display: block;
   }
 
-  .nav-menu {
-    display: none; /* Hide menu by default on mobile */
+  #main-nav {
+    display: none; /* Hide nav by default on mobile */
   }
 
-  .nav-menu.show {
-    display: block; /* Show menu when hamburger is clicked */
+  #main-nav.nav-open {
+    display: block; /* Show nav when hamburger clicked */
   }
 }
 
@@ -769,11 +769,10 @@ function updateLayout() {
   const isMobile = window.innerWidth <= 768;
   if (isMobile) {
     nav.classList.remove("nav-collapsed");
-    // DON'T forcibly remove nav-open here — keep current state
+    // Keep current nav-open state for mobile toggle
     hamburger.style.display = "block";
     collapseToggle.style.display = "none";
     document.body.style.paddingLeft = "0";
-    // Only set aria-expanded if you want to sync with current class
     hamburger.setAttribute("aria-expanded", nav.classList.contains("nav-open"));
   } else {
     nav.classList.remove("nav-open");
