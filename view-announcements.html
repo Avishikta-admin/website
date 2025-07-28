@@ -187,62 +187,80 @@
     <!-- Announcements will load here -->
   </main>
 
-  <script>
-    // Hide flash news after 12:00 PM tomorrow
-    window.addEventListener('DOMContentLoaded', () => {
-      const now = new Date();
-      const twelvopmTomorrow = new Date();
-      twelvopmTomorrow.setDate(now.getDate() + 1);
-      twelvopmTomorrow.setHours(12,0,0,0);
-      if (now > twelvopmTomorrow) {
-        document.getElementById('flash-news').style.display = 'none';
-      }
-    });
+  <!-- Only JS part needs to be updated -->
+<script>
+  // Hide flash news after 12:00 PM tomorrow
+  window.addEventListener('DOMContentLoaded', () => {
+    const now = new Date();
+    const twelvopmTomorrow = new Date();
+    twelvopmTomorrow.setDate(now.getDate() + 1);
+    twelvopmTomorrow.setHours(12,0,0,0);
+    if (now > twelvopmTomorrow) {
+      document.getElementById('flash-news').style.display = 'none';
+    }
+  });
 
-    // Load announcements
-    document.addEventListener('DOMContentLoaded', () => {
-      fetch('notices.json')
-        .then(res => res.ok ? res.json() : Promise.reject(res))
-        .then(data => {
-          const container = document.getElementById('announcements-container');
-          if (!data.length) {
-            container.innerHTML = '<p>No announcements available right now.</p>';
-            return;
+  // Load announcements
+  document.addEventListener('DOMContentLoaded', () => {
+    fetch('notices.json')
+      .then(res => res.ok ? res.json() : Promise.reject(res))
+      .then(data => {
+        const container = document.getElementById('announcements-container');
+        if (!data.length) {
+          container.innerHTML = '<p>No announcements available right now.</p>';
+          return;
+        }
+
+        data.forEach((notice, i) => {
+          const article = document.createElement('article');
+          article.className = 'flyer-card';
+          article.style.animationDelay = `${0.15 * i}s`;
+
+          // Handle date or startDate + endDate
+          let formattedDate;
+          if (notice.startDate && notice.endDate) {
+            const start = new Date(notice.startDate);
+            const end = new Date(notice.endDate);
+            formattedDate = `${start.toLocaleDateString(undefined, { month: 'short', day: 'numeric' })} – ${end.toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })}`;
+          } else if (notice.date) {
+            const singleDate = new Date(notice.date);
+            formattedDate = singleDate.toLocaleDateString(undefined, {
+              year: 'numeric',
+              month: 'long',
+              day: 'numeric'
+            });
+          } else {
+            formattedDate = 'Date not specified';
           }
-          data.forEach((notice, i) => {
-            const article = document.createElement('article');
-            article.className = 'flyer-card';
-            article.style.animationDelay = `${0.15 * i}s`;
-            const fmt = new Date(notice.date).toLocaleDateString(undefined,
-              { year:'numeric', month:'long', day:'numeric' }
-            );
-            article.innerHTML = `
-              <div class="flyer-icon" aria-label="Community Icon" title="${notice.title}">${notice.icon}</div>
-              <h2>${notice.title}</h2>
-              <div class="section-header date">📅 ${fmt}</div>
-              <div class="section-content">${notice.content}</div>
-              <hr />
-              <div class="footer-note">${notice.footer}</div>
-            `;
-            container.appendChild(article);
-          });
-        })
-        .catch(err => {
-          const container = document.getElementById('announcements-container');
-          container.innerHTML = `<p style="color:red;">Error loading announcements: ${err.message}</p>`;
-          console.error(err);
-        });
-    });
 
-    // Scroll-to-top
-    const scrollBtn = document.getElementById('scrollToTop');
-    window.addEventListener('scroll', () => {
-      scrollBtn.style.display = window.scrollY > 200 ? 'block' : 'none';
-    });
-    scrollBtn.addEventListener('click', () => {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-  </script>
+          article.innerHTML = `
+            <div class="flyer-icon" aria-label="Community Icon" title="${notice.title}">${notice.icon}</div>
+            <h2>${notice.title}</h2>
+            <div class="section-header date">📅 ${formattedDate}</div>
+            <div class="section-content">${notice.content}</div>
+            <hr />
+            <div class="footer-note">${notice.footer}</div>
+          `;
+          container.appendChild(article);
+        });
+      })
+      .catch(err => {
+        const container = document.getElementById('announcements-container');
+        container.innerHTML = `<p style="color:red;">Error loading announcements: ${err.message}</p>`;
+        console.error(err);
+      });
+  });
+
+  // Scroll-to-top
+  const scrollBtn = document.getElementById('scrollToTop');
+  window.addEventListener('scroll', () => {
+    scrollBtn.style.display = window.scrollY > 200 ? 'block' : 'none';
+  });
+  scrollBtn.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+</script>
+
 
   <button id="scrollToTop" title="Back to Top">⬆️</button>
   <script src="layout.js" defer></script>
