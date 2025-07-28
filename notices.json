@@ -1,23 +1,23 @@
 [
   {
-    "icon": "🏡",
-    "title": "Notice of the 19th Annual General Meeting (AGM)",
-    "date": "2025-07-27",
-    "content": "<p>Welcome to the <strong>19th Annual General Meeting (AGM)</strong> of our Association! This is a special event that brings together our members—whether near or far—to reconnect and rejuvenate the bond that ties us as a community. Your presence matters, whether you attend in person or join online.</p>",
-    "footer": "Niloy Pandit<br>Secretary, AT’A’RWA"
-  },
+  "icon": "🇮🇳",
+  "title": "78th Independence Day Celebration – 15th August",
+  "date": "2025-08-15",
+  "content": "<p>Let's come together to celebrate the spirit of freedom and unity on the <strong>78th Independence Day of India</strong>. May we continue to honor the sacrifices of our heroes and strive toward a brighter, united future.</p>",
+  "footer": "Team EC - Avishikta - I Type A RWA"
+},
   {
-    "icon": "🎉",
-    "title": "Durga Puja Cultural Night",
-    "date": "2025-10-09",
-    "content": "<ul><li>Cultural Performance</li><li>Skit & Drama</li><li>Dhak Performance by Ladies by ladies</li><li>Food Stalls & Refreshments</li></ul>",
-    "footer": "Social Committee"
-  },
+  "icon": "🛠️",
+  "title": "Biswakarma Puja Celebration",
+  "date": "2025-09-17",
+  "content": "<p>Join us in honoring <strong>Lord Biswakarma</strong>, the divine architect and engineer. A special puja will be held in the community premises followed by <em>prasad distribution</em> and offerings. All residents and support staff are invited to participate and seek blessings for prosperity and skillful living.</p>",
+  "footer": "Avishikta – I Type A RWA"
+},
   {
-    "icon": "📢",
-    "title": "Community Safety Workshop",
-    "date": "2025-09-15",
-    "content": "<p>Join us for an interactive workshop on neighborhood safety and first aid. Let's keep our community safe and informed.</p>",
-    "footer": "Safety Team"
-  }
+  "icon": "🪔",
+  "title": "Durga Puja Festival 2025",
+  "date": "2025-09-28 - 2025-10-02",
+  "content": "<ul><li>Devi Arati & Pushpanjali (Daily)</li><li>Dhak Performance by Ladies</li><li>Cultural Evenings: Skits, Songs & Dance</li><li>Community Bhog & Food Stalls</li><li>Fun Activities & Raffle Draws</li></ul>",
+  "footer": "Team EC – Avishikta – I Type A RWA"
+}
 ]
