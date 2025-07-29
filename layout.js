@@ -34,6 +34,11 @@
   iconLink.rel = "stylesheet";
   document.head.appendChild(iconLink);
 
+  const manifestLink = document.createElement('link');
+  manifestLink.rel = 'manifest';
+  manifestLink.href = '/website/manifest.json'; // Path to your manifest file
+  document.head.appendChild(manifestLink);
+
   // 2. Header HTML
  const headerHTML = `
   <header id="page-header" role="banner" aria-label="Site Header">
