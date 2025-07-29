@@ -1,8 +1,7 @@
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open('static-v1').then((cache) => {
-      return cache.addAll([
-        // HTML Files
+      const filesToCache = [
         '/',
         '/about-us.html',
         '/vision-mission.html',
@@ -22,14 +21,8 @@ self.addEventListener('install', (event) => {
         '/faq.html',
         '/search.html',
         '/event-calendar.html',
-
-        // JS File
-        '/layout.js',  // Since JS file is in the root of website folder
-
-        // JSON File
-        '/notices.json',  // JSON file is in the root of website folder
-
-        // Images (all the images in website folder)
+        '/layout.js',
+        '/notices.json',
         '/19thagm-1.jpg',
         '/19thagm-2.jpg',
         '/19thagm-3.jpg',
@@ -51,12 +44,8 @@ self.addEventListener('install', (event) => {
         '/notice_board.jpg',
         '/stp-maintenance-service.jpg',
         '/working-drain-cleaning.jpg',
-
-        // External resources (Google Fonts, Font Awesome)
         'https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Open+Sans&display=swap',
         'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css',
-
-        // Downloads Folder Files (All files in the downloads folder)
         '/downloads/community-hall-reservation',
         '/downloads/mom_2025-05.-2025-ec',
         '/downloads/mom_2025-06-29-ec',
@@ -67,15 +56,28 @@ self.addEventListener('install', (event) => {
         '/downloads/mom_resolutions_19thagm2025.pdf',
         '/downloads/internal_work_intimation_form.pdf',
         '/downloads/ppt_19thagm_27072025.pdf'
-      ]);
-    })
-  );
-});
+      ];
 
-self.addEventListener('fetch', (event) => {
-  event.respondWith(
-    caches.match(event.request).then((response) => {
-      return response || fetch(event.request);
+      const cachePromises = filesToCache.map(url => {
+        return fetch(url)
+          .then(response => {
+            if (response.ok) {
+              console.log(`Caching: ${url}`);
+              return cache.put(url, response);
+            } else {
+              console.log(`Failed to fetch ${url}: ${response.status}`);
+            }
+          })
+          .catch(error => {
+            console.log(`Error caching ${url}: ${error}`);
+          });
+      });
+
+      return Promise.all(cachePromises).then(() => {
+        console.log('Files cached successfully.');
+      }).catch((error) => {
+        console.log('Error caching files:', error);
+      });
     })
   );
 });
