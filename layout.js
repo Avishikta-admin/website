@@ -823,9 +823,11 @@ function updateLayout() {
   // Other JavaScript code for global elements (like side nav, header, footer, breadcrumb, etc.)
 
 // Ensure the service worker is registered at the end of the layout.js
+// Ensure the service worker is registered at the end of the layout.js
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/service-worker.js')  // Ensure the path is correct
+    // Adjust path to '/website/service-worker.js' since it's inside the 'website/' folder
+    navigator.serviceWorker.register('/website/service-worker.js')  // Correct path for live website
       .then((registration) => {
         console.log('Service Worker registered with scope:', registration.scope);
       })
@@ -834,6 +836,7 @@ if ('serviceWorker' in navigator) {
       });
   });
 }
+
 
   // 10. Disable right click and copy/paste as per your script
   document.addEventListener('contextmenu', e => e.preventDefault());
