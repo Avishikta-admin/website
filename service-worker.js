@@ -47,15 +47,13 @@ self.addEventListener('install', (event) => {
         '/website/working-drain-cleaning.jpg',
         'https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Open+Sans&display=swap',
         'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css',
-        '/website/downloads/community-hall-reservation',
-        '/website/downloads/mom_2025-05.-2025-ec',
-        '/website/downloads/mom_2025-06-29-ec',
-        '/website/downloads/mom-2024-12-22-gb',
-        '/website/downloads/new-membership-form',
-        '/website/downloads/relative-occupants',
-        '/website/downloads/rent-form',
-        '/website/downloads/mom_resolutions_19thagm2025.pdf',
-        '/website/downloads/internal_work_intimation_form.pdf',
+        '/website/downloads/community-hall-reservation.pdf',
+        '/website/downloads/mom_2025-05.-2025-ec.pdf',
+        '/website/downloads/mom_2025-06-29-ec.pdf',
+        '/website/downloads/mom-2024-12-22-gb.pdf',
+        '/website/downloads/new-membership-form.pdf',
+        '/website/downloads/relative-occupants.pdf',
+        '/website/downloads/rent-form.pdf',
         '/website/downloads/ppt_19thagm_27072025.pdf'
       ];
 
