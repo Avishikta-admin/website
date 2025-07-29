@@ -1,9 +1,9 @@
 self.addEventListener('install', (event) => {
+  console.log('Service Worker installing...');
   event.waitUntil(
     caches.open('static-v1').then((cache) => {
-      return cache.addAll([
-        // HTML Files
-        '/website/',            // Path to the home page if it is index.html
+      const filesToCache = [
+        '/website/',            // Home page (assumes you want index.html or similar)
         '/website/about-us.html',
         '/website/vision-mission.html',
         '/website/governing-body.html',
@@ -22,14 +22,8 @@ self.addEventListener('install', (event) => {
         '/website/faq.html',
         '/website/search.html',
         '/website/event-calendar.html',
-
-        // JS File
-        '/website/layout.js',  // Path to JS file inside the website folder
-
-        // JSON File
-        '/website/notices.json',  // Path to JSON file inside the website folder
-
-        // Images (all images in the website folder)
+        '/website/layout.js',  // Correct path for JS file inside the website folder
+        '/website/notices.json',  // Correct path for JSON file inside the website folder
         '/website/19thagm-1.jpg',
         '/website/19thagm-2.jpg',
         '/website/19thagm-3.jpg',
@@ -51,12 +45,8 @@ self.addEventListener('install', (event) => {
         '/website/notice_board.jpg',
         '/website/stp-maintenance-service.jpg',
         '/website/working-drain-cleaning.jpg',
-
-        // External resources (Google Fonts, Font Awesome)
         'https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Open+Sans&display=swap',
         'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css',
-
-        // Downloads Folder Files (All files in the downloads folder)
         '/website/downloads/community-hall-reservation',
         '/website/downloads/mom_2025-05.-2025-ec',
         '/website/downloads/mom_2025-06-29-ec',
@@ -67,7 +57,31 @@ self.addEventListener('install', (event) => {
         '/website/downloads/mom_resolutions_19thagm2025.pdf',
         '/website/downloads/internal_work_intimation_form.pdf',
         '/website/downloads/ppt_19thagm_27072025.pdf'
-      ]);
+      ];
+
+      // Log each file before attempting to cache it
+      console.log('Caching the following files:', filesToCache);
+
+      const cachePromises = filesToCache.map(url => {
+        return fetch(url)
+          .then(response => {
+            if (response.ok) {
+              console.log(`Caching: ${url}`);
+              return cache.put(url, response);
+            } else {
+              console.log(`Failed to fetch ${url}: ${response.status}`);
+            }
+          })
+          .catch(error => {
+            console.log(`Error caching ${url}: ${error}`);
+          });
+      });
+
+      return Promise.all(cachePromises).then(() => {
+        console.log('Files cached successfully.');
+      }).catch((error) => {
+        console.log('Error caching files:', error);
+      });
     })
   );
 });
