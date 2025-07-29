@@ -1,4 +1,5 @@
 self.addEventListener('install', (event) => {
+  console.log('Service Worker installing...');
   event.waitUntil(
     caches.open('static-v1').then((cache) => {
       const filesToCache = [
@@ -64,6 +65,8 @@ self.addEventListener('install', (event) => {
         '/website/downloads/ppt_2025-07-27-agm.pdf'
       ];
 
+      console.log('Files to be cached:', filesToCache);  // Log all files being cached
+
       const cachePromises = filesToCache.map(url => {
         return fetch(url)
           .then(response => {
@@ -71,18 +74,18 @@ self.addEventListener('install', (event) => {
               console.log(`Caching: ${url}`);
               return cache.put(url, response);
             } else {
-              console.log(`Failed to fetch ${url}: ${response.status}`);
+              console.log(`Failed to fetch ${url}: ${response.status}`);  // Log failure to fetch
             }
           })
           .catch(error => {
-            console.log(`Error caching ${url}: ${error}`);
+            console.log(`Error caching ${url}: ${error}`);  // Log fetch errors
           });
       });
 
       return Promise.all(cachePromises).then(() => {
-        console.log('Files cached successfully.');
+        console.log('Files cached successfully.');  // Log successful caching
       }).catch((error) => {
-        console.log('Error caching files:', error);
+        console.log('Error caching files:', error);  // Log any errors in the caching process
       });
     })
   );
