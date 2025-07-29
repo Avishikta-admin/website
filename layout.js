@@ -827,7 +827,7 @@ function updateLayout() {
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
     // Adjust path to '/website/service-worker.js' since it's inside the 'website/' folder
-    navigator.serviceWorker.register('/website/service-worker.js')  // Correct path for live website
+    navigator.serviceWorker.register('/service-worker.js')  // Correct path for live website
       .then((registration) => {
         console.log('Service Worker registered with scope:', registration.scope);
       })
