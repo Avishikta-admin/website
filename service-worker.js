@@ -1,10 +1,9 @@
 self.addEventListener('install', (event) => {
-  console.log('Service Worker installing...');
   event.waitUntil(
     caches.open('static-v1').then((cache) => {
       const filesToCache = [
-        '/website/',            // Home page (assumes you want index.html or similar)
-        '/website/about-us.html',
+        '/website/',                    // Home page (index.html)
+        '/website/about-us.html',       // Correct path to HTML files
         '/website/vision-mission.html',
         '/website/governing-body.html',
         '/website/our-members.html',
@@ -22,8 +21,12 @@ self.addEventListener('install', (event) => {
         '/website/faq.html',
         '/website/search.html',
         '/website/event-calendar.html',
-        '/website/layout.js',  // Correct path for JS file inside the website folder
-        '/website/notices.json',  // Correct path for JSON file inside the website folder
+
+        // JS and JSON files
+        '/website/layout.js',
+        '/website/notices.json',
+
+        // Images (inside the website folder)
         '/website/19thagm-1.jpg',
         '/website/19thagm-2.jpg',
         '/website/19thagm-3.jpg',
@@ -45,20 +48,21 @@ self.addEventListener('install', (event) => {
         '/website/notice_board.jpg',
         '/website/stp-maintenance-service.jpg',
         '/website/working-drain-cleaning.jpg',
+
+        // External resources (Google Fonts, Font Awesome)
         'https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Open+Sans&display=swap',
         'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css',
-        '/downloads/community-hall-reservation.pdf',
-        '/downloads/mom_2025-05-25-ec.pdf',
-        '/downloads/mom_2025-06-29-ec.pdf',
-        '/downloads/mom-2024-12-22-gb.pdf',
-        '/downloads/new-membership-form.pdf',
-        '/downloads/relative-occupants.pdf',
-        '/downloads/rent-form.pdf',
-        '/downloads/ppt_19thagm_27072025.pdf'
-      ];
 
-      // Log each file before attempting to cache it
-      console.log('Caching the following files:', filesToCache);
+        // Correct paths for PDF files
+        '/website/downloads/mom_2025-05-25-ec.pdf',  // Correct path to PDF file
+        '/website/downloads/community-hall-reservation.pdf',
+        '/website/downloads/mom_2025-06-29-ec.pdf',
+        '/website/downloads/mom-2024-12-22-gb.pdf',
+        '/website/downloads/new-membership-form.pdf',
+        '/website/downloads/relative-occupants.pdf',
+        '/website/downloads/rent-form.pdf',
+        '/website/downloads/ppt_2025-07-27-agm.pdf'
+      ];
 
       const cachePromises = filesToCache.map(url => {
         return fetch(url)
