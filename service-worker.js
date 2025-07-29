@@ -48,7 +48,7 @@ self.addEventListener('install', (event) => {
         'https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Open+Sans&display=swap',
         'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css',
         '/website/downloads/community-hall-reservation.pdf',
-        '/website/downloads/mom_2025-05.-2025-ec.pdf',
+        '/website/downloads/mom_2025-05-25-ec.pdf',
         '/website/downloads/mom_2025-06-29-ec.pdf',
         '/website/downloads/mom-2024-12-22-gb.pdf',
         '/website/downloads/new-membership-form.pdf',
