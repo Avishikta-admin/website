@@ -820,6 +820,21 @@ function updateLayout() {
   // Update time every second
   setInterval(updateTime, 1000);
 
+  // Other JavaScript code for global elements (like side nav, header, footer, breadcrumb, etc.)
+
+// Ensure the service worker is registered at the end of the layout.js
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/service-worker.js')  // Ensure the path is correct
+      .then((registration) => {
+        console.log('Service Worker registered with scope:', registration.scope);
+      })
+      .catch((error) => {
+        console.log('Service Worker registration failed:', error);
+      });
+  });
+}
+
   // 10. Disable right click and copy/paste as per your script
   document.addEventListener('contextmenu', e => e.preventDefault());
   document.addEventListener('copy', e => e.preventDefault());
