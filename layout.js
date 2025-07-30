@@ -45,9 +45,9 @@
     <button id="hamburger" type="button" class="hamburger" aria-label="Toggle menu" aria-expanded="false">Menu
       <i class="fas fa-bars"></i>
     </button>
-    <button id="nav-collapse-toggle" type="button" aria-label="Toggle navigation sidebar" aria-expanded="false" class="collapse-toggle collapsed" title="Expand Menu">
-      <i class="fas fa-angle-left"></i>  <!-- arrow pointing right -->
-    </button>
+    <button id="nav-collapse-toggle" type="button" aria-label="Toggle navigation sidebar" aria-expanded="true" class="collapse-toggle" title="Collapse Menu">
+  <i class="fas fa-angle-left"></i>
+</button>
 
     <div class="header-text">
       AVISHIKTA PHASE – 1 LIG (TYPE – A) APARTMENT RESIDENTS’ WELFARE ASSOCIATION<br>
@@ -321,6 +321,7 @@ document.body.insertAdjacentHTML('beforeend', footerHTML);
     #hamburger:hover {
       background-color: #e35d04;
     }
+
     /* Collapse toggle button for desktop nav */
     #nav-collapse-toggle {
       background: transparent;
@@ -357,8 +358,6 @@ document.body.insertAdjacentHTML('beforeend', footerHTML);
 #nav-collapse-toggle:not(.collapsed) i {
   transform: rotate(180deg) !important; /* arrow pointing left */
 }
-
-
 
 /* Nav Styles */
 #main-nav {
@@ -697,6 +696,8 @@ li.locked .submenu,
     hamburger.setAttribute("aria-expanded", open);
   });
 
+  
+  // on load
   collapseToggle.addEventListener("click", () => {
   const collapsed = nav.classList.toggle("nav-collapsed");
   collapseToggle.classList.toggle("collapsed", collapsed);
@@ -705,12 +706,12 @@ li.locked .submenu,
   const icon = collapseToggle.querySelector("i");
 
   if (collapsed) {
-    // Menu is collapsed: arrow points left, tooltip = Expand Menu
+    // Menu is collapsed: arrow points right (">"), tooltip = Expand Menu
     collapseToggle.title = "Expand Menu";
     icon.classList.remove("fa-angle-right");
     icon.classList.add("fa-angle-left");
   } else {
-    // Menu is expanded: arrow points right, tooltip = Collapse Menu
+    // Menu is expanded: arrow points left ("<"), tooltip = Collapse Menu
     collapseToggle.title = "Collapse Menu";
     icon.classList.remove("fa-angle-left");
     icon.classList.add("fa-angle-right");
@@ -719,11 +720,7 @@ li.locked .submenu,
   document.body.style.paddingLeft = collapsed ? "40px" : "260px";
 });
 
-
-
-
-
-  // Submenu expand/collapse
+// Submenu expand/collapse
 const sectionHeaders = nav.querySelectorAll("button.section-header");
 
 sectionHeaders.forEach(button => {
@@ -809,25 +806,25 @@ function updateLayout() {
     document.body.style.paddingLeft = "0";
     hamburger.setAttribute("aria-expanded", nav.classList.contains("nav-open"));
   } else {
-    nav.classList.remove("nav-open");
-    nav.classList.add("nav-collapsed");
-    hamburger.style.display = "none";
-    collapseToggle.style.display = "block";
-    document.body.style.paddingLeft = "40px"; // collapsed width padding
-    collapseToggle.setAttribute("aria-expanded", false);
+  nav.classList.remove("nav-open");
+  nav.classList.remove("nav-collapsed"); // Show full nav
+  hamburger.style.display = "none";
+  collapseToggle.style.display = "block";
+  document.body.style.paddingLeft = "260px"; // Expanded width padding
+  collapseToggle.setAttribute("aria-expanded", true);
 
-    // Set arrow and tooltip for collapsed sidebar initially
-    collapseToggle.title = "Expand Menu";
-    collapseToggle.innerHTML = `<i class="fas fa-angle-right"></i>`;
-  }
+  // Set arrow and tooltip for expanded sidebar initially
+  collapseToggle.title = "Collapse Menu";
+  collapseToggle.innerHTML = `<i class="fas fa-angle-left"></i>`;
 }
-
+}
 
 updateLayout();
 
 window.addEventListener("resize", () => {
     updateLayout();
 });
+
 
   // 9. Current time update in footer
   function updateTime() {
