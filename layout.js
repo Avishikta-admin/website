@@ -614,8 +614,6 @@ html, body {
   <!-- Ticker BELOW header -->
     <main role="main" tabindex="-1">
     <h2>Engage > Empower > Elevate</h2>
-
- 
     <!-- TESTIMONIAL SLIDER -->
 <section class="testimonials">
   <div class="testimonial active">🌟 “Such a welcoming and peaceful community!” – R. Sen</div>
@@ -667,7 +665,7 @@ html, body {
 
   <!-- Confetti script from CDN -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-  <script src="layout.js?v=3"></script>
+  <script src="layout.js?v=50"></script>
 
   <script>
 
