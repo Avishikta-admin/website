@@ -39,22 +39,22 @@
   manifestLink.href = '/website/manifest.json'; // Path to your manifest file
   document.head.appendChild(manifestLink);
 
-  // 2. Header HTML
+ // 2. Header HTML
  const headerHTML = `
   <header id="page-header" role="banner" aria-label="Site Header">
-    <button id="hamburger" type="button" class="hamburger" aria-label="Toggle menu" aria-expanded="false">
+    <button id="hamburger" type="button" class="hamburger" aria-label="Toggle menu" aria-expanded="false">Menu
       <i class="fas fa-bars"></i>
     </button>
-    <button id="nav-collapse-toggle" type="button" aria-label="Toggle navigation sidebar" aria-expanded="true" class="collapse-toggle" title="Collapse menu">
-      <i class="fas fa-angle-left"></i>
+    <button id="nav-collapse-toggle" type="button" aria-label="Toggle navigation sidebar" aria-expanded="false" class="collapse-toggle collapsed" title="Expand Menu">
+      <i class="fas fa-angle-left"></i>  <!-- arrow pointing right -->
     </button>
+
     <div class="header-text">
       AVISHIKTA PHASE – 1 LIG (TYPE – A) APARTMENT RESIDENTS’ WELFARE ASSOCIATION<br>
       369/1, PURBACHAL KALITALA ROAD, KOLKATA – 700078
     </div>
   </header>
 `;
-
 
   // 3. Footer HTML
   const footerHTML = `
@@ -70,9 +70,8 @@
   </footer>
 `;
 
-
 const navHTML = `
-<nav id="main-nav" role="navigation" aria-label="Primary navigation" class="nav-open">
+<nav id="main-nav" role="navigation" aria-label="Primary navigation" class="nav-collapsed">
   <ul>
     <li><a href="index.html" class="nav-link"><i class="fas fa-home"></i> Home</a></li>
     
@@ -307,11 +306,11 @@ document.body.insertAdjacentHTML('beforeend', footerHTML);
     #hamburger {
       background-color: #fd7e14;
       border: none;
-      font-size: 24px;
+      font-size: 11px;
       color: white;
       cursor: pointer;
       position: fixed;
-      top: 10px;
+      top: 8px;
       left: 10px;
       z-index: 10000;
       padding: 10px;
@@ -345,6 +344,21 @@ document.body.insertAdjacentHTML('beforeend', footerHTML);
     #nav-collapse-toggle:hover {
       color: #feb47b;
     }
+
+   #nav-collapse-toggle i {
+     transition: transform 0.3s ease;
+   }
+
+#nav-collapse-toggle.collapsed i {
+  transform: rotate(0deg) !important; /* arrow pointing right */
+  /* optionally, you can switch icon classes here if using something else */
+}
+
+#nav-collapse-toggle:not(.collapsed) i {
+  transform: rotate(180deg) !important; /* arrow pointing left */
+}
+
+
 
 /* Nav Styles */
 #main-nav {
@@ -632,17 +646,18 @@ li.locked .submenu,
         padding-bottom: 60px;
       }
       #main-nav {
-  position: fixed;
-  top: 54px;
-  left: 0;
-  width: 300px; /* Increased from 260px */
-  bottom: 60px;
-  background: #1e2a47;
-  color: #fff;
-  overflow-y: auto;
-  transition: transform 0.3s ease;
-  z-index: 9998;
-}
+         position: fixed;
+         top: 54px;
+         left: 0;
+         width: 300px; /* Increased from 260px */
+         bottom: 60px;
+         background: #1e2a47;
+         color: #fff;
+         overflow-y: auto;
+         transition: transform 0.3s ease;
+         z-index: 9998;
+         transform: translateX(-100%);  /* <-- HIDE OFFSCREEN BY DEFAULT */
+     }
       #main-nav.nav-open {
         transform: translateX(0);
         box-shadow: 4px 0 8px rgba(0,0,0,0.3);
@@ -682,17 +697,31 @@ li.locked .submenu,
     hamburger.setAttribute("aria-expanded", open);
   });
 
-  // Handle nav collapse toggle for desktop
   collapseToggle.addEventListener("click", () => {
-    const collapsed = nav.classList.toggle("nav-collapsed");
-    collapseToggle.classList.toggle("collapsed", collapsed);
-    collapseToggle.setAttribute("aria-expanded", !collapsed);
-    if (collapsed) {
-      document.body.style.paddingLeft = "40px";
-    } else {
-      document.body.style.paddingLeft = "260px";
-    }
-  });
+  const collapsed = nav.classList.toggle("nav-collapsed");
+  collapseToggle.classList.toggle("collapsed", collapsed);
+  collapseToggle.setAttribute("aria-expanded", !collapsed);
+
+  const icon = collapseToggle.querySelector("i");
+
+  if (collapsed) {
+    // Menu is collapsed: arrow points left, tooltip = Expand Menu
+    collapseToggle.title = "Expand Menu";
+    icon.classList.remove("fa-angle-right");
+    icon.classList.add("fa-angle-left");
+  } else {
+    // Menu is expanded: arrow points right, tooltip = Collapse Menu
+    collapseToggle.title = "Collapse Menu";
+    icon.classList.remove("fa-angle-left");
+    icon.classList.add("fa-angle-right");
+  }
+
+  document.body.style.paddingLeft = collapsed ? "40px" : "260px";
+});
+
+
+
+
 
   // Submenu expand/collapse
 const sectionHeaders = nav.querySelectorAll("button.section-header");
@@ -772,28 +801,33 @@ sectionHeaders.forEach(button => {
 
 function updateLayout() {
   const isMobile = window.innerWidth <= 768;
+
   if (isMobile) {
     nav.classList.remove("nav-collapsed");
-    // Keep current nav-open state for mobile toggle
     hamburger.style.display = "block";
     collapseToggle.style.display = "none";
     document.body.style.paddingLeft = "0";
     hamburger.setAttribute("aria-expanded", nav.classList.contains("nav-open"));
   } else {
     nav.classList.remove("nav-open");
+    nav.classList.add("nav-collapsed");
     hamburger.style.display = "none";
     collapseToggle.style.display = "block";
-    document.body.style.paddingLeft = nav.classList.contains("nav-collapsed") ? "40px" : "260px";
-    collapseToggle.setAttribute("aria-expanded", !nav.classList.contains("nav-collapsed"));
+    document.body.style.paddingLeft = "40px"; // collapsed width padding
+    collapseToggle.setAttribute("aria-expanded", false);
+
+    // Set arrow and tooltip for collapsed sidebar initially
+    collapseToggle.title = "Expand Menu";
+    collapseToggle.innerHTML = `<i class="fas fa-angle-right"></i>`;
   }
 }
 
 
-  updateLayout();
+updateLayout();
 
-  window.addEventListener("resize", () => {
+window.addEventListener("resize", () => {
     updateLayout();
-  });
+});
 
   // 9. Current time update in footer
   function updateTime() {
@@ -825,12 +859,19 @@ function updateLayout() {
   // Update time every second
   setInterval(updateTime, 1000);
 
-  // Other JavaScript code for global elements (like side nav, header, footer, breadcrumb, etc.)
+// Other JavaScript code for global elements (like side nav, header, footer, breadcrumb, etc.)
 
+// Ensure the service worker is registered at the end of the layout.js
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
-    // Adjust path to '/website/service-worker.js' since it's inside the 'website/' folder
-    navigator.serviceWorker.register('/website/service-worker.js')  // Correct path for live website
+    let swPath = '/service-worker.js';  // Default path for local development
+
+    // Adjust path for the live server
+    if (window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
+      swPath = '/website/service-worker.js';  // Path for production (server)
+    }
+
+    navigator.serviceWorker.register(swPath)  // Register service worker dynamically
       .then((registration) => {
         console.log('Service Worker registered with scope:', registration.scope);
       })
