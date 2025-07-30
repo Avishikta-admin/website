@@ -4,9 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="description" content="Official page of Avishikta - I Type - A RWA. Stay informed, get involved, and build a stronger association.">
-  <!-- Confetti script from CDN -->
-  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-  <script src="layout.js?v=50"></script>
   <title>Avishikta - I Type - A RWA</title>
 
   <!-- Google Fonts -->
@@ -61,36 +58,7 @@ html, body {
   }
 }
 
-  .ticker-wrapper {
-  background: linear-gradient(90deg, #ff6a00, #ee0979, #ff6a00);
-  background-size: 200% 100%;
-  animation: moveGradient 6s linear infinite;
-  color: white;
-  font-weight: 700;
-  display: flex;
-  align-items: center;
-  height: 50px;
-  font-family: 'Montserrat', sans-serif;
-  font-size: 1.2rem;
-  overflow: hidden;
-  padding-left: 20px;
-  padding-right: 20px;
-  margin: 0;
-}
-
-.ticker-container {
-  width: 100%;
-  overflow: hidden;
-}
-
-    .ticker {
-      display: inline-block;
-      white-space: nowrap;
-      animation: scroll-left 10s linear infinite;
-      will-change: transform;
-    }
-
-    * {
+   * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
@@ -111,7 +79,7 @@ html, body {
     cursor: pointer;
     transition: background-color 0.3s;
     align-self: flex-start;
-    top: 60px;
+    top: 170px;
     right: 10px;
     z-index: 1000;
   }
@@ -513,26 +481,6 @@ html, body {
   100% { opacity: 0; transform: translate(-50%, -20px); }
 }
 
-#goToTop {
-    position: fixed;
-      bottom: 1px;
-      right: 10px;
-      background: #fff;
-      color: #003366;
-      border: none;
-      border-radius: 50%;
-      width: 45px;
-      height: 45px;
-      font-size: 1.2rem;
-      cursor: pointer;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-      transition: background 0.3s, transform 0.3s;
-  }
-
-  #goToTop:hover {
-    background-color: #0056b3;
-  }
-
 .testimonials {
   margin: -1.0rem auto;
   max-width: 700px;
@@ -583,14 +531,14 @@ html, body {
 
   #map-toggle-btn {
     position: fixed;
-    bottom: 435px;
-    right: 20px;
+    bottom: 498px;
+    right: 100px;
     background: linear-gradient(90deg, #f5e6c4, #d7c1a3);
     color: #003366;
     border: none;
-    padding: 12px 20px;
+    padding: 8px 8px;
     font-weight: bold;
-    border-radius: 8px;
+    border-radius: 6px;
     cursor: pointer;
     box-shadow: 0 4px 12px rgba(0,0,0,0.2);
     z-index: 1001;
@@ -715,13 +663,16 @@ html, body {
       </div>
     </div>
 
-   <button id="goToTop" class="go-to-top-btn" onclick="scrollToTop()" aria-label="Go to top">↑</button>
-
 </main>
 
-<script>
+  <!-- Confetti script from CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <script src="layout.js?v=50"></script>
+
+  <script>
 
     // Welcome Overlay Countdown + Progress + Fade + Confetti
+
     const mainContent = document.querySelector('main');
 
   function runConfetti() {
