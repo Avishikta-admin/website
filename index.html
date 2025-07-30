@@ -153,12 +153,13 @@ html, body {
 
   main h2 {
   font-family: 'Montserrat', sans-serif;
-  font-weight: 800;
-  font-size: 1.5rem;
+  font-weight: 700;
+  font-size: clamp(1.0rem, 3vw, 1.2rem);
   text-align: center;
   margin: 1rem auto 1.5rem;
   margin-top: 0.2rem; /* smaller top margin */
   padding-top: 0;
+  color: #036bfc;
 
   background: linear-gradient(
     90deg,
@@ -353,6 +354,7 @@ html, body {
       text-align: center;
       padding: 0 1rem;
       pointer-events: none;
+      
     }
 
     .overlay h2 {
@@ -531,7 +533,7 @@ html, body {
 
   #map-toggle-btn {
     position: fixed;
-    bottom: 520px;
+    bottom: 500px;
     right: 100px;
     background: linear-gradient(90deg, #f5e6c4, #d7c1a3);
     color: #003366;
@@ -573,6 +575,88 @@ html, body {
   50% { opacity: 0; }
 }
 
+.visitor-guide {
+  margin: 2em 0;
+  padding: 1em;
+  border: 2px solid #0077cc;
+  border-radius: 8px;
+  background-color: #e6f0ff;
+  max-width: 600px;
+  font-size: 0.7rem;
+}
+
+.visitor-buttons button {
+  background: #eee;
+  border: 2px solid #ccc;
+  border-radius: 6px;
+  padding: 10px 16px;
+  margin-right: 10px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s, border-color 0.3s;
+}
+
+.visitor-buttons button:hover {
+  background-color: #ddd;
+}
+
+.visitor-buttons button[aria-pressed="true"] {
+  background-color: #4a90e2;  /* nice blue */
+  border-color: #357ABD;
+  color: white;
+  font-weight: bold;
+  box-shadow: 0 0 6px #357ABD99;
+}
+
+.visitor-message, .agm-message {
+  margin-top: 1rem;
+  padding: 1rem;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  line-height: 1.4;
+  text-align: justify;
+}
+
+/* Visitor message uses existing style */
+.visitor-message {
+  max-width: 600px;       /* Limit the width */
+  margin: 2rem auto;      /* Center horizontally with vertical spacing */
+  padding: 1.5rem;
+  background-color: #f0f8ff;
+  border-left: 4px solid #4a90e2;
+  border-radius: 8px;
+  text-align: justify;     /* Center all text inside */
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* subtle shadow for emphasis */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* AGM message gets a bold, stunning style */
+.agm-message {
+  background-color: #ff6f61;        /* Vibrant coral/red */
+  color: white;
+  border-left: 6px solid #d94f44;   /* Darker red border */
+  font-weight: 600;
+  font-size: 1rem;
+  box-shadow: 0 0 12px #d94f44aa;
+}
+
+#visitorGuideSection {
+  max-width: 600px;       /* limits the width nicely */
+  margin: 2rem auto;      /* centers horizontally and adds vertical space */
+  padding: 0.5rem;
+  background-color: #f0f8ff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  text-align: center;     /* centers all text inside */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.visitor-buttons {
+  display: flex;
+  justify-content: center;  /* center horizontally */
+  gap: 1rem;                /* space between buttons */
+  margin: 1rem 0;
+}
 
 </style>
 </head>
@@ -596,7 +680,7 @@ html, body {
   <header class="hero full-width-hero" role="banner">
   <img src="img-3.jpg" alt="Community Image" class="hero-image" />
   <div class="overlay">
-      🙏 Welcome to Avishikta - I Type - A | Digital Frontier Shaping Tomorrow!
+      🖥️ Your Digital Neighbourhood Hub | Avishikta - I Type - A
     </div>
 </header>
 
@@ -611,11 +695,25 @@ html, body {
   ></iframe>
 </div>
 
-  <!-- Ticker BELOW header -->
-    <main role="main" tabindex="-1">
-    <h2>Engage > Empower > Elevate</h2>
+<section id="visitorGuideSection" aria-label="Visitor Type Guide" class="visitor-guide">
+  <h2>Let’s Explore Your Role Together</h2>
+  <div class="visitor-buttons" role="group" aria-label="Visitor type selection">
+    <button type="button" data-type="new" aria-pressed="false">I'm new</button>
+    <button type="button" data-type="resident" aria-pressed="false">I'm a resident</button>
+    <button type="button" data-type="member" aria-pressed="false">I'm a member</button>
+  </div>
 
- 
+  <div id="visitorMessage" class="visitor-message" aria-live="polite" hidden></div>
+  
+  <div id="agmMessage" class="agm-message" hidden>
+    🎉 The 19th AGM was successfully completed on <strong>July 27th, 2025</strong>! Thank you for your participation!
+  </div>
+</section>
+
+<!-- Ticker BELOW header -->
+    <main role="main" tabindex="-1">
+    <h2>🌱 Empowering Our Community, Digitally & Sustainably</h2>
+
     <!-- TESTIMONIAL SLIDER -->
 <section class="testimonials">
   <div class="testimonial active">🌟 “Such a welcoming and peaceful community!” – R. Sen</div>
@@ -628,40 +726,38 @@ html, body {
   <span id="typing-text"></span>
 </div>
 
-
-    <!-- Updated Card Grid with More Cards -->
     <div class="card-grid">
-      <div class="card" tabindex="0" role="article" aria-label="Community Engagement">
-        <i class="fas fa-users" aria-hidden="true"></i>
-        <h3>Community Engagement</h3>
-        <p>Your Voice Matters, Let’s Grow Together</p>
-      </div>
-      <div class="card" tabindex="0" role="article" aria-label="Educational Resources">
-        <i class="fas fa-book" aria-hidden="true"></i>
-        <h3>Green Living</h3>
-        <p>Eco-conscious efforts for a better tomorrow</p>
-      </div>
-      <div class="card" tabindex="0" role="article" aria-label="Resident Collaboration">
-        <i class="fas fa-handshake" aria-hidden="true"></i>
-        <h3>Collaborative Projects</h3>
-        <p>Work together for a stronger neighborhood</p>
-      </div>
-      <div class="card" tabindex="0" role="article" aria-label="Neighborhood Support">
-        <i class="fas fa-users-cog" aria-hidden="true"></i>
-        <h3>Neighborhood Support</h3>
-        <p>Access services and support for residents</p>
-      </div>
-      <div class="card" tabindex="0" role="article" aria-label="Events & Activities">
-        <i class="fas fa-calendar-alt" aria-hidden="true"></i>
-        <h3>Events & Activities</h3>
-        <p>Join us for fun community events</p>
-      </div>
-      <div class="card" tabindex="0" role="article" aria-label="Neighborhood Connections">
-        <i class="fas fa-users" aria-hidden="true"></i>
-        <h3>Safety & Security</h3>
-        <p>Reliable protection around the clock</p>
-      </div>
-    </div>
+  <div class="card" tabindex="0" role="article" aria-label="Smart Home Integration">
+    <i class="fas fa-home" aria-hidden="true"></i>
+    <h3>Smart Home Integration</h3>
+    <p>Making your home safer and smarter with modern tech.</p>
+  </div>
+  <div class="card" tabindex="0" role="article" aria-label="Sustainable Living Initiatives">
+    <i class="fas fa-leaf" aria-hidden="true"></i>
+    <h3>Sustainable Living</h3>
+    <p>Join our green initiatives to nurture a cleaner environment.</p>
+  </div>
+  <div class="card" tabindex="0" role="article" aria-label="Community Events & Workshops">
+    <i class="fas fa-calendar-check" aria-hidden="true"></i>
+    <h3>Events & Workshops</h3>
+    <p>Engage, learn, and celebrate with neighbors at our gatherings.</p>
+  </div>
+  <div class="card" tabindex="0" role="article" aria-label="Resident Support Services">
+    <i class="fas fa-headset" aria-hidden="true"></i>
+    <h3>Resident Support</h3>
+    <p>We're here to help — from maintenance to community concerns.</p>
+  </div>
+  <div class="card" tabindex="0" role="article" aria-label="Safety & Security">
+    <i class="fas fa-shield-alt" aria-hidden="true"></i>
+    <h3>Safety & Security</h3>
+    <p>Round-the-clock protection and peace of mind for all residents.</p>
+  </div>
+  <div class="card" tabindex="0" role="article" aria-label="Digital Bulletin Board">
+    <i class="fas fa-bullhorn" aria-hidden="true"></i>
+    <h3>Digital Bulletin</h3>
+    <p>Stay informed with real-time updates and important notices.</p>
+  </div>
+</div>
 
 </main>
 
@@ -756,7 +852,6 @@ html, body {
   modal.style.display = 'flex';
 
   // Run confetti only once when modal shows
-  runConfetti();
 
   function showThankYouToast() {
   const toast = document.createElement('div');
@@ -878,6 +973,50 @@ function scrollToTop() {
   }
 
   type();
+
+document.addEventListener('DOMContentLoaded', () => {
+  const visitorMessage = document.getElementById('visitorMessage');
+  const agmMessage = document.getElementById('agmMessage');
+  const buttons = document.querySelectorAll('.visitor-buttons button');
+
+  const messages = {
+    new: `Welcome! We're excited to have new visitors. Explore community events, resources, and join us to make Avishikta your new home!`,
+    resident: `Hello, resident! Stay connected with neighborhood news, local activities, and support services designed just for you.`,
+    member: `Welcome back, member! Don't forget to check the latest updates and thank you for your ongoing participation.`
+  };
+
+  let activeType = null;
+
+  buttons.forEach(button => {
+    button.addEventListener('click', () => {
+      const type = button.getAttribute('data-type');
+
+      if (activeType === type) {
+        // Same button clicked: toggle off
+        visitorMessage.hidden = true;
+        agmMessage.hidden = true;
+        button.setAttribute('aria-pressed', 'false');
+        activeType = null;
+      } else {
+        // Different button clicked: update message and toggle buttons
+        visitorMessage.textContent = messages[type];
+        visitorMessage.hidden = false;
+
+        buttons.forEach(btn => btn.setAttribute('aria-pressed', 'false'));
+        button.setAttribute('aria-pressed', 'true');
+
+        if (type === 'member') {
+          agmMessage.hidden = false;
+        } else {
+          agmMessage.hidden = true;
+        }
+
+        activeType = type;
+      }
+    });
+  });
+});
+
 </script>
 
 </body>
