@@ -86,10 +86,7 @@ main {
       transition: transform 0.3s ease;
       color: #555;
     }
-    .category.collapsed i.arrow {
-      transform: rotate(180deg);
-    }
-
+    
     /* Tables */
     .file-table {
       width: 100%;
@@ -538,17 +535,25 @@ main {
 
 <script>
   function toggleSection(id) {
-  const sec = document.getElementById(id);
-  const body = sec.querySelector('.category-body');
-  const arrow = sec.querySelector('.arrow');
-  const hidden = body.style.display === 'none';
+  const section = document.getElementById(id);
+  const arrow = section.querySelector('.arrow');
+  const body = section.querySelector('.category-body');
 
-  body.style.display = hidden ? 'block' : 'none';
-  sec.classList.toggle('collapsed', !hidden);
+  // Toggle 'collapsed' class
+  section.classList.toggle('collapsed');
 
-  // Update emoji arrow
-  arrow.textContent = hidden ? '🔼' : '🔽';
+  // Toggle body visibility based on collapsed state
+  if (section.classList.contains('collapsed')) {
+    body.style.display = 'none';  // hide content
+    arrow.classList.remove('fa-chevron-up');
+    arrow.classList.add('fa-chevron-down');
+  } else {
+    body.style.display = 'block';  // show content
+    arrow.classList.remove('fa-chevron-down');
+    arrow.classList.add('fa-chevron-up');
+  }
 }
+
 
 
   function openModal(src) {
@@ -566,24 +571,30 @@ main {
 let allExpanded = false;
 
   function toggleAll() {
-    const sections = document.querySelectorAll('.category');
-    const toggleBtn = document.getElementById('toggleAllBtn');
+  const sections = document.querySelectorAll('.category');
+  const toggleBtn = document.getElementById('toggleAllBtn');
 
-    sections.forEach(section => {
-      const body = section.querySelector('.category-body');
-      if (allExpanded) {
-        body.style.display = 'none';
-        section.classList.add('collapsed');
-      } else {
-        body.style.display = 'block';
-        section.classList.remove('collapsed');
-      }
-    });
+  sections.forEach(section => {
+    const body = section.querySelector('.category-body');
+    const arrow = section.querySelector('.arrow');
 
-    // Update button text/icon
-    allExpanded = !allExpanded;
-    toggleBtn.innerHTML = allExpanded ? '🔼 Collapse All' : '🔽 Expand All';
-  }
+    if (allExpanded) {
+      body.style.display = 'none';
+      section.classList.add('collapsed');
+      arrow.classList.remove('fa-chevron-up');
+      arrow.classList.add('fa-chevron-down');
+    } else {
+      body.style.display = 'block';
+      section.classList.remove('collapsed');
+      arrow.classList.remove('fa-chevron-down');
+      arrow.classList.add('fa-chevron-up');
+    }
+  });
+
+  allExpanded = !allExpanded;
+  toggleBtn.innerHTML = allExpanded ? '🔼 Collapse All' : '🔽 Expand All';
+}
+
 
 function filterDocuments() {
   const input = document.getElementById("searchInput").value.toLowerCase();
