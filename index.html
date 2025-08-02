@@ -4,12 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="description" content="Official page of Avishikta - I Type - A RWA. Stay informed, get involved, and build a stronger association.">
-  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
-  <meta http-equiv="Pragma" content="no-cache" />
-  <meta http-equiv="Expires" content="0" />
-  <!-- Confetti script from CDN -->
-  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-  <script src="layout-loader.js"></script>
   <title>Avishikta - I Type - A RWA</title>
 
   <!-- Google Fonts -->
@@ -176,15 +170,19 @@ html, body {
   background-size: 200% 100%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  animation: whiteGlow 1s ease-in-out infinite;
+
+  animation: whiteGlow 3s ease-in-out infinite;
 }
 
 @keyframes whiteGlow {
-  0%, 100% {
+  0% {
     background-position: 0% 50%;
   }
   50% {
     background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
   }
 }
 
@@ -275,7 +273,9 @@ html, body {
         padding: 0 2rem;
         max-width: 1000px;
       }
-      
+
+   
+
    @media (max-width: 600px) {
   .toast {
     top: 70px;
@@ -537,7 +537,7 @@ html, body {
 
   #map-toggle-btn {
     position: fixed;
-    bottom: 525px;
+    bottom: 500px;
     right: 100px;
     background: linear-gradient(90deg, #f5e6c4, #d7c1a3);
     color: #003366;
@@ -662,6 +662,31 @@ html, body {
   margin: 1rem 0;
 }
 
+.emoji {
+  color: #4caf50 !important;
+  display: inline-block;
+  font-size: 1.3em;
+  margin-right: 0.4rem;
+  -webkit-text-fill-color: initial !important;
+}
+
+.main-heading {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  font-size: clamp(1.0rem, 3vw, 1.2rem);
+  text-align: center;
+  margin: 1rem auto 1.5rem;
+  margin-top: 0.2rem;
+  padding-top: 0;
+  background: linear-gradient(90deg, #ffffff, #f0f0f0, #ffffff);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: whiteGlow 3s ease-in-out infinite;
+  color: transparent; /* also needed for Firefox */
+}
+
+
 </style>
 </head>
 
@@ -684,7 +709,7 @@ html, body {
   <header class="hero full-width-hero" role="banner">
   <img src="img-3.jpg" alt="Community Image" class="hero-image" />
   <div class="overlay">
-      🖥️ Your Digital Neighbourhood Hub | Avishikta - I Type - A
+      🖥️ Your Digital Neighbourhood Hub – Avishikta - I Type - A
     </div>
 </header>
 
@@ -715,13 +740,18 @@ html, body {
 </section>
 
 <!-- Ticker BELOW header -->
-    <main role="main" tabindex="-1">
-    <h2>🌱 Empowering Our Community, Digitally & Sustainably</h2>
+  <main role="main" tabindex="-1">
+  <h2 class="main-heading">
+    <span class="emoji">🌱</span>
+    Empowering Our Association, Digitally & Sustainably
+  </h2>
+</main>
+
 
     <!-- TESTIMONIAL SLIDER -->
 <section class="testimonials">
   <div class="testimonial active">🌟 “Such a welcoming and peaceful community!” – R. Sen</div>
-  <div class="testimonial">🌟 “The digital initiatives are truly impressive.” – A. Mukherjee</div>
+  <div class="testimonial">🌟 “The digital initiatives of Type - A Association are truly impressive.” – A. Mukherjee</div>
   <div class="testimonial">🌟 “I love the greenery and events!” – B. Moitra</div>
 </section>
 
@@ -730,7 +760,7 @@ html, body {
   <span id="typing-text"></span>
 </div>
 
-    <div class="card-grid">
+  <div class="card-grid">
   <div class="card" tabindex="0" role="article" aria-label="Smart Home Integration">
     <i class="fas fa-home" aria-hidden="true"></i>
     <h3>Smart Home Integration</h3>
@@ -764,7 +794,11 @@ html, body {
 </div>
 
 </main>
-  
+
+  <!-- Confetti script from CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <script src="layout.js?v=50"></script>
+
   <script>
 
     // Welcome Overlay Countdown + Progress + Fade + Confetti
@@ -981,7 +1015,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const messages = {
     new: `Welcome! We're excited to have new visitors. Explore community events, resources, and join us to make Avishikta your new home!`,
-    resident: `Hello, resident! Stay connected with neighborhood news, local activities, and support services designed just for you.`,
     member: `Welcome back, member! Don't forget to check the latest updates and thank you for your ongoing participation.`
   };
 
