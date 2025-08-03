@@ -94,18 +94,21 @@ self.addEventListener('install', (event) => {
 // Fetch event to serve cached files
 self.addEventListener('fetch', (event) => {
   event.respondWith(
-    caches.match(event.request) // Check if the file is in the cache
+    caches.match(event.request)
       .then((cachedResponse) => {
         if (cachedResponse) {
           console.log(`Serving cached file: ${event.request.url}`);
-          return cachedResponse; // Return cached response
+          return cachedResponse;
         }
 
         console.log(`Fetching from network: ${event.request.url}`);
-        return fetch(event.request) // If not cached, fetch from the network
+        return fetch(event.request)
           .then((networkResponse) => {
-            // Optionally, you can cache new responses on the fly
-            if (networkResponse.ok) {
+            if (
+              networkResponse &&
+              networkResponse.ok &&
+              networkResponse.type === 'basic'
+            ) {
               caches.open('static-v1').then((cache) => {
                 cache.put(event.request, networkResponse.clone());
               });
@@ -114,7 +117,6 @@ self.addEventListener('fetch', (event) => {
           })
           .catch((error) => {
             console.log(`Network request failed for: ${event.request.url}`, error);
-            // If offline and network request fails, you could serve an offline page
             return new Response('Network error occurred and offline page not available.', {
               status: 503,
               statusText: 'Service Unavailable'
@@ -123,3 +125,4 @@ self.addEventListener('fetch', (event) => {
       })
   );
 });
+
