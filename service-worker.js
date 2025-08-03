@@ -109,8 +109,10 @@ self.addEventListener('fetch', (event) => {
               networkResponse.ok &&
               networkResponse.type === 'basic'
             ) {
-              caches.open('static-v1').then((cache) => {
+              return caches.open('static-v1').then((cache) => {
                 cache.put(event.request, networkResponse.clone());
+              }).then(() => {
+                return networkResponse;
               });
             }
             return networkResponse;
@@ -125,4 +127,5 @@ self.addEventListener('fetch', (event) => {
       })
   );
 });
+
 
