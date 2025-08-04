@@ -1,131 +1,112 @@
+const CACHE_NAME = 'static-v1';
+
+// Dynamically detect base path (e.g. "/" or "/website/")
+const BASE_PATH = self.location.pathname.replace(/service-worker\.js$/, '');
+
+// List of files to cache, relative to base path
+const FILES_TO_CACHE = [
+  '',                        // This means base path root, e.g. "/website/" or "/"
+  'about-us.html',
+  'vision-mission.html',
+  'governing-body.html',
+  'our-members.html',
+  'view-announcements.html',
+  'events.html',
+  'mom.html',
+  'new-resident-guide.html',
+  'general-guidelines.html',
+  'useful-links.html',
+  'download-center.html',
+  'projects.html',
+  'feedback.html',
+  'volunteer.html',
+  'contact-us.html',
+  'faq.html',
+  'search.html',
+  'event-calendar.html',
+  'layout.js',
+  'notices.json',
+  '19thagm-1.jpg',
+  '19thagm-2.jpg',
+  '19thagm-3.jpg',
+  '19thagm-4.jpg',
+  '19thagm-5.jpg',
+  '19thagm-6.jpg',
+  'Community_Development.jpg',
+  'Electrical_Pole_Reno.jpg',
+  'Image-1.jpg',
+  'Image-2.jpg',
+  'Image-3.jpg',
+  'img-1.jpg',
+  'img-2.jpg',
+  'img-3.jpg',
+  'img-4.jpg',
+  'img-5.jpg',
+  'khutipujo-1.jpg',
+  'new-security-room.jpg',
+  'notice_board.jpg',
+  'stp-maintenance-service.jpg',
+  'working-drain-cleaning.jpg',
+  'downloads/mom_2025-05-25-ec.pdf',
+  'downloads/community-hall-reservation.pdf',
+  'downloads/mom_2025-06-29-ec.pdf',
+  'downloads/mom-2024-12-22-gb.pdf',
+  'downloads/new-membership-form.pdf',
+  'downloads/relative-occupants.pdf',
+  'downloads/rent-form.pdf',
+  'downloads/ppt_2025-07-27-agm.pdf'
+];
+
+// Helper to prepend base path safely
+function getCacheUrl(path) {
+  return BASE_PATH + path;
+}
+
 self.addEventListener('install', (event) => {
   console.log('Service Worker installing...');
   event.waitUntil(
-    caches.open('static-v1').then((cache) => {
-      const filesToCache = [
-        '/website/',                    // Home page (index.html)
-        '/website/about-us.html',       // Correct path to HTML files
-        '/website/vision-mission.html',
-        '/website/governing-body.html',
-        '/website/our-members.html',
-        '/website/view-announcements.html',
-        '/website/events.html',
-        '/website/mom.html',
-        '/website/new-resident-guide.html',
-        '/website/general-guidelines.html',
-        '/website/useful-links.html',
-        '/website/download-center.html',
-        '/website/projects.html',
-        '/website/feedback.html',
-        '/website/volunteer.html',
-        '/website/contact-us.html',
-        '/website/faq.html',
-        '/website/search.html',
-        '/website/event-calendar.html',
-
-        // JS and JSON files
-        '/website/layout.js',
-        '/website/notices.json',
-
-        // Images (inside the website folder)
-        '/website/19thagm-1.jpg',
-        '/website/19thagm-2.jpg',
-        '/website/19thagm-3.jpg',
-        '/website/19thagm-4.jpg',
-        '/website/19thagm-5.jpg',
-        '/website/19thagm-6.jpg',
-        '/website/Community_Development.jpg',
-        '/website/Electrical_Pole_Reno.jpg',
-        '/website/Image-1.jpg',
-        '/website/Image-2.jpg',
-        '/website/Image-3.jpg',
-        '/website/img-1.jpg',
-        '/website/img-2.jpg',
-        '/website/img-3.jpg',
-        '/website/img-4.jpg',
-        '/website/img-5.jpg',
-        '/website/khutipujo-1.jpg',
-        '/website/new-security-room.jpg',
-        '/website/notice_board.jpg',
-        '/website/stp-maintenance-service.jpg',
-        '/website/working-drain-cleaning.jpg',
-
-        // External resources (Google Fonts, Font Awesome)
-        'https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Open+Sans&display=swap',
-        'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css',
-
-        // Correct paths for PDF files
-        '/website/downloads/mom_2025-05-25-ec.pdf',  // Correct path to PDF file
-        '/website/downloads/community-hall-reservation.pdf',
-        '/website/downloads/mom_2025-06-29-ec.pdf',
-        '/website/downloads/mom-2024-12-22-gb.pdf',
-        '/website/downloads/new-membership-form.pdf',
-        '/website/downloads/relative-occupants.pdf',
-        '/website/downloads/rent-form.pdf',
-        '/website/downloads/ppt_2025-07-27-agm.pdf'
-      ];
-
-      console.log('Files to be cached:', filesToCache);  // Log all files being cached
-
-      const cachePromises = filesToCache.map(url => {
-        return fetch(url)
-          .then(response => {
-            if (response.ok) {
-              console.log(`Caching: ${url}`);
-              return cache.put(url, response);
-            } else {
-              console.log(`Failed to fetch ${url}: ${response.status}`);  // Log failure to fetch
-            }
-          })
-          .catch(error => {
-            console.log(`Error caching ${url}: ${error}`);  // Log fetch errors
-          });
+    caches.open(CACHE_NAME).then(cache => {
+      const cachePromises = FILES_TO_CACHE.map(path => {
+        const url = getCacheUrl(path);
+        return fetch(url).then(response => {
+          if (response.ok) {
+            console.log('Caching:', url);
+            return cache.put(url, response);
+          } else {
+            console.warn('Failed to fetch:', url, response.status);
+          }
+        }).catch(err => console.warn('Cache error:', url, err));
       });
-
-      return Promise.all(cachePromises).then(() => {
-        console.log('Files cached successfully.');  // Log successful caching
-      }).catch((error) => {
-        console.log('Error caching files:', error);  // Log any errors in the caching process
-      });
+      return Promise.all(cachePromises);
     })
   );
 });
 
-// Fetch event to serve cached files
 self.addEventListener('fetch', (event) => {
   event.respondWith(
-    caches.match(event.request)
-      .then((cachedResponse) => {
-        if (cachedResponse) {
-          console.log(`Serving cached file: ${event.request.url}`);
-          return cachedResponse;
-        }
-
-        console.log(`Fetching from network: ${event.request.url}`);
-        return fetch(event.request)
-          .then((networkResponse) => {
-            if (
-              networkResponse &&
-              networkResponse.ok &&
-              networkResponse.type === 'basic'
-            ) {
-              return caches.open('static-v1').then((cache) => {
-                cache.put(event.request, networkResponse.clone());
-              }).then(() => {
-                return networkResponse;
-              });
-            }
-            return networkResponse;
-          })
-          .catch((error) => {
-            console.log(`Network request failed for: ${event.request.url}`, error);
-            return new Response('Network error occurred and offline page not available.', {
-              status: 503,
-              statusText: 'Service Unavailable'
-            });
+    caches.match(event.request).then(cachedResp => {
+      if (cachedResp) {
+        console.log('Serving from cache:', event.request.url);
+        return cachedResp;
+      }
+      console.log('Fetching from network:', event.request.url);
+      return fetch(event.request).then(networkResp => {
+        if (
+          networkResp &&
+          networkResp.ok &&
+          networkResp.type === 'basic'
+        ) {
+          caches.open(CACHE_NAME).then(cache => {
+            cache.put(event.request, networkResp.clone());
           });
-      })
+        }
+        return networkResp;
+      }).catch(() => {
+        return new Response('Offline page not available.', {
+          status: 503,
+          statusText: 'Service Unavailable'
+        });
+      });
+    })
   );
 });
-
-
