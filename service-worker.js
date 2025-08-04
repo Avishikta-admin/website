@@ -1,11 +1,8 @@
 const CACHE_NAME = 'static-v1';
-
-// Dynamically detect base path (e.g. "/" or "/website/")
 const BASE_PATH = self.location.pathname.replace(/service-worker\.js$/, '');
 
-// List of files to cache, relative to base path
 const FILES_TO_CACHE = [
-  '',                        // This means base path root, e.g. "/website/" or "/"
+  '',
   'about-us.html',
   'vision-mission.html',
   'governing-body.html',
@@ -54,42 +51,57 @@ const FILES_TO_CACHE = [
   'downloads/new-membership-form.pdf',
   'downloads/relative-occupants.pdf',
   'downloads/rent-form.pdf',
-  'downloads/ppt_2025-07-27-agm.pdf'
+  'downloads/ppt_2025-07-27-agm.pdf',
+  'offline.html'  // Optional fallback
 ];
 
-// Helper to prepend base path safely
 function getCacheUrl(path) {
   return BASE_PATH + path;
 }
 
-self.addEventListener('install', (event) => {
-  console.log('Service Worker installing...');
+self.addEventListener('install', event => {
+  console.log('🛠️ Installing service worker...');
   event.waitUntil(
     caches.open(CACHE_NAME).then(cache => {
-      const cachePromises = FILES_TO_CACHE.map(path => {
+      return Promise.all(FILES_TO_CACHE.map(path => {
         const url = getCacheUrl(path);
-        return fetch(url).then(response => {
-          if (response.ok) {
-            console.log('Caching:', url);
-            return cache.put(url, response);
+        return fetch(url).then(res => {
+          if (res.ok) {
+            return cache.put(url, res).catch(err => {
+              console.warn('cache.put failed for:', url, err);
+            });
           } else {
-            console.warn('Failed to fetch:', url, response.status);
+            console.warn('❌ Failed to fetch for cache:', url, res.status);
           }
-        }).catch(err => console.warn('Cache error:', url, err));
-      });
-      return Promise.all(cachePromises);
+        }).catch(err => {
+          console.warn('❌ Error fetching:', url, err);
+        });
+      }));
     })
   );
 });
 
-self.addEventListener('fetch', (event) => {
+self.addEventListener('activate', event => {
+  // Optional: clear old cache versions
+  event.waitUntil(
+    caches.keys().then(keys => {
+      return Promise.all(keys.map(key => {
+        if (key !== CACHE_NAME) {
+          console.log('🧹 Deleting old cache:', key);
+          return caches.delete(key);
+        }
+      }));
+    })
+  );
+});
+
+self.addEventListener('fetch', event => {
   event.respondWith(
     caches.match(event.request).then(cachedResp => {
       if (cachedResp) {
-        console.log('Serving from cache:', event.request.url);
         return cachedResp;
       }
-      console.log('Fetching from network:', event.request.url);
+
       return fetch(event.request).then(networkResp => {
         if (
           networkResp &&
@@ -97,15 +109,15 @@ self.addEventListener('fetch', (event) => {
           networkResp.type === 'basic'
         ) {
           caches.open(CACHE_NAME).then(cache => {
-            cache.put(event.request, networkResp.clone());
+            cache.put(event.request, networkResp.clone()).catch(() => {});
           });
         }
         return networkResp;
       }).catch(() => {
-        return new Response('Offline page not available.', {
-          status: 503,
-          statusText: 'Service Unavailable'
-        });
+        // Fallback offline page
+        if (event.request.mode === 'navigate') {
+          return caches.match(getCacheUrl('offline.html'));
+        }
       });
     })
   );
