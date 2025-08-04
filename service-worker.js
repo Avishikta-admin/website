@@ -52,6 +52,7 @@ const FILES_TO_CACHE = [
   'downloads/relative-occupants.pdf',
   'downloads/rent-form.pdf',
   'downloads/ppt_2025-07-27-agm.pdf',
+  'downloads/ppt_2025-07-27_19thagm.pdf'
   'offline.html'  // Optional fallback
 ];
 
@@ -122,4 +123,5 @@ self.addEventListener('fetch', event => {
     })
   );
 });
+
 
