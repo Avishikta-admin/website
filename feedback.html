@@ -161,5 +161,29 @@
   </main>
 
   <!-- Loads breadcrumb and layout enhancements -->
+
+<script>
+  const isGitHub = location.hostname.includes('github.io');
+  const base = isGitHub ? '/website' : '';
+
+  const manifest = document.createElement('link');
+  manifest.rel = 'manifest';
+  manifest.href = base + '/manifest.json';
+
+  const themeMeta = document.createElement('meta');
+  themeMeta.name = 'theme-color';
+  themeMeta.content = '#000000';
+
+  document.head.appendChild(manifest);
+  document.head.appendChild(themeMeta);
+
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register(base + '/service-worker.js')
+      .then(() => console.log('✅ Service Worker registered'))
+      .catch(err => console.error('❌ Service Worker failed', err));
+  }
+</script>
+  
   </body>
 </html>
+
