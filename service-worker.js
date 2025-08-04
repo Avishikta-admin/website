@@ -1,5 +1,5 @@
 const CACHE_NAME = 'static-v1';
-const BASE_PATH = self.location.pathname.replace(/service-worker\.js$/, '');
+const BASE_PATH = '/';
 
 const FILES_TO_CACHE = [
   '',
@@ -122,3 +122,4 @@ self.addEventListener('fetch', event => {
     })
   );
 });
+
