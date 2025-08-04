@@ -16,25 +16,25 @@
   <style>
     /* Reset & Body */
     body {
-  font-family: 'Segoe UI', sans-serif;
-  background-image: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
-  background-size: cover;
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  margin: 0;
-  color: #2c3e50;
-}
+      font-family: 'Segoe UI', sans-serif;
+      background-image: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+      background-size: cover;
+      background-position: center center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      margin: 0;
+      color: #2c3e50;
+    }
 
-main {
-  max-width: 90%;
-  margin: 5px auto;
-  padding: 30px 20px;
-  background: rgba(255, 255, 255, 0.95); /* slight transparency */
-  border-radius: 12px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
-  animation: fadeSlideIn 0.6s ease-out;
-}
+    main {
+      max-width: 90%;
+      margin: 5px auto;
+      padding: 30px 20px;
+      background: rgba(255, 255, 255, 0.95); /* slight transparency */
+      border-radius: 12px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+      animation: fadeSlideIn 0.6s ease-out;
+    }
 
     /* Title with images */
     h1 {
@@ -86,7 +86,7 @@ main {
       transition: transform 0.3s ease;
       color: #555;
     }
-    
+
     /* Tables */
     .file-table {
       width: 100%;
@@ -227,31 +227,41 @@ main {
       outline: none;
     }
 
-.toggle-all-buttons {
-  display: flex;
-  justify-content: center;
-  gap: 16px;
-  margin-bottom: 15px;
-}
+    /* Top controls */
+    .top-controls {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+    .top-controls input {
+      padding: 8px 12px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+      min-width: 250px;
+      max-width: 400px;
+    }
 
-.toggle-all-buttons button {
-  padding: 8px 16px;
-  background-color: #6c5ce7;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  font-size: 0.95rem;
-  font-weight: bold;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
-}
+    #toggleAllBtn {
+      background-color: #2980b9;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background-color 0.3s ease;
+      white-space: nowrap;
+    }
+    #toggleAllBtn:hover {
+      background-color: #1f5f8b;
+    }
 
-.toggle-all-buttons button:hover {
-  background-color: #4834d4;
-}
-
-/* Animations */
+    /* Animations */
     @keyframes fadeSlideIn {
       from {
         opacity: 0;
@@ -270,8 +280,8 @@ main {
       background-color: #ff6347;
       color: white;
       border-radius: 50%;
-      padding: 5px;
-      font-size: 1rem;
+      padding: 8px;
+      font-size: 1.2rem;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
       border: none;
       cursor: pointer;
@@ -281,60 +291,24 @@ main {
       justify-content: center;
       align-items: center;
     }
-
     #scrollToTop:hover {
       background-color: #4b0082;
     }
-
     #scrollToTop:focus {
       outline: none;
     }
-
     #scrollToTop:hover::after {
       content: " Go to top";
       font-size: 1rem;
       color: white;
       margin-left: 8px;
     }
-
-.top-controls {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 20px;
-  margin-bottom: 20px;
-  flex-wrap: wrap;
-}
-.top-controls input {
-  padding: 8px 12px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-  font-size: 1rem;
-}
-
-#toggleAllBtn {
-  background-color: #2980b9;
-  color: white;
-  border: none;
-  padding: 8px 16px;
-  border-radius: 6px;
-  font-weight: bold;
-  cursor: pointer;
-  font-size: 1rem;
-  transition: background-color 0.3s ease;
-}
-
-#toggleAllBtn:hover {
-  background-color: #1f5f8b;
-}
-
-
-</style>
-<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  </style>
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </head>
 <body>
 
-<button id="scrollToTop" onclick="window.scrollTo(0, 0);" title="Go to the top">⬆️</button>
+<button id="scrollToTop" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" title="Go to the top">⬆️</button>
 
 <main>
   <h1>
@@ -344,27 +318,25 @@ main {
   </h1>
   <p class="sub">All important forms and documents at your fingertips!</p>
 
-<div class="top-controls">
-  <button id="toggleAllBtn" onclick="toggleAll()">🔼 Expand All</button>
-  <input
-    type="search"
-    id="searchInput"
-    placeholder="🔍 Search documents..."
-    oninput="filterDocuments()"
-    aria-label="Search documents"
-  />
-</div>
+  <div class="top-controls">
+    <button id="toggleAllBtn" onclick="toggleAll()">🔽 Expand All</button>
+    <input
+      type="search"
+      id="searchInput"
+      placeholder="🔍 Search documents..."
+      oninput="filterDocuments()"
+      aria-label="Search documents"
+    />
+  </div>
 
   <!-- PDF Category -->
-
-<!-- Meeting Minutes Category -->
-<div class="category collapsed" id="mom-section">
-  <div class="category-header" onclick="toggleSection('mom-section')">
-    <h2 class="icon-pdf"><i class="fas fa-file-alt"></i> Meeting Minutes (AGM & GB)</h2>
-    <i class="fas fa-chevron-down arrow"></i>
-  </div>
-  <div class="category-body" style="display: none">
-    <table class="file-table">
+  <!-- Meeting Minutes Category -->
+  <section class="category">
+    <header class="category-header" onclick="toggleCategory(this)" tabindex="0" role="button" aria-expanded="false">
+      <h2><i class="fas fa-file-alt"></i> Meeting Minutes</h2>
+      <i class="arrow fas fa-chevron-down"></i>
+    </header>
+    <table class="file-table" aria-label="Meeting Minutes documents">
       <thead>
         <tr>
           <th>Meeting Date</th>
@@ -399,20 +371,18 @@ main {
         </tr>
       </tbody>
     </table>
-
     <div class="modal-footer" style="font-size: 0.85rem; color: #555; margin-top: 1rem; text-align: center;">
       <em><b>Note:</b> These MoMs are shared strictly for internal use by Avishikta - I Type A residents. Redistribution is not permitted without written approval from the Executive Committee.</em>
     </div>
-  </div>
-</div>
+  </section>
 
-  <div class="category collapsed" id="pdf-section">
-    <div class="category-header" onclick="toggleSection('pdf-section')">
-      <h2 class="icon-pdf"><i class="fas fa-file-pdf"></i> Association Forms & Templates</h2>
-      <i class="fas fa-chevron-down arrow"></i>
-    </div>
-    <div class="category-body" style="display: none">
-      <table class="file-table">
+  <!-- Association Forms & Templates Category -->
+  <section class="category">
+    <header class="category-header" onclick="toggleCategory(this)" tabindex="0" role="button" aria-expanded="false">
+      <h2><i class="fas fa-bullhorn"></i> Forms & Templates</h2>
+      <i class="arrow fas fa-chevron-down"></i>
+    </header>
+    <table class="file-table">
         <thead>
           <tr>
             <th>File Name</th>
@@ -457,17 +427,15 @@ main {
           </tr>
         </tbody>
       </table>
-    </div>
-  </div>
+  </section>
 
-  <!-- Word Category -->
-  <div class="category collapsed" id="word-section">
-    <div class="category-header" onclick="toggleSection('word-section')">
-      <h2 class="icon-word"><i class="fas fa-file-word"></i> Word Documents</h2>
-      <i class="fas fa-chevron-down arrow"></i>
-    </div>
-    <div class="category-body" style="display: none">
-      <table class="file-table">
+  <!-- Other Documents Category -->
+  <section class="category">
+    <header class="category-header" onclick="toggleCategory(this)" tabindex="0" role="button" aria-expanded="false">
+      <h2><i class="fas fa-folder"></i> Word Documents</h2>
+      <i class="arrow fas fa-chevron-down"></i>
+    </header>
+    <table class="file-table">
         <thead>
           <tr>
             <th>File Name</th>
@@ -485,22 +453,19 @@ main {
             <td>Sample Word Document 2</td>
             <td class="actions">
               <button onclick="openModal('/downloads/sample-word-2.docx')" class="view-btn">View</button>
-              <a href="/downloads/sample-word-2.docx" download class="download-btn">Download</a>
             </td>
           </tr>
         </tbody>
       </table>
-    </div>
-  </div>
+  </section>
 
-  <!-- Excel Category -->
-  <div class="category collapsed" id="excel-section">
-    <div class="category-header" onclick="toggleSection('excel-section')">
-      <h2 class="icon-excel"><i class="fas fa-file-excel"></i> Spreadsheet</h2>
-      <i class="fas fa-chevron-down arrow"></i>
-    </div>
-    <div class="category-body" style="display: none">
-      <table class="file-table">
+<!-- Excel Documents Category -->
+  <section class="category">
+    <header class="category-header" onclick="toggleCategory(this)" tabindex="0" role="button" aria-expanded="false">
+      <h2><i class="fas fa-folder"></i> Spreadsheet</h2>
+      <i class="arrow fas fa-chevron-down"></i>
+    </header>
+    <table class="file-table">
         <thead>
           <tr>
             <th>File Name</th>
@@ -517,140 +482,244 @@ main {
           </tr>
         </tbody>
       </table>
-    </div>
-  </div>
-  
+     </section>
 </main>
 
 <!-- Modal Popup -->
-<div id="modal" class="modal-overlay" onclick="closeModal()">
+<div id="modal" class="modal-overlay" onclick="closeModal()" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
   <div class="modal-content" onclick="event.stopPropagation()">
     <button class="close-btn" onclick="closeModal()" aria-label="Close modal">&times;</button>
-    <iframe src="" allowfullscreen></iframe>
+    
+    <!-- PDF viewer container -->
+    <div id="pdf-viewer" style="flex-grow:1; display:flex; flex-direction: column; align-items: center; justify-content: center; padding: 10px;">
+      <canvas id="pdf-canvas" style="border:1px solid #ccc; max-width: 100%; height: auto;"></canvas>
+      <div style="margin-top: 10px; display: flex; gap: 10px; align-items: center;">
+        <button id="prev-page" style="padding: 6px 12px; border-radius:6px; border:none; background:#2980b9; color:#fff; cursor:pointer;">Previous</button>
+        <span>Page: <span id="page-num">1</span> / <span id="page-count">1</span></span>
+        <button id="next-page" style="padding: 6px 12px; border-radius:6px; border:none; background:#2980b9; color:#fff; cursor:pointer;">Next</button>
+      </div>
+    </div>
+    
     <div class="modal-footer">
       <button onclick="closeModal()">Close Preview</button>
     </div>
   </div>
 </div>
 
+<!-- PDF.js library -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.8.162/pdf.min.js"></script>
+
 <script>
-  function toggleSection(id) {
-  const section = document.getElementById(id);
-  const arrow = section.querySelector('.arrow');
-  const body = section.querySelector('.category-body');
+  // Scroll to top button toggle
+  const scrollToTopBtn = document.getElementById('scrollToTop');
+  window.addEventListener('scroll', () => {
+    scrollToTopBtn.style.display = window.scrollY > 250 ? 'flex' : 'none';
+  });
 
-  // Toggle 'collapsed' class
-  section.classList.toggle('collapsed');
+  // Toggle expand/collapse for single category
+  function toggleCategory(header) {
+    const arrow = header.querySelector('i.arrow');
+    const category = header.parentElement;
+    const table = category.querySelector('table');
+    const isExpanded = header.getAttribute('aria-expanded') === 'true';
 
-  // Toggle body visibility based on collapsed state
-  if (section.classList.contains('collapsed')) {
-    body.style.display = 'none';  // hide content
-    arrow.classList.remove('fa-chevron-up');
-    arrow.classList.add('fa-chevron-down');
-  } else {
-    body.style.display = 'block';  // show content
-    arrow.classList.remove('fa-chevron-down');
-    arrow.classList.add('fa-chevron-up');
+    if (isExpanded) {
+      table.style.display = 'none';
+      arrow.style.transform = 'rotate(0deg)';
+      header.setAttribute('aria-expanded', 'false');
+    } else {
+      table.style.display = 'table';
+      arrow.style.transform = 'rotate(180deg)';
+      header.setAttribute('aria-expanded', 'true');
+    }
+
+    // Update global toggle button text accordingly
+    updateToggleAllButton();
   }
-}
 
+  // Toggle all categories expand/collapse
+  function toggleAll() {
+    const toggleAllBtn = document.getElementById('toggleAllBtn');
+    const categories = document.querySelectorAll('.category');
+    const expandAll = toggleAllBtn.textContent.includes('Expand');
 
+    categories.forEach(category => {
+      const header = category.querySelector('.category-header');
+      const arrow = header.querySelector('i.arrow');
+      const table = category.querySelector('table');
 
-  function openModal(src) {
+      if (expandAll) {
+        table.style.display = 'table';
+        arrow.style.transform = 'rotate(180deg)';
+        header.setAttribute('aria-expanded', 'true');
+      } else {
+        table.style.display = 'none';
+        arrow.style.transform = 'rotate(0deg)';
+        header.setAttribute('aria-expanded', 'false');
+      }
+    });
+
+    toggleAllBtn.textContent = expandAll ? '🔼 Collapse All' : '🔽 Expand All';
+  }
+
+  // Update toggle all button text based on current state
+  function updateToggleAllButton() {
+    const toggleAllBtn = document.getElementById('toggleAllBtn');
+    const categories = document.querySelectorAll('.category');
+    const allExpanded = Array.from(categories).every(cat => cat.querySelector('.category-header').getAttribute('aria-expanded') === 'true');
+
+    toggleAllBtn.textContent = allExpanded ? '🔼 Collapse All' : '🔽 Expand All';
+  }
+
+  // Initialize all categories as collapsed by default
+  document.querySelectorAll('.category').forEach(category => {
+    category.querySelector('table').style.display = 'none';
+    const header = category.querySelector('.category-header');
+    header.setAttribute('aria-expanded', 'false');
+  });
+
+  // Filter documents by search query
+  function filterDocuments() {
+    const query = document.getElementById('searchInput').value.toLowerCase();
+    const categories = document.querySelectorAll('.category');
+
+    categories.forEach(category => {
+      let matchesInCategory = false;
+      const rows = category.querySelectorAll('tbody tr');
+      rows.forEach(row => {
+        const docName = row.dataset.name.toLowerCase();
+        const match = docName.includes(query);
+        row.style.display = match ? '' : 'none';
+        if (match) matchesInCategory = true;
+      });
+
+      // Show category if any document matches, else hide
+      category.style.display = matchesInCategory ? '' : 'none';
+
+      // Automatically expand category if matches found, collapse if none
+      const table = category.querySelector('table');
+      const header = category.querySelector('.category-header');
+      const arrow = header.querySelector('i.arrow');
+      if (matchesInCategory) {
+        table.style.display = 'table';
+        arrow.style.transform = 'rotate(180deg)';
+        header.setAttribute('aria-expanded', 'true');
+      } else {
+        table.style.display = 'none';
+        arrow.style.transform = 'rotate(0deg)';
+        header.setAttribute('aria-expanded', 'false');
+      }
+    });
+
+    updateToggleAllButton();
+  }
+
+  // PDF.js viewer setup
+  const pdfjsLib = window['pdfjs-dist/build/pdf'];
+  pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.8.162/pdf.worker.min.js';
+
+  let pdfDoc = null,
+      pageNum = 1,
+      pageRendering = false,
+      pageNumPending = null,
+      scale = 1.2,
+      canvas = document.getElementById('pdf-canvas'),
+      ctx = canvas.getContext('2d');
+
+  function renderPage(num) {
+    pageRendering = true;
+    pdfDoc.getPage(num).then(function(page) {
+      const viewport = page.getViewport({ scale: scale });
+      canvas.height = viewport.height;
+      canvas.width = viewport.width;
+
+      // Render PDF page into canvas context
+      const renderContext = {
+        canvasContext: ctx,
+        viewport: viewport
+      };
+      const renderTask = page.render(renderContext);
+
+      renderTask.promise.then(function() {
+        pageRendering = false;
+        if (pageNumPending !== null) {
+          renderPage(pageNumPending);
+          pageNumPending = null;
+        }
+      });
+
+      // Update page counters
+      document.getElementById('page-num').textContent = num;
+    });
+  }
+
+  function queueRenderPage(num) {
+    if (pageRendering) {
+      pageNumPending = num;
+    } else {
+      renderPage(num);
+    }
+  }
+
+  function onPrevPage() {
+    if (pageNum <= 1) {
+      return;
+    }
+    pageNum--;
+    queueRenderPage(pageNum);
+  }
+
+  function onNextPage() {
+    if (pageNum >= pdfDoc.numPages) {
+      return;
+    }
+    pageNum++;
+    queueRenderPage(pageNum);
+  }
+
+  document.getElementById('prev-page').addEventListener('click', onPrevPage);
+  document.getElementById('next-page').addEventListener('click', onNextPage);
+
+  // Open modal and load PDF
+  function openModal(pdfUrl) {
     const modal = document.getElementById('modal');
     modal.classList.add('active');
-    modal.querySelector('iframe').src = src;
+    modal.setAttribute('aria-hidden', 'false');
+
+    // Load PDF document
+    pdfjsLib.getDocument(pdfUrl).promise.then(function(pdfDoc_) {
+      pdfDoc = pdfDoc_;
+      document.getElementById('page-count').textContent = pdfDoc.numPages;
+      pageNum = 1;
+      renderPage(pageNum);
+    });
+
+    // Disable right-click on canvas to prevent easy saving
+    canvas.oncontextmenu = function(e) {
+      e.preventDefault();
+      return false;
+    };
   }
 
   function closeModal() {
     const modal = document.getElementById('modal');
     modal.classList.remove('active');
-    modal.querySelector('iframe').src = '';
+    modal.setAttribute('aria-hidden', 'true');
+    pdfDoc = null;
+    pageNum = 1;
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
   }
 
-let allExpanded = false;
-
-  function toggleAll() {
-  const sections = document.querySelectorAll('.category');
-  const toggleBtn = document.getElementById('toggleAllBtn');
-
-  sections.forEach(section => {
-    const body = section.querySelector('.category-body');
-    const arrow = section.querySelector('.arrow');
-
-    if (allExpanded) {
-      body.style.display = 'none';
-      section.classList.add('collapsed');
-      arrow.classList.remove('fa-chevron-up');
-      arrow.classList.add('fa-chevron-down');
-    } else {
-      body.style.display = 'block';
-      section.classList.remove('collapsed');
-      arrow.classList.remove('fa-chevron-down');
-      arrow.classList.add('fa-chevron-up');
-    }
-  });
-
-  allExpanded = !allExpanded;
-  toggleBtn.innerHTML = allExpanded ? '🔼 Collapse All' : '🔽 Expand All';
-}
-
-
-function filterDocuments() {
-  const input = document.getElementById("searchInput").value.toLowerCase();
-  const categories = document.querySelectorAll(".category");
-
-  categories.forEach(category => {
-    const tbodyRows = category.querySelectorAll("tbody tr");
-    let categoryHasMatch = false;
-
-    tbodyRows.forEach(row => {
-      const text = row.textContent.toLowerCase();
-      if (text.includes(input)) {
-        row.style.display = "";  // Show matching row
-        categoryHasMatch = true;
-      } else {
-        row.style.display = "none";  // Hide non-matching row
+  // Accessibility: Allow keyboard toggle of categories
+  document.querySelectorAll('.category-header').forEach(header => {
+    header.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        toggleCategory(header);
       }
     });
-
-    const categoryBody = category.querySelector(".category-body");
-
-    if (input.length > 0) {
-      if (categoryHasMatch) {
-        // Show & expand category if any row matches
-        category.style.removeProperty('display'); // show category container itself if hidden
-        category.classList.remove("collapsed");
-        categoryBody.style.display = "";  // Show the body
-      } else {
-        // Hide category entirely if no match inside
-        category.style.display = "none";
-      }
-    } else {
-      // When search cleared, reset all categories and rows
-
-      category.style.removeProperty('display');  // Show all categories
-      category.classList.add("collapsed");       // Collapse all categories
-      categoryBody.style.display = "none";       // Hide category body
-
-      tbodyRows.forEach(row => {
-        row.style.display = ""; // Show all rows again
-      });
-    }
   });
-}
-
-window.addEventListener("scroll", function () {
-  const scrollButton = document.getElementById("scrollToTop");
-  if (window.scrollY > 300) {
-    scrollButton.style.display = "flex";
-  } else {
-    scrollButton.style.display = "none";
-  }
-});
-
 </script>
 
-<!-- Existing header/footer/nav file -->
 </body>
 </html>
