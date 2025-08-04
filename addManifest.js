@@ -3,15 +3,28 @@ const path = require('path');
 
 const folderPath = __dirname;
 
-const manifestLine = `<link rel="manifest" href="/manifest.json" />`;
-const metaLine = `<meta name="theme-color" content="#000000" />`;
+// Instead of hardcoded <link>, we use script to inject dynamically
 const swRegisterScript = `
 <script>
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('/service-worker.js')
-    .then(() => console.log('Service Worker registered!'))
-    .catch(err => console.error('Service Worker registration failed:', err));
-}
+  const isGitHub = location.hostname.includes('github.io');
+  const base = isGitHub ? '/website' : '';
+
+  const manifest = document.createElement('link');
+  manifest.rel = 'manifest';
+  manifest.href = base + '/manifest.json';
+
+  const themeMeta = document.createElement('meta');
+  themeMeta.name = 'theme-color';
+  themeMeta.content = '#000000';
+
+  document.head.appendChild(manifest);
+  document.head.appendChild(themeMeta);
+
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register(base + '/service-worker.js')
+      .then(() => console.log('✅ Service Worker registered'))
+      .catch(err => console.error('❌ Service Worker failed', err));
+  }
 </script>
 `;
 
@@ -19,21 +32,9 @@ function processFile(filePath) {
   let content = fs.readFileSync(filePath, 'utf8');
   let updated = false;
 
-  // Inject manifest and meta in <head>
-  if (!content.includes(manifestLine)) {
-    content = content.replace(
-      /<head([^>]*)>/i,
-      `<head$1>\n  ${manifestLine}\n  ${metaLine}`
-    );
-    updated = true;
-  }
-
-  // Inject service worker script before </body>
+  // Inject <script> before </body>
   if (!content.includes('navigator.serviceWorker.register')) {
-    content = content.replace(
-      /<\/body>/i,
-      `${swRegisterScript}\n</body>`
-    );
+    content = content.replace(/<\/body>/i, `${swRegisterScript}\n</body>`);
     updated = true;
   }
 
@@ -57,4 +58,3 @@ function walkDir(dir) {
 }
 
 walkDir(folderPath);
-
