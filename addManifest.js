@@ -3,13 +3,12 @@ const path = require('path');
 
 const folderPath = __dirname;
 
-const manifestLine = `<link rel="manifest" href="manifest.json" />`;
+const manifestLine = `<link rel="manifest" href="/manifest.json" />`;
 const metaLine = `<meta name="theme-color" content="#000000" />`;
 const swRegisterScript = `
 <script>
 if ('serviceWorker' in navigator) {
-  const basePath = location.pathname.endsWith('/') ? location.pathname : location.pathname.replace(/\\/[^/]*$/, '/');
-  navigator.serviceWorker.register(basePath + 'service-worker.js')
+  navigator.serviceWorker.register('/service-worker.js')
     .then(() => console.log('Service Worker registered!'))
     .catch(err => console.error('Service Worker registration failed:', err));
 }
@@ -58,3 +57,4 @@ function walkDir(dir) {
 }
 
 walkDir(folderPath);
+
