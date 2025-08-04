@@ -2,7 +2,7 @@
   "name": "Avishikta-1 Type-A RWA",
   "short_name": "Type-A Hub",
   "description": "Avishikta-1 Type-A RWA Progressive Web App",
-  "start_url": "./",              // relative path
+  "start_url": "./",
   "scope": "./",
   "display": "standalone",
   "background_color": "#ffffff",
@@ -20,3 +20,4 @@
     }
   ]
 }
+
