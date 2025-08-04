@@ -216,11 +216,11 @@
 
 <script>
   const isGitHub = window.location.hostname.includes('github.io');
-  const base = isGitHub ? '/website/' : '/';
+  const base = isGitHub ? '/website' : '';  // no trailing slash here
 
   const manifest = document.createElement('link');
   manifest.rel = 'manifest';
-  manifest.href = base + 'manifest.json';
+  manifest.href = base + '/manifest.json';  // add slash here for correct path
 
   const themeMeta = document.createElement('meta');
   themeMeta.name = 'theme-color';
@@ -230,15 +230,15 @@
   document.head.appendChild(themeMeta);
 
   if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register(base + 'service-worker.js')
+    navigator.serviceWorker.register(base + '/service-worker.js')
       .then(() => console.log('✅ Service Worker registered'))
       .catch(err => console.error('❌ Service Worker failed', err));
   }
 </script>
-
   
 </body>
 </html>
+
 
 
 
