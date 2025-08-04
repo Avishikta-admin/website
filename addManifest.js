@@ -8,7 +8,7 @@ const metaLine = `<meta name="theme-color" content="#000000" />`;
 const swRegisterScript = `
 <script>
 if ('serviceWorker' in navigator) {
-  const basePath = location.pathname.replace(/\\/[^/]*$/, '/') || '/';
+  const basePath = location.pathname.endsWith('/') ? location.pathname : location.pathname.replace(/\\/[^/]*$/, '/');
   navigator.serviceWorker.register(basePath + 'service-worker.js')
     .then(() => console.log('Service Worker registered!'))
     .catch(err => console.error('Service Worker registration failed:', err));
@@ -18,10 +18,9 @@ if ('serviceWorker' in navigator) {
 
 function processFile(filePath) {
   let content = fs.readFileSync(filePath, 'utf8');
-
   let updated = false;
 
-  // Add manifest and meta inside <head> if missing
+  // Inject manifest and meta in <head>
   if (!content.includes(manifestLine)) {
     content = content.replace(
       /<head([^>]*)>/i,
@@ -30,7 +29,7 @@ function processFile(filePath) {
     updated = true;
   }
 
-  // Add service worker register script before </body> if missing
+  // Inject service worker script before </body>
   if (!content.includes('navigator.serviceWorker.register')) {
     content = content.replace(
       /<\/body>/i,
