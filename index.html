@@ -690,10 +690,28 @@ html, body {
   color: transparent; /* also needed for Firefox */
 }
 
-
+#scrollToTop {
+  position: fixed;
+  bottom: 50px;       /* move it above the footer */
+  right: 20px;
+  z-index: 9999;       /* higher than footer and map buttons */
+  background-color: #add8e6; /* Light blue */
+  color: white;
+  border: none;
+  border-radius: 50%;
+  padding: 8px 10px;
+  font-size: 16px;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  display: none;
+  transition: opacity 0.3s, transform 0.3s;
+}
+#scrollToTop:hover {
+  background-color: #87cefa; /* Slightly brighter light blue */
+  transform: scale(1.1);
+}
 </style>
 </head>
-
 <body>
 
 <div id="layout-root">
@@ -1077,9 +1095,24 @@ document.addEventListener('DOMContentLoaded', () => {
       .catch(err => console.error('❌ Service Worker failed', err));
   }
 </script>
+
+<button id="scrollToTop" title="Scroll to top">🔝</button>
+
+<script>
+  const scrollBtn = document.getElementById("scrollToTop");
+
+  window.addEventListener("scroll", () => {
+    scrollBtn.style.display = window.scrollY > 300 ? "block" : "none";
+  });
+
+  scrollBtn.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+</script>
   
 </body>
 </html>
+
 
 
 
