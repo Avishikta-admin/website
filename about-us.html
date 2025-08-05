@@ -7,7 +7,6 @@
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
   <meta http-equiv="Pragma" content="no-cache" />
   <meta http-equiv="Expires" content="0" />
-  <link rel="manifest" href="/manifest.json" />
   <meta name="theme-color" content="#000000" />
   <!-- Confetti script from CDN -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
@@ -215,12 +214,12 @@
 </script>
 
 <script>
-  const isGitHub = window.location.hostname.includes('github.io');
-  const base = isGitHub ? '/website' : '';  // no trailing slash here
+  const isGitHub = location.hostname.includes('github.io');
+  const base = isGitHub ? '/website' : '';
 
   const manifest = document.createElement('link');
   manifest.rel = 'manifest';
-  manifest.href = base + '/manifest.json';  // add slash here for correct path
+  manifest.href = base + '/manifest.json';
 
   const themeMeta = document.createElement('meta');
   themeMeta.name = 'theme-color';
@@ -230,7 +229,7 @@
   document.head.appendChild(themeMeta);
 
   if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register(base + '/service-worker.js')
+    navigator.serviceWorker.register(base + '/service-worker.js', { scope: base + '/' })
       .then(() => console.log('✅ Service Worker registered'))
       .catch(err => console.error('❌ Service Worker failed', err));
   }
@@ -238,6 +237,7 @@
   
 </body>
 </html>
+
 
 
 
