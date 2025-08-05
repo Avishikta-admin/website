@@ -58,16 +58,18 @@
 
   // 3. Footer HTML
   const footerHTML = `
-  <footer id="page-footer" role="contentinfo" aria-label="Site Footer">
+<footer id="page-footer" role="contentinfo" aria-label="Site Footer">
+  <div class="footer-content">
     <div class="footer-credit">
       Designed, Developed and Maintained with <span class="heart">❤</span> by
       <strong><span class="blinking-text">Niloy Pandit</span></strong> |
-      &copy; 2025 Avishikta - I &nbsp;Type - A &nbsp;RWA. All rights reserved.
+      &copy; 2025 Avishikta - I Type - A RWA. All rights reserved.
     </div>
     <div class="footer-meta">
       <span class="current-time" id="current-time" aria-live="polite" aria-atomic="true"></span>
     </div>
-  </footer>
+  </div>
+</footer>
 `;
 
 const navHTML = `
@@ -591,12 +593,12 @@ li.locked .submenu,
       bottom: 0; left: 0; right: 0;
       background: linear-gradient(135deg, #2a72d8, #feb47b);
       color: #fff;
-      height: 40px;
+      height: 50px;
       display: flex;
       justify-content: center;
       align-items: center;
-      font-size: 0.9rem;
-      padding: 0 20px;
+      font-size: 0.85rem;
+      padding: 4px 15px;
       box-shadow: 0 -2px 8px rgba(0,0,0,0.3);
       user-select: none;
       white-space: nowrap;  /* Prevent wrapping */
@@ -618,8 +620,14 @@ li.locked .submenu,
       flex: 1;
       user-select: text;
       flex-shrink: 0;       /* Prevent shrinking */
+      line-height: 1.5;
+      white-space: normal;  
     }
-    .footer-links {
+    .footer-meta {
+  font-size: 0.85rem;
+  color: #eee;
+}
+.footer-links {
       user-select: text;
     }
     .heart {
@@ -628,15 +636,13 @@ li.locked .submenu,
       user-select: none;
     }
     .blinking-text {
-      animation: blink 1.5s linear infinite;
-      color: #00e6e6; /* Bright yellow */
+      background-color: #1e40af; /* Medium dark blue - Tailwind’s blue-800 */
+      color: #fff;               /* White text */
+      padding: 1px 4px;
+      border-radius: 6px;
       font-weight: bold;
     }
-    @keyframes blink {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.2; }
-    }
-
+    
     /* Responsive */
     @media (max-width: 768px) {
       body {
@@ -883,3 +889,4 @@ if ('serviceWorker' in navigator) {
   document.addEventListener('copy', e => e.preventDefault());
   document.addEventListener('paste', e => e.preventDefault());
 })();
+
