@@ -318,7 +318,7 @@ window.addEventListener('scroll', () => {
   document.head.appendChild(themeMeta);
 
   if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register(base + '/service-worker.js')
+    navigator.serviceWorker.register(base + '/service-worker.js', { scope: base + '/' })
       .then(() => console.log('✅ Service Worker registered'))
       .catch(err => console.error('❌ Service Worker failed', err));
   }
@@ -326,4 +326,5 @@ window.addEventListener('scroll', () => {
   
 </body>
 </html>
+
 
