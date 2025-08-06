@@ -4,60 +4,62 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Search Page</title>
+  <title>Site Search</title>
   <meta name="description" content="Official page of Avishikta - I Type - A RWA. Stay informed, get involved, and build a stronger association.">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
   <meta http-equiv="Pragma" content="no-cache" />
   <meta http-equiv="Expires" content="0" />
   <!-- Confetti script from CDN -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-  <script src="layout-loader.js"></script>
 
   <style>
     /* Reset and base */
     body {
-      font-family: 'Arial', sans-serif;
-      margin: 0;
-      padding: 0;
-      background: linear-gradient(90deg, #ff9a9e, #fad0c4);
-      color: #333;
-      min-height: 100vh;
-      display: flex;
-      justify-content: flex-start;
-      align-items: flex-start;
-      flex-direction: column;
-      /* Smooth font rendering */
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-    }
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(90deg, #0d47a1, #1976d2); /* Dark blue to medium blue */
+  color: #ffffff; /* White text */
+  min-height: 100vh;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-direction: column;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
 
     /* Container */
     .search-container {
       width: 100%;
-      max-width: 700px;
-      margin: 20px auto 60px auto;
-      padding: 30px 40px;
+      margin: 5px auto 80px auto;
+      box-sizing: border-box; /* so padding is included in width */
+      padding: 15px 20px;
       background-color: rgba(255, 255, 255, 0.95);
       border-radius: 14px;
       box-shadow: 0 8px 24px rgba(240, 101, 149, 0.25);
       text-align: center;
       position: relative;
-      margin-left: 260px; /* Adjust if your sidebar width differs */
+      padding-top: 10px; /* or less */
     }
 
     @media (max-width: 768px) {
-  	.search-container {
-    	margin-left: 15px; /* back to small margin on mobile */
-  	}
-    }
+    .search-container {
+    margin: 30px 15px 50px 15px; /* smaller side margins */
+    padding: 25px 20px;
+    max-width: 100%; /* full width on small screens */
+  }
+}
 
     /* Heading */
     .search-container h2 {
-      	background: linear-gradient(90deg, #f7c6d4, #f06595);
-  	-webkit-background-clip: text;
-  	-webkit-text-fill-color: transparent;
-  	background-clip: text;
-  	text-fill-color: transparent;
+      background: linear-gradient(90deg, #f7c6d4, #f06595);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-fill-color: transparent;
+      margin-top: 0;       /* Add this to remove top margin */
+      margin-bottom: 24px;
     }
 
     /* Search input wrapper */
@@ -72,7 +74,7 @@
     input[type="text"] {
       width: 100%;
       padding: 14px 45px 14px 40px;
-      font-size: 18px;
+      font-size: 15px;
       border-radius: 10px;
       border: 2px solid #e3a5bc;
       outline: none;
@@ -80,7 +82,7 @@
       box-sizing: border-box;
       color: #444;
       background-color: #fff;
-      font-weight: 500;
+      font-weight: 300;
     }
 
     input[type="text"]::placeholder {
@@ -119,6 +121,8 @@
       user-select: none;
       display: none;
       transition: color 0.3s ease;
+      font-weight: bold;
+      line-height: 1;
     }
 
     .clear-search:hover {
@@ -133,13 +137,17 @@
       margin-bottom: 30px;
       box-shadow: 0 3px 10px rgba(240, 101, 149, 0.15);
       user-select: none;
+      font-weight: 600;
+      letter-spacing: 0.4px;
+      font-size: 0.8rem;
+      color: #d43766;
     }
 
     .example-searches h3 {
-      font-size: 1.4rem;
+      font-size: 1.2rem;
       color: #d43766;
       margin-bottom: 15px;
-      font-weight: 600;
+      font-weight: 700;
       letter-spacing: 0.5px;
     }
 
@@ -160,10 +168,12 @@
       font-size: 16px;
       padding: 10px 18px;
       cursor: pointer;
-      font-weight: 600;
       user-select: none;
       transition: background-color 0.3s ease;
       box-shadow: 0 2px 8px rgba(212, 55, 102, 0.3);
+      user-select: none;
+      font-weight: 700;
+      text-transform: none;
     }
 
     .example-searches ul li:hover {
@@ -197,7 +207,7 @@
 
     .result-item h3 {
       margin: 0 0 6px 0;
-      font-size: 17px;
+      font-size: 12px;
       color: #b92e59;
     }
 
@@ -285,6 +295,35 @@
       background-color: #a02649;
     }
 
+    /* Suggestions dropdown */
+    #suggestionsList {
+      position: absolute;
+      width: 100%;
+      max-width: 100%;
+      top: auto;
+      left: 0;
+      background: white;
+      box-shadow: 0 8px 24px rgba(240, 101, 149, 0.2);
+      border-radius: 0 0 14px 14px;
+      max-height: 220px;
+      overflow-y: auto;
+      z-index: 20;
+      display: none;
+    }
+
+    #suggestionsList .suggestion-item {
+      padding: 12px 20px;
+      border-bottom: 1px solid #f0c2d3;
+      cursor: pointer;
+      font-weight: 600;
+      color: #d43766;
+      transition: background-color 0.25s ease;
+    }
+
+    #suggestionsList .suggestion-item:hover {
+      background-color: #f7d3de;
+    }
+
     /* Mobile Responsiveness */
     @media (max-width: 768px) {
       .search-container {
@@ -305,6 +344,7 @@
       .clear-search {
         font-size: 18px;
         right: 12px;
+        z-index: 20;
       }
 
       .example-searches h3 {
@@ -320,6 +360,10 @@
         font-size: 15px;
         max-height: 250px;
       }
+
+      #suggestionsList {
+        top: 52px;
+      }
     }
   </style>
 </head>
@@ -327,170 +371,280 @@
 <body>
 
   <main>
-    <div class="search-container">
+    <div class="search-container" role="search" aria-label="Site Search">
       <h2>Search the Website</h2>
 
       <div class="search-wrapper">
-        <input type="text" id="searchInput" placeholder="Type to search..." onkeyup="searchFunction()" />
-        <span id="clearSearch" class="clear-search" onclick="clearSearch()">×</span>
+        <input type="text" id="searchInput" placeholder="Type to search..." aria-autocomplete="list" aria-controls="suggestionsList" aria-expanded="false" aria-haspopup="listbox" aria-activedescendant="" />
+        <span id="clearSearch" class="clear-search" role="button" aria-label="Clear search input" tabindex="0">×</span>
       </div>
 
-      <div id="loadingSpinner"></div>
+      <div id="loadingSpinner" aria-hidden="true"></div>
 
-      <div class="example-searches">
+      <div class="example-searches" aria-live="polite" aria-atomic="true">
         <h3>Example Searches:</h3>
         <ul>
-          <li>Who</li>
-          <li>Events</li>
-          <li>New Resident</li>
-          <li>Feedback</li>
-          <li>Rules</li>
+          <li tabindex="0">Who</li>
+          <li tabindex="0">Events</li>
+          <li tabindex="0">New Resident</li>
+          <li tabindex="0">Feedback</li>
+          <li tabindex="0">Rules</li>
+          <li tabindex="0">Support Hub</li>
+          <li tabindex="0">Download Center</li>
         </ul>
       </div>
 
-      <div id="searchResults"></div>
+      <div id="searchResults" role="region" aria-live="polite" aria-atomic="true"></div>
 
-      <div id="suggestionsList" style="display:none;"></div>
+      <div id="suggestionsList" role="listbox"></div>
     </div>
 
-    <button id="scrollToTopBtn" onclick="scrollToTop()">↑</button>
+    <button id="scrollToTopBtn" onclick="scrollToTop()" aria-label="Scroll to top">↑</button>
   </main>
 
   <script>
-    // Your existing JS remains exactly the same — no changes needed
-
-    // Array to store page details for search
+    // Site menu & pages data
     const pages = [
-      { title: "Who We Are", url: "about-us.html", content: "About the association's purpose, history, and members." },
-      { title: "Vision & Mission", url: "vision-mission.html", content: "The vision and mission statement of our association." },
-      { title: "Executive Committee", url: "governing-body.html", content: "Information about the governing body and its members." },
-      { title: "Residents Directory", url: "our-members.html", content: "A list of all residents and their contact information." },
-      { title: "Association Highlights & Community Buzz", url: "view-announcements.html", content: "Latest news and updates about the association." },
-      { title: "Event Calendar", url: "events.html", content: "List of upcoming events and important dates." },
-      { title: "Meeting Minutes", url: "mom.html", content: "Minutes from past meetings and discussions." },
-      { title: "New Resident Guide", url: "new-resident-guide.html", content: "Helpful guide for new residents in the community." },
-      { title: "Community Guidelines", url: "general-guidelines.html", content: "The guidelines and rules for living in the community." }
+      { menu: "Association", title: "Who We Are", url: "about-us.html", content: "About the association's purpose, history, and members." },
+      { menu: "Association", title: "Vision & Mission", url: "vision-mission.html", content: "The vision and mission statement of our association." },
+      { menu: "Association", title: "Executive Committee", url: "governing-body.html", content: "Information about the governing body and its members." },
+      { menu: "Association", title: "Residents Directory", url: "our-members.html", content: "A list of all residents and their contact information." },
+      { menu: "Resources", title: "News & Buzz", url: "view-announcements.html", content: "Latest news and updates about the association." },
+      { menu: "Resources", title: "Event Calendar", url: "events.html", content: "List of upcoming events and important dates." },
+      { menu: "Resources", title: "Meeting Minutes", url: "mom.html", content: "Minutes from past meetings and discussions." },
+      { menu: "Resources", title: "New Resident Guide", url: "new-resident-guide.html", content: "Helpful guide for new residents in the community." },
+      { menu: "Resources", title: "Community Guidelines", url: "general-guidelines.html", content: "The guidelines and rules for living in the community." },
+      { menu: "Resources", title: "Support Hub", url: "useful-links.html", content: "Helpful resources and support links." },
+      { menu: "Resources", title: "Download Center", url: "download-center.html", content: "Access downloadable documents and files." },
+      { menu: "Resources", title: "Projects & Upgrades", url: "projects.html", content: "Information on current and upcoming projects." },
+      { menu: "Get Involved", title: "Give Feedback", url: "feedback.html", content: "Submit your feedback to help improve our community." },
+      { menu: "Get Involved", title: "Volunteer Opportunities", url: "volunteer.html", content: "Learn how to volunteer and contribute." },
+      { menu: "Get in Touch", title: "Contact Us", url: "contact-us.html", content: "Get in touch with the association team." },
+      { menu: "Get in Touch", title: "FAQs", url: "faq.html", content: "Frequently asked questions and answers." },
+      { menu: "Find & Explore", title: "Site Search", url: "search.html", content: "Search the entire website content." },
+      { menu: "Find & Explore", title: "Event Calendar", url: "event-calendar.html", content: "Calendar view of upcoming events." },
     ];
 
+    // Debounce timer
     let debounceTimer;
 
-    function searchFunction() {
-      const query = document.getElementById('searchInput').value.toLowerCase();
-      const results = document.getElementById('searchResults');
-      const clearButton = document.getElementById('clearSearch');
-      const loadingSpinner = document.getElementById('loadingSpinner');
-      const suggestionsList = document.getElementById('suggestionsList');
+    // DOM Elements
+    const searchInput = document.getElementById('searchInput');
+    const results = document.getElementById('searchResults');
+    const clearButton = document.getElementById('clearSearch');
+    const loadingSpinner = document.getElementById('loadingSpinner');
+    const suggestionsList = document.getElementById('suggestionsList');
 
-      // Debounce the search to avoid frequent calls
+    // Search function - triggered on keyup/input
+    function searchFunction() {
+      const query = searchInput.value.trim().toLowerCase();
+
+      // Clear previous results and suggestions
+      results.innerHTML = '';
+      suggestionsList.innerHTML = '';
+      suggestionsList.style.display = 'none';
+
       clearTimeout(debounceTimer);
-      loadingSpinner.style.display = "block";
-      results.innerHTML = "";
-      suggestionsList.innerHTML = "";
+      loadingSpinner.style.display = 'block';
 
       debounceTimer = setTimeout(() => {
-        if (!query.trim()) {
-          clearButton.style.display = "none";
-          loadingSpinner.style.display = "none";
+        loadingSpinner.style.display = 'none';
+
+        if (!query) {
+          clearButton.style.display = 'none';
+          results.innerHTML = `<p style="color:#d43766; font-weight: 600;">Start typing to search pages...</p>`;
           return;
         }
 
-        clearButton.style.display = "block";
+        clearButton.style.display = 'inline';
 
-        // Filter pages based on the query
-        const filteredPages = pages.filter(page =>
-          page.title.toLowerCase().includes(query) || page.content.toLowerCase().includes(query)
+        // Filter pages based on title, menu, or content
+        const matchedPages = pages.filter(page =>
+          page.title.toLowerCase().includes(query) ||
+          page.menu.toLowerCase().includes(query) ||
+          page.content.toLowerCase().includes(query)
         );
 
-        setTimeout(() => {
-          loadingSpinner.style.display = "none";
+        if (matchedPages.length === 0) {
+          results.innerHTML = `<p style="color:#a02649; font-weight: 600;">No results found for "<span class="highlighted-text">${escapeHtml(query)}</span>"</p>`;
+          return;
+        }
 
-          if (filteredPages.length > 0) {
-            results.innerHTML = `<p>Found ${filteredPages.length} result(s)</p>`;
-            filteredPages.forEach(page => {
-              const div = document.createElement('div');
-              div.classList.add('result-item');
-              div.innerHTML = `
-                                <h3><a href="${page.url}">${highlightText(page.title, query)}</a></h3>
-                                <p>${highlightText(page.content, query)}</p>
-                            `;
-              results.appendChild(div);
-            });
-          } else {
-            results.innerHTML = '<p>No results found. Try another search.</p>';
-          }
-        }, 500);
-      }, 300);
+        // Render results
+        results.innerHTML = matchedPages.map(page => {
+          const highlightedTitle = highlightTerm(page.title, query);
+          const highlightedMenu = highlightTerm(page.menu, query);
+          const highlightedContent = highlightTerm(page.content, query);
+          return `
+            <div class="result-item">
+              <h3><a href="${page.url}" tabindex="0">${highlightedTitle}</a></h3>
+              <p><strong>Menu:</strong> ${highlightedMenu}</p>
+              <p>${highlightedContent}</p>
+            </div>
+          `;
+        }).join('');
+
+        // Show suggestions (top 5 matching titles)
+        const suggestionItems = matchedPages.slice(0, 5).map(page => {
+          return `<div class="suggestion-item" role="option" tabindex="0">${escapeHtml(page.title)}</div>`;
+        }).join('');
+
+        if (suggestionItems.length > 0) {
+          suggestionsList.innerHTML = suggestionItems;
+          suggestionsList.style.display = 'block';
+          searchInput.setAttribute('aria-expanded', 'true');
+        } else {
+          suggestionsList.style.display = 'none';
+          searchInput.setAttribute('aria-expanded', 'false');
+        }
+
+      }, 350);
     }
 
-    function highlightText(text, query) {
-      if (!query) return text;
-      const regex = new RegExp(`(${query})`, 'gi');
-      return text.replace(regex, '<span class="highlighted-text">$1</span>');
-    }
-
-    function showSuggestions(query) {
-      const suggestionsList = document.getElementById('suggestionsList');
-      const filteredPages = pages.filter(page => page.title.toLowerCase().includes(query));
-      suggestionsList.innerHTML = "";
-      filteredPages.forEach(page => {
-        const div = document.createElement('div');
-        div.classList.add('suggestion-item');
-        div.innerHTML = `<a href="${page.url}">${page.title}</a>`;
-        suggestionsList.appendChild(div);
-      });
-      suggestionsList.style.display = filteredPages.length > 0 ? 'block' : 'none';
-    }
-
+    // Clear search input
     function clearSearch() {
-      document.getElementById('searchInput').value = "";
-      document.getElementById('searchResults').innerHTML = "";
-      document.getElementById('clearSearch').style.display = "none";
-      document.getElementById('suggestionsList').style.display = "none";
+      searchInput.value = '';
+      results.innerHTML = '<p style="color:#d43766; font-weight: 600;">Start typing to search pages...</p>';
+      clearButton.style.display = 'none';
+      suggestionsList.innerHTML = '';
+      suggestionsList.style.display = 'none';
+      searchInput.focus();
+      searchInput.setAttribute('aria-expanded', 'false');
     }
 
-    document.getElementById('searchInput').addEventListener('input', function () {
-      const query = this.value.trim().toLowerCase();
-      showSuggestions(query);
-    });
+    // Escape HTML characters
+    function escapeHtml(text) {
+      return text.replace(/[&<>"']/g, function (m) {
+        switch (m) {
+          case '&':
+            return '&amp;';
+          case '<':
+            return '&lt;';
+          case '>':
+            return '&gt;';
+          case '"':
+            return '&quot;';
+          case "'":
+            return '&#039;';
+          default:
+            return m;
+        }
+      });
+    }
+
+    // Highlight matched search terms
+    function highlightTerm(text, term) {
+      if (!term) return escapeHtml(text);
+      const regex = new RegExp(`(${term.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&')})`, 'gi');
+      return escapeHtml(text).replace(regex, '<span class="highlighted-text">$1</span>');
+    }
+
+    // Scroll to top button behavior
+    const scrollBtn = document.getElementById('scrollToTopBtn');
+    window.onscroll = function () {
+      if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+        scrollBtn.style.display = 'block';
+      } else {
+        scrollBtn.style.display = 'none';
+      }
+    };
 
     function scrollToTop() {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    window.addEventListener('scroll', function () {
-      const scrollToTopBtn = document.getElementById('scrollToTopBtn');
-      if (window.scrollY > 500) {
-        scrollToTopBtn.style.display = 'block';
-      } else {
-        scrollToTopBtn.style.display = 'none';
+    // Event listeners
+    searchInput.addEventListener('input', searchFunction);
+
+    clearButton.addEventListener('click', clearSearch);
+    clearButton.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        clearSearch();
       }
     });
+
+    // Example searches click
+    document.querySelectorAll('.example-searches ul li').forEach(item => {
+      item.addEventListener('click', () => {
+        searchInput.value = item.textContent;
+        searchFunction();
+        searchInput.focus();
+      });
+      item.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          searchInput.value = item.textContent;
+          searchFunction();
+          searchInput.focus();
+        }
+      });
+    });
+
+    // Suggestions keyboard navigation and click
+    suggestionsList.addEventListener('click', (e) => {
+      if (e.target.classList.contains('suggestion-item')) {
+        searchInput.value = e.target.textContent;
+        suggestionsList.style.display = 'none';
+        searchInput.setAttribute('aria-expanded', 'false');
+        searchFunction();
+        searchInput.focus();
+      }
+    });
+
+    suggestionsList.addEventListener('keydown', (e) => {
+      if (e.target.classList.contains('suggestion-item')) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          searchInput.value = e.target.textContent;
+          suggestionsList.style.display = 'none';
+          searchInput.setAttribute('aria-expanded', 'false');
+          searchFunction();
+          searchInput.focus();
+        }
+        if (e.key === 'ArrowDown') {
+          e.preventDefault();
+          if (e.target.nextElementSibling) {
+            e.target.nextElementSibling.focus();
+          }
+        }
+        if (e.key === 'ArrowUp') {
+          e.preventDefault();
+          if (e.target.previousElementSibling) {
+            e.target.previousElementSibling.focus();
+          } else {
+            searchInput.focus();
+          }
+        }
+        if (e.key === 'Escape') {
+          suggestionsList.style.display = 'none';
+          searchInput.setAttribute('aria-expanded', 'false');
+          searchInput.focus();
+        }
+      }
+    });
+
+    // Accessibility: Close suggestions on Escape
+    searchInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        suggestionsList.style.display = 'none';
+        searchInput.setAttribute('aria-expanded', 'false');
+      }
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        const firstSuggestion = suggestionsList.querySelector('.suggestion-item');
+        if (firstSuggestion) firstSuggestion.focus();
+      }
+    });
+
+    // Initialize
+    window.onload = () => {
+      results.innerHTML = '<p style="color:#d43766; font-weight: 600;">Start typing to search pages...</p>';
+      clearButton.style.display = 'none';
+    };
   </script>
 
-<script>
-  const isGitHub = location.hostname.includes('github.io');
-  const base = isGitHub ? '/website' : '';
-
-  const manifest = document.createElement('link');
-  manifest.rel = 'manifest';
-  manifest.href = base + '/manifest.json';
-
-  const themeMeta = document.createElement('meta');
-  themeMeta.name = 'theme-color';
-  themeMeta.content = '#000000';
-
-  document.head.appendChild(manifest);
-  document.head.appendChild(themeMeta);
-
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register(base + '/service-worker.js', { scope: base + '/' })
-      .then(() => console.log('✅ Service Worker registered'))
-      .catch(err => console.error('❌ Service Worker failed', err));
-  }
-</script>
-  
+<script src="layout-loader.js"></script>
 </body>
 
 </html>
-
-
