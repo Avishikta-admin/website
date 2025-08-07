@@ -56,8 +56,7 @@
   </header>
 `;
 
-  // 3. Footer HTML
-  const footerHTML = `
+const footerHTML = `
 <footer id="page-footer" role="contentinfo" aria-label="Site Footer">
   <div class="footer-content">
     <div class="footer-credit">
@@ -66,6 +65,9 @@
       &copy; 2025 Avishikta - I Type - A RWA. All rights reserved.
     </div>
     <div class="footer-meta">
+      <a href="index.html" class="footer-home-link" aria-label="Go to Home page">
+        <i class="fas fa-home home-icon"></i> Home
+      </a>
       <span class="current-time" id="current-time" aria-live="polite" aria-atomic="true"></span>
     </div>
   </div>
@@ -180,7 +182,7 @@ const navHTML = `
 </nav>
 `;
 
-  // 5. Inject header, nav, footer into body
+// 5. Inject header, nav, footer into body
 document.body.insertAdjacentHTML('afterbegin', headerHTML);
 document.body.insertAdjacentHTML('afterbegin', navHTML);
 document.body.insertAdjacentHTML('beforeend', footerHTML);
@@ -276,14 +278,15 @@ document.body.insertAdjacentHTML('beforeend', footerHTML);
       transition: padding-left 0.3s ease;
     }
     main {
-      margin: 20px;
+      margin: 20px auto;
       max-width: 1200px;
+      box-sizing: border-box;
     }
     /* Header */
     header#page-header {
       position: fixed;
       top: 0; left: 0; right: 0;
-      height: 54px;
+      height: auto;
       background: linear-gradient(135deg, #2a72d8, #feb47b);
       color: #fff;
       font-weight: 600;
@@ -295,7 +298,9 @@ document.body.insertAdjacentHTML('beforeend', footerHTML);
       user-select: none;
       box-shadow: 0 2px 8px rgba(0,0,0,0.3);
       z-index: 9999;
-      padding: 0 60px; /* space for buttons */
+      padding: 0.5rem 60px; /* padding instead of fixed height */
+      flex-wrap: wrap;      /* allow wrapping */
+      text-align: center;
     }
     header#page-header .header-text {
       text-align: center;
@@ -303,6 +308,8 @@ document.body.insertAdjacentHTML('beforeend', footerHTML);
       font-weight: 600;
       line-height: 1.3;
       font-size: 0.95rem;
+      word-break: break-word;
+      white-space: normal;
     }
     /* Hamburger button */
     #hamburger {
@@ -606,6 +613,41 @@ li.locked .submenu,
       text-align: center;
       overflow-x: auto;     /* In case screen is too narrow */
     }
+    .footer-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+      line-height: 1.4;
+    }
+    .footer-meta {
+  display: flex;
+  align-items: center;
+  gap: 12px;              /* Space between icon+link and time */
+  font-size: 0.85rem;
+  color: #eee;
+  flex-wrap: wrap;
+}
+
+.footer-home-link {
+  color: #fff;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-weight: 600;
+}
+
+.footer-home-link:hover {
+  text-decoration: underline;
+  color: #ffd700; /* Optional hover color */
+}
+
+.home-icon {
+  color: #ffd700; /* Gold or any color you like */
+  font-size: 1rem;
+}
+
     #page-footer a {
       color: #fff;
       text-decoration: none;
@@ -623,16 +665,12 @@ li.locked .submenu,
       line-height: 1.5;
       white-space: normal;  
     }
-    .footer-meta {
-  font-size: 0.85rem;
-  color: #eee;
-}
-.footer-links {
+    .footer-links {
       user-select: text;
     }
     .heart {
       color: red;
-      margin: 0 6px;
+      margin: 0 4px;
       user-select: none;
     }
     .blinking-text {
@@ -642,13 +680,15 @@ li.locked .submenu,
       border-radius: 6px;
       font-weight: bold;
     }
-    
     /* Responsive */
     @media (max-width: 768px) {
-      body {
+      main {
         padding-left: 0;
         padding-top: 54px;
         padding-bottom: 60px;
+      }
+      header#page-header {
+        padding: 1rem 40px;
       }
       #main-nav {
          position: fixed;
@@ -662,6 +702,13 @@ li.locked .submenu,
          transition: transform 0.3s ease;
          z-index: 9998;
          transform: translateX(-100%);  /* <-- HIDE OFFSCREEN BY DEFAULT */
+         box-sizing: border-box;
+         padding: 1rem;
+     }
+     @media (max-width: 480px) {
+        #main-nav {
+           width: 240px;
+        }
      }
       #main-nav.nav-open {
         transform: translateX(0);
@@ -855,7 +902,7 @@ window.addEventListener("resize", () => {
       let formattedTime = `${hours}:${minutes}:${seconds} ${ampm}`;
 
       // Set the formatted time and date
-      currentTimeElement.innerHTML = `Date: ${formattedDate} | Time: ${formattedTime}`;
+      currentTimeElement.innerHTML = `<b>Date:</b> ${formattedDate} | <b>Time:</b> ${formattedTime}`;
     }
   }
   updateTime();
@@ -889,4 +936,3 @@ if ('serviceWorker' in navigator) {
   document.addEventListener('copy', e => e.preventDefault());
   document.addEventListener('paste', e => e.preventDefault());
 })();
-
