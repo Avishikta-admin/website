@@ -1,1129 +1,938 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Official page of Avishikta - I Type - A RWA. Stay informed, get involved, and build a stronger association.">
-  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
-  <meta http-equiv="Pragma" content="no-cache" />
-  <meta http-equiv="Expires" content="0" />
-  <meta name="theme-color" content="#000000" />
-  <title>Avishikta - I Type - A RWA</title>
+(() => {
 
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Open+Sans&display=swap" rel="stylesheet" />
+  // 1. Inject Fonts & Icons
+  const fontLink = document.createElement("link");
+  fontLink.href = "https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap";
+  fontLink.rel = "stylesheet";
+  document.head.appendChild(fontLink);
 
-  <!-- Font Awesome -->
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-    crossorigin="anonymous"
-    referrerpolicy="no-referrer"
-  />
+ // Disable right-click functionality
+  document.addEventListener('contextmenu', function (event) {
+    event.preventDefault();  // Prevent the right-click menu from showing
+    alert("Right-click is disabled on this page.");  // Alert the user
+  });
 
-  <style>
+  // Disable text selection (for copy-paste prevention)
+  document.addEventListener('selectstart', function (event) {
+    event.preventDefault();  // Prevent text selection
+  });
 
-  :root {
-    --bg-color: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(9, 9, 121, 1) 24%, rgba(17, 145, 209, 1) 100%, rgba(1, 186, 238, 1) 100%, rgba(0, 212, 255, 1) 100%);
-    --text-color: #fff;
-  }
+  // Disable copy functionality
+  document.addEventListener('copy', function (event) {
+    event.preventDefault();  // Prevent the copy action
+    alert("Copying is disabled on this page.");  // Alert the user
+  });
 
-  body {
-    font-family: 'Open Sans', sans-serif;
-    background: var(--bg-color);
-    color: var(--text-color);
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    overflow-x: hidden;
-    margin: 0;
-    padding: 0;
-    transition: background 0.3s, color 0.3s;
-  }
+  // Disable paste functionality
+  document.addEventListener('paste', function (event) {
+    event.preventDefault();  // Prevent the paste action
+    alert("Pasting is disabled on this page.");  // Alert the user
+  });
 
-html, body {
-  overflow-x: hidden;
-}
+  const iconLink = document.createElement("link");
+  iconLink.href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css";
+  iconLink.rel = "stylesheet";
+  document.head.appendChild(iconLink);
 
-    /* Your existing styles here... */
-    /* Keyframes for ticker animation */
-    @keyframes scroll-left {
-      0% { transform: translateX(100%); }
-      100% { transform: translateX(-100%); }
+  const manifestLink = document.createElement('link');
+  manifestLink.rel = 'manifest';
+  manifestLink.href = '/website/manifest.json'; // Path to your manifest file
+  document.head.appendChild(manifestLink);
+
+ // 2. Header HTML
+ const headerHTML = `
+  <header id="page-header" role="banner" aria-label="Site Header">
+    <button id="hamburger" type="button" class="hamburger" aria-label="Toggle menu" aria-expanded="false">Menu
+      <i class="fas fa-bars"></i>
+    </button>
+    <button id="nav-collapse-toggle" type="button" aria-label="Toggle navigation sidebar" aria-expanded="true" class="collapse-toggle" title="Collapse Menu">
+  <i class="fas fa-angle-left"></i>
+</button>
+
+    <div class="header-text">
+      AVISHIKTA PHASE – 1 LIG (TYPE – A) APARTMENT RESIDENTS’ WELFARE ASSOCIATION<br>
+      369/1, PURBACHAL KALITALA ROAD, KOLKATA – 700078
+    </div>
+  </header>
+`;
+
+const footerHTML = `
+<footer id="page-footer" role="contentinfo" aria-label="Site Footer">
+  <div class="footer-content">
+    <div class="footer-credit">
+      Designed, Developed and Maintained with <span class="heart">❤</span> by
+      <strong><span class="blinking-text">Niloy Pandit</span></strong> |
+      &copy; 2025 Avishikta - I Type - A RWA. All rights reserved.
+    </div>
+    <div class="footer-meta">
+      <a href="index.html" class="footer-home-link" aria-label="Go to Home page">
+        <i class="fas fa-home home-icon"></i> Home
+      </a>
+      <span class="current-time" id="current-time" aria-live="polite" aria-atomic="true"></span>
+    </div>
+  </div>
+</footer>
+`;
+
+const navHTML = `
+<nav id="main-nav" role="navigation" aria-label="Primary navigation" class="nav-collapsed">
+  <ul>
+    <li><a href="index.html" class="nav-link"><i class="fas fa-home"></i> Home</a></li>
+    
+    <li>
+      <button class="section-header" aria-expanded="false" aria-controls="submenu-association">
+        <span class="menu-label">
+          <i class="fas fa-users"></i> Association
+        </span>
+        <i class="fas fa-caret-down"></i>
+      </button>
+      <ul id="submenu-association" class="submenu" aria-hidden="true">
+  <li><a href="about-us.html"><i class="fas fa-id-card-alt"></i> Who We Are</a></li>
+  <li><a href="vision-mission.html"><i class="fas fa-bullseye"></i> Vision & Mission</a></li>
+  <li><a href="governing-body.html"><i class="fas fa-users-cog"></i> Executive Committee</a></li>
+  <li><a href="our-members.html"><i class="fas fa-address-book"></i> Residents Directory</a></li>
+</ul>
+    </li>
+
+    <!-- Resources -->
+<li>
+  <button class="section-header" aria-expanded="false" aria-controls="submenu-resources">
+    <span class="menu-label">
+      <i class="fas fa-book"></i> Resources
+    </span>
+    <i class="fas fa-caret-down"></i>
+  </button>
+  <ul id="submenu-resources" class="submenu" aria-hidden="true">
+    <li><a href="view-announcements.html"><i class="fas fa-bullhorn"></i> News & Buzz</a></li>
+    <li><a href="mom.html"><i class="fas fa-file-alt"></i> Meeting Minutes</a></li>
+    <li><a href="new-resident-guide.html"><i class="fas fa-compass"></i> New Resident Guideline</a></li>
+    <li><a href="events.html"><i class="fas fa-camera-retro"></i> Events & Shared Moments</a></li>
+    <li><a href="general-guidelines.html"><i class="fas fa-gavel"></i> Community Guidelines</a></li>
+    <li><a href="download-center.html"><i class="fas fa-download"></i> Download Center</a></li>
+    <li><a href="useful-links.html"><i class="fas fa-life-ring"></i> Support Hub</a></li>
+    <li><a href="projects.html"><i class="fas fa-tasks"></i> Project Status & Updates</a></li>
+  </ul>
+</li>
+
+<!-- Get Involved -->
+<li>
+  <button class="section-header" aria-expanded="false" aria-controls="submenu-getinvolved">
+    <span class="menu-label">
+      <i class="fas fa-hand-holding-heart"></i> Get Involved
+    </span>
+    <i class="fas fa-caret-down"></i>
+  </button>
+  <ul id="submenu-getinvolved" class="submenu" aria-hidden="true">
+    <li><a href="feedback.html"><i class="fas fa-comment-dots"></i> Give Feedback</a></li>
+    <li><a href="volunteer.html"><i class="fas fa-hands-helping"></i> Volunteer Opportunities</a></li>
+  </ul>
+</li>
+
+<!-- Get in Touch -->
+<li>
+  <button class="section-header" aria-expanded="false" aria-controls="submenu-getintouch">
+    <span class="menu-label">
+      <i class="fas fa-envelope"></i> Get in Touch
+    </span>
+    <i class="fas fa-caret-down"></i>
+  </button>
+  <ul id="submenu-getintouch" class="submenu" aria-hidden="true">
+    <li><a href="contact-us.html"><i class="fas fa-phone-alt"></i> Ready to hear you</a></li>
+    <li><a href="faq.html"><i class="fas fa-question-circle"></i> FAQs</a></li>
+  </ul>
+</li>
+
+<!-- Find & Explore -->
+<li>
+  <button class="section-header" aria-expanded="false" aria-controls="submenu-findexplore">
+    <span class="menu-label">
+      <i class="fas fa-search"></i> Find & Explore
+    </span>
+    <i class="fas fa-caret-down"></i>
+  </button>
+  <ul id="submenu-findexplore" class="submenu" aria-hidden="true">
+    <li><a href="search.html"><i class="fas fa-search-location"></i> Site Search</a></li>
+    <li><a href="event-calendar.html"><i class="fas fa-calendar-alt"></i> Event Calendar</a></li>
+  </ul>
+</li>
+
+<!-- Admin Panel -->
+<li>
+  <button class="section-header" aria-expanded="false" aria-controls="submenu-admintools">
+    <span class="menu-label">
+      <i class="fas fa-user-shield"></i> Admin Panel
+    </span>
+    <i class="fas fa-caret-down"></i>
+  </button>
+  <ul id="submenu-admintools" class="submenu" aria-hidden="true">
+    <li>
+      <a href="#" class="disabled-link" title="Coming Soon...">
+        <i class="fas fa-bullhorn"></i> Manage Announcements
+      </a>
+    </li>
+    <li>
+      <a href="#" class="disabled-link" title="Coming Soon...">
+        <i class="fas fa-comments"></i> View Feedback
+      </a>
+    </li>
+  </ul>
+</li>
+
+</ul>
+</nav>
+`;
+
+// 5. Inject header, nav, footer into body
+document.body.insertAdjacentHTML('afterbegin', headerHTML);
+document.body.insertAdjacentHTML('afterbegin', navHTML);
+document.body.insertAdjacentHTML('beforeend', footerHTML);
+
+  // 6. Insert breadcrumb above main
+  function renderBreadcrumb() {
+    const breadcrumbMap = {
+      'index.html': ['Home'],
+      'about-us.html': ['Home', 'Association', 'Who We Are'],
+      'vision-mission.html': ['Home', 'Association', 'Vision & Mission'],
+      'governing-body.html': ['Home', 'Association', 'Executive Committee'],
+      'our-members.html': ['Home', 'Association', 'Residents Directory'],
+      'view-announcements.html': ['Home', 'Resources', 'News & Buzz'],
+      'mom.html': ['Home', 'Resources', 'Meeting Minutes'],
+      'new-resident-guide.html': ['Home', 'Resources', 'New Resident Guideline'],
+      'events.html': ['Home', 'Resources', 'Events & Shared Moments'],
+      'general-guidelines.html': ['Home', 'Resources', 'Community Guidelines'],
+      'download-center.html': ['Home', 'Resources', 'Download Center'],
+      'useful-links.html': ['Home', 'Resources', 'Support Hub'],
+      'projects.html': ['Home', 'Resources','Project Status & Updates'],
+      'feedback.html': ['Home', 'Get Involved','Give Feedback'],
+      'volunteer.html': ['Home', 'Get Involved','Volunteer Opportunities'],
+      'contact-us.html': ['Home', 'Get in Touch','Ready to hear you'],
+      'faq.html': ['Home', 'Get in Touch','FAQs'],
+      'search.html': ['Home', 'Find & Explore','Site Search'],
+      'event-calendar.html': ['Home', 'Find & Explore','Event Calendar']
+    };
+  
+    const pageLinks = {
+      'Home': 'index.html',
+      'Association': '#',
+      'Who We Are': 'about-us.html',
+      'Vision & Mission': 'vision-mission.html',
+      'Executive Committee': 'governing-body.html',
+      'Residents Directory': 'our-members.html',
+      'Resources': '#',
+      'News & Buzz': 'view-announcements.html',
+      'Meeting Minutes': 'mom.html',
+      'New Resident Guideline': 'new-resident-guide.html',
+      'Event Calendar': 'events.html',
+      'Community Guidelines': 'general-guidelines.html',
+      'Download Center': 'download-center.html',
+      'Project Status & Updates': 'projects.html',
+      'Support Hub': 'useful-links.html',
+      'Get Involved': '#',
+      'Give Feedback': 'feedback.html',
+      'Volunteer Opportunities': 'volunteer.html',
+      'Get in Touch': '#',
+      'Ready to hear you': 'contact-us.html',
+      'FAQs': 'faq.html',
+      'Find & Explore': '#',
+      'Site Search': 'search.html',
+      'Event Calendar': 'event-calendar.html'
+    };
+  
+    const fileName = window.location.pathname.split('/').pop();
+    const crumbs = breadcrumbMap[fileName];
+    if (!crumbs) return;
+  
+    const breadcrumbNav = document.createElement('nav');
+    breadcrumbNav.className = 'breadcrumb';
+    breadcrumbNav.setAttribute('aria-label', 'breadcrumb');
+  
+    breadcrumbNav.innerHTML = crumbs.map((label, i) => {
+      if (i === crumbs.length - 1) return `<span aria-current="page">${label}</span>`;
+      const href = pageLinks[label] || '#';
+      return `<a href="${href}">${label}</a> <span aria-hidden="true">&gt;</span> `;
+    }).join('');
+  
+    const main = document.querySelector('main');
+    if (main && main.parentNode) {
+      main.parentNode.insertBefore(breadcrumbNav, main);
     }
-
-/* Gradient animation */
-@keyframes moveGradient {
-  0% {
-    background-position: 0% 50%;
   }
-  100% {
-    background-position: 200% 50%;
-  }
-}
 
-   * {
-      margin: 0;
-      padding: 0;
+  renderBreadcrumb();
+
+  // 7. Inject styles
+  const style = document.createElement("style");
+  style.textContent = `
+    /* Reset & base */
+    * {
       box-sizing: border-box;
     }
-
-  body.dark {
-    --bg-color: #121212;
-    --text-color: #e0e0e0;
-  }
-
-  #darkModeToggle {
-    padding: 10px 10px;
-    background: #0072ff;
-    color: white;
-    position: fixed;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    align-self: flex-start;
-    top: 170px;
-    right: 130px;
-    z-index: 1000;
-  }
-
-  #darkModeToggle:hover {
-    background: #005bb5;
-  }
-
-    #layout-root { }
-
-    .hero {
-      background: linear-gradient(135deg, #003366, #005580);
-      color: #fff;
-      text-align: center;
-      padding: 10px 5px;
-      padding-top: 5px; /* Makes space for the ticker */
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      min-height: 100px;
-      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-      position: relative;
-      z-index: 3000;
-    }
-
-    .hero::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: rgba(0,0,0,0.4);
-    }
-
-    .hero-content {
-      position: relative;
-      text-align: center;
-      color: #fff;
-      z-index: 2;
-    }
-
-    .hero-content h1 {
-      font-family: 'Montserrat', sans-serif;
-      font-size: 2.5rem;
-      text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
-    }
-
-    .hero-content p {
-      font-size: 1rem;
-      font-weight: 500;
-      letter-spacing: 0.3px;
+    body {
+      font-family: 'Poppins', sans-serif;
       margin: 0;
+      background-color: #f4f6f9;
+      color: #333;
+      padding-top: 54px; /* header */
+      padding-bottom: 60px; /* footer */
+      padding-left: 260px; /* nav width */
+      transition: padding-left 0.3s ease;
     }
-
-    .hero-content h2 {
-      font-size: 1.5rem;
-      margin-bottom: 20px;
-      font-weight: 700;
-      letter-spacing: 0.5px;
-    }
-
     main {
-      opacity: 1 !important; /* Force visibility */
-      transform: translateY(0) !important;
-      padding-top: 0;
+      margin: 20px auto;
+      max-width: 1200px;
+      box-sizing: border-box;
     }
-
-  main.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-  main h2 {
-  font-family: 'Montserrat', sans-serif;
-  font-weight: 700;
-  font-size: clamp(1.0rem, 3vw, 1.2rem);
-  text-align: center;
-  margin: 1rem auto 1.5rem;
-  margin-top: 0.2rem; /* smaller top margin */
-  padding-top: 0;
-  color: #036bfc;
-
-  background: linear-gradient(
-    90deg,
-    #ffffff,
-    #f0f0f0,
-    #ffffff
-  );
-  background-size: 200% 100%;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-
-  animation: whiteGlow 3s ease-in-out infinite;
-}
-
-@keyframes whiteGlow {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
-
-    .card-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1.5rem;
-      margin-top: 2rem;
-      padding: 0 2rem 3rem;
-    }
-
-    .card {
-      background: linear-gradient(145deg, #2c3e50, #4ca1af); /* Stunning gradient */
-      padding: 1rem;
-      border-radius: 12px;
-      box-shadow: 0 6px 18px rgba(0,0,0,0.2);
-      transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-      cursor: pointer;
-      width: 100%; /* Ensures the card takes the full available space */
-      max-width: 350px; /* Keeps card width under control */
-      margin: 0 auto; /* Centers the card */
-    }
-
-    .card::after {
-      content: "";
-      position: absolute;
-      left: 50%;
-      bottom: 0;
-      width: 0%;
-      height: 4px;
-      background: #00e5ff;
-      transition: width 0.3s ease, left 0.3s ease;
-      border-radius: 2px;
-    }
-
-    .card:hover {
-      transform: translateY(-12px); /* Slightly larger elevation */
-      background: rgba(255, 255, 255, 0.1); /* Slightly darker to emphasize hover */
-      box-shadow: 0 12px 30px rgba(0,229,255,0.6); /* Stronger, more dynamic shadow */
-      filter: brightness(1.1); /* Adds a slight brightness effect on hover */
-    }
-
-    .card:hover::after {
-      width: 80%;
-      left: 10%;
-    }
-
-    .card i {
-      font-size: 1.5rem;
-      color: #00e5ff;
-      margin-bottom: 0.75rem;
-      pointer-events: none;
-    }
-
-    .card h3 {
-      font-size: 1.0rem;
-      margin-bottom: 0.3rem;
+    /* Header */
+    header#page-header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: auto;
+      background: linear-gradient(135deg, #2a72d8, #feb47b);
       color: #fff;
-      pointer-events: none;
-      text-shadow: 0 0 6px rgba(0, 229, 255, 0.6); /* Soft glow effect */
-    }
-
-    .card p {
-      font-size: 0.85rem;
-      color: #e0f7fa;
-      line-height: 1.;
-      pointer-events: none;
-    }
-
-    a {
-      color: #a3d2ca;
-      text-decoration: none;
-      font-weight: bold;
-    }
-
-    a:hover {
-      color: #ffffff;
-      text-decoration: underline;
-      transform: translateX(5px); /* Add a slight shift to the underline for interaction */
-    }
-
-    @media (max-width: 600px) {
-      .overlay {
-        font-size: 1.0rem;
-        padding: 0 2rem;
-        max-width: 1000px;
-      }
-
-   
-
-   @media (max-width: 600px) {
-  .toast {
-    top: 70px;
-    font-size: 0.9rem;
-    padding: 10px 18px;
-  }
-}
-
-  .hero-image {
-        width: 100%;
-        height: 100%; /* Increased height */
-        object-fit: cover;
-        display: block;
-        filter: brightness(70%);
-      }
-
-@media (max-width: 600px) {
-  .hero {
-    min-height: 80px;
-  }
-
-  .hero-image {
-    height: 100px;
-  }
-}
-
-  .full-width-hero {
-  width: 100vw;
-  height: 280px;
-  position: relative;
-  overflow: hidden;
-  padding: 0;
-  margin: 0;
-  border-radius: 0;
-  background: none;
-  box-shadow: none;
-}
-
-   .card-grid {
-        display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* This will ensure cards are dynamically adjusted */
-  gap: 1.5rem;
-  margin-top: 2rem;
-      }
-    }
-
-    .image-text-hero {
-      position: relative;
-      max-width: 720px;
-      margin: 0 auto 2rem auto;
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.4);
-    }
-
-    .hero-image {
-      width: 100%;
-      height: 100px;
-      object-fit: cover;
-      display: block;
-      filter: brightness(70%);
-      transition: filter 0.3s ease;
-    }
-
-    .image-text-hero:hover .hero-image {
-      filter: brightness(85%);
-    }
-
-    .overlay {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      color: #fffbea;
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 700;
-      font-size: clamp(1.5rem, 4vw, 1.8rem);
-      white-space: nowrap;
-      text-shadow: 2px 2px 6px rgba(0,0,0,0.8), 0 0 10px rgba(255,255,255,0.3);
-      text-align: center;
-      padding: 0 1rem;
-      pointer-events: none;
-      
-    }
-
-    .overlay h2 {
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 700;
-      font-size: 1.8rem;
-      color: #fffbea;
-      white-space: nowrap;
-      text-shadow: 1px 1px 6px rgba(0,0,0,0.6), 0 0 6px rgba(255,255,255,0.2);
+      font-weight: 600;
+      font-size: 0.95rem;
+      line-height: 1.4;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      user-select: none;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+      z-index: 9999;
+      padding: 0.5rem 60px; /* padding instead of fixed height */
+      flex-wrap: wrap;      /* allow wrapping */
       text-align: center;
     }
+    header#page-header .header-text {
+      text-align: center;
+      flex: 1;
+      font-weight: 600;
+      line-height: 1.3;
+      font-size: 0.95rem;
+      word-break: break-word;
+      white-space: normal;
+    }
+    /* Hamburger button */
+    #hamburger {
+      background-color: #fd7e14;
+      border: none;
+      font-size: 11px;
+      color: white;
+      cursor: pointer;
+      position: fixed;
+      top: 8px;
+      left: 10px;
+      z-index: 10000;
+      padding: 10px;
+      border-radius: 6px;
+      display: none; /* hidden on desktop */
+      transition: background-color 0.3s ease;
+    }
+    #hamburger:hover {
+      background-color: #e35d04;
+    }
 
-.welcome-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+    /* Collapse toggle button for desktop nav */
+    #nav-collapse-toggle {
+      background: transparent;
+      border: none;
+      color: white;
+      font-size: 18px;
+      cursor: pointer;
+      position: fixed;
+      top: 15px;
+      left: 230px; /* 260 - 30 */
+      z-index: 10000;
+      padding: 5px 8px;
+      border-radius: 4px;
+      transition: transform 0.3s ease;
+      user-select: none;
+    }
+    #nav-collapse-toggle.collapsed {
+      transform: rotate(180deg);
+      left: 30px;
+    }
+    #nav-collapse-toggle:hover {
+      color: #feb47b;
+    }
+
+   #nav-collapse-toggle i {
+     transition: transform 0.3s ease;
+   }
+
+#nav-collapse-toggle.collapsed i {
+  transform: rotate(0deg) !important; /* arrow pointing right */
+  /* optionally, you can switch icon classes here if using something else */
 }
 
-.welcome-icon {
-  font-size: 4rem;
-  margin-bottom: 1rem;
-  animation: pulse 2s infinite;
+#nav-collapse-toggle:not(.collapsed) i {
+  transform: rotate(180deg) !important; /* arrow pointing left */
 }
 
-@keyframes fadeInUp {
-  0% {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* === GREETINGS MODAL STYLES === */
-#greetingModal {
-  display: none;
+/* Nav Styles */
+#main-nav {
   position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(0, 0, 0, 0.7);
-  z-index: 9999;
-  justify-content: center;
-  align-items: center;
-  opacity: 0;
-  transition: opacity 0.4s ease;
-}
-
-#greetingModal.show {
-  display: flex;
-  opacity: 1;
-}
-
-#greetingModalContent {
-  background: linear-gradient(135deg, #1e3c72, #2a5298);
+  top: 54px;
+  left: 0;
+  width: 260px;
+  bottom: 60px;
+  background: #1e2a47;
   color: #fff;
-  padding: 1.2rem 1.5rem;      /* ↓ Less padding */
-  border-radius: 12px;         /* ↓ Smaller corners */
-  max-width: 320px;            /* ↓ Narrower box */
-  width: 85%;                  /* Still responsive */
-  text-align: center;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.6);
-  animation: fadeInScale 0.4s ease forwards;
-  position: relative;
+  overflow-y: auto;
+  z-index: 9998;
+  display: block; /* hide nav by default on mobile */
+  transition: opacity 0.3s ease;
 }
 
-#greetingModalContent h2 {
-  font-size: 1.0rem;
-  margin-bottom: 0.8rem;
-}
-
-#greetingModalContent p {
-  font-size: 1rem;
-  line-height: 1.3;
-  margin-bottom: 1.2rem;
-}
-
-#closeGreetingBtn {
-  background: #f39c12;
-  color: #fff;
-  border: none;
-  padding: 0.5rem 1.2rem;
-  border-radius: 6px;
-  font-size: 0.95rem;
-  cursor: pointer;
-  transition: background 0.3s ease;
-}
-
-#closeGreetingBtn:hover {
-  background: #e67e22;
-}
-
-@keyframes fadeInScale {
-  0% {
-    opacity: 0;
-    transform: scale(0.9);
-  }
-  100% {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-/* Toast Notification */
-.toast {
-  position: fixed;
-  top: 64px; /* 🟢 This pushes it below the ticker (ticker is 54px high) */
-  left: 50%;
-  transform: translateX(-50%);
-  background: linear-gradient(135deg, #00c6ff, #0072ff);
-  color: white;
-  padding: 12px 24px;
-  border-radius: 30px;
-  font-weight: bold;
-  font-family: 'Montserrat', sans-serif;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.3);
-  z-index: 99999;
-  opacity: 0;
-  animation: fadeInOut 15s ease-in-out forwards;
-}
-
-@keyframes fadeInOut {
-  0% { opacity: 0; transform: translate(-50%, -20px); }
-  10% { opacity: 1; transform: translate(-50%, 0); }
-  90% { opacity: 1; transform: translate(-50%, 0); }
-  100% { opacity: 0; transform: translate(-50%, -20px); }
-}
-
-.testimonials {
-  margin: -1.0rem auto;
-  max-width: 700px;
-  background: rgba(255, 255, 255, 0.1);
-  color: #fff; /* white text */
-  font-style: italic;
-  font-size: 1.0rem;
-  font-weight: 600; /* semi-bold for better emphasis */
-  text-align: center;
-  min-height: 1em; /* keep height consistent */
-  position: relative;
-}
-
-.testimonial {
-  display: none;
-  animation: fadeIn 3s ease-in forwards;
-}
-
-.testimonial.active {
+#main-nav.nav-open {
   display: block;
+  opacity: 1;
+  pointer-events: auto;
 }
 
-/* Fade animation */
-@keyframes fadeIn {
-  from {opacity: 0;}
-  to {opacity: 1;}
-}
+@media (min-width: 768px) {
+  .nav-menu {
+    display: flex; /* or block, depending on layout */
+  }
 
-#map-popup {
-    position: fixed;
-    bottom: 70px;
-    right: 20px;
-    width: 320px;
-    height: 240px;
-    border-radius: 12px;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.4);
-    background: white;
-    overflow: hidden;
-    z-index: 1000;
+  .hamburger {
     display: none;
   }
+}
 
-  #map-popup iframe {
-    width: 100%;
-    height: 100%;
-    border: none;
+#main-nav.nav-collapsed {
+  transform: translateX(-220px);
+  width: 40px;
+  overflow: visible;
+}
+
+#main-nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+#main-nav ul li {
+  border-bottom: 1px solid #324060;
+}
+
+@media (max-width: 767px) {
+  #hamburger {
+    display: block;
   }
 
-  #map-toggle-btn {
-    position: fixed;
-  top: 170px;          /* align vertically with dark mode toggle */
-  right: 10px;         /* next to dark mode toggle */
-  background: linear-gradient(90deg, #f5e6c4, #d7c1a3);
-  color: #003366;
-  border: none;
-  padding: 8px 8px;
-  font-weight: bold;
-  border-radius: 6px;
-  cursor: pointer;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-  z-index: 1001;
-  transition: background 0.3s, transform 0.3s;
+  #main-nav {
+    display: none; /* Hide nav by default on mobile */
   }
 
-  #map-toggle-btn:hover {
-    background: linear-gradient(90deg, #d7c1a3, #f5e6c4);
-    transform: translateY(-3px);
+  #main-nav.nav-open {
+    display: block; /* Show nav when hamburger clicked */
   }
-
-.typing-container {
-  text-align: center;
-  margin: 3rem auto 1.5rem; /* Adds space above and below */
-  font-size: 1rem;
-  color: #f5e6c4; /* Light cream color */
-  font-family: 'Open Sans', sans-serif;
-  font-weight: 700; /* Bold */
-  min-height: 30px;
-  padding: 0.5rem 1rem;
-  max-width: 80%;
-  border-top: 3px solid #d7c1a3;
 }
 
-#typing-text::after {
-  content: '|';
-  animation: blink 1s step-start infinite;
-  color: #f5e6c4;
-}
 
-@keyframes blink {
-  50% { opacity: 0; }
-}
-
-.visitor-guide {
-  margin: 2em 0;
-  padding: 1em;
-  border: 2px solid #0077cc;
-  border-radius: 8px;
-  background-color: #e6f0ff;
-  max-width: 600px;
-  font-size: 0.7rem;
-}
-
-.visitor-buttons button {
-  background: #eee;
-  border: 2px solid #ccc;
-  border-radius: 6px;
-  padding: 10px 16px;
-  margin-right: 10px;
-  cursor: pointer;
-  font-size: 1rem;
-  transition: background-color 0.3s, border-color 0.3s;
-}
-
-.visitor-buttons button:hover {
-  background-color: #ddd;
-}
-
-.visitor-buttons button[aria-pressed="true"] {
-  background-color: #4a90e2;  /* nice blue */
-  border-color: #357ABD;
-  color: white;
-  font-weight: bold;
-  box-shadow: 0 0 6px #357ABD99;
-}
-
-.visitor-message, .agm-message {
-  margin-top: 1rem;
-  padding: 1rem;
-  border-radius: 4px;
-  font-size: 0.9rem;
-  line-height: 1.4;
-  text-align: justify;
-}
-
-/* Visitor message uses existing style */
-.visitor-message {
-  max-width: 600px;       /* Limit the width */
-  margin: 2rem auto;      /* Center horizontally with vertical spacing */
-  padding: 1.5rem;
-  background-color: #f0f8ff;
-  border-left: 4px solid #4a90e2;
-  border-radius: 8px;
-  text-align: justify;     /* Center all text inside */
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* subtle shadow for emphasis */
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-/* AGM message gets a bold, stunning style */
-.agm-message {
-  background-color: #ff6f61;        /* Vibrant coral/red */
-  color: white;
-  border-left: 6px solid #d94f44;   /* Darker red border */
-  font-weight: 600;
-  font-size: 1rem;
-  box-shadow: 0 0 12px #d94f44aa;
-}
-
-#visitorGuideSection {
-  max-width: 600px;       /* limits the width nicely */
-  margin: 2rem auto;      /* centers horizontally and adds vertical space */
-  padding: 0.5rem;
-  background-color: #f0f8ff;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-  text-align: center;     /* centers all text inside */
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-.visitor-buttons {
+/* Home link: icon + text aligned left with gap */
+#main-nav ul li a.nav-link {
   display: flex;
-  justify-content: center;  /* center horizontally */
-  gap: 1rem;                /* space between buttons */
-  margin: 1rem 0;
-}
-
-.emoji {
-  color: #4caf50 !important;
-  display: inline-block;
-  font-size: 1.3em;
-  margin-right: 0.4rem;
-  -webkit-text-fill-color: initial !important;
-}
-
-.main-heading {
-  font-family: 'Montserrat', sans-serif;
-  font-weight: 700;
-  font-size: clamp(1.0rem, 3vw, 1.2rem);
-  text-align: center;
-  margin: 1rem auto 1.5rem;
-  margin-top: 0.2rem;
-  padding-top: 0;
-  background: linear-gradient(90deg, #ffffff, #f0f0f0, #ffffff);
-  background-size: 200% 100%;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: whiteGlow 3s ease-in-out infinite;
-  color: transparent; /* also needed for Firefox */
-}
-
-#scrollToTop {
-  position: fixed;
-  bottom: 50px;       /* move it above the footer */
-  right: 20px;
-  z-index: 9999;       /* higher than footer and map buttons */
-  background-color: #add8e6; /* Light blue */
-  color: white;
+  align-items: center;
+  justify-content: flex-start; /* left align */
+  gap: 8px; /* space between icon and text */
+  padding: 12px 20px;
+  font-size: 0.9rem;
+  color: #ddd;
+  background: none;
   border: none;
-  border-radius: 50%;
-  padding: 8px 10px;
-  font-size: 16px;
+  width: 100%;
   cursor: pointer;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  user-select: none;
+  text-decoration: none;
+}
+
+#main-nav ul li a.nav-link:hover {
+  background-color: #feb47b;
+  color: #1e2a47;
+}
+
+/* Submenu buttons: icon + text left, caret right */
+#main-nav ul li button.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* caret on right */
+  padding: 12px 20px;
+  font-size: 0.9rem;
+  color: #ddd;
+  background: none;
+  border: none;
+  width: 100%;
+  cursor: pointer;
+  user-select: none;
+}
+
+#main-nav ul li button.section-header:hover {
+  background-color: #feb47b;
+  color: #1e2a47;
+}
+
+/* Wrap icon + text inside submenu buttons */
+#main-nav ul li button.section-header .menu-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-grow: 1; /* fill space except caret */
+}
+
+/* Icon colors */
+#main-nav ul li a.nav-link i,
+#main-nav ul li button.section-header .menu-label i {
+  color: #2a72d8;
+  margin: 0;
+  padding: 0;
+  font-size: 1em; /* match text size */
+}
+
+/* Caret icon on buttons */
+#main-nav ul li button.section-header i.fa-caret-down {
+  transition: transform 0.3s ease;
+  margin-left: 5px;
+  color: white;
+}
+
+#main-nav ul.submenu li a {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #ddd;
+  padding: 10px 20px;
+  text-decoration: none;
+  font-size: 0.85rem;
+}
+
+#main-nav ul.submenu li a i {
+  color: #f3e5ab; /* or any consistent icon color */
+  font-size: 1em;
+}
+
+#main-nav ul li button.section-header[aria-expanded="true"] i {
+      transform: rotate(180deg);
+    }
+
+   /* Submenu container */
+.submenu {
+  max-height: 0;
+  overflow: hidden;
   opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
+  padding-left: 15px;
+  transition: max-height 0.4s ease-in-out, opacity 0.3s ease-in-out;
+  will-change: max-height, opacity;
+  pointer-events: none; /* prevent clicks when hidden */
 }
-#scrollToTop.show {
+
+/* When expanded */
+li.locked .submenu,
+.section-header[aria-expanded="true"] + .submenu {
+  max-height: 800px; /* Adjust depending on content */
   opacity: 1;
-  visibility: visible;
-}
-#scrollToTop:hover {
-  background-color: #87cefa; /* Slightly brighter light blue */
-  transform: scale(1.1);
-}
-</style>
-</head>
-<body>
-
-<div id="layout-root">
-
-<!-- GREETINGS MODAL -->
-<div id="greetingModal" role="dialog" aria-modal="true" aria-labelledby="greetingTitle" aria-describedby="greetingMessage">
-  <div id="greetingModalContent">
-    <div class="welcome-icon">🌇</div>
-    <h2 id="greetingTitle">Welcome!</h2>
-    <p id="greetingMessage">Thanks for visiting!</p>
-    <button id="closeGreetingBtn" aria-label="Close greeting popup">Close</button>
-  </div>
-</div>
-
-<!-- rest of page… -->
-<!-- Hero section with header -->
-  <header class="hero full-width-hero" role="banner">
-  <img src="img-3.jpg" alt="Community Image" class="hero-image" />
-  <div class="overlay">
-      🖥️ Your Digital Neighbourhood Hub – Avishikta - I Type - A
-    </div>
-</header>
-
-<button id="darkModeToggle">Dark Mode</button>
-
-<button id="map-toggle-btn">📍 Show Map</button>
-<div id="map-popup">
-  <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3685.896188561506!2d88.39841147507572!3d22.508077779537675!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a027157cc327c1b%3A0xfe9d5576fd4d1272!2sAvishikta%20Phase%201!5e0!3m2!1sen!2sin!4v1753114166780!5m2!1sen!2sin" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
-    allowfullscreen=""
-    loading="lazy"
-    referrerpolicy="no-referrer-when-downgrade"
-  ></iframe>
-</div>
-
-<section id="visitorGuideSection" aria-label="Visitor Type Guide" class="visitor-guide">
-  <h2>What Brings You Here Today?</h2>
-  <p>Choose your role to quickly find the information and tools that matter most to you.</p>
-  <div class="visitor-buttons" role="group" aria-label="Visitor type selection">
-    <button type="button" data-type="new" aria-pressed="false">👤➕I'm new</button>
-    <button type="button" data-type="member" aria-pressed="false">🏠I'm a member</button>
-  </div>
-
-  <div id="visitorMessage" class="visitor-message" aria-live="polite" hidden></div>
-  
-  <div id="agmMessage" class="agm-message" hidden>
-    🎉 The 19th AGM was successfully completed on <strong>July 27th, 2025</strong>! Thank you for your participation!
-  </div>
-</section>
-
-<!-- Ticker BELOW header -->
-  <main role="main" tabindex="-1">
-  <h2 class="main-heading">
-    <span class="emoji">🌱</span>
-    Empowering Our Association, Digitally & Sustainably
-  </h2>
-</main>
-
-
-    <!-- TESTIMONIAL SLIDER -->
-<section class="testimonials">
-  <div class="testimonial active">🌟 “Such a welcoming and peaceful community!” – R. Sen</div>
-  <div class="testimonial">🌟 “The digital initiatives of Type - A Association are truly impressive.” – A. Mukherjee</div>
-  <div class="testimonial">🌟 “I love the greenery and events!” – B. Moitra</div>
-</section>
-
-<!-- Typing Animation Section -->
-<div class="typing-container">
-  <span id="typing-text"></span>
-</div>
-
-  <div class="card-grid">
-  <div class="card" tabindex="0" role="article" aria-label="Smart Home Integration">
-    <i class="fas fa-home" aria-hidden="true"></i>
-    <h3>Smart Home Integration</h3>
-    <p>Making your home safer and smarter with modern tech.</p>
-  </div>
-  <div class="card" tabindex="0" role="article" aria-label="Sustainable Living Initiatives">
-    <i class="fas fa-leaf" aria-hidden="true"></i>
-    <h3>Sustainable Living</h3>
-    <p>Join our green initiatives to nurture a cleaner environment.</p>
-  </div>
-  <div class="card" tabindex="0" role="article" aria-label="Community Events & Workshops">
-    <i class="fas fa-calendar-check" aria-hidden="true"></i>
-    <h3>Events & Workshops</h3>
-    <p>Engage, learn, and celebrate with neighbors at our gatherings.</p>
-  </div>
-  <div class="card" tabindex="0" role="article" aria-label="Resident Support Services">
-    <i class="fas fa-headset" aria-hidden="true"></i>
-    <h3>Resident Support</h3>
-    <p>We're here to help — from maintenance to community concerns.</p>
-  </div>
-  <div class="card" tabindex="0" role="article" aria-label="Safety & Security">
-    <i class="fas fa-shield-alt" aria-hidden="true"></i>
-    <h3>Safety & Security</h3>
-    <p>Round-the-clock protection and peace of mind for all residents.</p>
-  </div>
-  <div class="card" tabindex="0" role="article" aria-label="Digital Bulletin Board">
-    <i class="fas fa-bullhorn" aria-hidden="true"></i>
-    <h3>Digital Bulletin</h3>
-    <p>Stay informed with real-time updates and important notices.</p>
-  </div>
-</div>
-
-</main>
-
-  <!-- Confetti script from CDN -->
-  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-  <script src="layout.js?v=50"></script>
-
-  <script>
-
-    // Welcome Overlay Countdown + Progress + Fade + Confetti
-
-    const mainContent = document.querySelector('main');
-
-  function runConfetti() {
-  const duration = 1.5 * 1000;  // Reduced duration to 1.5 seconds for faster sparkling
-  const end = Date.now() + duration;
-
-  (function frame() {
-    // Add confetti with some randomness in the particle count, spread, angle, etc.
-    confetti({
-      particleCount: 20,  // Increased particle count for denser confetti
-      angle: Math.random() * 180,  // Random angle for more dynamic spread
-      spread: 150 + Math.random() * 50,  // Random spread to make it look more natural
-      origin: { x: Math.random() },  // Random origin for more randomness
-      colors: ['#ff0000', '#ff7300', '#fffb00', '#00ff00', '#00bfff', '#800080', '#ff1493', '#ff69b4', '#f0e68c', '#adff2f'],
-      scalar: 1.0 + Math.random() * 0.5,  // Smaller particle size (lower range)
-      drift: Math.random() * 3,  // Random drift for a more natural effect
-      gravity: 0.5 + Math.random() * 0.5,  // Slight random gravity for more fluid motion
-    });
-    confetti({
-      particleCount: 20,  // Increased density
-      angle: Math.random() * 180,  // Random angle
-      spread: 150 + Math.random() * 50,  // Random spread
-      origin: { x: Math.random() },  // Random horizontal origin
-      colors: ['#ff0000', '#ff7300', '#fffb00', '#00ff00', '#00bfff', '#800080', '#ff1493', '#ff69b4', '#f0e68c', '#adff2f'],
-      scalar: 1.0 + Math.random() * 0.5,  // Smaller particle size (lower range)
-      drift: Math.random() * 3,  // Random drift
-      gravity: 0.5 + Math.random() * 0.5,  // Random gravity
-    });
-    confetti({
-      particleCount: 20,  // Slightly fewer particles for the middle confetti
-      angle: Math.random() * 180,  // Random angles
-      spread: 200,  // Spread across a wider area
-      origin: { x: 0.5 },  // Center origin
-      colors: ['#ff0000', '#ff7300', '#fffb00', '#00ff00', '#00bfff', '#800080', '#ff1493', '#ff69b4', '#f0e68c', '#adff2f'],
-      scalar: 1.0 + Math.random() * 0.5,  // Smaller particle size (lower range)
-      drift: Math.random() * 3,  // Random drift
-      gravity: 0.5 + Math.random() * 0.5,  // Random gravity
-    });
-
-    // Continue the animation until the duration is over
-    if (Date.now() < end) {
-      requestAnimationFrame(frame);
-    }
-  })();
+  pointer-events: auto;
 }
 
+    #main-nav ul li ul.submenu {
+      max-height: 0;
+      overflow: hidden;
+      background-color: #2e3b66;
+      transition: max-height 0.3s ease;
+      font-size: 0.85rem;
+    }
+    #main-nav ul li ul.submenu[aria-hidden="false"] {
+      max-height: 500px; /* enough for submenu */
+    }
+    #main-nav ul li ul.submenu li {
+      border-bottom: none;
+    }
+    #main-nav ul li ul.submenu li a {
+      padding-left: 40px;
+      color: #ccc;
+      font-weight: 400;
+    }
+    #main-nav ul li ul.submenu li a:hover {
+      color: #1e2a47;
+      background-color: #feb47b;
+    }
 
-  window.addEventListener('DOMContentLoaded', () => {
-  const modal = document.getElementById('greetingModal');
-  const closeBtn = document.getElementById('closeGreetingBtn');
-  const title = document.getElementById('greetingTitle');
-  const message = document.getElementById('greetingMessage');
-
-  // Check if greeting was already shown
-  if (sessionStorage.getItem('greetingShown')) {
-    // Don't show modal again
-    return;
-  }
-
-  // Set greeting text based on time
-  const hour = new Date().getHours();
-  let greetText = 'Welcome!';
-  let greetMsg = 'Thanks for visiting our community portal!!!';
-
-  if (hour < 12) {
-    greetText = '🌅 Namaskar!';
-    greetMsg = 'May your day shine with positivity and boundless energy!';
-  } else if (hour < 17) {
-    greetText = '🌤️ Good Afternoon!';
-    greetMsg = 'Wishing You a Joyful and Productive Day';
-  } else {
-    greetText = '🌆 Good Evening!';
-    greetMsg = 'Kick back, relax, and let your evening unfold for a wonderful tomorrow!';
-  }
-
-  title.textContent = greetText;
-  message.textContent = greetMsg;
-
-  // Show modal
-  modal.classList.add('show');
-  modal.style.display = 'flex';
-
-  // Run confetti only once when modal shows
-
-  function showThankYouToast() {
-  const toast = document.createElement('div');
-  toast.className = 'toast';
-  toast.textContent = '🙏 Thanks for visiting us again!';
-  document.body.appendChild(toast);
-
-  // Remove after animation
-  setTimeout(() => {
-    toast.remove();
-  }, 3100);
+   /* Disabled submenu item (e.g., Coming Soon) */
+.disabled-link {
+  color: #aaa !important;
+  pointer-events: none;
+  opacity: 0.6;
+  cursor: not-allowed;
+  text-decoration: none;
 }
 
-
-  function closeGreeting() {
-  modal.classList.remove('show');
-  setTimeout(() => {
-    modal.style.display = 'none';
-    sessionStorage.setItem('greetingShown', 'true');
-    showThankYouToast();  // ✅ <-- NEW toast trigger
-  }, 400);
+.disabled-link i {
+  color: #aaa !important;
 }
 
-
-  closeBtn.addEventListener('click', closeGreeting);
-
-  modal.addEventListener('click', (e) => {
-    if (e.target === modal) {
-      closeGreeting();
+    /* Breadcrumb */
+    nav.breadcrumb {
+      display: inline-block;          /* Shrinks to content */
+      margin: 10px 20px 0 20px;
+      padding: 8px 12px;
+      font-size: 0.85rem;
+      background-color: #2a72d8; /* Blue background */
+      color: #ffffff;
+      user-select: none;
+      border-radius: 4px;
+      white-space: nowrap;
     }
-  });
-
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && modal.classList.contains('show')) {
-      closeGreeting();
+    nav.breadcrumb a {
+      color: #ffffff;
+      text-decoration: none;
     }
-  });
+    nav.breadcrumb a:hover {
+      text-decoration: underline;
+    }
+    nav.breadcrumb span {
+      font-weight: 600;
+      color: #ffffff;;
+    }
 
-});
-
-</script>
-<script>
-// Function to scroll to the top
-function scrollToTop() {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    /* Footer */
+    #page-footer {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      background: linear-gradient(135deg, #2a72d8, #feb47b);
+      color: #fff;
+      height: 50px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 0.85rem;
+      padding: 4px 15px;
+      box-shadow: 0 -2px 8px rgba(0,0,0,0.3);
+      user-select: none;
+      white-space: nowrap;  /* Prevent wrapping */
+      z-index: 9999;
+      text-align: center;
+      overflow-x: auto;     /* In case screen is too narrow */
+    }
+    .footer-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+      line-height: 1.4;
+    }
+    .footer-meta {
+  display: flex;
+  align-items: center;
+  gap: 12px;              /* Space between icon+link and time */
+  font-size: 0.85rem;
+  color: #eee;
+  flex-wrap: wrap;
 }
-</script>
 
-<script>
-  const toggle = document.getElementById('darkModeToggle');
-  toggle.addEventListener('click', () => {
-    const darkModeEnabled = document.body.classList.toggle('dark');
-    toggle.textContent = darkModeEnabled ? 'Light Mode' : 'Dark Mode';
-  });
-</script>
+.footer-home-link {
+  color: #fff;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-weight: 600;
+}
 
-<script>
-  const testimonials = document.querySelectorAll('.testimonial');
-  let index = 0;
+.footer-home-link:hover {
+  text-decoration: underline;
+  color: #ffd700; /* Optional hover color */
+}
 
-  setInterval(() => {
-    testimonials[index].classList.remove('active');
-    index = (index + 1) % testimonials.length;
-    testimonials[index].classList.add('active');
-  }, 4000); // changes every 4 seconds
-</script>
+.home-icon {
+  color: #ffd700; /* Gold or any color you like */
+  font-size: 1rem;
+}
 
-<script>
-  const mapToggleBtn = document.getElementById('map-toggle-btn');
-  const mapPopup = document.getElementById('map-popup');
-
-  mapToggleBtn.addEventListener('click', () => {
-    if (mapPopup.style.display === 'block') {
-      mapPopup.style.display = 'none';
-      mapToggleBtn.textContent = '📍 Show Map';
-    } else {
-      mapPopup.style.display = 'block';
-      mapToggleBtn.textContent = 'Hide Map';
+    #page-footer a {
+      color: #fff;
+      text-decoration: none;
+      margin-left: 12px;
+      display: flex;
+      align-items: center;
     }
-  });
-</script>
-
-<script>
-  // Typing animation logic
-  const phrases = [
-  "Proudly Serving Avishikta - I Type - A RWA!",
-  "Stronger Together as One Community!",
-  "Nurturing Our Green Spaces!",
-  "Committed to Safety & Peace!",
-  "Fostering Friendship & Trust!",
-  "Building a Sustainable Future!",
-  "Your Voice, Our Strength!"
-];
-
-  const typingText = document.getElementById("typing-text");
-  let currentPhrase = 0;
-  let currentChar = 0;
-  let isDeleting = false;
-
-  function type() {
-    const phrase = phrases[currentPhrase];
-    if (isDeleting) {
-      currentChar--;
-    } else {
-      currentChar++;
+    #page-footer a:hover {
+      text-decoration: underline;
     }
-
-    typingText.textContent = phrase.substring(0, currentChar);
-
-    if (!isDeleting && currentChar === phrase.length) {
-      setTimeout(() => { isDeleting = true; }, 1500);
-    } else if (isDeleting && currentChar === 0) {
-      isDeleting = false;
-      currentPhrase = (currentPhrase + 1) % phrases.length;
+    .footer-credit {
+      flex: 1;
+      user-select: text;
+      flex-shrink: 0;       /* Prevent shrinking */
+      line-height: 1.5;
+      white-space: normal;  
     }
-
-    const typingSpeed = isDeleting ? 50 : 100;
-    setTimeout(type, typingSpeed);
-  }
-
-  type();
-
-document.addEventListener('DOMContentLoaded', () => {
-  const visitorMessage = document.getElementById('visitorMessage');
-  const agmMessage = document.getElementById('agmMessage');
-  const buttons = document.querySelectorAll('.visitor-buttons button');
-
-  const messages = {
-    new: `Welcome! We're excited to have new visitors. Explore community events, resources, and join us to make Avishikta your new home!`,
-    member: `Welcome back, member! Don't forget to check the latest updates and thank you for your ongoing participation.`
-  };
-
-  let activeType = null;
-
-  buttons.forEach(button => {
-    button.addEventListener('click', () => {
-      const type = button.getAttribute('data-type');
-
-      if (activeType === type) {
-        // Same button clicked: toggle off
-        visitorMessage.hidden = true;
-        agmMessage.hidden = true;
-        button.setAttribute('aria-pressed', 'false');
-        activeType = null;
-      } else {
-        // Different button clicked: update message and toggle buttons
-        visitorMessage.textContent = messages[type];
-        visitorMessage.hidden = false;
-
-        buttons.forEach(btn => btn.setAttribute('aria-pressed', 'false'));
-        button.setAttribute('aria-pressed', 'true');
-
-        if (type === 'member') {
-          agmMessage.hidden = false;
-        } else {
-          agmMessage.hidden = true;
+    .footer-links {
+      user-select: text;
+    }
+    .heart {
+      color: red;
+      margin: 0 4px;
+      user-select: none;
+    }
+    .blinking-text {
+      background-color: #1e40af; /* Medium dark blue - Tailwind’s blue-800 */
+      color: #fff;               /* White text */
+      padding: 1px 4px;
+      border-radius: 6px;
+      font-weight: bold;
+    }
+    /* Responsive */
+    @media (max-width: 768px) {
+      main {
+        padding-left: 0;
+        padding-top: 54px;
+        padding-bottom: 60px;
+      }
+      header#page-header {
+        padding: 1rem 40px;
+      }
+      #main-nav {
+         position: fixed;
+         top: 54px;
+         left: 0;
+         width: 300px; /* Increased from 260px */
+         bottom: 60px;
+         background: #1e2a47;
+         color: #fff;
+         overflow-y: auto;
+         transition: transform 0.3s ease;
+         z-index: 9998;
+         transform: translateX(-100%);  /* <-- HIDE OFFSCREEN BY DEFAULT */
+         box-sizing: border-box;
+         padding: 1rem;
+     }
+     @media (max-width: 480px) {
+        #main-nav {
+           width: 240px;
         }
+     }
+      #main-nav.nav-open {
+        transform: translateX(0);
+        box-shadow: 4px 0 8px rgba(0,0,0,0.3);
+      }
+      #nav-collapse-toggle {
+        display: none;
+      }
+      #hamburger {
+        display: block;
+      }
+    }
+    .tooltip {
+      position: absolute;
+      background-color: #333;
+      color: #fff;
+      padding: 6px 10px;
+      border-radius: 4px;
+      font-size: 0.85rem;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+      pointer-events: none;
+      white-space: nowrap;
+      z-index: 10000;
+    }
+    
+  `;
+  document.head.appendChild(style);
 
-        activeType = type;
+  // 8. JS behavior
+
+  const nav = document.getElementById("main-nav");
+  const hamburger = document.getElementById("hamburger");
+  const collapseToggle = document.getElementById("nav-collapse-toggle");
+
+  // Handle hamburger toggle for mobile
+  hamburger.addEventListener("click", () => {
+    const open = nav.classList.toggle("nav-open");
+    hamburger.setAttribute("aria-expanded", open);
+  });
+
+  
+  // on load
+  collapseToggle.addEventListener("click", () => {
+  const collapsed = nav.classList.toggle("nav-collapsed");
+  collapseToggle.classList.toggle("collapsed", collapsed);
+  collapseToggle.setAttribute("aria-expanded", !collapsed);
+
+  const icon = collapseToggle.querySelector("i");
+
+  if (collapsed) {
+    // Menu is collapsed: arrow points right (">"), tooltip = Expand Menu
+    collapseToggle.title = "Expand Menu";
+    icon.classList.remove("fa-angle-right");
+    icon.classList.add("fa-angle-left");
+  } else {
+    // Menu is expanded: arrow points left ("<"), tooltip = Collapse Menu
+    collapseToggle.title = "Collapse Menu";
+    icon.classList.remove("fa-angle-left");
+    icon.classList.add("fa-angle-right");
+  }
+
+  document.body.style.paddingLeft = collapsed ? "40px" : "260px";
+});
+
+// Submenu expand/collapse
+const sectionHeaders = nav.querySelectorAll("button.section-header");
+
+sectionHeaders.forEach(button => {
+  const parentLi = button.parentElement;
+  const submenuId = button.getAttribute("aria-controls");
+  const submenu = document.getElementById(submenuId);
+
+  // Special handling for Admin Panel
+  const isAdminPanel = submenuId === "submenu-admintools";
+
+  if (isAdminPanel) {
+    // Prevent any toggle behavior
+    button.addEventListener("click", e => e.preventDefault());
+
+    // Tooltip on hover
+    button.addEventListener("mouseenter", () => {
+      const tooltip = document.createElement("div");
+      tooltip.className = "tooltip";
+      tooltip.innerHTML = "🚧 <i class='fas fa-tools'></i> Coming Soon!";
+      document.body.appendChild(tooltip);
+
+      const rect = button.getBoundingClientRect();
+      tooltip.style.left = `${rect.left}px`;
+      tooltip.style.top = `${rect.bottom + 6 + window.scrollY}px`;
+
+      const removeTooltip = () => tooltip.remove();
+      button.addEventListener("mouseleave", removeTooltip, { once: true });
+    });
+
+    return; // Skip the rest of the loop for Admin
+  }
+
+  // Regular button behavior
+  // Click toggle
+  button.addEventListener("click", e => {
+    e.stopPropagation();
+
+    const isExpanded = button.getAttribute("aria-expanded") === "true";
+
+    // Close all others
+    sectionHeaders.forEach(otherBtn => {
+      const otherSubmenu = document.getElementById(otherBtn.getAttribute("aria-controls"));
+      const otherLi = otherBtn.parentElement;
+
+      if (otherBtn !== button) {
+        otherBtn.setAttribute("aria-expanded", "false");
+        otherSubmenu?.setAttribute("aria-hidden", "true");
+        otherLi?.classList.remove("locked");
       }
     });
+
+    // Toggle current one
+    const newState = !isExpanded;
+    button.setAttribute("aria-expanded", newState);
+    submenu.setAttribute("aria-hidden", !newState);
+    parentLi.classList.toggle("locked", newState);
+  });
+
+  // Hover open (desktop only, if not locked)
+  parentLi.addEventListener("mouseenter", () => {
+    if (window.innerWidth > 768 && !parentLi.classList.contains("locked")) {
+      button.setAttribute("aria-expanded", "true");
+      submenu.setAttribute("aria-hidden", "false");
+    }
+  });
+
+  parentLi.addEventListener("mouseleave", () => {
+    if (window.innerWidth > 768 && !parentLi.classList.contains("locked")) {
+      button.setAttribute("aria-expanded", "false");
+      submenu.setAttribute("aria-hidden", "true");
+    }
   });
 });
 
-</script>
 
-  <script>
-  const isGitHub = location.hostname.includes('github.io');
-  const base = isGitHub ? '/website' : '';
+function updateLayout() {
+  const isMobile = window.innerWidth <= 768;
 
-  const manifest = document.createElement('link');
-  manifest.rel = 'manifest';
-  manifest.href = base + '/manifest.json';
+  if (isMobile) {
+    nav.classList.remove("nav-collapsed");
+    hamburger.style.display = "block";
+    collapseToggle.style.display = "none";
+    document.body.style.paddingLeft = "0";
+    hamburger.setAttribute("aria-expanded", nav.classList.contains("nav-open"));
+  } else {
+  nav.classList.remove("nav-open");
+  nav.classList.remove("nav-collapsed"); // Show full nav
+  hamburger.style.display = "none";
+  collapseToggle.style.display = "block";
+  document.body.style.paddingLeft = "260px"; // Expanded width padding
+  collapseToggle.setAttribute("aria-expanded", true);
 
-  const themeMeta = document.createElement('meta');
-  themeMeta.name = 'theme-color';
-  themeMeta.content = '#000000';
+  // Set arrow and tooltip for expanded sidebar initially
+  collapseToggle.title = "Collapse Menu";
+  collapseToggle.innerHTML = `<i class="fas fa-angle-left"></i>`;
+}
+}
 
-  document.head.appendChild(manifest);
-  document.head.appendChild(themeMeta);
+updateLayout();
 
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register(base + '/service-worker.js', { scope: base + '/' })
-      .then(() => console.log('✅ Service Worker registered'))
-      .catch(err => console.error('❌ Service Worker failed', err));
+window.addEventListener("resize", () => {
+    updateLayout();
+});
+
+
+  // 9. Current time update in footer
+  function updateTime() {
+    const currentTimeElement = document.getElementById('current-time');
+    if (currentTimeElement) {
+      let currentTime = new Date();
+    
+      // Format the date as '1st July 2025' or 'July 1, 2025'
+      let options = { year: 'numeric', month: 'long', day: 'numeric' };
+      let formattedDate = currentTime.toLocaleDateString('en-US', options);
+
+      // Format the time in 12-hour format with AM/PM in uppercase
+      let hours = currentTime.getHours();
+      let minutes = currentTime.getMinutes();
+      let seconds = currentTime.getSeconds();  // Add seconds
+      let ampm = hours >= 12 ? 'PM' : 'AM';
+      hours = hours % 12;
+      hours = hours ? hours : 12;  // the hour '0' should be '12'
+      minutes = minutes < 10 ? '0' + minutes : minutes;
+      seconds = seconds < 10 ? '0' + seconds : seconds;  // Ensure seconds are two digits
+
+      let formattedTime = `${hours}:${minutes}:${seconds} ${ampm}`;
+
+      // Set the formatted time and date
+      currentTimeElement.innerHTML = `<b>Date:</b> ${formattedDate} | <b>Time:</b> ${formattedTime}`;
+    }
   }
-</script>
+  updateTime();
+  // Update time every second
+  setInterval(updateTime, 1000);
 
-<button id="scrollToTop" title="Scroll to top">🔝</button>
+// Other JavaScript code for global elements (like side nav, header, footer, breadcrumb, etc.)
 
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const scrollBtn = document.getElementById("scrollToTop");
+// Ensure the service worker is registered at the end of the layout.js
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    let swPath = '/service-worker.js';  // Default path for local development
 
-    if (!scrollBtn) return;
+    // Adjust path for the live server
+    if (window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
+      swPath = '/website/service-worker.js';  // Path for production (server)
+    }
 
-    window.addEventListener("scroll", () => {
-      if (window.scrollY > 300) {
-        scrollBtn.classList.add("show");
-      } else {
-        scrollBtn.classList.remove("show");
-      }
-    });
-
-    scrollBtn.addEventListener("click", () => {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    });
+    navigator.serviceWorker.register(swPath)  // Register service worker dynamically
+      .then((registration) => {
+        console.log('Service Worker registered with scope:', registration.scope);
+      })
+      .catch((error) => {
+        console.log('Service Worker registration failed:', error);
+      });
   });
-</script>
+}
 
-  
-</body>
-</html>
-
+  // 10. Disable right click and copy/paste as per your script
+  document.addEventListener('contextmenu', e => e.preventDefault());
+  document.addEventListener('copy', e => e.preventDefault());
+  document.addEventListener('paste', e => e.preventDefault());
+})();
