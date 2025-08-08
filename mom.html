@@ -330,7 +330,7 @@
       animation: bounce 0.5s ease infinite;
     }
 
-   .mom-type-badge {
+  .mom-type-badge {
   display: inline-flex;
   align-items: center;
   gap: 6px;
@@ -357,7 +357,18 @@
     flex-direction: column;
     align-items: stretch;
   }
+  body {
+    font-size: 0.9rem;
+  }
+  .mom-summary {
+    padding: 15px;
+    font-size: 0.85rem;
+  }
 
+  .view-full-btn {
+    width: 100%;
+    text-align: center;
+  }
   #controls input, 
   #controls select,
   #controls button {
@@ -365,24 +376,17 @@
   }
 }
 
-#zoomControls {
-  display: flex;
-  gap: 10px;
-  margin-top: 10px;
-  justify-content: center;
+@media (max-width: 600px) {
+  #modalContent {
+    width: 100vw;
+    height: 100vh;
+    max-height: 100vh;
+    max-width: 100vw;
+    border-radius: 0;
+  }
 }
-#zoomControls button {
-  padding: 6px 12px;
-  border-radius: 6px;
-  border: 1px solid #0073e6;
-  background: #007bff;
-  color: white;
-  cursor: pointer;
-  font-size: 0.9rem;
-}
-#zoomControls button:hover {
-  background: #005bb5;
-}
+
+
 </style>
 </head>
 <body>
@@ -572,52 +576,52 @@
   // Load PDF and render page
   async function renderPage(pageNum) {
   if (!pdfDoc) return;
+
   try {
     const page = await pdfDoc.getPage(pageNum);
-
-    // Get modalBody size (container for canvas)
     const modalBody = document.getElementById('modalBody');
+
+    // Get available size
     const containerWidth = modalBody.clientWidth;
     const containerHeight = modalBody.clientHeight;
 
-    // Get PDF page viewport at scale 1 to get natural size
+    // Get natural PDF page size
     const unscaledViewport = page.getViewport({ scale: 1 });
 
-    // Calculate scale to fit page inside modal body with some padding
+    // Calculate best scale that fits both width and height
     const scaleX = containerWidth / unscaledViewport.width;
     const scaleY = containerHeight / unscaledViewport.height;
+    const scale = Math.min(scaleX, scaleY) * 0.95; // leave some margin
 
-    // Use smaller scale to fit both width & height
-    const scale = Math.min(scaleX, scaleY) * 1.2;  // 95% to avoid edge touching
-
-    // Get scaled viewport
     const viewport = page.getViewport({ scale });
 
-    // Set canvas size to viewport size
-    pdfCanvas.width = viewport.width;
-    pdfCanvas.height = viewport.height;
+    // Adjust for high DPI (e.g. Retina)
+    const outputScale = window.devicePixelRatio || 1;
+    const scaledWidth = Math.floor(viewport.width * outputScale);
+    const scaledHeight = Math.floor(viewport.height * outputScale);
 
-    // Optional: set canvas style max width/height for responsiveness
-    pdfCanvas.style.width = viewport.width + 'px';
-    pdfCanvas.style.height = viewport.height + 'px';
+    pdfCanvas.width = scaledWidth;
+    pdfCanvas.height = scaledHeight;
+    pdfCanvas.style.width = `${viewport.width}px`;
+    pdfCanvas.style.height = `${viewport.height}px`;
 
-    // Render PDF page into canvas context
     const renderContext = {
       canvasContext: ctx,
-      viewport: viewport
+      viewport: viewport,
+      transform: outputScale !== 1 ? [outputScale, 0, 0, outputScale, 0, 0] : undefined
     };
 
     await page.render(renderContext).promise;
 
-    // Update page info and buttons
     pageInfo.textContent = `Page ${pageNum} of ${pdfDoc.numPages}`;
     prevPageBtn.disabled = pageNum <= 1;
     nextPageBtn.disabled = pageNum >= pdfDoc.numPages;
 
-  } catch(e) {
-    console.error("Error rendering PDF page:", e);
+  } catch (e) {
+    console.error("Error rendering page:", e);
   }
 }
+
 
   // Open modal and load PDF
   async function openModal(pdfFile, title) {
@@ -706,4 +710,3 @@
 
 </body>
 </html>
-
