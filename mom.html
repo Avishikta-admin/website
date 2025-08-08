@@ -270,13 +270,21 @@
     }
     #pdfViewer {
       flex-grow: 1;
-      overflow: auto;
-      display: flex;
-      justify-content: center;
-      align-items: flex-start;
+      overflow-y: auto;          /* enable vertical scroll */
+      overflow-x: hidden;        /* hide horizontal scroll */
+      display: block;            /* stack children vertically */
       background: #ededed;
-      padding: 15px 0;
+      padding: 15px;
+      max-height: 100%;          /* ensure container fits modal */
     }
+    #pdfViewer canvas {
+      display: block;
+      margin-bottom: 20px;
+      max-width: 100%;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+      border-radius: 8px;
+   }
+
     canvas {
       max-width: 100%;
       box-shadow: 0 4px 15px rgba(0,0,0,0.15);
