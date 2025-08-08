@@ -219,24 +219,20 @@
     }
     /* Modal */
     #modalOverlay {
-      display: none;
       position: fixed;
-      top:0; left:0; width:100%; height:100%;
-      background: rgba(0,0,0,0.6);
-      z-index: 10000;
-      justify-content: center;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.6);
+      display: none;
       align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      padding: 20px;
     }
-    #modalOverlay.active {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  width: 100vw;
-  position: fixed;
-  top: 0;
-  left: 0;
-}
+  #modalOverlay.active {
+  }
     #modalContent {
       width: 100vw;
       max-width: 1200px;
@@ -386,8 +382,6 @@
 #zoomControls button:hover {
   background: #005bb5;
 }
-
-
 </style>
 </head>
 <body>
@@ -496,6 +490,10 @@
   const nextPageBtn = document.getElementById('nextPage');
   const pageInfo = document.getElementById('pageInfo');
 
+  // PDF.js viewer setup
+  const pdfjsLib = window['pdfjs-dist/build/pdf'];
+  pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.8.162/pdf.worker.min.js';
+  
   let pdfDoc = null;
   let currentPage = 1;
   let totalPages = 0;
@@ -580,29 +578,47 @@
   if (!pdfDoc) return;
   try {
     const page = await pdfDoc.getPage(pageNum);
-    
-    // Create viewport using currentZoom
-    const viewport = page.getViewport({ scale: currentZoom });
 
-    // Adjust for high-DPI screens (for crisp rendering)
-    const outputScale = window.devicePixelRatio || 1;
-    const scaledViewport = page.getViewport({ scale: currentZoom * outputScale });
+    // Get modalBody size (container for canvas)
+    const modalBody = document.getElementById('modalBody');
+    const containerWidth = modalBody.clientWidth;
+    const containerHeight = modalBody.clientHeight;
 
-    pdfCanvas.width = scaledViewport.width;
-    pdfCanvas.height = scaledViewport.height;
+    // Get PDF page viewport at scale 1 to get natural size
+    const unscaledViewport = page.getViewport({ scale: 1 });
 
+    // Calculate scale to fit page inside modal body with some padding
+    const scaleX = containerWidth / unscaledViewport.width;
+    const scaleY = containerHeight / unscaledViewport.height;
+
+    // Use smaller scale to fit both width & height
+    const scale = Math.min(scaleX, scaleY) * 0.95;  // 95% to avoid edge touching
+
+    // Get scaled viewport
+    const viewport = page.getViewport({ scale });
+
+    // Set canvas size to viewport size
+    pdfCanvas.width = viewport.width;
+    pdfCanvas.height = viewport.height;
+
+    // Optional: set canvas style max width/height for responsiveness
+    pdfCanvas.style.width = viewport.width + 'px';
+    pdfCanvas.style.height = viewport.height + 'px';
+
+    // Render PDF page into canvas context
     const renderContext = {
       canvasContext: ctx,
-      viewport: scaledViewport,
-      transform: outputScale !== 1 ? [1 / outputScale, 0, 0, 1 / outputScale, 0, 0] : null
+      viewport: viewport
     };
 
     await page.render(renderContext).promise;
 
+    // Update page info and buttons
     pageInfo.textContent = `Page ${pageNum} of ${pdfDoc.numPages}`;
     prevPageBtn.disabled = pageNum <= 1;
     nextPageBtn.disabled = pageNum >= pdfDoc.numPages;
-  } catch (e) {
+
+  } catch(e) {
     console.error("Error rendering PDF page:", e);
   }
 }
@@ -686,7 +702,6 @@
   scrollToTopBtn.addEventListener('click', () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   });
-
 
 
   // Initial render
