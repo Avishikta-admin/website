@@ -307,7 +307,7 @@ document.body.insertAdjacentHTML('beforeend', footerHTML);
       flex: 1;
       font-weight: 600;
       line-height: 1.3;
-      font-size: 0.95rem;
+      font-size: 0.75rem;
       word-break: break-word;
       white-space: normal;
     }
@@ -315,14 +315,14 @@ document.body.insertAdjacentHTML('beforeend', footerHTML);
     #hamburger {
       background-color: #fd7e14;
       border: none;
-      font-size: 11px;
+      font-size: 10px;
       color: white;
       cursor: pointer;
       position: fixed;
       top: 8px;
       left: 10px;
       z-index: 10000;
-      padding: 10px;
+      padding: 8px;
       border-radius: 6px;
       display: none; /* hidden on desktop */
       transition: background-color 0.3s ease;
@@ -437,7 +437,7 @@ document.body.insertAdjacentHTML('beforeend', footerHTML);
   justify-content: flex-start; /* left align */
   gap: 8px; /* space between icon and text */
   padding: 12px 20px;
-  font-size: 0.9rem;
+  font-size: 0.75rem;
   color: #ddd;
   background: none;
   border: none;
@@ -458,7 +458,7 @@ document.body.insertAdjacentHTML('beforeend', footerHTML);
   align-items: center;
   justify-content: space-between; /* caret on right */
   padding: 12px 20px;
-  font-size: 0.9rem;
+  font-size: 0.75rem;
   color: #ddd;
   background: none;
   border: none;
@@ -503,7 +503,7 @@ document.body.insertAdjacentHTML('beforeend', footerHTML);
   color: #ddd;
   padding: 10px 20px;
   text-decoration: none;
-  font-size: 0.85rem;
+  font-size: 0.75rem;
 }
 
 #main-nav ul.submenu li a i {
@@ -539,7 +539,7 @@ li.locked .submenu,
       overflow: hidden;
       background-color: #2e3b66;
       transition: max-height 0.3s ease;
-      font-size: 0.85rem;
+      font-size: 0.75rem;
     }
     #main-nav ul li ul.submenu[aria-hidden="false"] {
       max-height: 500px; /* enough for submenu */
@@ -563,7 +563,7 @@ li.locked .submenu,
   pointer-events: none;
   opacity: 0.6;
   cursor: not-allowed;
-  text-decoration: none;
+  text-decoration: none; 
 }
 
 .disabled-link i {
@@ -575,7 +575,7 @@ li.locked .submenu,
       display: inline-block;          /* Shrinks to content */
       margin: 10px 20px 0 20px;
       padding: 8px 12px;
-      font-size: 0.85rem;
+      font-size: 0.75rem;
       background-color: #2a72d8; /* Blue background */
       color: #ffffff;
       user-select: none;
@@ -604,7 +604,7 @@ li.locked .submenu,
       display: flex;
       justify-content: center;
       align-items: center;
-      font-size: 0.85rem;
+      font-size: 0.75rem;
       padding: 4px 15px;
       box-shadow: 0 -2px 8px rgba(0,0,0,0.3);
       user-select: none;
@@ -624,7 +624,7 @@ li.locked .submenu,
   display: flex;
   align-items: center;
   gap: 12px;              /* Space between icon+link and time */
-  font-size: 0.85rem;
+  font-size: 0.75rem;
   color: #eee;
   flex-wrap: wrap;
 }
