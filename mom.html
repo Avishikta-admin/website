@@ -588,7 +588,7 @@
     const scaleY = containerHeight / unscaledViewport.height;
 
     // Use smaller scale to fit both width & height
-    const scale = Math.min(scaleX, scaleY) * 0.95;  // 95% to avoid edge touching
+    const scale = Math.min(scaleX, scaleY) * 1.2;  // 95% to avoid edge touching
 
     // Get scaled viewport
     const viewport = page.getViewport({ scale });
@@ -706,3 +706,4 @@
 
 </body>
 </html>
+
