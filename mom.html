@@ -4,18 +4,20 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Minutes of Meetings</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <meta name="description" content="Official page of Avishikta - I Type - A RWA. Stay informed, get involved, and build a stronger association.">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
   <meta http-equiv="Pragma" content="no-cache" />
   <meta http-equiv="Expires" content="0" />
-  <!-- Confetti script from CDN -->
-  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <script src="https://mozilla.github.io/pdf.js/build/pdf.js"></script>
+  <!-- Your existing layout.js -->
   <script src="layout-loader.js"></script>
 
- <style>
+  <style>
     /* Reset and base */
     * { box-sizing: border-box; margin: 0; padding: 0; }
-  body {
+    body {
       font-family: 'Nunito', sans-serif;
       background-color: #f4f4f9;
       color: #333;
@@ -37,8 +39,8 @@
       border-radius: 12px;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     }
-  /* Banner */
-.mom-banner {
+    /* Banner */
+    .mom-banner {
       width: 100%;
       height: 180px;
       background-image: url('img-5.jpg');
@@ -51,27 +53,23 @@
       color: white;
       text-align: center;
       padding: 15px;
-}
-
-/* Image */
-.mom-banner img {
-  width: 100%;         /* Make image fill the width of the container */
-  height: 100%;        /* Make image fill the height of the container */
-  object-fit: cover;   /* Ensure image covers the full area */
-  display: block;      /* Make sure image is a block element */
-}
-
-/* Text */
-.mom-banner h2 {
+    }
+    /* Image */
+    .mom-banner img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    /* Text */
+    .mom-banner h2 {
       font-size: 1.5rem;
       font-weight: 600;
       background: rgba(0, 0, 0, 0.5);
       padding: 12px 25px;
       border-radius: 8px;
-}
-
-       
- /* Controls */
+    }
+    /* Controls */
     #controls {
       display: flex;
       gap: 15px;
@@ -102,7 +100,7 @@
     }
     #controls button:hover {
       background: #e6f0ff;
-      transform: scale(1.05); /* Slightly enlarges the button */
+      transform: scale(1.05);
       transition: transform 0.2s ease, background-color 0.3s ease;
     }
     .button-wrapper {
@@ -110,7 +108,7 @@
       gap: 10px;
     }
     .action-btn, .delete-btn {
-      position: relative; /* needed for tooltip positioning */
+      position: relative;
       background: #0073e6;
       color: white;
       border: none;
@@ -120,78 +118,91 @@
       opacity: 0.9;
       transition: opacity 0.3s ease;
     }
-    
-  button[data-tooltip]::after {
-  content: attr(data-tooltip);
-  position: absolute;
-  bottom: 125%; /* push tooltip above the button */
-  left: 50%;
-  transform: translateX(-50%);
-  background: rgba(0, 0, 0, 0.8);
-  color: #fff;
-  padding: 6px 10px;
-  border-radius: 6px;
-  font-size: 0.75rem;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.3s ease;
-  white-space: nowrap;
-  z-index: 1000; /* make sure tooltip appears above everything */
-  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-}
-
-button[data-tooltip]:hover::after {
-  opacity: 1;
-  pointer-events: auto;
-}
-
-   .action-btn:hover, .delete-btn:hover {
+    button[data-tooltip]::after {
+      content: attr(data-tooltip);
+      position: absolute;
+      bottom: 125%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0, 0, 0, 0.8);
+      color: #fff;
+      padding: 6px 10px;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      white-space: nowrap;
+      z-index: 1000;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    }
+    button[data-tooltip]:hover::after {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .action-btn:hover, .delete-btn:hover {
       opacity: 1;
       transform: scale(1.05);
     }
     /* MoM list */
     #momList {
-      display: flex; /* Flex layout instead of grid */
+      display: flex;
       gap: 15px;
-      flex-wrap: nowrap; /* Prevent wrapping */
+      flex-wrap: nowrap;
       margin-top: 20px;
-      overflow-x: auto; /* Allow horizontal scrolling if necessary */
-      width: 100%; /* Ensure it takes up the full width of the parent container */
+      overflow-x: auto;
+      width: 100%;
     }
     .mom-summary {
-      background: white;
+      background: #f5f9ff;
       border-radius: 8px;
       box-shadow: 0 2px 6px rgba(0,0,0,0.1);
       padding: 16px 20px;
-      display: flex;
+      display: block;
       flex-direction: column;
       gap: 8px;
+      min-width: 300px;
+      max-width: 350px; /* optional: prevent over-expansion */
+      overflow-wrap: break-word; /* ensure breaks */
+      word-wrap: break-word;
+      flex-shrink: 0;
+      
     }
     .mom-summary h3 {
       color: #0073e6;
-      font-size: 1.0rem;
-      white-space: nowrap;  /* Prevent text wrapping */
-      overflow: hidden;     /* Hide overflowed text */
-      text-overflow: ellipsis; /* Optional: Add ellipsis if text is cut off */
+      font-size: 0.85rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
-    .mom-summary.mom-date {
+    .mom-summary .mom-date {
       font-size: 0.7rem;
       color: #555;
     }
     .mom-summary p {
-      font-size: 0.85rem;
+      font-size: 0.80rem;
       line-height: 1.4;
       color: #333;
-      text-align: justify; /* Added justification */
+      text-align: justify;
+      word-wrap: break-word;
+      white-space: normal !important; /* important: allows text to wrap */
     }
-    /* Add hover effect on MoM summaries */
-   .mom-summary:hover {
-      transform: translateY(-8px); /* Slightly lift the card */
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Enhanced shadow */
-      transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition */
+    .mom-summary:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .mom-summary.agm {
+      background-color: #e8f9e9; /* Light green */
     }
 
-   .view-full-btn {
+   .mom-summary.gb {
+      background-color: #eef6ff; /* Light blue */
+    }
+    .mom-summary.ec {
+      background-color: #fff4e6; /* Light orange */
+    }
+    .view-full-btn {
       align-self: flex-start;
       background: #0073e6;
       color: white;
@@ -220,14 +231,15 @@ button[data-tooltip]:hover::after {
     }
     #modalContent {
       width: 100vw;
-  max-width: 1200px;   /* wider */
-  height: 95vh;        /* taller */
-  max-height: 95vh;
-  border-radius: 8px;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  box-shadow: 0 12px 40px rgba(0,0,0,0.35);
+      max-width: 1200px;
+      height: 95vh;
+      max-height: 95vh;
+      border-radius: 8px;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.35);
+      background: white;
     }
     #modalHeader {
       background: #0073e6;
@@ -250,11 +262,43 @@ button[data-tooltip]:hover::after {
     #modalBody {
       flex-grow: 1;
       overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 10px;
     }
-    #modalBody iframe {
-      width: 100%;
-      height: 100%;
-      border: none;
+    #pdfCanvas {
+      max-width: 100%;
+      max-height: 85vh;
+      border: 1px solid #ccc;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    #pageControls {
+      margin-top: 10px;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+    #pageControls button {
+      padding: 6px 12px;
+      border-radius: 6px;
+      border: 1px solid #0073e6;
+      background: #007bff;
+      color: white;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: background-color 0.3s ease;
+    }
+    #pageControls button:disabled {
+      background: #ccc;
+      border-color: #aaa;
+      cursor: default;
+    }
+    #pageInfo {
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: #333;
     }
     /* Scroll to top */
     #scrollToTop {
@@ -278,174 +322,321 @@ button[data-tooltip]:hover::after {
     }
     #scrollToTop:hover {
       background: #4b0082;
-      background: #4b0082;
       animation: bounce 0.5s ease infinite;
     }
-</style>
+
+   .mom-type-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  font-size: 0.7rem;
+  font-weight: bold;
+  border-radius: 20px;
+  color: white;
+  margin-left: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.mom-type-badge i {
+  font-size: 0.75rem;
+}
+
+
+.badge-agm { background-color: #2ecc71; }  /* Emerald Green */
+.badge-gb { background-color: #2980b9; }   /* Royal Blue */
+.badge-ec { background-color: #e67e22; }   /* Warm Orange */
+
+  </style>
 </head>
 <body>
 
-<button id="scrollToTop" title="Go to top">&#8679;</button>
+<button id="scrollToTop" title="Go to top"><i class="fa fa-chevron-up"></i></button>
 
 <main>
-  <!-- Banner with image + text -->
-  <div class="mom-banner">
+  <section class="mom-banner">
     <h2>Minutes of Meetings</h2>
-  </div>
+  </section>
 
-  <!-- Controls: Search, Sort, Clear, Add/Edit, Delete -->
-  <div id="controls">
-    <input type="text" id="searchInput" placeholder="Search title or date…" />
-    <select id="sortSelect" aria-label="Sort MoMs">
-      <option value="desc">Newest First</option>
-      <option value="asc">Oldest First</option>
+  <section id="controls">
+    <input id="searchInput" type="text" placeholder="Search MoMs (case insensitive, partial match)" />
+    
+    <select id="yearFilter">
+      <option value="">All Years</option>
+      <!-- dynamically filled -->
     </select>
-    <button id="clearBtn" type="button">Clear</button>
-    <div class="button-wrapper">
-      <button class="action-btn" type="button" data-tooltip="Coming soon!!!">Add/Edit MoM</button>
-      <button class="delete-btn" type="button" data-tooltip="Coming soon!!!">Delete MoM</button>
-    </div>
-  </div>
 
-  <!-- List of MoMs -->
-  <div id="momList" aria-live="polite" aria-atomic="true"></div>
+   <select id="typeFilter">
+  <option value="">All Types</option>
+  <option value="AGM">AGM</option>
+  <option value="GB">GB</option>
+  <option value="EC">EC</option>
+</select>
+
+    <div class="button-wrapper">
+      <button id="resetBtn" title="Reset all filters">Reset</button>
+    </div>
+  </section>
+
+  <section id="momList" aria-live="polite" aria-atomic="true" aria-relevant="additions">
+    <!-- MoM summaries rendered here -->
+  </section>
 </main>
 
-<!-- Modal overlay -->
 <div id="modalOverlay" role="dialog" aria-modal="true" aria-labelledby="modalTitle" tabindex="-1">
   <div id="modalContent">
-    <div id="modalHeader">
-      <span id="modalTitle"></span>
+    <header id="modalHeader">
+      <span id="modalTitle">MoM PDF Viewer</span>
       <button id="modalCloseBtn" aria-label="Close modal">&times;</button>
-    </div>
-    <div id="modalBody">
-      <iframe id="modalIframe" src="" title="Full Minutes of Meeting"></iframe>
-    </div>
+    </header>
+    <main id="modalBody">
+      <canvas id="pdfCanvas" aria-label="PDF viewer"></canvas>
+      <div id="pageControls">
+        <button id="prevPage" aria-label="Previous page">Prev</button>
+        <span id="pageInfo">Page 1 of 1</span>
+        <button id="nextPage" aria-label="Next page">Next</button>
+      </div>
+    </main>
   </div>
 </div>
 
 <script>
-  const momData = [
-    { title: 'General Body Meeting:', date: '2024-12-22', summary: 'The Monthly Maintenance Charge was discussed and unanimously approved for an increment of Rs. 150.00, effective from April 1, 2025, Revision of Discount Structure for One-Time Payment of MMC April 1 2025, Facilitating Common Area Capital Expenditures, To shorten the official name of the Association...', url: 'downloads/mom-2024-12-22-gb.pdf' },
-    { title: 'Executive Committee Meeting:', date: '2025-05-25', summary: 'Presentation of Financial Report, Appointment of Auditor for FY 2024–25, Salary Revisions of office executive and electricians, Flat No. 1A-403 sold...', url: 'downloads/mom_2025-05.-2025-ec.pdf' },
-    { title: 'Executive Committee Meeting:', date: '2025-06-29', summary: 'Confirmation of AGM Date, Approval of Salary Advance Requested by Sri. Parameshwar (Bikash) Mondal, Approval to circulate Feedback Form, Approval of developing Association Website, Appointment of Gardener', url: 'downloads/mom_2025-06-29-ec.pdf' }
+  // MoM data
+  const moms = [
+    {
+      id: "01",
+      name: "19th AGM 2025",
+      date: "2025-07-27",
+      summary: "Annual General Meeting with discussion on community plans and finances.",
+      type: "AGM",
+      file: "downloads/mom-2025-07-27-19thagm.pdf"
+    },
+    {
+      id: "02",
+      name: "GBM 2024",
+      date: "2024-12-22",
+      summary: "The Monthly Maintenance Charge was discussed and unanimously approved for an increment of Rs. 150.00, effective from April 1, 2025, Revision of Discount Structure for One-Time Payment of MMC April 1 2025, Facilitating Common Area Capital Expenditures, To shorten the official name of the Association.",
+      type: "GB",
+      file: "downloads/mom-2025-07-27-19thagm.pdf"
+    },
+    {
+      id: "03",
+      name: "ECM 2025",
+      date: "2025-06-29",
+      summary: "Confirmation of AGM Date, Approval of Salary Advance Requested by Sri. Parameshwar (Bikash) Mondal, Approval to circulate Feedback Form, Approval of developing Association Website, Appointment of Gardener.",
+      type: "EC",
+      file: "downloads/mom_2025-06-29-ec.pdf"
+    },
+    {
+      id: "04",
+      name: "ECM 2025",
+      date: "2025-05-25",
+      summary: "Presentation of Financial Report, Appointment of Auditor for FY 2024–25, Salary Revisions of office executive and electricians, Flat No. 1A-403 sold.",
+      type: "EC",
+      file: "downloads/mom_2025-05-25-ec.pdf"
+    }
   ];
 
-  const momListEl = document.getElementById('momList');
+  // Elements
+  const momList = document.getElementById('momList');
   const searchInput = document.getElementById('searchInput');
-  const sortSelect = document.getElementById('sortSelect');
-  const clearBtn = document.getElementById('clearBtn');
+  const yearFilter = document.getElementById('yearFilter');
+  const typeFilter = document.getElementById('typeFilter');
+  const resetBtn = document.getElementById('resetBtn');
   const modalOverlay = document.getElementById('modalOverlay');
-  const modalTitle = document.getElementById('modalTitle');
-  const modalIframe = document.getElementById('modalIframe');
   const modalCloseBtn = document.getElementById('modalCloseBtn');
-  const scrollBtn = document.getElementById('scrollToTop');
+  const pdfCanvas = document.getElementById('pdfCanvas');
+  const prevPageBtn = document.getElementById('prevPage');
+  const nextPageBtn = document.getElementById('nextPage');
+  const pageInfo = document.getElementById('pageInfo');
 
-  function renderList() {
-    const keyword = searchInput.value.trim().toLowerCase();
+  let pdfDoc = null;
+  let currentPage = 1;
+  let totalPages = 0;
+  const ctx = pdfCanvas.getContext('2d');
 
-    // Filter by title or date (date as string contains keyword)
-    let filtered = momData.filter(m => 
-      !keyword || m.title.toLowerCase().includes(keyword) || m.date.includes(keyword)
-    );
+  // Populate year filter dynamically
+  const years = [...new Set(moms.map(m => new Date(m.date).getFullYear()))].sort((a,b) => b - a);
+  years.forEach(year => {
+    const option = document.createElement('option');
+    option.value = year;
+    option.textContent = year;
+    yearFilter.appendChild(option);
+  });
 
-    // Sort by date asc or desc
-    filtered.sort((a,b) => 
-      sortSelect.value === 'asc' 
-        ? new Date(a.date) - new Date(b.date)
-        : new Date(b.date) - new Date(a.date)
-    );
+  // Utility: create badge based on type
+  function createTypeBadge(type) {
+    const badge = document.createElement('span');
+    badge.classList.add('mom-type-badge');
+    if(type === 'AGM') badge.classList.add('badge-agm');
+    else if(type === 'GB') badge.classList.add('badge-gb');
+    else if(type === 'EC') badge.classList.add('badge-ec');
+    badge.setAttribute('aria-label', `Type: ${type}`);
+    let iconHtml = '';
+    if(type === 'AGM') iconHtml = '<i class="fa fa-users" aria-hidden="true"></i>';
+    else if(type === 'GB') iconHtml = '<i class="fa fa-gavel" aria-hidden="true"></i>';
+    else if(type === 'EC') iconHtml = '<i class="fa fa-briefcase" aria-hidden="true"></i>';
+    badge.innerHTML = iconHtml + type;
+    return badge;
+  }
 
-    if (filtered.length === 0) {
-      momListEl.innerHTML = '<p>No matching MoMs found.</p>';
+  // Render filtered MoMs list
+  function renderMomList() {
+    const searchTerm = searchInput.value.trim().toLowerCase();
+    const yearVal = yearFilter.value;
+    const typeVal = typeFilter.value;
+
+    momList.innerHTML = '';
+
+    const filtered = moms.filter(mom => {
+      const matchSearch = mom.name.toLowerCase().includes(searchTerm) || mom.summary.toLowerCase().includes(searchTerm);
+      const matchYear = yearVal ? (new Date(mom.date).getFullYear().toString() === yearVal) : true;
+      const matchType = typeVal ? mom.type === typeVal : true;
+      return matchSearch && matchYear && matchType;
+    });
+
+    if(filtered.length === 0) {
+      momList.innerHTML = '<p>No meetings found matching criteria.</p>';
       return;
     }
 
-    momListEl.innerHTML = filtered.map((m, i) => `
-      <article class="mom-summary" tabindex="0" aria-label="Meeting titled ${m.title} held on ${m.date}">
-        <h3>${m.title}</h3>
-        <div class="mom-date">${m.date}</div>
-        <p>${m.summary}</p>
-        <button class="view-full-btn" data-index="${i}">View Detail MoM</button>
-      </article>
-    `).join('');
+    filtered.forEach(mom => {
+      const momDiv = document.createElement('div');
+      momDiv.classList.add('mom-summary', mom.type.toLowerCase());
 
-    // Attach click to all view buttons
-    momListEl.querySelectorAll('.view-full-btn').forEach(btn => {
-      btn.onclick = () => openModal(filtered[btn.dataset.index]);
+      const h3 = document.createElement('h3');
+      h3.textContent = mom.name;
+      h3.appendChild(createTypeBadge(mom.type));
+      momDiv.appendChild(h3);
+
+      const dateP = document.createElement('p');
+      dateP.classList.add('mom-date');
+      dateP.textContent = new Date(mom.date).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' });
+      momDiv.appendChild(dateP);
+
+      const summaryP = document.createElement('p');
+      summaryP.textContent = mom.summary;
+      momDiv.appendChild(summaryP);
+
+      const viewBtn = document.createElement('button');
+      viewBtn.textContent = 'View Full MoM';
+      viewBtn.className = 'view-full-btn';
+      viewBtn.setAttribute('aria-label', `View full minutes of meeting for ${mom.name}`);
+      viewBtn.addEventListener('click', () => openModal(mom.file, mom.name));
+      momDiv.appendChild(viewBtn);
+
+      momList.appendChild(momDiv);
     });
   }
 
-  function openModal(m) {
-    modalTitle.textContent = `${m.title} — ${m.date}`;
-    modalIframe.src = m.url;
+  // Load PDF and render page
+  async function renderPage(pageNum) {
+    if (!pdfDoc) return;
+    try {
+      const page = await pdfDoc.getPage(pageNum);
+      const viewport = page.getViewport({ scale: 1.5 });
+      pdfCanvas.height = viewport.height;
+      pdfCanvas.width = viewport.width;
+
+      const renderContext = {
+        canvasContext: ctx,
+        viewport: viewport
+      };
+      await page.render(renderContext).promise;
+
+      pageInfo.textContent = `Page ${pageNum} of ${pdfDoc.numPages}`;
+
+      prevPageBtn.disabled = pageNum <= 1;
+      nextPageBtn.disabled = pageNum >= pdfDoc.numPages;
+    } catch(e) {
+      console.error("Error rendering PDF page:", e);
+    }
+  }
+
+  // Open modal and load PDF
+  async function openModal(pdfFile, title) {
     modalOverlay.classList.add('active');
     modalOverlay.focus();
+    document.getElementById('modalTitle').textContent = title;
+
+    currentPage = 1;
+
+    try {
+      pdfDoc = await pdfjsLib.getDocument(pdfFile).promise;
+      totalPages = pdfDoc.numPages;
+      await renderPage(currentPage);
+    } catch (error) {
+      console.error("Error loading PDF:", error);
+      pdfCanvas.style.display = 'none';
+      pageInfo.textContent = 'Failed to load PDF';
+      prevPageBtn.disabled = true;
+      nextPageBtn.disabled = true;
+    }
   }
 
+  // Close modal
   function closeModal() {
     modalOverlay.classList.remove('active');
-    modalIframe.src = '';
+    pdfDoc = null;
+    ctx.clearRect(0, 0, pdfCanvas.width, pdfCanvas.height);
   }
 
-  // Event listeners
-  searchInput.addEventListener('input', renderList);
-  sortSelect.addEventListener('change', renderList);
-  clearBtn.addEventListener('click', () => {
-    searchInput.value = '';
-    sortSelect.value = 'desc';
-    renderList();
+  // Navigation buttons handlers
+  prevPageBtn.addEventListener('click', () => {
+    if (currentPage <= 1) return;
+    currentPage--;
+    renderPage(currentPage);
+  });
+  nextPageBtn.addEventListener('click', () => {
+    if (currentPage >= totalPages) return;
+    currentPage++;
+    renderPage(currentPage);
   });
 
   modalCloseBtn.addEventListener('click', closeModal);
-  modalOverlay.addEventListener('click', e => {
+
+  // Close modal on overlay click (only if clicking outside modalContent)
+  modalOverlay.addEventListener('click', (e) => {
     if (e.target === modalOverlay) closeModal();
   });
 
-  window.addEventListener('keydown', e => {
+  // Keyboard support: Escape key closes modal
+  window.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && modalOverlay.classList.contains('active')) {
       closeModal();
     }
   });
 
-  window.addEventListener('scroll', () => {
-    scrollBtn.style.display = window.scrollY > 300 ? 'flex' : 'none';
+  // Filter handlers
+  searchInput.addEventListener('input', renderMomList);
+  yearFilter.addEventListener('change', renderMomList);
+  typeFilter.addEventListener('change', renderMomList);
+
+  // Reset filters
+  resetBtn.addEventListener('click', () => {
+    searchInput.value = '';
+    yearFilter.value = '';
+    typeFilter.value = '';
+    renderMomList();
   });
 
-  scrollBtn.addEventListener('click', () => {
+  // Scroll to top button
+  const scrollToTopBtn = document.getElementById('scrollToTop');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 300) {
+      scrollToTopBtn.style.display = 'flex';
+    } else {
+      scrollToTopBtn.style.display = 'none';
+    }
+  });
+  scrollToTopBtn.addEventListener('click', () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   });
 
   // Initial render
-  renderList();
-// Show/hide button on page load
-window.dispatchEvent(new Event('scroll'));
-
+  renderMomList();
 </script>
 
-<script>
-  const isGitHub = location.hostname.includes('github.io');
-  const base = isGitHub ? '/website' : '';
-
-  const manifest = document.createElement('link');
-  manifest.rel = 'manifest';
-  manifest.href = base + '/manifest.json';
-
-  const themeMeta = document.createElement('meta');
-  themeMeta.name = 'theme-color';
-  themeMeta.content = '#000000';
-
-  document.head.appendChild(manifest);
-  document.head.appendChild(themeMeta);
-
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register(base + '/service-worker.js', { scope: base + '/' })
-      .then(() => console.log('✅ Service Worker registered'))
-      .catch(err => console.error('❌ Service Worker failed', err));
-  }
-</script>
-  
 </body>
 </html>
-
-
