@@ -552,27 +552,54 @@
 
   // Load PDF and render page
   async function renderPage(pageNum) {
-    if (!pdfDoc) return;
-    try {
-      const page = await pdfDoc.getPage(pageNum);
-      const viewport = page.getViewport({ scale: 1.5 });
-      pdfCanvas.height = viewport.height;
-      pdfCanvas.width = viewport.width;
+  if (!pdfDoc) return;
+  try {
+    const page = await pdfDoc.getPage(pageNum);
 
-      const renderContext = {
-        canvasContext: ctx,
-        viewport: viewport
-      };
-      await page.render(renderContext).promise;
+    // Get modalBody size (container for canvas)
+    const modalBody = document.getElementById('modalBody');
+    const containerWidth = modalBody.clientWidth;
+    const containerHeight = modalBody.clientHeight;
 
-      pageInfo.textContent = `Page ${pageNum} of ${pdfDoc.numPages}`;
+    // Get PDF page viewport at scale 1 to get natural size
+    const unscaledViewport = page.getViewport({ scale: 1 });
 
-      prevPageBtn.disabled = pageNum <= 1;
-      nextPageBtn.disabled = pageNum >= pdfDoc.numPages;
-    } catch(e) {
-      console.error("Error rendering PDF page:", e);
-    }
+    // Calculate scale to fit page inside modal body with some padding
+    const scaleX = containerWidth / unscaledViewport.width;
+    const scaleY = containerHeight / unscaledViewport.height;
+
+    // Use smaller scale to fit both width & height
+    const scale = Math.min(scaleX, scaleY) * 0.95;  // 95% to avoid edge touching
+
+    // Get scaled viewport
+    const viewport = page.getViewport({ scale });
+
+    // Set canvas size to viewport size
+    pdfCanvas.width = viewport.width;
+    pdfCanvas.height = viewport.height;
+
+    // Optional: set canvas style max width/height for responsiveness
+    pdfCanvas.style.width = viewport.width + 'px';
+    pdfCanvas.style.height = viewport.height + 'px';
+
+    // Render PDF page into canvas context
+    const renderContext = {
+      canvasContext: ctx,
+      viewport: viewport
+    };
+
+    await page.render(renderContext).promise;
+
+    // Update page info and buttons
+    pageInfo.textContent = `Page ${pageNum} of ${pdfDoc.numPages}`;
+    prevPageBtn.disabled = pageNum <= 1;
+    nextPageBtn.disabled = pageNum >= pdfDoc.numPages;
+
+  } catch(e) {
+    console.error("Error rendering PDF page:", e);
   }
+}
+
 
   // Open modal and load PDF
   async function openModal(pdfFile, title) {
@@ -660,6 +687,7 @@
 
 </body>
 </html>
+
 
 
 
