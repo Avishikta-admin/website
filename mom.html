@@ -343,11 +343,24 @@
   font-size: 0.75rem;
 }
 
-
 .badge-agm { background-color: #2ecc71; }  /* Emerald Green */
 .badge-gb { background-color: #2980b9; }   /* Royal Blue */
 .badge-ec { background-color: #e67e22; }   /* Warm Orange */
 
+@media (max-width: 500px) {
+  #controls {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  #controls input, 
+  #controls select,
+  #controls button {
+    width: 100%;
+  }
+}
+
+  
   </style>
 </head>
 <body>
@@ -418,7 +431,7 @@
       date: "2024-12-22",
       summary: "The Monthly Maintenance Charge was discussed and unanimously approved for an increment of Rs. 150.00, effective from April 1, 2025, Revision of Discount Structure for One-Time Payment of MMC April 1 2025, Facilitating Common Area Capital Expenditures, To shorten the official name of the Association.",
       type: "GB",
-      file: "downloads/mom-2025-07-27-19thagm.pdf"
+      file: "./downloads/mom-2024-12-22-gbm.pdf"
     },
     {
       id: "03",
@@ -640,5 +653,6 @@
 
 </body>
 </html>
+
 
 
