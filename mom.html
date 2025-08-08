@@ -11,9 +11,7 @@
   <meta http-equiv="Pragma" content="no-cache" />
   <meta http-equiv="Expires" content="0" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.8.162/pdf.min.js"></script>
-  <!-- Your existing layout.js -->
   <script src="layout-loader.js"></script>
-
   <style>
     /* Reset and base */
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -254,204 +252,108 @@
       justify-content: space-between;
       align-items: center;
       font-weight: 600;
-      font-size: 1.1rem;
+      font-size: 1rem;
+      flex-shrink: 0;
     }
     #modalCloseBtn {
-      background: transparent;
+      background: none;
       border: none;
-      font-size: 1.5rem;
+      font-size: 1.3rem;
       color: white;
       cursor: pointer;
-      line-height: 1;
+      font-weight: 900;
+      padding: 0 10px;
+      transition: color 0.3s ease;
     }
-    #modalBody {
+    #modalCloseBtn:hover {
+      color: #ff6b6b;
+    }
+    #pdfViewer {
       flex-grow: 1;
       overflow: auto;
       display: flex;
-      flex-direction: column;
-      align-items: center;
       justify-content: center;
-      padding: 10px;
+      align-items: flex-start;
+      background: #ededed;
+      padding: 15px 0;
     }
-    #pdfCanvas {
+    canvas {
       max-width: 100%;
-      max-height: 85vh;
-      border: 1px solid #ccc;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+      border-radius: 8px;
     }
-    #pageControls {
-      margin-top: 10px;
-      display: flex;
-      gap: 10px;
-      align-items: center;
-    }
-    #pageControls button {
-      padding: 6px 12px;
-      border-radius: 6px;
-      border: 1px solid #0073e6;
-      background: #007bff;
-      color: white;
-      cursor: pointer;
-      font-size: 0.9rem;
-      transition: background-color 0.3s ease;
-    }
-    #pageControls button:disabled {
-      background: #ccc;
-      border-color: #aaa;
-      cursor: default;
-    }
-    #pageInfo {
+    /* No MoMs found */
+    #noMomMessage {
+      font-size: 1rem;
       font-weight: 600;
-      font-size: 0.95rem;
-      color: #333;
+      text-align: center;
+      color: #666;
+      margin-top: 40px;
+      width: 100%;
     }
-    /* Scroll to top */
-    #scrollToTop {
-      position: fixed;
-      bottom: 50px;
-      right: 10px;
-      width: 40px;
-      height: 40px;
-      background: #ff6347;
-      color: white;
-      border: none;
-      border-radius: 50%;
-      font-size: 22px;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      z-index: 11000;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-      user-select: none;
+    /* Responsive */
+    @media (max-width: 720px) {
+      #momList {
+        flex-direction: column;
+        overflow-x: visible;
+      }
+      .mom-summary {
+        max-width: 100%;
+        min-width: 100%;
+      }
+      #controls {
+        flex-direction: column;
+        gap: 12px;
+      }
+      #controls input[type="text"], #controls select {
+        width: 100%;
+      }
     }
-    #scrollToTop:hover {
-      background: #4b0082;
-      animation: bounce 0.5s ease infinite;
-    }
-
-  .mom-type-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 4px 10px;
-  font-size: 0.7rem;
-  font-weight: bold;
-  border-radius: 20px;
-  color: white;
-  margin-left: 8px;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-.mom-type-badge i {
-  font-size: 0.75rem;
-}
-
-.badge-agm { background-color: #2ecc71; }  /* Emerald Green */
-.badge-gb { background-color: #2980b9; }   /* Royal Blue */
-.badge-ec { background-color: #e67e22; }   /* Warm Orange */
-
-@media (max-width: 500px) {
-  #controls {
-    flex-direction: column;
-    align-items: stretch;
-  }
-  body {
-    font-size: 0.9rem;
-  }
-  .mom-summary {
-    padding: 15px;
-    font-size: 0.85rem;
-  }
-
-  .view-full-btn {
-    width: 100%;
-    text-align: center;
-  }
-  #controls input, 
-  #controls select,
-  #controls button {
-  width: 100%;
-  }
-}
-
-@media (max-width: 600px) {
-  #modalContent {
-    width: 100vw;
-    height: 100vh;
-    max-height: 100vh;
-    max-width: 100vw;
-    border-radius: 0;
-  }
-}
-
-
-</style>
+  </style>
 </head>
 <body>
+  <main>
+    <section class="mom-banner" aria-label="Banner showing Minutes of Meeting image and title">
+      <h2>Minutes of Meetings (MoM) — <br> Official records of Avishikta - I Type - A RWA meetings</h2>
+    </section>
 
-<button id="scrollToTop" title="Go to top"><i class="fa fa-chevron-up"></i></button>
+    <section id="controls" aria-label="Filter and search controls for Minutes of Meetings">
+      <input type="text" id="searchInput" placeholder="Search by text, date, or type" aria-label="Search Minutes of Meetings" />
+      <select id="typeFilter" aria-label="Filter by meeting type">
+        <option value="all">All Types</option>
+        <option value="agm">Annual General Meeting (AGM)</option>
+        <option value="gb">General Body Meeting (GB)</option>
+        <option value="ec">Executive Committee Meeting (EC)</option>
+      </select>
+      <select id="yearFilter" aria-label="Filter by year">
+        <option value="all">All Years</option>
+        <!-- JavaScript will populate years here -->
+      </select>
+      <div class="button-wrapper">
+        <button id="clearFilters" aria-label="Clear all filters and search">Clear</button>
+      </div>
+    </section>
 
-<main>
-  <section class="mom-banner">
-    <h2>Minutes of Meetings</h2>
-  </section>
+    <section id="momList" aria-live="polite" aria-relevant="additions removals" aria-label="List of Minutes of Meetings">
+      <!-- Dynamically loaded MoM summaries -->
+    </section>
 
-  <section id="controls">
-    <input id="searchInput" type="text" placeholder="Search MoMs (case insensitive, partial match)" />
-    
-    <select id="yearFilter">
-      <option value="">All Years</option>
-      <!-- dynamically filled -->
-    </select>
-
-   <select id="typeFilter">
-  <option value="">All Types</option>
-  <option value="AGM">AGM</option>
-  <option value="GB">GB</option>
-  <option value="EC">EC</option>
-</select>
-
-<div class="button-wrapper">
-      <button id="resetBtn" title="Reset all filters">Reset</button>
+    <div id="noMomMessage" role="alert" aria-live="assertive" style="display:none;">
+      No matching minutes of meetings found.
     </div>
-  </section>
+  </main>
 
-  <section id="momList" aria-live="polite" aria-atomic="true" aria-relevant="additions">
-    <!-- MoM summaries rendered here -->
-  </section>
-</main>
-
-<div id="modalOverlay" role="dialog" aria-modal="true" aria-labelledby="modalTitle" tabindex="-1">
-  <div id="modalContent">
-    <header id="modalHeader">
-      <span id="modalTitle">MoM PDF Viewer</span>
-      <button id="modalCloseBtn" aria-label="Close modal">&times;</button>
-    </header>
-    <main id="modalBody">
-      <canvas id="pdfCanvas" aria-label="PDF viewer"></canvas>
-      <div id="pageControls">
-  <button id="prevPage" aria-label="Previous page">Prev</button>
-  <span id="pageInfo">Page 1 of 1</span>
-  <button id="nextPage" aria-label="Next page">Next</button>
-
-  <label for="zoomSelect" style="margin-left: 10px;">Zoom:</label>
-  <select id="zoomSelect" style="padding: 4px 8px; font-size: 0.9rem;">
-    <option value="1">100%</option>
-    <option value="1.25">125%</option>
-    <option value="1.5" selected>150%</option>
-    <option value="2">200%</option>
-    <option value="2.5">250%</option>
-  </select>
-</div>
-
-    </main>
+  <div id="modalOverlay" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div id="modalContent">
+      <div id="modalHeader">
+        <span id="modalTitle">Viewing PDF</span>
+        <button id="modalCloseBtn" aria-label="Close PDF viewer">&times;</button>
+      </div>
+      <div id="pdfViewer" tabindex="0" aria-label="PDF document viewer"></div>
+    </div>
   </div>
-</div>
 
 <script>
-  // MoM data
   const moms = [
     {
       id: "01",
@@ -487,244 +389,171 @@
     }
   ];
 
-  // Elements
-  const momList = document.getElementById('momList');
-  const searchInput = document.getElementById('searchInput');
-  const yearFilter = document.getElementById('yearFilter');
-  const typeFilter = document.getElementById('typeFilter');
-  const resetBtn = document.getElementById('resetBtn');
-  const modalOverlay = document.getElementById('modalOverlay');
-  const modalCloseBtn = document.getElementById('modalCloseBtn');
-  const pdfCanvas = document.getElementById('pdfCanvas');
-  const prevPageBtn = document.getElementById('prevPage');
-  const nextPageBtn = document.getElementById('nextPage');
-  const pageInfo = document.getElementById('pageInfo');
-  const zoomSelect = document.getElementById('zoomSelect');
-let userScale = 1.5; // default zoom
-
-zoomSelect.addEventListener('change', () => {
-  userScale = parseFloat(zoomSelect.value);
-  renderPage(currentPage);
-});
-
-
-  // PDF.js viewer setup
-  const pdfjsLib = window['pdfjs-dist/build/pdf'];
-  pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.8.162/pdf.worker.min.js';
-  
-  let pdfDoc = null;
-  let currentPage = 1;
-  let totalPages = 0;
-  const ctx = pdfCanvas.getContext('2d');
-
-  // Populate year filter dynamically
-  const years = [...new Set(moms.map(m => new Date(m.date).getFullYear()))].sort((a,b) => b - a);
-  years.forEach(year => {
-    const option = document.createElement('option');
-    option.value = year;
-    option.textContent = year;
-    yearFilter.appendChild(option);
+  // Convert type to lowercase for consistent filtering keys (agm, gb, ec)
+  moms.forEach(mom => {
+    mom.type = mom.type.toLowerCase();
   });
 
-  // Utility: create badge based on type
-  function createTypeBadge(type) {
-    const badge = document.createElement('span');
-    badge.classList.add('mom-type-badge');
-    if(type === 'AGM') badge.classList.add('badge-agm');
-    else if(type === 'GB') badge.classList.add('badge-gb');
-    else if(type === 'EC') badge.classList.add('badge-ec');
-    badge.setAttribute('aria-label', `Type: ${type}`);
-    let iconHtml = '';
-    if(type === 'AGM') iconHtml = '<i class="fa fa-users" aria-hidden="true"></i>';
-    else if(type === 'GB') iconHtml = '<i class="fa fa-gavel" aria-hidden="true"></i>';
-    else if(type === 'EC') iconHtml = '<i class="fa fa-briefcase" aria-hidden="true"></i>';
-    badge.innerHTML = iconHtml + type;
-    return badge;
+  // Cache DOM elements
+  const momListEl = document.getElementById('momList');
+  const searchInput = document.getElementById('searchInput');
+  const typeFilter = document.getElementById('typeFilter');
+  const yearFilter = document.getElementById('yearFilter');
+  const clearBtn = document.getElementById('clearFilters');
+  const noMomMessage = document.getElementById('noMomMessage');
+  const modalOverlay = document.getElementById('modalOverlay');
+  const modalCloseBtn = document.getElementById('modalCloseBtn');
+  const pdfViewer = document.getElementById('pdfViewer');
+  const modalTitle = document.getElementById('modalTitle');
+
+  // Initialize PDF.js
+  pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.8.162/pdf.worker.min.js';
+
+  // Populate year filter dynamically from moms
+  function populateYearFilter() {
+    const years = new Set();
+    moms.forEach(mom => {
+      const year = mom.date.slice(0,4);
+      years.add(year);
+    });
+    const sortedYears = Array.from(years).sort((a,b) => b - a);
+    sortedYears.forEach(year => {
+      const option = document.createElement('option');
+      option.value = year;
+      option.textContent = year;
+      yearFilter.appendChild(option);
+    });
   }
 
-  // Render filtered MoMs list
+  // Render MoM summaries filtered by criteria
   function renderMomList() {
     const searchTerm = searchInput.value.trim().toLowerCase();
-    const yearVal = yearFilter.value;
     const typeVal = typeFilter.value;
+    const yearVal = yearFilter.value;
 
-    momList.innerHTML = '';
+    // Clear existing
+    momListEl.innerHTML = '';
 
+    // Filter data
     const filtered = moms.filter(mom => {
-      const matchSearch = mom.name.toLowerCase().includes(searchTerm) || mom.summary.toLowerCase().includes(searchTerm);
-      const matchYear = yearVal ? (new Date(mom.date).getFullYear().toString() === yearVal) : true;
-      const matchType = typeVal ? mom.type === typeVal : true;
-      return matchSearch && matchYear && matchType;
+      // Filter by type
+      if (typeVal !== 'all' && mom.type !== typeVal) return false;
+      // Filter by year
+      if (yearVal !== 'all' && mom.date.slice(0,4) !== yearVal) return false;
+      // Search filter on name, summary, and date (as string)
+      if (searchTerm) {
+        const combinedText = (mom.name + ' ' + mom.summary + ' ' + mom.date).toLowerCase();
+        if (!combinedText.includes(searchTerm)) return false;
+      }
+      return true;
     });
 
-    if(filtered.length === 0) {
-      momList.innerHTML = '<p>No meetings found matching criteria.</p>';
+    if (filtered.length === 0) {
+      noMomMessage.style.display = 'block';
       return;
+    } else {
+      noMomMessage.style.display = 'none';
     }
 
     filtered.forEach(mom => {
-      const momDiv = document.createElement('div');
-      momDiv.classList.add('mom-summary', mom.type.toLowerCase());
+      const div = document.createElement('article');
+      div.className = `mom-summary ${mom.type}`;
+      div.setAttribute('tabindex', '0');
+      div.setAttribute('role', 'region');
+      div.setAttribute('aria-label', `Minutes of Meeting: ${mom.name}`);
 
       const h3 = document.createElement('h3');
       h3.textContent = mom.name;
-      h3.appendChild(createTypeBadge(mom.type));
-      momDiv.appendChild(h3);
+      div.appendChild(h3);
 
       const dateP = document.createElement('p');
-      dateP.classList.add('mom-date');
-      dateP.textContent = new Date(mom.date).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' });
-      momDiv.appendChild(dateP);
+      dateP.className = 'mom-date';
+      dateP.textContent = new Date(mom.date).toLocaleDateString(undefined, {year: 'numeric', month: 'long', day: 'numeric'});
+      div.appendChild(dateP);
 
       const summaryP = document.createElement('p');
-      summaryP.textContent = mom.summary;
-      momDiv.appendChild(summaryP);
+      summaryP.textContent = mom.summary.length > 280 ? mom.summary.slice(0, 280) + '...' : mom.summary;
+      div.appendChild(summaryP);
 
       const viewBtn = document.createElement('button');
-      viewBtn.textContent = 'View Full MoM';
+      viewBtn.textContent = 'View Full Document';
       viewBtn.className = 'view-full-btn';
-      viewBtn.setAttribute('aria-label', `View full minutes of meeting for ${mom.name}`);
-      viewBtn.addEventListener('click', () => openModal(mom.file, mom.name));
-      momDiv.appendChild(viewBtn);
+      viewBtn.setAttribute('aria-label', `View full PDF for ${mom.name}`);
+      viewBtn.addEventListener('click', () => openPdfModal(mom.file, mom.name));
+      div.appendChild(viewBtn);
 
-      momList.appendChild(momDiv);
+      momListEl.appendChild(div);
     });
   }
 
-  // Load PDF and render page
-  async function renderPage(pageNum) {
-  if (!pdfDoc) return;
+  // Clear filters
+  clearBtn.addEventListener('click', () => {
+    searchInput.value = '';
+    typeFilter.value = 'all';
+    yearFilter.value = 'all';
+    renderMomList();
+    searchInput.focus();
+  });
 
-  try {
-    const page = await pdfDoc.getPage(pageNum);
-    const modalBody = document.getElementById('modalBody');
+  // Attach filter listeners
+  [searchInput, typeFilter, yearFilter].forEach(el => {
+    el.addEventListener('input', () => {
+      renderMomList();
+    });
+  });
 
-    // Get available size
-    const containerWidth = modalBody.clientWidth;
-    const containerHeight = modalBody.clientHeight;
+  // Modal close logic
+  modalCloseBtn.addEventListener('click', closePdfModal);
+  modalOverlay.addEventListener('click', (e) => {
+    if (e.target === modalOverlay) closePdfModal();
+  });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && modalOverlay.classList.contains('active')) {
+      closePdfModal();
+    }
+  });
 
-    // Get natural PDF page size
-    const unscaledViewport = page.getViewport({ scale: 1 });
-
-    // Calculate best scale that fits both width and height
-    const scaleX = containerWidth / unscaledViewport.width;
-    const scaleY = containerHeight / unscaledViewport.height;
-    const scale = Math.min(scaleX, scaleY) * userScale;
-
-    const viewport = page.getViewport({ scale });
-
-    // Adjust for high DPI (e.g. Retina)
-    const outputScale = window.devicePixelRatio || 1;
-    const scaledWidth = Math.floor(viewport.width * outputScale);
-    const scaledHeight = Math.floor(viewport.height * outputScale);
-
-    pdfCanvas.width = scaledWidth;
-    pdfCanvas.height = scaledHeight;
-    pdfCanvas.style.width = `${viewport.width}px`;
-    pdfCanvas.style.height = `${viewport.height}px`;
-
-    const renderContext = {
-      canvasContext: ctx,
-      viewport: viewport,
-      transform: outputScale !== 1 ? [outputScale, 0, 0, outputScale, 0, 0] : undefined
-    };
-
-    await page.render(renderContext).promise;
-
-    pageInfo.textContent = `Page ${pageNum} of ${pdfDoc.numPages}`;
-    prevPageBtn.disabled = pageNum <= 1;
-    nextPageBtn.disabled = pageNum >= pdfDoc.numPages;
-
-  } catch (e) {
-    console.error("Error rendering page:", e);
-  }
-}
-
-
-  // Open modal and load PDF
-  async function openModal(pdfFile, title) {
+  // Load and render PDF in modal
+  async function openPdfModal(pdfUrl, title) {
+    modalTitle.textContent = title;
     modalOverlay.classList.add('active');
-    modalOverlay.focus();
-    document.getElementById('modalTitle').textContent = title;
-
-    currentPage = 1;
+    pdfViewer.innerHTML = ''; // Clear previous
 
     try {
-      pdfDoc = await pdfjsLib.getDocument(pdfFile).promise;
-      totalPages = pdfDoc.numPages;
-      await renderPage(currentPage);
+      const loadingTask = pdfjsLib.getDocument(pdfUrl);
+      const pdf = await loadingTask.promise;
+
+      // Clear viewer
+      pdfViewer.innerHTML = '';
+
+      // Render all pages sequentially
+      for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
+        const page = await pdf.getPage(pageNum);
+        const viewport = page.getViewport({ scale: 1.8 });
+        const canvas = document.createElement('canvas');
+        const context = canvas.getContext('2d');
+        canvas.height = viewport.height;
+        canvas.width = viewport.width;
+
+        await page.render({ canvasContext: context, viewport: viewport }).promise;
+
+        pdfViewer.appendChild(canvas);
+      }
+      pdfViewer.focus();
     } catch (error) {
-      console.error("Error loading PDF:", error);
-      pdfCanvas.style.display = 'none';
-      pageInfo.textContent = 'Failed to load PDF';
-      prevPageBtn.disabled = true;
-      nextPageBtn.disabled = true;
+      pdfViewer.textContent = 'Failed to load PDF.';
+      console.error('Error loading PDF:', error);
     }
   }
 
-  // Close modal
-  function closeModal() {
+  function closePdfModal() {
     modalOverlay.classList.remove('active');
-    pdfDoc = null;
-    ctx.clearRect(0, 0, pdfCanvas.width, pdfCanvas.height);
+    pdfViewer.innerHTML = '';
   }
 
-  // Navigation buttons handlers
-  prevPageBtn.addEventListener('click', () => {
-    if (currentPage <= 1) return;
-    currentPage--;
-    renderPage(currentPage);
-  });
-  nextPageBtn.addEventListener('click', () => {
-    if (currentPage >= totalPages) return;
-    currentPage++;
-    renderPage(currentPage);
-  });
-
-  modalCloseBtn.addEventListener('click', closeModal);
-
-  // Close modal on overlay click (only if clicking outside modalContent)
-  modalOverlay.addEventListener('click', (e) => {
-    if (e.target === modalOverlay) closeModal();
-  });
-
-  // Keyboard support: Escape key closes modal
-  window.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && modalOverlay.classList.contains('active')) {
-      closeModal();
-    }
-  });
-
-  // Filter handlers
-  searchInput.addEventListener('input', renderMomList);
-  yearFilter.addEventListener('change', renderMomList);
-  typeFilter.addEventListener('change', renderMomList);
-
-  // Reset filters
-  resetBtn.addEventListener('click', () => {
-    searchInput.value = '';
-    yearFilter.value = '';
-    typeFilter.value = '';
-    renderMomList();
-  });
-
-  // Scroll to top button
-  const scrollToTopBtn = document.getElementById('scrollToTop');
-  window.addEventListener('scroll', () => {
-    if (window.scrollY > 300) {
-      scrollToTopBtn.style.display = 'flex';
-    } else {
-      scrollToTopBtn.style.display = 'none';
-    }
-  });
-  scrollToTopBtn.addEventListener('click', () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  });
-
-
-  // Initial render
+  // Initialize
+  populateYearFilter();
   renderMomList();
 </script>
-
 </body>
 </html>
