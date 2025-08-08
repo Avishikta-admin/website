@@ -579,48 +579,50 @@
 
   try {
     const page = await pdfDoc.getPage(pageNum);
-    const modalBody = document.getElementById('modalBody');
 
-    // Get available size
+    // Get container dimensions
+    const modalBody = document.getElementById('modalBody');
     const containerWidth = modalBody.clientWidth;
     const containerHeight = modalBody.clientHeight;
 
-    // Get natural PDF page size
+    // Viewport at scale 1 (original dimensions)
     const unscaledViewport = page.getViewport({ scale: 1 });
 
-    // Calculate best scale that fits both width and height
+    // Calculate scale to fit inside container
     const scaleX = containerWidth / unscaledViewport.width;
     const scaleY = containerHeight / unscaledViewport.height;
-    const scale = Math.min(scaleX, scaleY) * 0.95; // leave some margin
+    const scale = Math.min(scaleX, scaleY) * 1.5; // Boost to improve readability
 
+    // Get viewport for chosen scale
     const viewport = page.getViewport({ scale });
 
-    // Adjust for high DPI (e.g. Retina)
+    // Use device pixel ratio for sharper rendering
     const outputScale = window.devicePixelRatio || 1;
-    const scaledWidth = Math.floor(viewport.width * outputScale);
-    const scaledHeight = Math.floor(viewport.height * outputScale);
 
-    pdfCanvas.width = scaledWidth;
-    pdfCanvas.height = scaledHeight;
-    pdfCanvas.style.width = `${viewport.width}px`;
-    pdfCanvas.style.height = `${viewport.height}px`;
+    pdfCanvas.width = viewport.width * outputScale;
+    pdfCanvas.height = viewport.height * outputScale;
+
+    // Set CSS size (what browser displays)
+    pdfCanvas.style.width = viewport.width + 'px';
+    pdfCanvas.style.height = viewport.height + 'px';
 
     const renderContext = {
       canvasContext: ctx,
       viewport: viewport,
-      transform: outputScale !== 1 ? [outputScale, 0, 0, outputScale, 0, 0] : undefined
+      transform: outputScale !== 1 ? [outputScale, 0, 0, outputScale, 0, 0] : null
     };
 
     await page.render(renderContext).promise;
 
+    // Update page info
     pageInfo.textContent = `Page ${pageNum} of ${pdfDoc.numPages}`;
     prevPageBtn.disabled = pageNum <= 1;
     nextPageBtn.disabled = pageNum >= pdfDoc.numPages;
-
   } catch (e) {
-    console.error("Error rendering page:", e);
+    console.error("Error rendering PDF page:", e);
   }
 }
+
 
 
   // Open modal and load PDF
@@ -710,3 +712,4 @@
 
 </body>
 </html>
+
