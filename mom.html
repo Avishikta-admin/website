@@ -228,10 +228,11 @@
       display: none;
       align-items: center;
       justify-content: center;
-      z-index: 1000;
+      z-index: 10000;
       padding: 20px;
     }
   #modalOverlay.active {
+     display: flex;
   }
     #modalContent {
       width: 100vw;
@@ -408,12 +409,7 @@
   <option value="EC">EC</option>
 </select>
 
-<div id="zoomControls">
-  <button id="zoomIn">Zoom In</button>
-  <button id="zoomOut">Zoom Out</button>
-</div>
-
-    <div class="button-wrapper">
+<div class="button-wrapper">
       <button id="resetBtn" title="Reset all filters">Reset</button>
     </div>
   </section>
