@@ -1,5 +1,6 @@
 const CACHE_NAME = 'static-v1';
-const BASE_PATH = '/';
+const BASE_PATH = self.location.pathname.replace(/service-worker\.js$/, '');
+const BASE_PATH = base.endsWith('/') ? base : base + '/';
 
 const FILES_TO_CACHE = [
   '',
@@ -52,12 +53,11 @@ const FILES_TO_CACHE = [
   'downloads/relative-occupants.pdf',
   'downloads/rent-form.pdf',
   'downloads/ppt_2025-07-27-agm.pdf',
-  'downloads/ppt_2025-07-27_19thagm.pdf'
   'offline.html'  // Optional fallback
 ];
 
 function getCacheUrl(path) {
-  return BASE_PATH + path;
+  return new URL(path, self.location).href;
 }
 
 self.addEventListener('install', event => {
@@ -68,9 +68,7 @@ self.addEventListener('install', event => {
         const url = getCacheUrl(path);
         return fetch(url).then(res => {
           if (res.ok) {
-            return cache.put(url, res).catch(err => {
-              console.warn('cache.put failed for:', url, err);
-            });
+            return cache.put(url, res.clone());
           } else {
             console.warn('❌ Failed to fetch for cache:', url, res.status);
           }
@@ -83,7 +81,6 @@ self.addEventListener('install', event => {
 });
 
 self.addEventListener('activate', event => {
-  // Optional: clear old cache versions
   event.waitUntil(
     caches.keys().then(keys => {
       return Promise.all(keys.map(key => {
@@ -102,7 +99,6 @@ self.addEventListener('fetch', event => {
       if (cachedResp) {
         return cachedResp;
       }
-
       return fetch(event.request).then(networkResp => {
         if (
           networkResp &&
@@ -115,7 +111,6 @@ self.addEventListener('fetch', event => {
         }
         return networkResp;
       }).catch(() => {
-        // Fallback offline page
         if (event.request.mode === 'navigate') {
           return caches.match(getCacheUrl('offline.html'));
         }
@@ -123,5 +118,3 @@ self.addEventListener('fetch', event => {
     })
   );
 });
-
-
