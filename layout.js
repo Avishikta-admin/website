@@ -111,6 +111,7 @@ const navHTML = `
     <li><a href="download-center.html"><i class="fas fa-download"></i> Download Center</a></li>
     <li><a href="useful-links.html"><i class="fas fa-life-ring"></i> Support Hub</a></li>
     <li><a href="projects.html"><i class="fas fa-tasks"></i> Project Status & Updates</a></li>
+    <li><a href="member-tools.html"><i class="fas fa-tasks"></i> Resident Utilities</a></li>
   </ul>
 </li>
 
@@ -203,6 +204,7 @@ document.body.insertAdjacentHTML('beforeend', footerHTML);
       'download-center.html': ['Home', 'Resources', 'Download Center'],
       'useful-links.html': ['Home', 'Resources', 'Support Hub'],
       'projects.html': ['Home', 'Resources','Project Status & Updates'],
+      'member-tools.html': ['Home', 'Resources','Resident Utilities'],
       'feedback.html': ['Home', 'Get Involved','Give Feedback'],
       'volunteer.html': ['Home', 'Get Involved','Volunteer Opportunities'],
       'contact-us.html': ['Home', 'Get in Touch','Ready to hear you'],
@@ -226,6 +228,7 @@ document.body.insertAdjacentHTML('beforeend', footerHTML);
       'Community Guidelines': 'general-guidelines.html',
       'Download Center': 'download-center.html',
       'Project Status & Updates': 'projects.html',
+      'Resident Utilities': 'member-tools.html',
       'Support Hub': 'useful-links.html',
       'Get Involved': '#',
       'Give Feedback': 'feedback.html',
