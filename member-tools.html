@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Member Utilities - Housing Association</title>
+<script src="layout.js" defer></script>
+  <style>
+    :root {
+      --bg: linear-gradient(135deg, #f0f8ff, #d1eaff);
+      --card-bg: #f3e5f5;
+      --text: #4a148c;
+      --primary: #0077cc;
+      --shadow: rgba(0, 0, 0, 0.1);
+      --radius: 8px;
+      --font: 'Segoe UI', sans-serif;
+    }
+
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      margin: 0;
+      padding: 0;
+      color: var(--text);
+    }
+
+  .intro {
+  padding: 0.5rem;  /* Reduced vertical padding */
+  background: #f5f9ff;
+  border-bottom: 2px solid #d0d7e3;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.intro h1 {
+  font-size: 1.1rem;      /* Slightly smaller font */
+  margin-bottom: 0.2rem;  /* Reduced gap */
+  color: #2c3e50;
+}
+
+.intro p {
+  margin-top: 0;
+  font-size: 1rem;        /* Slightly smaller font */
+  color: #555;
+}
+
+    .utility-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background: var(--card-bg);
+      padding: 20px;
+      border-radius: var(--radius);
+      box-shadow: 0 2px 8px var(--shadow);
+    }
+
+    .card h2 {
+      font-size: 1rem;
+      margin-bottom: 10px;
+    }
+
+    /* Inputs and selects get full width and border */
+input, select {
+  width: 100%;
+  box-sizing: border-box; /* include padding & border in width */
+  padding: 10px;
+  font-size: 1rem;
+  margin: 5px 0 10px;
+  border-radius: var(--radius);
+  border: 1px solid #ccc;
+}
+
+/* Buttons get their own style, NOT full width */
+button {
+  padding: 10px 15px;
+  font-size: 0.9rem;
+  margin: 5px 0 10px;
+  border-radius: var(--radius);
+  background-color: var(--primary);
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  width: auto; /* natural button width */
+}
+
+button:hover {
+  background-color: #005fa3;
+}
+
+/* Result box style */
+.result {
+  background: #eef;
+  padding: 10px;
+  border-radius: var(--radius);
+  margin-top: 10px;
+  min-height: 20px;
+}
+
+
+    @media (max-width: 600px) {
+      .intro h1 {
+        font-size: 1.5rem;
+      }
+    }
+
+#goTopBtn {
+  position: fixed;
+  bottom: 40px;
+  right: 20px;
+  z-index: 999;
+  width: 40px;
+  height: 40px;
+  background-color: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  font-size: 1.0rem;
+  cursor: pointer;
+  display: none; /* Initially hidden */
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+  transition: opacity 0.3s ease-in-out;
+}
+
+#goTopBtn:hover {
+  background-color: #005fa3;
+}
+
+</style>
+</head>
+<body>
+  <div id="layout"></div>
+
+  <main style="margin-top: 0px; padding: 0 1rem 1rem 1rem;">
+    <section class="intro">
+      <h1>🏡 Member Utilities</h1>
+      <p>Helpful tools designed for our housing society residents.</p>
+    </section>
+
+    <section class="utility-grid">
+      <!-- Tools will be added below -->
+      <!-- 📊 Tax Estimator -->
+      <!-- 💰 Tax Estimator (Upgraded) -->
+  <div class="card">
+  <h2>💰 Tax Estimator (India)</h2>
+
+  <label>Annual Income (₹):</label>
+  <input type="number" id="incomeInput" placeholder="Enter total income" />
+
+  <label>Deductions (₹):</label>
+  <input type="number" id="deductionInput" placeholder="Enter 80C/80D deductions" />
+
+  <label>Age Group:</label>
+  <select id="ageGroup">
+    <option value="below60">Below 60</option>
+    <option value="senior">Senior (60-79)</option>
+    <option value="super">Super Senior (80+)</option>
+  </select>
+
+  <button onclick="calculateTax()">Calculate Tax</button>
+  <div class="result" id="taxResult"></div>
+</div>
+      <!-- 📏 Unit Converter -->
+      <div class="card">
+        <h2>📏 Unit Converter</h2>
+        <select id="unitType" onchange="updateUnitPlaceholders()">
+          <option value="km-miles">KM ↔ Miles</option>
+          <option value="kg-lbs">Kg ↔ Lbs</option>
+          <option value="c-f">°C ↔ °F</option>
+        </select>
+        <input type="number" id="unitInput" placeholder="Enter value" />
+        <button onclick="convertUnit()">Convert</button>
+        <div class="result" id="unitResult"></div>
+        <button onclick="clearInput('unitInput', 'unitResult')">Clear</button>
+      </div>
+
+      <!-- 💱 INR to USD (Live) -->
+	<div class="card">
+  	<h2>💱 INR → USD</h2>
+  	<input type="number" id="inrInput" placeholder="Enter INR" />
+  	<button onclick="convertINR()">Convert</button>
+  	<div class="result" id="inrResult"></div>
+  	<button onclick="clearInput('inrInput', 'inrResult')">Clear</button>
+	</div>
+
+<!-- 🛠️ Issue Reporter -->
+<div class="card">
+  <h2>🛠️ Report an Issue</h2>
+  <label for="issueCategory">Category:</label>
+  <select id="issueCategory">
+    <option value="Water">🚿 Water</option>
+    <option value="Electricity">💡 Electricity</option>
+    <option value="Cleanliness">🧹 Cleanliness</option>
+    <option value="Security">🔒 Security</option>
+    <option value="Other">❓ Other</option>
+  </select>
+
+  <label for="issueText">Describe the issue:</label>
+  <input type="text" id="issueText" placeholder="E.g., Leakage in basement near B-12" />
+
+  <button onclick="submitIssue()">Submit Issue</button>
+
+  <hr style="margin: 10px 0;" />
+
+  <h3>📝 Reported Issues</h3>
+  <ul id="issueList" style="padding-left: 1.1rem;"></ul>
+
+  <button onclick="clearIssues()" style="margin-top: 10px; background: #999;">Clear All</button>
+</div>
+
+      <!-- 🎂 Age Calculator -->
+      <div class="card">
+        <h2>🎂 Age Calculator</h2>
+        <input type="date" id="dobInput" />
+        <button onclick="calculateAge()">Calculate Age</button>
+        <div class="result" id="ageResult"></div>
+      </div>
+
+      <!-- 📆 Date Difference -->
+      <div class="card">
+        <h2>📅 Date Difference</h2>
+        <label>From:</label>
+        <input type="date" id="date1Input" />
+        <label>To:</label>
+        <input type="date" id="date2Input" />
+        <button onclick="calculateDateDiff()">Calculate</button>
+        <div class="result" id="dateDiffResult"></div>
+      </div>
+
+<!-- 💡 Tip, Fact & Quote Generator -->
+<!-- 💡 Daily Inspiration Generator -->
+<div class="card">
+  <h2>💡 Daily Inspiration</h2>
+  <div class="result" id="comboResult"></div>
+  <button onclick="showNextItem()">🔄 Next</button>
+
+  <hr style="margin: 10px 0" />
+
+  <h3>Submit a Tip:</h3>
+  <input type="text" id="tipInput" placeholder="Write your own tip..." />
+  <button onclick="submitTip()">Submit Tip</button>
+</div>
+
+
+<!-- 🧠 Society Trivia Game -->
+<div class="card">
+  <h2>🧠 Society Trivia</h2>
+  <div id="triviaQuestion">Click "Start" to begin!</div>
+  <div id="triviaOptions"></div>
+  <button onclick="startTrivia()">Start</button>
+  <div class="result" id="triviaResult"></div>
+</div>
+
+</section>
+
+<!-- ⬆️ Scroll to Top Button -->
+<button id="goTopBtn" onclick="scrollToTop()" title="Go to top">⬆️</button>
+
+</main>
+  <script>
+    // 💰 Tax Estimator
+    function calculateTax() {
+  const income = parseFloat(document.getElementById('incomeInput').value) || 0;
+  const deductions = parseFloat(document.getElementById('deductionInput').value) || 0;
+  const ageGroup = document.getElementById('ageGroup').value;
+
+  const netIncome = income - deductions;
+
+  let slabLimit = 250000;
+  if (ageGroup === 'senior') slabLimit = 300000;
+  if (ageGroup === 'super') slabLimit = 500000;
+
+  let tax = 0;
+
+  if (netIncome > slabLimit && netIncome <= 500000) {
+    tax = (netIncome - slabLimit) * 0.05;
+  } else if (netIncome <= 1000000) {
+    tax = 12500 + (netIncome - 500000) * 0.2;
+  } else {
+    tax = 112500 + (netIncome - 1000000) * 0.3;
+  }
+
+  if (netIncome <= slabLimit) tax = 0;
+  if (tax < 0) tax = 0;
+
+  document.getElementById('taxResult').innerText =
+    "Estimated Tax: ₹" + tax.toFixed(2);
+}
+
+    // 📏 Unit Converter
+    function convertUnit() {
+      const type = document.getElementById('unitType').value;
+      const value = parseFloat(document.getElementById('unitInput').value);
+      let result = '';
+
+      if (type === 'km-miles') result = `${value} km = ${(value * 0.621371).toFixed(2)} miles`;
+      else if (type === 'kg-lbs') result = `${value} kg = ${(value * 2.20462).toFixed(2)} lbs`;
+      else if (type === 'c-f') result = `${value}°C = ${(value * 9/5 + 32).toFixed(2)}°F`;
+
+      document.getElementById('unitResult').innerText = result;
+    }
+
+    function updateUnitPlaceholders() {
+      document.getElementById('unitInput').value = '';
+      document.getElementById('unitResult').innerText = '';
+    }
+
+    // 🎂 Age Calculator
+    function calculateAge() {
+      const dob = new Date(document.getElementById('dobInput').value);
+      const today = new Date();
+      let age = today.getFullYear() - dob.getFullYear();
+      const m = today.getMonth() - dob.getMonth();
+      if (m < 0 || (m === 0 && today.getDate() < dob.getDate())) age--;
+
+      document.getElementById('ageResult').innerText = "Age: " + age + " years";
+    }
+
+    // 📆 Date Difference
+    function calculateDateDiff() {
+      const d1 = new Date(document.getElementById('date1Input').value);
+      const d2 = new Date(document.getElementById('date2Input').value);
+      const diffTime = Math.abs(d2 - d1);
+      const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+      document.getElementById('dateDiffResult').innerText = "Difference: " + diffDays + " days";
+    }
+
+    const defaultTips = [
+  "Keep emergency contacts handy.",
+  "Use timers for garden watering.",
+  "Clean AC filters monthly.",
+  "Report streetlight issues to the committee."
+];
+
+const defaultFacts = [
+  "Recycling 1 ton of paper saves 17 trees.",
+  "Solar panels can cut your bills by 60%.",
+  "Rainwater harvesting is mandatory in many cities.",
+  "Soundproof windows can increase home value."
+];
+
+const defaultQuotes = [
+  "“Alone we can do so little; together we can do so much.” — Helen Keller",
+  "“The best way to find yourself is to lose yourself in the service of others.” — Gandhi",
+  "“Community is much more than belonging to something; it’s about doing something together.” — Unknown",
+  "“Coming together is a beginning, staying together is progress, and working together is success.” — Henry Ford"
+];
+
+// Helper functions
+function getLocalArray(key, fallback) {
+  const stored = localStorage.getItem(key);
+  return stored ? JSON.parse(stored) : fallback;
+}
+
+function getRandomFromArray(arr) {
+  return arr[Math.floor(Math.random() * arr.length)];
+}
+
+// Arrays and labels for rotation
+const comboArrays = [
+  () => getLocalArray("customTips", defaultTips),
+  () => defaultQuotes,
+  () => defaultFacts,
+];
+
+const comboLabels = ["Tip", "Quote", "Fact"];
+
+// Current combo index, saved in localStorage
+let comboIndex = parseInt(localStorage.getItem("comboIndex")) || 0;
+
+// Show next item in the rotation
+function showNextItem() {
+  comboIndex = (comboIndex + 1) % comboArrays.length;
+  localStorage.setItem("comboIndex", comboIndex);
+
+  const currentArray = comboArrays[comboIndex]();
+  const label = comboLabels[comboIndex];
+  const text = getRandomFromArray(currentArray);
+
+  const display = document.getElementById("comboResult");
+  display.innerText = `${label}: ${text}`;
+}
+
+// Submit new tip
+function submitTip() {
+  const newTip = document.getElementById("tipInput").value.trim();
+  if (!newTip) return alert("Please enter a tip.");
+
+  const tips = getLocalArray("customTips", defaultTips);
+  tips.push(newTip);
+  localStorage.setItem("customTips", JSON.stringify(tips));
+
+  document.getElementById("tipInput").value = "";
+  alert("Tip submitted!");
+
+  // If currently showing Tip, refresh to show new tip
+  if (comboIndex === 0) showNextItem();
+}
+
+// On page load, show last shown or a random one
+window.addEventListener("DOMContentLoaded", () => {
+  const currentArray = comboArrays[comboIndex]();
+  const label = comboLabels[comboIndex];
+  const text = getRandomFromArray(currentArray);
+
+  const display = document.getElementById("comboResult");
+  display.innerText = `${label}: ${text}`;
+});
+
+  function convertINR() {
+  const inrAmount = parseFloat(document.getElementById('inrInput').value) || 0;
+  const resultDiv = document.getElementById('inrResult');
+  resultDiv.innerText = "🔄 Fetching live rate...";
+
+  fetch("https://api.exchangerate.host/latest?base=INR&symbols=USD")
+    .then(res => res.json())
+    .then(data => {
+      const rate = data.rates.USD;
+      const usd = inrAmount * rate;
+      resultDiv.innerText =
+        `₹${inrAmount} = $${usd.toFixed(2)} (Rate: ₹1 = $${rate.toFixed(4)})`;
+    })
+    .catch(() => {
+      resultDiv.innerText = "⚠️ Failed to fetch live rate.";
+    });
+}
+
+
+function clearInput(unitInput, unitResult) {
+  const inputElement = document.getElementById(unitInput);
+  const resultElement = document.getElementById(unitResult);
+
+  if (inputElement) inputElement.value = "";
+  if (resultElement) resultElement.innerText = "";
+}
+
+function clearInput(inrInput, inrResult) {
+  const inputElement = document.getElementById(inrInput);
+  const resultElement = document.getElementById(inrResult);
+
+  if (inputElement) inputElement.value = "";
+  if (resultElement) resultElement.innerText = "";
+}
+
+// 🛠️ Issue Reporter Logic
+function submitIssue() {
+  const text = document.getElementById("issueText").value.trim();
+  const category = document.getElementById("issueCategory").value;
+  if (!text) return alert("Please enter a description.");
+
+  const issues = JSON.parse(localStorage.getItem("issues") || "[]");
+
+  const newIssue = {
+    text,
+    category,
+    date: new Date().toLocaleString()
+  };
+
+  issues.unshift(newIssue); // Add to top
+  localStorage.setItem("issues", JSON.stringify(issues.slice(0, 10))); // Keep only last 10
+  document.getElementById("issueText").value = "";
+  loadIssues();
+}
+
+function loadIssues() {
+  const issues = JSON.parse(localStorage.getItem("issues") || "[]");
+  const list = document.getElementById("issueList");
+  list.innerHTML = "";
+
+  if (issues.length === 0) {
+    list.innerHTML = "<li style='color: gray;'>No issues reported yet.</li>";
+    return;
+  }
+
+  issues.forEach(issue => {
+    const li = document.createElement("li");
+    li.innerHTML = `<strong>[${issue.category}]</strong> ${issue.text}<br/><small>${issue.date}</small>`;
+    list.appendChild(li);
+  });
+}
+
+function clearIssues() {
+  if (confirm("Are you sure you want to clear all reported issues?")) {
+    localStorage.removeItem("issues");
+    loadIssues();
+  }
+}
+
+// Load on startup
+window.addEventListener("DOMContentLoaded", loadIssues);
+
+// ⬆️ Scroll to Top Button Logic
+const goTopBtn = document.getElementById("goTopBtn");
+
+window.onscroll = function () {
+  if (document.body.scrollTop > 150 || document.documentElement.scrollTop > 150) {
+    goTopBtn.style.display = "block";
+  } else {
+    goTopBtn.style.display = "none";
+  }
+};
+
+function scrollToTop() {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+const triviaQuestions = [
+  {
+    question: "How many flats are there in Tower A?",
+    options: ["24", "30", "64", "40"],
+    answer: "64"
+  },
+  {
+    question: "When was the society established?",
+    options: ["2005", "2010", "2015", "2020"],
+    answer: "2005"
+  },
+  {
+    question: "Which day is the weekly cleaning drive held?",
+    options: ["Monday", "Wednesday", "Saturday", "Sunday"],
+    answer: "Saturday"
+  },
+  {
+    question: "Which tower has the clubhouse?",
+    options: ["Tower 1A", "Tower 2A", "Tower 3A", "Tower 4A"],
+    answer: "Tower B"
+  }
+];
+
+let currentTriviaIndex = 0;
+
+function startTrivia() {
+  if (currentTriviaIndex >= triviaQuestions.length) {
+    document.getElementById("triviaQuestion").innerText = "🎉 You've completed the quiz!";
+    document.getElementById("triviaOptions").innerHTML = "";
+    return;
+  }
+
+  const currentQ = triviaQuestions[currentTriviaIndex];
+  document.getElementById("triviaQuestion").innerText = currentQ.question;
+
+  const optionsHTML = currentQ.options.map(option => {
+    return `<button onclick="checkTriviaAnswer('${option}')">${option}</button>`;
+  }).join("<br>");
+
+  document.getElementById("triviaOptions").innerHTML = optionsHTML;
+  document.getElementById("triviaResult").innerText = "";
+}
+
+function checkTriviaAnswer(selected) {
+  const correct = triviaQuestions[currentTriviaIndex].answer;
+  if (selected === correct) {
+    document.getElementById("triviaResult").innerText = "✅ Correct!";
+  } else {
+    document.getElementById("triviaResult").innerText = `❌ Incorrect. Correct answer: ${correct}`;
+  }
+
+  currentTriviaIndex++;
+  setTimeout(startTrivia, 1500); // Move to next question after 1.5s
+}
+
+</script>
+
+</body>
+</html>
