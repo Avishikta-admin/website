@@ -424,9 +424,15 @@ window.addEventListener("DOMContentLoaded", () => {
   const resultDiv = document.getElementById('inrResult');
   resultDiv.innerText = "🔄 Fetching live rate...";
 
-  fetch("https://api.exchangerate.host/latest?base=INR&symbols=USD")
-    .then(res => res.json())
+  fetch("https://open.er-api.com/v6/latest/INR")
+    .then(res => {
+      if (!res.ok) throw new Error("Network response was not ok");
+      return res.json();
+    })
     .then(data => {
+      if (!data.rates || !data.rates.USD) {
+        throw new Error("USD rate not found");
+      }
       const rate = data.rates.USD;
       const usd = inrAmount * rate;
       resultDiv.innerText =
@@ -436,7 +442,6 @@ window.addEventListener("DOMContentLoaded", () => {
       resultDiv.innerText = "⚠️ Failed to fetch live rate.";
     });
 }
-
 
 function clearInput(unitInput, unitResult) {
   const inputElement = document.getElementById(unitInput);
@@ -575,4 +580,5 @@ function checkTriviaAnswer(selected) {
 
 </body>
 </html>
+
 
