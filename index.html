@@ -151,6 +151,7 @@ html, body {
     main {
       opacity: 1 !important; /* Force visibility */
       transform: translateY(0) !important;
+      margin-top:0;
       padding-top: 0;
     }
 
@@ -336,15 +337,30 @@ html, body {
 
   .hero-image {
   width: 100%;
-  height: 100%;
+  max-height: 250px;
   object-fit: cover;
   display: block;
   filter: brightness(100%);
   transition: filter 0.3s ease;
+  position: relative; /* or remove absolute if not needed */
+  z-index: 0;
+}
+
+header.hero {
+  margin: 0;
+  padding: 0;
+  position: relative; /* ensures absolute child (.hero-image) is positioned correctly */
+  overflow: hidden; /* hide any overflow if image is absolute */
+}
+
+header.hero .hero-image {
   position: absolute;
   top: 0;
   left: 0;
-  z-index: 0;
+  width: 100%;
+  height: 100%; /* make sure it fills the header */
+  object-fit: cover;
+  display: block;
 }
 
     .image-text-hero:hover .hero-image {
@@ -653,7 +669,6 @@ html, body {
   font-size: clamp(1.0rem, 3vw, 1.2rem);
   text-align: center;
   margin: 1rem auto 1.5rem;
-  margin-top: 0.2rem;
   padding-top: 0;
   background: linear-gradient(90deg, #ffffff, #f0f0f0, #ffffff);
   background-size: 200% 100%;
@@ -671,6 +686,7 @@ html, body {
   font-size: 1.2em; /* Optional: slightly bigger */
   vertical-align: middle; /* align nicely with text */
 }
+
 
 #scrollToTop {
   position: fixed;
@@ -692,6 +708,54 @@ html, body {
   background-color: #87cefa; /* Slightly brighter light blue */
   transform: scale(1.1);
 }
+
+.toast-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(
+    to bottom, 
+    #FF9933 0%, 
+    #FF9933 33.33%, 
+    #FFFFFF 33.33%, 
+    #FFFFFF 66.66%, 
+    #138808 66.66%, 
+    #138808 100%
+  ); /* Indian flag colors */
+  color: #222; /* softer black */
+  font-weight: 600;
+  font-size: 0.9rem;
+  padding: 8px 12px;
+  border-radius: 6px;
+  margin: 5px auto 20px auto; /* top 5px, bottom 20px */
+  max-width: 90%;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+  border: 1px solid rgba(0,0,0,0.1);
+  animation: fadeSlideIn 1s ease-out;
+  gap: 12px;
+  flex-wrap: nowrap;
+  text-align: center;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.toast-container .flag-icon {
+  width: 50px;
+  height: auto;
+  border-radius: 4px;
+  box-shadow: 0 0 4px rgba(0,0,0,0.3);
+}
+
+@keyframes fadeSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 
 </style>
 </head>
@@ -717,6 +781,14 @@ html, body {
       🖥️ Avishikta - 1 Type - A | Digital Hub
     </div>
 </header>
+
+<!-- 🇮🇳 Independence Day Toast -->
+<div id="independenceToast" class="toast-container">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/3/38/Flag_of_India_Flat_Waving_Animated.gif" alt="India Flag" class="flag-icon">
+  <span>
+    <strong>Happy 79th Independence Day!</strong> Jai Hind! 🙏 Let’s honour our heroes and celebrate freedom.
+  </span>
+</div>
 
 <button id="darkModeToggle">Dark Mode</button>
 <button id="map-toggle-btn">📍 Show Map</button>
@@ -772,9 +844,11 @@ html, body {
     <p>Support when you need it — maintenance and more.</p>
   </div>
 </div>
+
 </main>
 
 <script>
+
     // Welcome Overlay Countdown + Progress + Fade + Confetti
 
     const mainContent = document.querySelector('main');
@@ -1002,5 +1076,3 @@ function scrollToTop() {
 
 </body>
 </html>
-
-
