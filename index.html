@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -725,14 +726,14 @@ header.hero .hero-image {
   color: #222; /* softer black */
   font-weight: 600;
   font-size: 0.9rem;
-  padding: 8px 12px;
+  padding: 18px 26px;
   border-radius: 6px;
-  margin: 5px auto 20px auto; /* top 5px, bottom 20px */
-  max-width: 90%;
+  margin: 50px auto 20px auto; /* top 5px, bottom 20px */
+  max-width: 60%;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
   border: 1px solid rgba(0,0,0,0.1);
   animation: fadeSlideIn 1s ease-out;
-  gap: 12px;
+  gap: 16px;
   flex-wrap: nowrap;
   text-align: center;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -754,6 +755,13 @@ header.hero .hero-image {
     opacity: 1;
     transform: translateY(0);
   }
+}
+.toast-container .flag-icon {
+  width: 24px; /* 👈 smaller width */
+  height: auto;
+  border-radius: 4px;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
+  max-height: 16px; /* 👈 add this line */
 }
 
 
@@ -784,10 +792,10 @@ header.hero .hero-image {
 
 <!-- 🇮🇳 Independence Day Toast -->
 <div id="independenceToast" class="toast-container">
-  <img src="https://upload.wikimedia.org/wikipedia/commons/3/38/Flag_of_India_Flat_Waving_Animated.gif" alt="India Flag" class="flag-icon">
-  <span>
-    <strong>Happy 79th Independence Day!</strong> Jai Hind! 🙏 Let’s honour our heroes and celebrate freedom.
-  </span>
+  <img src="indiaflag.gif" alt="Waving India Flag" class="flag-icon">
+<span>
+  <strong>Happy 79th Independence Day!</strong> 🇮🇳 🙏 Let’s honour our heroes and celebrate freedom. Jai Hind!
+</span>
 </div>
 
 <button id="darkModeToggle">Dark Mode</button>
