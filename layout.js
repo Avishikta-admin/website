@@ -376,14 +376,16 @@ document.body.insertAdjacentHTML('beforeend', footerHTML);
   position: fixed;
   top: 54px;
   left: 0;
-  width: 260px;
-  bottom: 60px;
-  background: #1e2a47;
+  width: 200px;
+  bottom: 50px;
+  background: linear-gradient(135deg, #1e2a47 0%, #16213e 100%);
   color: #fff;
   overflow-y: auto;
   z-index: 9998;
   display: block; /* hide nav by default on mobile */
   transition: opacity 0.3s ease;
+  box-shadow: 2px 0 8px rgba(0,0,0,0.15);
+  border-right: 1px solid #324060;
 }
 
 #main-nav.nav-open {
@@ -403,8 +405,8 @@ document.body.insertAdjacentHTML('beforeend', footerHTML);
 }
 
 #main-nav.nav-collapsed {
-  transform: translateX(-220px);
-  width: 40px;
+  transform: translateX(-160px) !important;
+  width: 40px !important;
   overflow: visible;
 }
 
@@ -460,7 +462,7 @@ document.body.insertAdjacentHTML('beforeend', footerHTML);
   display: flex;
   align-items: center;
   justify-content: space-between; /* caret on right */
-  padding: 12px 20px;
+  padding: 12px 12px;
   font-size: 0.75rem;
   color: #ddd;
   background: none;
@@ -494,8 +496,8 @@ document.body.insertAdjacentHTML('beforeend', footerHTML);
 
 /* Caret icon on buttons */
 #main-nav ul li button.section-header i.fa-caret-down {
-  transition: transform 0.3s ease;
-  margin-left: 5px;
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  margin-left: 2px;
   color: white;
 }
 
@@ -518,7 +520,7 @@ document.body.insertAdjacentHTML('beforeend', footerHTML);
       transform: rotate(180deg);
     }
 
-   /* Submenu container */
+/* Submenu container */
 .submenu {
   max-height: 0;
   overflow: hidden;
@@ -572,11 +574,10 @@ li.locked .submenu,
 .disabled-link i {
   color: #aaa !important;
 }
-
     /* Breadcrumb */
     nav.breadcrumb {
       display: inline-block;          /* Shrinks to content */
-      margin: 10px 20px 0 20px;
+      margin: 10px 20px 0 0;
       padding: 8px 12px;
       font-size: 0.75rem;
       background-color: #2a72d8; /* Blue background */
