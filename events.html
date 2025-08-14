@@ -2,866 +2,836 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="description" content="Official page of Avishikta - I Type - A RWA. Stay informed, get involved, and build a stronger association.">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
   <meta http-equiv="Pragma" content="no-cache" />
   <meta http-equiv="Expires" content="0" />
-  <!-- Confetti script from CDN -->
-  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-  <script src="layout-loader.js"></script>
+  <meta name="theme-color" content="#000000" />
+  <!-- Choices.js CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css" />
 
-  <title>Events & Gallery – AVISHIKTA - I Type - A RWA</title>
-  <link rel="stylesheet" href="css/responsive-fix.css" />
+<!-- Choices.js JS -->
+<script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
 
+  <script src="layout.js" defer></script>
+  <title>Events & Photo Gallery – Avishikta</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap"
+    rel="stylesheet"
+  />
   <style>
     body {
+      font-family: 'Poppins', sans-serif;
       margin: 0;
-      padding: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(135deg, #f4f6fa, #d3e0ea); /* Soft gradient background */
+      background-color: #f9fafb;
       color: #333;
+      padding-top: 54px;
+      padding-left: 260px;
+      padding-bottom: 60px;
+      transition: padding-left 0.3s ease;
+      min-height: 100vh;
     }
-
+    @media (max-width: 768px) {
+      body {
+        padding-left: 0;
+      }
+    }
     main {
       max-width: 1200px;
-      margin: 0.2rem auto 2rem;
-      padding: 0rem 1rem 1rem;
+      margin: 20px auto;
+      padding: 0 1rem;
       box-sizing: border-box;
     }
-
-    #scrollToTop {
-      position: fixed;
-      bottom: 50px;
-      right: 20px;
-      background-color: #ff6347;
-      color: white;
-      border-radius: 50%;
-      padding: 5px;
-      font-size: 1rem;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-      border: none;
-      cursor: pointer;
-      z-index: 10000;
-      transition: background-color 0.3s ease;
-      display: none;
-      opacity: 0;
-      justify-content: center;
-      align-items: center;
-    }
-
-    #scrollToTop.show {
-      display: flex;
-      opacity: 1;
-    }
-
-    #scrollToTop:hover {
-      background-color: #4b0082;
-    }
-
     .events-header {
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start; /* Aligns content to the top */
       text-align: center;
-      margin-top: 0;  /* Removes any top margin */
-      margin-bottom: 0.5rem;  /* Reduced margin */
-      animation: fadeInDown 0.8s ease-in-out;
-      background: linear-gradient(to right, #4b0082, #ff6347); /* Gradient background */
-      color: white;
-      padding: 1rem 1rem; /* Add some padding around */
-      border-radius: 12px; /* Soft rounded corners */
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
-      width: 90%; /* Makes the container take up 90% of the screen width */
-      max-width: 1200px; /* Optional: Add a max-width to prevent it from being too wide */
-      margin: 0 auto; /* Centers the container horizontally */
-      box-sizing: border-box; /* Ensures padding is inside the width */
+      margin-bottom: 1rem;
+      color: #2a72d8;
+      margin-top: -2rem;
     }
-
     .events-header h1 {
-      font-size: 1.85rem; /* Reduced font size for simplicity */
-      text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); /* Subtle text shadow */
-      font-weight: bold;
-      letter-spacing: 0.05em;
-      margin: 0; /* Removed any bottom margin */
-      padding-top: 0; /* Removed extra padding */
+      font-weight: 700;
+      font-size: 2.4rem;
+      margin-bottom: 0.3rem;
+      text-shadow: 1px 1px 2px rgba(42,114,216,0.3);
     }
-
     .events-header p {
-      font-size: 0.9rem;
-  color: #4b0082; /* Deep purple */
-  white-space: nowrap;  /* Prevents text from breaking into a new line */
-  overflow: hidden; /* Ensures text doesn't spill out of the container */
-  text-overflow: ellipsis; /* Adds '...' when the text overflows */
-  max-width: 100%;  /* Allows the paragraph to span the full width of the container */
-  margin: 0 auto;
-  line-height: 1.2;
-  margin-top: 0.5rem; /* Slight margin to separate text from the heading */
-  background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent background */
-  padding: 10px;
-  border-radius: 8px;
-  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3); /* Optional: to enhance readability */
+      font-weight: 500;
+      font-size: 1.1rem;
+      color: #555;
+      max-width: 650px;
+      margin: 0 auto;
     }
-
     .upcoming-events {
-      background: #fff7e6;
-      border-left: 5px solid #4b0082;
-      padding: 0.5rem 1rem;  /* Increased padding for a wider effect */
-      max-width: 800px;  /* Increased width of the container */
-      width: 95%;  /* Allow the container to expand to 100% of its parent */
-      margin: 0.5rem auto 1.5rem;  /* Centers the container */
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      box-shadow: 0 3px 12px rgba(75, 0, 130, 0.08);
-      border-radius: 8px;
-      color: #3a1a72;
-      font-size: 0.85rem;  /* Base font size */
-      line-height: 1.2;
-    }
-
-    .gallery-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Smaller image grid */
-      gap: 16px;
-      padding-top: 0.5rem;
-      justify-items: center; /* Centering images in each grid cell */
-      align-items: start; /* This will vertically center the items */
-      margin-top: -15px; /* Negative margin to push the image up */
-    }
-
-    .gallery-card {
-      position: relative;
+      max-width: 650px;
+      margin: 0 auto 1.5rem;
+      background: linear-gradient(135deg, #2a72d8, #1d4ed8); /* Blue gradient */
+      padding: 1rem 1.5rem;
       border-radius: 12px;
-      overflow: hidden;
-      background: #fff;
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
-      transition: transform 0.3s ease, box-shadow 0.3s;
-      cursor: pointer;
-      display: flex; /* Using flex to center content inside each card */
-      flex-direction: column; /* Stacks the image and caption vertically */
-      justify-content: space-between; /* Ensure spacing between the image and caption */
-      width: 100%; /* Allow the card to fill the grid cell */
-      height: 100%; /* Ensure the card spans the entire height of the grid cell */
+      color: white;
+      box-shadow: 0 4px 12px rgb(42 114 216 / 0.35);
+    }
+    .upcoming-events h2 {
+      margin-top: 0;
+      font-weight: 700;
+      font-size: 1.6rem;
+      margin-bottom: 0.8rem;
+      text-shadow: 1px 1px 3px rgba(255, 255, 255, 0.5);
+    }
+    .upcoming-events ul {
+      padding-left: 1.2rem;
+      margin: 0;
+      list-style-type: disc;
+      font-weight: 600;
+      font-size: 1rem;
+    }
+    .upcoming-events li {
+      margin-bottom: 0.5rem;
     }
 
-    .gallery-card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.15);
+    /* Masonry gallery */
+  .gallery {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: space-between;
+  position: relative;
+  z-index: 1;
+}
+
+.image-container {
+  width: calc(33.333% - 11px); /* Slightly adjust for consistent gap */
+  margin: 0; /* Remove individual margins */
+  position: relative;
+  break-inside: avoid;
+  border-radius: 10px;
+  background: white;
+  box-shadow: 0 4px 10px rgb(42 114 216 / 0.15);
+  overflow: hidden;
+  transition: box-shadow 0.3s ease;
+  cursor: default;
+  user-select: none;
+  box-sizing: border-box;
+}
+
+@media (max-width: 1024px) {
+  .image-container {
+    width: calc(50% - 1rem);
+  }
+}
+
+@media (max-width: 600px) {
+  .image-container {
+    width: 100%;
+    margin-left: 0;
+  }
+}
+
+    .image-container:hover,
+    .image-container:focus-within {
+      box-shadow: 0 8px 25px rgb(42 114 216 / 0.35);
     }
 
-    .gallery-card img {
+    /* Image reduced size */
+  .image-container img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  background-color: #fff;
+  object-position: top; /* 👈 Focus on top part (so head remains visible) */
+}
+
+    .image-container:hover img,
+    .image-container:focus-within img {
+      transform: scale(1.05);
+    }
+
+    /* Caption bar below image - hidden normally, shown on hover */
+    .caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
       width: 100%;
-      height: 350px; /* Reduced image size */
-      object-fit: cover;
-      display: block;
+      background: linear-gradient(90deg, #6a0dad, #9b30ff);
+      color: white;
+      text-align: center;
+      font-weight: 600;
+      padding: 6px 0;
+      font-size: 0.85rem;
+      border-radius: 0 0 10px 10px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
       user-select: none;
+      line-height: 1.4;
+    }
+    .image-container:hover .caption,
+    .image-container:focus-within .caption {
+      opacity: 1;
       pointer-events: auto;
     }
 
-    .zoom-icon {
+    /* Icon buttons container */
+    .icon-btn {
       position: absolute;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: background-color 0.3s ease, opacity 0.3s ease;
+      color: white;
+      box-shadow: 0 2px 8px rgb(0 0 0 / 0.2);
+      user-select: none;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    /* Show icon buttons on hover or focus within container */
+    .image-container:hover .icon-btn,
+    .image-container:focus-within .icon-btn {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    /* Positions */
+    .download-btn {
+      top: 10px;
+      left: 10px;
+      background: #43a047; /* green */
+    }
+    .download-btn:hover,
+    .download-btn:focus {
+      background: #388e3c;
+      outline: none;
+    }
+
+    .zoom-btn {
       top: 10px;
       right: 10px;
-      background: rgba(0, 0, 0, 0.6);
-      color: #fff;
-      font-size: 1.5rem;
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      pointer-events: none;
+      background: #1e88e5; /* blue */
+    }
+    .zoom-btn:hover,
+    .zoom-btn:focus {
+      background: #1565c0;
+      outline: none;
     }
 
-    .download-btn {
-      position: absolute;
-      top: 10px;
-      left: 10px;
-      background: rgba(0, 0, 0, 0.6);
-      color: #fff;
-      font-size: 1.4rem;
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      border: none;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: background-color 0.3s ease;
+    .delete-btn {
+      bottom: 10px;
+      right: 10px;
+      background: #e53935; /* red */
+    }
+    .delete-btn:hover,
+    .delete-btn:focus {
+      background: #b71c1c;
+      outline: none;
+    }
+
+    /* Smaller icons */
+    .icon-btn svg {
+      width: 16px;
+      height: 16px;
+      fill: white;
+      pointer-events: none;
       user-select: none;
-      z-index: 10;
-    }
-    .download-btn:hover {
-      background: rgba(255, 99, 71, 0.9);
-    }
-    .download-btn[aria-label]:hover::after {
-      content: attr(aria-label);
-      position: absolute;
-      top: 45px;
-      left: 10px;
-      background: #4b0082;
-      color: #fff;
-      font-size: 0.75rem;
-      padding: 3px 6px;
-      border-radius: 4px;
-      white-space: nowrap;
-      pointer-events: none;
-      opacity: 0.9;
-      z-index: 20;
     }
 
-    .card-caption {
-      padding: 4px 8px;             /* Less internal space */
-      text-align: center;
-      font-size: 0.8rem;            /* Smaller text */
-      background: #fafafa;
-      color: #444;
-      font-weight: bold;
-      height: 30px;                 /* Optional: fixed height */
-      display: flex;                /* For vertical centering */
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;            /* Prevents overflow text */
-      text-overflow: ellipsis;     /* Optional: add '...' if text is long */
-      white-space: nowrap;
-    }
-
-    /* Lightbox Modal */
-    #lightboxModal {
+    /* Undo Toast */
+    #undo-toast {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background-color: rgba(0, 0, 0, 0.88);
+      bottom: 80px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #2a72d8;
+      padding: 12px 24px;
+      border-radius: 30px;
+      box-shadow: 0 4px 12px rgb(255 126 95 / 0.6);
+      color: white;
+      font-weight: 600;
       display: none;
       align-items: center;
-      justify-content: center;
-      flex-direction: column;
-      z-index: 9999;
-      padding: 20px;
-    }
-
-    #lightboxImage {
-      max-width: 90%;
-      max-height: 80vh;
-      border-radius: 12px;
-      box-shadow: 0 0 24px rgba(255, 255, 255, 0.2);
-      pointer-events: none;
-    }
-
-    #closeBtn {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      font-size: 36px;
-      color: white;
-      cursor: pointer;
+      gap: 1rem;
+      z-index: 10001;
       user-select: none;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+    #undo-toast.show {
+      display: flex;
+      opacity: 1;
+    }
+    #undo-toast button {
+      background: white;
+      color: #2a72d8;
+      border: none;
+      border-radius: 20px;
+      padding: 6px 14px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgb(255 126 95 / 0.5);
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+    #undo-toast button:hover,
+    #undo-toast button:focus {
+      background: #1d4ed8;
+      color: white;
+      outline: none;
+    }
+
+    /* Zoom modal */
+    #zoom-modal {
+      position: fixed;
+      top: 54px;
+      left: 260px;
+      right: 0;
+      bottom: 60px;
+      background: rgba(0, 0, 0, 0.8);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 10000;
+      padding: 1rem;
+    }
+    @media (max-width: 768px) {
+  #zoom-modal {
+    left: 0;
+    top: 0;
+    bottom: 0;
+    padding-top: 54px;
+  }
+
+  .zoom-controls {
+    bottom: 20px;
+    right: 20px;
+    gap: 10px;
+  }
+  .zoom-control {
+    width: 36px;
+    height: 36px;
+    font-size: 1.4rem;
+  }
+ }
+
+    #zoom-modal img {
+      max-width: 90%;
+      max-height: calc(100vh - 40px - 50px - 50px);
+      border-radius: 14px;
+      box-shadow: 0 8px 30px rgb(42 114 216 / 0.6);
+      user-select: none;
+      pointer-events: none;
+      object-fit: contain;
+    }
+    #zoom-modal .close-btn {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      background: #feb47b;
+      border: none;
+      border-radius: 50%;
+      width: 38px;
+      height: 38px;
+      color: white;
+      font-weight: 700;
+      font-size: 1.5rem;
+      line-height: 1;
+      cursor: pointer;
+      box-shadow: 0 3px 10px rgb(255 126 95 / 0.7);
+      transition: background 0.3s ease;
+      user-select: none;
+    }
+    #zoom-modal .close-btn:hover,
+    #zoom-modal .close-btn:focus {
+      background: #ff7e5f;
+      outline: none;
+    }
+
+    /* Go to Top Button */
+    #go-top-btn {
+      position: fixed;
+      bottom: 16px;
+      right: 16px;
+      background: #2a72d8;
+      border: none;
+      border-radius: 50%;
+      width: 42px;
+      height: 42px;
+      color: white;
+      font-size: 1.5rem;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgb(42 114 216 / 0.7);
+      user-select: none;
+      transition: background 0.3s ease;
       z-index: 10001;
     }
-
-    .no-download-msg {
-      background: rgba(255, 255, 255, 0.1);
-      color: #fff;
-      padding: 12px 24px;
-      border-radius: 8px;
-      margin-top: 10px;
-      font-weight: 500;
-      text-align: center;
+    #go-top-btn:hover,
+    #go-top-btn:focus {
+      background: #feb47b;
+      color: #2a72d8;
+      outline: none;
     }
-
-    @keyframes fadeInDown {
-      from {
-        opacity: 0;
-        transform: translateY(-20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
+    /* Make caption always visible on mobile */
+    @media (max-width: 768px) {
+      .image-container .caption {
+        opacity: 1 !important;
+        pointer-events: auto !important;
       }
     }
-
-    @media (max-width: 600px) {
-      .events-header h1 {
-        font-size: 1.8rem;
-        margin-top: 0;
-      }
-
-      .gallery-card img {
-        height: 140px; /* Slightly smaller for mobile */
-      }
+    /* Focus styles for accessibility */
+    .image-container:focus-within,
+    .icon-btn:focus {
+      outline: 2px solid #2a72d8;
+      outline-offset: 2px;
     }
 
-@media (min-width: 601px) and (max-width: 1024px) {
-  /* Styles for tablets and small laptops */
-  .events-header h1 {
-    font-size: 2rem;
-  }
-
-  .gallery-card img {
-    height: 180px;
-  }
-}
-
-    .event-description-box {
-      background: #fef3f3;
-      border: 1px solid #f8dcdc;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-      padding: 8px 20px;
-      border-radius: 10px;
-      text-align: justify;
-      text-justify: inter-word;
-      max-width: 99vw;
-      width: 1350px;
-      margin: 0 auto 2rem;
-      font-size: 0.94rem;
-      line-height: 1.48;
-      color: #333;
-    }
-
-    .upcoming-events h2 {
-      font-size: 1.1em;
-      margin-bottom: 0.4rem;
-      font-weight: 700;
-      letter-spacing: 0.02em;
-      text-transform: uppercase;
-      border-bottom: 1.5px solid #4b0082;
-      padding-bottom: 0.3rem;
-    }
-
-    /* Upload Container with center alignment and shadow */
-    #uploadContainer {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 5px 15px;
-      margin: 1rem auto 1rem;
-      max-width: 600px;
-      background: #fafafa;
-      border-radius: 12px;
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
-    }
-
-    #imageUpload {
-      display: none;
-      font-size: 1rem;
-      font-weight: 600;
-      color: #4b0082;
-      cursor: pointer;
-      border-radius: 12px;
-      padding: 10px 14px;
-      background: linear-gradient(90deg, #4b0082, #ff6347);
-      border: none;
-      box-shadow: 0 4px 14px rgba(75, 0, 130, 0.3);
-      transition: all 0.25s ease-in-out;
-      width: 100%;
-      max-width: 360px;
-    }
-
-    #imageUpload:hover {
-      background: linear-gradient(90deg, #ff6347, #4b0082);
-      color: white;
-      box-shadow: 0 6px 20px rgba(255, 99, 71, 0.6);
-    }
-
-#customUploadButton {
-  display: inline-block;
-  padding: 5px 5px;
-  background: linear-gradient(90deg, #4b0082, #ff6347);
+    /* Zoom control buttons */
+/* Individual zoom button style */
+.zoom-control {
+  width: 42px;
+  height: 42px;
+  background: #1e88e5;
   color: white;
-  font-weight: 600;
-  font-size: 0.85rem;
   border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.2);
-  transition: all 0.3s ease;
-  text-align: center;
-}
-
-#customUploadButton:hover {
-  background: linear-gradient(90deg, #ff6347, #4b0082);
-  box-shadow: 0 8px 20px rgba(255, 99, 71, 0.4);
-}
-
-/* Caption Modal Styles */
-#captionModal {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100vw; height: 100vh;
-  background: rgba(0, 0, 0, 0.6);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 10000;
-}
-
-#captionModalContent {
-  background: #fff;
-  padding: 20px 30px;
-  border-radius: 12px;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
-  text-align: center;
-  width: 90%;
-  max-width: 400px;
-}
-
-#captionModalContent h3 {
-  margin-top: 0;
-  font-size: 1.2rem;
-  color: #4b0082;
-}
-
-#captionInput {
-  width: 100%;
-  padding: 10px;
-  font-size: 1rem;
-  margin-top: 10px;
-  margin-bottom: 20px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-}
-
-.caption-modal-buttons {
-  display: flex;
-  justify-content: space-between;
-  gap: 10px;
-}
-
-.caption-modal-buttons button {
-  padding: 8px 16px;
-  font-size: 1rem;
-  cursor: pointer;
-  border: none;
-  border-radius: 8px;
-  transition: 0.3s;
-}
-
-#captionOkBtn {
-  background-color: #4b0082;
-  color: white;
-}
-
-#captionCancelBtn {
-  background-color: #ccc;
-}
-#captionOkBtn:hover {
-  background-color: #5f10a1;
-}
-#captionCancelBtn:hover {
-  background-color: #999;
-}
-
-
-.confirm-delete-modal {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background-color: rgba(0, 0, 0, 0.6);
-      display: none;
-      justify-content: center;
-      align-items: center;
-      z-index: 9999;
-    }
-
-    .confirm-delete-content {
-      background: #fff;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-      text-align: center;
-      width: 90%;
-      max-width: 400px;
-    }
-
-    .confirm-delete-content button {
-      padding: 8px 16px;
-      font-size: 1rem;
-      cursor: pointer;
-      border: none;
-      border-radius: 8px;
-      margin: 0 5px;
-    }
-
-    .confirm-delete-content #deleteConfirm {
-      background-color: #e74c3c;
-      color: white;
-    }
-
-    .confirm-delete-content #deleteCancel {
-      background-color: #2ecc71;
-      color: white;
-    }
-
-#undoButton {
-  background-color: #4b0082;
-  color: white;
-  font-size: 0.85rem;
+  border-radius: 50%;
+  font-size: 1.6rem;
   font-weight: bold;
-  padding: 8px 15px;
-  border: none;
-  border-radius: 10px;
+  line-height: 1;
   cursor: pointer;
-  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.2);
-  transition: background 0.3s ease;
-  display: inline-block;
-  right: 50px; /* Push the button further to the right */
-}
-
-#undoButton:hover {
-  background-color: #ff6347;
-}
-
-/* Caption Modal Styles */
-#captionModal {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100vw; height: 100vh;
-  background: rgba(0, 0, 0, 0.6);
+  box-shadow: 0 3px 10px rgb(30 136 229 / 0.7);
   display: flex;
-  align-items: center;
   justify-content: center;
-  z-index: 10000;
+  align-items: center;
+  transition: background 0.3s ease;
 }
-
-#captionModalContent {
-  background: #fff;
-  padding: 20px 30px;
-  border-radius: 12px;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
-  text-align: center;
-  width: 90%;
-  max-width: 400px;
-}
-
-#captionModalContent h3 {
-  margin-top: 0;
-  font-size: 1.2rem;
-  color: #4b0082;
-}
-
-#captionInput {
-  width: 100%;
-  padding: 10px;
-  font-size: 1rem;
-  margin-top: 10px;
-  margin-bottom: 20px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-}
-
-.caption-modal-buttons {
+.zoom-controls {
+  position: absolute;
+  bottom: 40px;
+  right: 40px;
   display: flex;
-  justify-content: space-between;
-  gap: 10px;
+  flex-direction: column;
+  gap: 12px;
+  z-index: 10001;
+}
+#zoom-in-btn {
+  right: 70px;
+}
+#zoom-out-btn {
+  right: 20px;
+}
+.zoom-control:hover,
+.zoom-control:focus {
+  background: #1565c0;
+  outline: none;
 }
 
-.caption-modal-buttons button {
-  padding: 8px 16px;
-  font-size: 1rem;
-  cursor: pointer;
-  border: none;
-  border-radius: 8px;
-  transition: 0.3s;
+/* Spinner styles */
+.spinner {
+  width: 40px;
+  height: 40px;
+  position: relative;
+  margin: 2rem auto;
 }
 
-#captionOkBtn {
-  background-color: #4b0082;
-  color: white;
+.double-bounce1, .double-bounce2 {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background-color: #2a72d8;
+  opacity: 0.6;
+  position: absolute;
+  top: 0; left: 0;
+  animation: bounce 2s infinite ease-in-out;
 }
 
-#captionCancelBtn {
-  background-color: #ccc;
-}
-#captionOkBtn:hover {
-  background-color: #5f10a1;
-}
-#captionCancelBtn:hover {
-  background-color: #999;
+.double-bounce2 {
+  animation-delay: -1s;
 }
 
-</style>
+@keyframes bounce {
+  0%, 100% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1);
+  }
+}
+
+#event-filter option:hover {
+    background-color: #cce4ff;
+    color: #004a99;
+  }
+
+  #event-filter:focus {
+    border-color: #1a73e8;
+    box-shadow: 0 0 8px #1a73e8;
+  }
+
+/* Make sure the dropdown container is above gallery */
+.choices__list--dropdown {
+  z-index: 9999 !important;  /* Dropdown itself above everything */
+  position: absolute;
+}
+
+  </style>
 </head>
-
 <body>
+  <main>
+    <section class="events-header">
+      <h1>Events & Photo Gallery</h1>
+      <p>Welcome to the event and gallery section of Avishikta - I Type - A RWA! Enjoy the beautiful memories captured in our photo gallery.</p>
+    </section>
 
-<main>
-  <button id="scrollToTop" title="Go to the top">⬆️</button>
+    <section class="upcoming-events">
+      <h2>Upcoming Events</h2>
+      <ul>
+        <li>78th Independence Day to be held on August 15, 2025</li>
+        <li>Biswakarma Puja - September 17, 2025</li>
+        <li>Durga Puja - Sept 28 - Oct 2, 2025</li>
+      </ul>
+    </section>
+    
+    <!-- 🔍 Search bar for filtering images -->
+<section style="text-align: center; margin: 1rem 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+  <label for="event-filter" style="font-weight: 700; font-size: 1.1rem; display: block; margin-bottom: 0.5rem; color: #333;">
+    Filter by Event:
+  </label>
+  <select id="event-filter" multiple>
+    <option value="AGM">AGM</option>
+    <option value="Khuti Puja">Khuti Puja</option>
+    <option value="Independence Day">Independence Day</option>
+    <option value="Biswakarma Puja">Biswakarma Puja</option>
+    <option value="Durga Puja">Durga Puja</option>
+  </select>
+</section>
+     
+<div id="spinner" class="spinner" aria-live="polite" aria-busy="true" role="status" aria-label="Loading images">
+  <div class="double-bounce1"></div>
+  <div class="double-bounce2"></div>
+</div>
 
-  <section class="events-header">
-    <h1>Events & Photo Gallery</h1>
-    <p>Welcome to the event and gallery section of Avishikta - I Type - A RWA! Enjoy the beautiful memories captured in our photo gallery.</p>
-  </section>
+<section class="gallery" aria-label="Event photo gallery"></section>
 
-  <section class="upcoming-events">
-    <h2>Upcoming Events</h2>
-    <ul>
-      <li>78th Independence Day to be held on August 15, 2025</li>
-      <li>Biswakarma Puja - September 17, 2025</li>
-      <li>Durga Puja - Sept 28 - Oct 2, 2025</li>
-    </ul>
-  </section>
-
-  <!-- Upload Section -->
-  <div id="uploadContainer">
-    <label for="imageUpload" id="customUploadButton">📤 Upload Image</label>
-    <input type="file" id="imageUpload" accept="image/*" aria-label="Upload an image" />
-  
-    <!-- Caption Modal -->
-    <div id="captionModal" style="display:none;">
-      <div id="captionModalContent">
-        <h3>Enter Image Caption</h3>
-        <input type="text" id="captionInput" placeholder="Enter a caption (optional)">
-        <div class="caption-modal-buttons">
-          <button id="captionOkBtn">OK</button>
-          <button id="captionCancelBtn">Cancel</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- Undo Button - Initially hidden -->
-    <button id="undoButton" style="display: none;">Undo</button>
-  </div>
-
-  <!-- Gallery Section -->
-  <section class="gallery-grid" id="gallery">
-    <!-- Dynamically generated gallery cards will be inserted here -->
-  </section>
-
-  <!-- Lightbox modal -->
-  <div id="lightboxModal" role="dialog" aria-modal="true" aria-labelledby="lightboxTitle" aria-describedby="lightboxDesc" tabindex="-1">
-    <button id="closeBtn" aria-label="Close lightbox">&times;</button>
-    <img id="lightboxImage" alt="" />
-  </div>
-
-  <!-- Confirm Delete Modal -->
-  <div id="confirmDeleteModal" class="confirm-delete-modal">
-    <div class="confirm-delete-content">
-      <p>Are you sure you want to delete this image?</p>
-      <button id="deleteConfirm">Yes</button>
-      <button id="deleteCancel">No</button>
-    </div>
-  </div>
 </main>
 
+  <!-- Undo toast -->
+  <div id="undo-toast" role="alert" aria-live="assertive" aria-atomic="true">
+    Image deleted.
+    <button id="undo-btn" aria-label="Undo delete">Undo</button>
+  </div>
+
+  <!-- Zoom modal -->
+  <div id="zoom-modal" role="dialog" aria-modal="true" aria-label="Zoomed image" tabindex="-1">
+  <button class="close-btn" aria-label="Close zoom modal">&times;</button>
+  
+  <!-- New zoom control container -->
+  <div class="zoom-controls">
+    <button id="zoom-in-btn" class="zoom-control" aria-label="Zoom In">+</button>
+    <button id="zoom-out-btn" class="zoom-control" aria-label="Zoom Out">−</button>
+  </div>
+
+  <img src="" alt="Zoomed event" />
+</div>
+
+
+  <!-- Go to top button -->
+  <button id="go-top-btn" aria-label="Go to top">&#8679;</button>
+
 <script>
-  // Debugging Helper function
-  function logDebug(message) {
-    console.log(message);
-  }
+document.addEventListener('DOMContentLoaded', () => {
+  const eventFilter = document.getElementById('event-filter');
+  const gallery = document.querySelector('.gallery');
+  const spinner = document.getElementById('spinner');
+  const goTopBtn = document.getElementById('go-top-btn');
+  const undoToast = document.getElementById('undo-toast');
+  const undoBtn = document.getElementById('undo-btn');
+  const zoomModal = document.getElementById('zoom-modal');
+  const zoomImage = zoomModal.querySelector('img');
+  const zoomCloseBtn = zoomModal.querySelector('.close-btn');
+  const zoomInBtn = document.getElementById('zoom-in-btn');
+  const zoomOutBtn = document.getElementById('zoom-out-btn');
 
-  // Fetch images from GitHub repository and display as cards
-  const gallery = document.getElementById('gallery');
+goTopBtn.style.display = 'none';
 
-  // Array of images (manually created)
-  const imageArray = [
-    { path: '19thagm-1.jpg', name: 'Image-1.jpg', caption: '19th AGM - View 1' },
-    { path: '19thagm-3.jpg', name: 'Image-2.jpg', caption: '19th AGM - View 2' },
-    { path: '19thagm-6.jpg', name: 'Image-3.jpg', caption: '19th AGM - View 3' },
-    { path: '19thagm-4.jpg', name: 'Image-4.jpg', caption: '19th AGM - View 4' },
-    { path: 'img-5.jpg', name: 'Image-6.jpg', caption: 'Tower A' },
-    { path: 'khutipujo-1.jpg', name: 'Image-4.jpg', caption: 'Khuti Pujo 2025' }
-  ];
-
-  // Store the last deleted card to allow undo
-  let lastDeletedCard = null;
-
-  // Loop through the image array and display them
-  imageArray.forEach(item => {
-    addImageToGallery(item.path, item.name, item.caption);
+// Show button on scroll down, hide when near top
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 200) {
+      goTopBtn.style.display = 'block';
+    } else {
+      goTopBtn.style.display = 'none';
+    }
   });
 
-  // Function to add images to the gallery
-  function addImageToGallery(src, name, caption) {
-    const card = document.createElement('div');
-    card.className = 'gallery-card';
-    card.innerHTML = `
-      <button class="download-btn" aria-label="Download Image">⬇️</button>
-      <img src="${src}" alt="${name}" />
-      <span class="zoom-icon">🔍</span>
-      <div class="card-caption">${caption}</div>
-      <button class="delete-btn" aria-label="Delete Image" title="Delete Image">❌</button>
-    `;
-    gallery.appendChild(card);
+  // Smooth scroll to top on click
+  goTopBtn.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
 
-    // Lightbox handlers
-    const lb = document.getElementById('lightboxModal'),
-      lbImg = document.getElementById('lightboxImage');
+  let deletedImageData = null;
+  let deletedImageIndex = null;
+  let currentZoom = 1;
+  const zoomStep = 0.2;
+  const zoomMax = 3;
+  const zoomMin = 0.5;
+  let lastFocusedElement;
 
-    // Gallery click handler
-    document.getElementById('gallery').onclick = e => {
-      const card = e.target.closest('.gallery-card');
-      if (!card) return;
+  // Sample image array — replace or extend as needed
+  const imageArray = [
+    { path: '19thagm-1.jpg', name: 'Image-1.jpg', caption: '19th AGM - View 1', event: 'AGM' },
+  { path: '19thagm-3.jpg', name: 'Image-2.jpg', caption: '19th AGM - View 2', event: 'AGM' },
+  { path: '19thagm-6.jpg', name: 'Image-3.jpg', caption: '19th AGM - View 3', event: 'AGM' },
+ { path: '19thagm-4.jpg', name: 'Image-4.jpg', caption: '19th AGM - View 4', event: 'AGM' },
+  { path: '19thagm-5.jpg', name: 'Image-5.jpg', caption: '19th AGM - View 5', event: 'AGM' },
+  { path: 'img-5.jpg', name: 'Image-6.jpg', caption: 'Type-A', event: 'Other' },
+  { path: 'khutipujo-1.jpg', name: 'Image-7.jpg', caption: 'Khuti Puja 2025', event: 'Khuti Puja' }
+  ];
 
-      // Check for the download button click
-      if (e.target.matches('.download-btn')) {
-        const img = card.querySelector('img');
-        if (img) {
-          // Check if the image is hosted locally or externally
-          const a = document.createElement('a');
-          a.href = img.src;  // Image source (URL)
-          a.download = img.alt || 'download'; // Use alt text as the filename or fallback to 'download'
+  // Initialize Choices.js for multi-select dropdown
+  const choices = new Choices(eventFilter, {
+    removeItemButton: true,
+    searchEnabled: true,
+    placeholder: true,
+    placeholderValue: 'Select event(s)',
+    searchPlaceholderValue: 'Search events',
+    shouldSort: false,
+    itemSelectText: '',
+  });
 
-          // Ensure the link works with the "download" attribute
-          a.style.display = 'none'; // Hide the link from view
-          document.body.appendChild(a);
-          a.click();
-          document.body.removeChild(a);
-        }
+  // Render gallery images filtered by caption and selected events
+  function renderGallery(filterText = '') {
+    spinner.style.display = 'block';
+    gallery.innerHTML = '';
+
+    setTimeout(() => {
+      let selectedEvents = [];
+      try {
+        selectedEvents = choices.getValue(true); // returns array of selected event values
+      } catch (e) {
+        console.error('Error getting selected events:', e);
+      }
+
+      const filteredImages = imageArray.filter(({ caption, event }) => {
+        const matchesCaption = caption.toLowerCase().includes(filterText.toLowerCase());
+        const matchesEvent = selectedEvents.length === 0 || selectedEvents.includes(event);
+        return matchesCaption && matchesEvent;
+      });
+
+      if (filteredImages.length === 0) {
+        const message = document.createElement('p');
+        message.textContent = 'No images found for this search.';
+        message.style.textAlign = 'center';
+        message.style.color = '#888';
+        message.style.fontWeight = '600';
+        gallery.appendChild(message);
+        spinner.style.display = 'none';
         return;
       }
 
-      // Check for image or zoom icon click
-      if (e.target.matches('img, .zoom-icon')) {
-        const img = card.querySelector('img');
-        lbImg.src = img.src;
-        lbImg.alt = img.alt;
-        lb.style.display = 'flex'; // Show lightbox
-      }
-    };
+      filteredImages.forEach(({ path, name, caption }, idx) => {
+        const container = document.createElement('article');
+        container.className = 'image-container';
+        container.tabIndex = 0;
+        container.setAttribute('aria-label', caption);
 
-    // Close the lightbox when the close button is clicked
-    document.getElementById('closeBtn').onclick = () => lb.style.display = 'none';
+        const img = document.createElement('img');
+        img.src = path;
+        img.alt = caption;
+        img.loading = 'lazy';
+        img.draggable = false;
+        container.appendChild(img);
 
-    // Close the lightbox when clicking outside the image
-    lb.onclick = e => { 
-      if (e.target === lb) lb.style.display = 'none'; 
-    };
+        const captionBar = document.createElement('div');
+        captionBar.className = 'caption';
+        captionBar.textContent = caption;
+        container.appendChild(captionBar);
 
-    // Close the lightbox when pressing 'Escape' key
-    window.addEventListener('keydown', e => { 
-      if (e.key === 'Escape') lb.style.display = 'none'; 
-    });
+        // Download Button
+        const downloadBtn = document.createElement('button');
+        downloadBtn.className = 'icon-btn download-btn';
+        downloadBtn.title = `Download ${name}`;
+        downloadBtn.innerHTML = `⬇️`;
+        downloadBtn.type = 'button';
+        downloadBtn.tabIndex = 0;
+        downloadBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const link = document.createElement('a');
+          link.href = path;
+          link.download = name;
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+        });
+        container.appendChild(downloadBtn);
 
-    // Delete functionality
-    card.querySelector('.delete-btn').onclick = () => {
-      logDebug('Delete triggered');
-      // Show delete confirmation modal
-      const confirmDeleteModal = document.getElementById('confirmDeleteModal');
-      confirmDeleteModal.style.display = 'flex';
+        // Zoom Button
+        const zoomBtn = document.createElement('button');
+        zoomBtn.className = 'icon-btn zoom-btn';
+        zoomBtn.title = `Zoom ${caption}`;
+        zoomBtn.innerHTML = `🔍`;
+        zoomBtn.type = 'button';
+        zoomBtn.tabIndex = 0;
+        zoomBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          openZoom(path, caption);
+        });
+        container.appendChild(zoomBtn);
 
-      document.getElementById('deleteConfirm').onclick = () => {
-        logDebug('Image deleted');
-        lastDeletedCard = card; // Store the card for undo
-        card.remove(); // Remove the image
-        confirmDeleteModal.style.display = 'none';
+        // Delete Button
+        const deleteBtn = document.createElement('button');
+        deleteBtn.className = 'icon-btn delete-btn';
+        deleteBtn.title = `Delete ${caption}`;
+        deleteBtn.innerHTML = `🗑️`;
+        deleteBtn.type = 'button';
+        deleteBtn.tabIndex = 0;
+        deleteBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          deleteImage(imageArray.indexOf(filteredImages[idx]));
+        });
+        container.appendChild(deleteBtn);
 
-        // Show the Undo button
-        showUndoButton();
-      };
+        gallery.appendChild(container);
+      });
 
-      document.getElementById('deleteCancel').onclick = () => {
-        logDebug('Delete canceled');
-        confirmDeleteModal.style.display = 'none';
-      };
-    };
+      new Masonry(gallery, {
+        itemSelector: '.image-container',
+        columnWidth: '.image-container',
+        percentPosition: true,
+        gutter: 16,
+      });
+
+      spinner.style.display = 'none';
+    }, 300);
   }
 
-  // Function to show the Undo button after an image is deleted
-  function showUndoButton() {
-    const undoButton = document.getElementById('undoButton');
-    undoButton.style.display = 'inline-block';  // Show the button
-
-    // When the undo button is clicked
-    undoButton.onclick = () => {
-      logDebug('Undo triggered');
-      if (lastDeletedCard) {
-        gallery.appendChild(lastDeletedCard); // Restore the deleted card
-        undoButton.style.display = 'none'; // Hide the Undo button again
-        lastDeletedCard = null; // Clear the deleted card storage
-      }
-    };
-
-    // Automatically remove the Undo button after 5 seconds if not clicked
-    setTimeout(() => {
-      if (undoButton.style.display !== 'none') {
-        undoButton.style.display = 'none'; // Hide button after timeout
-      }
-    }, 5000);
-  }
-
-  // Upload Image Modal with Password Check and Caption Modal
-  imageUpload.onchange = e => {
-    const file = e.target.files[0];
-    if (!file || !file.type.startsWith('image/')) return;
-
-    const password = prompt('Please enter the password to upload the image:');
-    if (password === 'neilb24!') {
-      // Show the caption modal for the user to input a caption
-      const captionModal = document.getElementById('captionModal');
-      const captionInput = document.getElementById('captionInput');
-      captionModal.style.display = 'flex';
-
-      // When the user clicks "OK" on the caption modal
-      document.getElementById('captionOkBtn').onclick = () => {
-        const caption = captionInput.value.trim() || file.name;  // Default to file name if no caption is provided
-        addImageToGallery(URL.createObjectURL(file), file.name, caption);
-        captionModal.style.display = 'none'; // Hide the caption modal
-        alert('Image uploaded successfully!');
-      };
-
-      // When the user clicks "Cancel" on the caption modal
-      document.getElementById('captionCancelBtn').onclick = () => {
-        captionModal.style.display = 'none'; // Hide the caption modal
-        alert('Image upload cancelled.');
-      };
-    } else {
-      alert('Incorrect password. Try again.');
-    }
-  };
-
-// Scroll to Top Button functionality
-  const scrollToTopButton = document.getElementById('scrollToTop');
-
-  // Function to show the scroll button when the user scrolls down
-  function toggleScrollButton() {
-    if (window.scrollY > 100) { // You can adjust this value as needed
-      scrollToTopButton.classList.add('show'); // Show the button
-    } else {
-      scrollToTopButton.classList.remove('show'); // Hide the button
-    }
-  }
-
-  // Add scroll event listener to window
-  window.addEventListener('scroll', toggleScrollButton);
-
-  // Function to smoothly scroll to the top when the button is clicked
-  scrollToTopButton.addEventListener('click', () => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth', // Smooth scroll animation
-    });
+  // Dropdown change triggers gallery re-render
+  eventFilter.addEventListener('change', () => {
+    renderGallery();
+   choices.hideDropdown();
   });
 
-</script>
+  // Zoom modal functions
+  function openZoom(src, alt) {
+    zoomImage.src = src;
+    zoomImage.alt = alt;
+    zoomModal.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+    zoomModal.focus();
+    lastFocusedElement = document.activeElement;
+    currentZoom = 1;
+    zoomImage.style.transform = `scale(1)`;
 
-<script>
-  const isGitHub = location.hostname.includes('github.io');
-  const base = isGitHub ? '/website' : '';
+    zoomModal.addEventListener('keydown', trapFocus);
 
-  const manifest = document.createElement('link');
-  manifest.rel = 'manifest';
-  manifest.href = base + '/manifest.json';
+    const focusableElements = zoomModal.querySelectorAll('button, img');
+    let firstEl = focusableElements[0];
+    let lastEl = focusableElements[focusableElements.length - 1];
 
-  const themeMeta = document.createElement('meta');
-  themeMeta.name = 'theme-color';
-  themeMeta.content = '#000000';
-
-  document.head.appendChild(manifest);
-  document.head.appendChild(themeMeta);
-
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register(base + '/service-worker.js', { scope: base + '/' })
-      .then(() => console.log('✅ Service Worker registered'))
-      .catch(err => console.error('❌ Service Worker failed', err));
+    function trapFocus(e) {
+      if (e.key === 'Tab') {
+        if (e.shiftKey && document.activeElement === firstEl) {
+          e.preventDefault();
+          lastEl.focus();
+        } else if (!e.shiftKey && document.activeElement === lastEl) {
+          e.preventDefault();
+          firstEl.focus();
+        }
+      } else if (e.key === 'Escape') {
+        closeZoom();
+      } else if (e.key === '+' || e.key === '=') {
+        zoomInBtn.click();
+      } else if (e.key === '-' || e.key === '_') {
+        zoomOutBtn.click();
+      }
+    }
   }
+
+  function closeZoom() {
+    zoomModal.style.display = 'none';
+    zoomImage.src = '';
+    document.body.style.overflow = '';
+    zoomModal.removeEventListener('keydown', trapFocus);
+    if (lastFocusedElement) lastFocusedElement.focus();
+    currentZoom = 1;
+    zoomImage.style.transform = 'scale(1)';
+  }
+
+  zoomCloseBtn.addEventListener('click', closeZoom);
+
+  zoomInBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    if (currentZoom < zoomMax) {
+      currentZoom = Math.min(currentZoom + zoomStep, zoomMax);
+      zoomImage.style.transform = `scale(${currentZoom})`;
+    }
+  });
+
+  zoomOutBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    if (currentZoom > zoomMin) {
+      currentZoom = Math.max(currentZoom - zoomStep, zoomMin);
+      zoomImage.style.transform = `scale(${currentZoom})`;
+    }
+  });
+
+  // Delete image and Undo functionality
+  function deleteImage(idx) {
+    deletedImageData = imageArray[idx];
+    deletedImageIndex = idx;
+    imageArray.splice(idx, 1);
+    renderGallery();
+    showUndoToast();
+  }
+
+  undoBtn.addEventListener('click', () => {
+    if (deletedImageData && deletedImageIndex !== null) {
+      imageArray.splice(deletedImageIndex, 0, deletedImageData);
+      deletedImageData = null;
+      deletedImageIndex = null;
+      renderGallery();
+      hideUndoToast();
+    }
+  });
+
+  let undoTimeoutId;
+
+  function showUndoToast() {
+    undoToast.classList.add('show');
+    undoToast.focus();
+    undoTimeoutId = setTimeout(() => {
+      hideUndoToast();
+      deletedImageData = null;
+      deletedImageIndex = null;
+    }, 7000);
+  }
+
+  function hideUndoToast() {
+    undoToast.classList.remove('show');
+    clearTimeout(undoTimeoutId);
+  }
+
+  undoToast.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      hideUndoToast();
+      deletedImageData = null;
+      deletedImageIndex = null;
+    }
+  });
+
+  // Go to top button
+  goTopBtn.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  // Initial gallery render
+  renderGallery();
+
+});
+
 </script>
-  
+
+<script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
+
 </body>
 </html>
-
-
