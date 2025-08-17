@@ -687,7 +687,6 @@ header.hero .hero-image {
   vertical-align: middle; /* align nicely with text */
 }
 
-
 #scrollToTop {
   position: fixed;
   bottom: 50px;       /* move it above the footer */
@@ -708,103 +707,6 @@ header.hero .hero-image {
   background-color: #87cefa; /* Slightly brighter light blue */
   transform: scale(1.1);
 }
-
-.toast-container {
-    position: relative; /* to contain particles */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: linear-gradient(
-      to bottom, 
-      #000428 0%, 
-      #004e92 100%
-    ); /* Krishna-inspired dark blue gradient */
-    color: #f9d71c; /* golden text */
-    font-weight: 600;
-    font-size: 1rem;
-    padding: 10px 20px;
-    border-radius: 12px;
-    margin: 80px auto 20px auto;
-    max-width: 60%; /* wider container */
-    box-shadow: 0 4px 10px rgba(249, 215, 28, 0.5);
-    border: 1px solid rgba(249, 215, 28, 0.6);
-    text-align: center;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    overflow: visible; /* allow particles to be visible */
-    flex-wrap: nowrap;
-  }
-  
-  .krishna-icon {
-    width: 90px;
-    height: auto;
-    border-radius: 12px;
-    filter: brightness(1.15) contrast(1.15) drop-shadow(0 0 8px #ffe066);
-    transition: transform 0.3s ease;
-    flex-shrink: 0;
-  }
-  .toast-container img.krishna-icon:hover {
-    transform: scale(1.05);
-  }
-
-  .toast-container span {
-    flex: 1;
-    color: #f9d71c;
-    text-shadow: 1px 1px 4px rgba(0,0,0,0.7);
-  }
-  .message-container {
-    flex: 1;
-  }
-
-  .message-container strong {
-    font-size: 1.3rem;
-  }
-
-  .message-container p {
-    margin: 8px 0 14px 0;
-    font-weight: 600;
-  }
-
-  .message-container footer {
-    font-size: 0.9rem;
-    font-style: italic;
-    color: #fff9b1;
-    text-shadow: 1px 1px 3px rgba(0,0,0,0.4);
-  }
-
-  @keyframes fadeSlideIn {
-    from {
-      opacity: 0;
-      transform: translateY(-20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  /* Particles inside the toast container */
-  .particle {
-    position: absolute;
-    background: #f9d71c;
-    border-radius: 50%;
-    opacity: 0.7;
-    animation: float 8s linear infinite;
-    pointer-events: none;
-  }
-
-  @keyframes float {
-    0% {
-      transform: translateY(100%) scale(0.6);
-      opacity: 0;
-    }
-    50% {
-      opacity: 0.9;
-    }
-    100% {
-      transform: translateY(-150%) scale(1);
-      opacity: 0;
-    }
-  }
 
 </style>
 </head>
@@ -830,15 +732,6 @@ header.hero .hero-image {
       🖥️ Avishikta - 1 Type - A | Digital Hub
     </div>
 </header>
-
-<div id="janmashtamiToast" class="toast-container">
-  <img src="janmashtami.jpg" alt="Lord Krishna" class="krishna-icon" />
-  <div class="message-container">
-    <strong>🌼 Happy Krishna Janmashtami! 🌼</strong>  
-    <p>Wishing our members peace, love, and harmony on this divine occasion.</p>
-    <footer>✨ May the melody of Lord Krishna’s flute fill your life with blessings! ✨🕉️ Radhe Radhe! 💐</footer>
-  </div>
-</div>
 
 <button id="darkModeToggle">Dark Mode</button>
 <button id="map-toggle-btn">📍 Show Map</button>
@@ -1156,4 +1049,5 @@ function scrollToTop() {
 
 </body>
 </html>
+
 
