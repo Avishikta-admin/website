@@ -196,7 +196,7 @@ html, body {
 
     .card-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
       gap: 1.5rem;
       margin-top: 2rem;
       padding: 0 2rem 3rem;
@@ -215,8 +215,8 @@ html, body {
       width: 100%; /* Ensures the card takes the full available space */
       max-width: 350px; /* Keeps card width under control */
       margin: 0 auto; /* Centers the card */
+      transform: translateY(20px);
     }
-
     .card::after {
       content: "";
       position: absolute;
@@ -247,15 +247,21 @@ html, body {
   	outline-offset: 2px;
     }
 
-    .card i {
-      font-size: 1.5rem;
-      color: #00e5ff;
-      margin-bottom: 0.75rem;
-      pointer-events: none;
-    }
+  .card i {
+  font-size: 1.2rem;
+  pointer-events: none;
+  padding: 0.4rem;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.15); /* subtle translucent bg */
+  box-shadow: 0 0 8px rgba(0,0,0,0.3);
+  color: inherit; /* keep your assigned colors */
+  text-shadow:
+    0 0 4px rgba(0,0,0,0.8), /* black outline glow */
+    0 0 6px currentColor;      /* glow matching icon color */
+}
 
     .card h3 {
-      font-size: 1.0rem;
+      font-size: 0.95rem;
       margin-bottom: 0.3rem;
       color: #fff;
       pointer-events: none;
@@ -268,6 +274,48 @@ html, body {
       line-height: 1.;
       pointer-events: none;
     }
+    .card:nth-child(2) {
+      background: linear-gradient(145deg, #3a9d23, #9be15d);
+    }
+    .card:nth-child(3) {
+  background: linear-gradient(145deg, #ff6e7f, #bfe9ff);
+}
+
+.card:nth-child(4) {
+  background: linear-gradient(145deg, #654ea3, #eaafc8);
+}
+
+@media (max-width: 768px) {
+  .card-grid {
+    grid-template-columns: 1fr;
+    padding: 1rem;
+  }
+
+  .card {
+    max-width: 100%;
+  }
+}
+
+.card:nth-child(1) i {
+  color: #00e5ff; /* Cyan – security/tech */
+  font-weight: 900;
+}
+
+.card:nth-child(2) i {
+  color: #58d68d; /* Fresh green – sustainability */
+  font-weight: 900;
+}
+
+.card:nth-child(3) i {
+  color: #ff6f61; /* Coral – events & activity */
+  font-weight: 900;
+}
+
+.card:nth-child(4) i {
+  color: #ba68c8; /* Purple – support/help */
+  font-weight: 900;
+}
+
 
     a {
       color: #a3d2ca;
@@ -568,7 +616,7 @@ header.hero .hero-image {
   transition: background 0.3s, transform 0.3s;
   poistion:sticky;
   }
-    
+
   #map-toggle-btn:hover {
     background: linear-gradient(90deg, #d7c1a3, #f5e6c4);
     transform: translateY(-3px);
@@ -686,6 +734,7 @@ header.hero .hero-image {
   vertical-align: middle; /* align nicely with text */
 }
 
+
 #scrollToTop {
   position: fixed;
   bottom: 50px;       /* move it above the footer */
@@ -732,7 +781,7 @@ header.hero .hero-image {
     </div>
 </header>
 
-<button id="darkModeToggle">Dark Mode</button>
+<button id="darkModeToggle" aria-label="Toggle dark mode" title="Enable dark mode">🌞</button>
 <button id="map-toggle-btn">📍 Show Map</button>
 <div id="map-popup">
   <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3685.896188561506!2d88.39841147507572!3d22.508077779537675!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a027157cc327c1b%3A0xfe9d5576fd4d1272!2sAvishikta%20Phase%201!5e0!3m2!1sen!2sin!4v1753114166780!5m2!1sen!2sin" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
@@ -765,25 +814,25 @@ header.hero .hero-image {
   <div class="card" tabindex="0" role="article" aria-label="Smart and Secure Living">
     <i class="fas fa-shield-alt" aria-hidden="true"></i>
     <h3>Smart & Secure Living</h3>
-    <p>Embrace smart tech and 24×7 security for peace of mind.</p>
+    <p>24/7 safety and smart tech at your fingertips.</p>
   </div>
 
   <div class="card" tabindex="0" role="article" aria-label="Sustainable Living">
     <i class="fas fa-leaf" aria-hidden="true"></i>
-    <h3>Green Community</h3>
-    <p>Join our green efforts for a cleaner, eco-friendly life.</p>
+    <h3>Green Living</h3>
+    <p>Live clean and green — for you and the planet.</p>
   </div>
 
   <div class="card" tabindex="0" role="article" aria-label="Community Events and Bulletin">
     <i class="fas fa-calendar-check" aria-hidden="true"></i>
-    <h3>Community Updates & Events</h3>
-    <p>Stay informed and connected with activities and announcements.</p>
+    <h3>Events & Updates</h3>
+    <p>Stay in the loop with our community happenings.</p>
   </div>
 
   <div class="card" tabindex="0" role="article" aria-label="Resident Services">
     <i class="fas fa-headset" aria-hidden="true"></i>
-    <h3>Resident Services</h3>
-    <p>Support when you need it — maintenance and more.</p>
+    <h3>Resident Support</h3>
+    <p>From maintenance to questions — we’re ready to assist.</p>
   </div>
 </div>
 
@@ -925,11 +974,24 @@ function scrollToTop() {
 </script>
 
 <script>
-  const toggle = document.getElementById('darkModeToggle');
-  toggle.addEventListener('click', () => {
-    const darkModeEnabled = document.body.classList.toggle('dark');
-    toggle.textContent = darkModeEnabled ? 'Light Mode' : 'Dark Mode';
-  });
+const toggle = document.getElementById('darkModeToggle');
+
+toggle.addEventListener('click', () => {
+  const darkModeEnabled = document.body.classList.toggle('dark');
+
+  if (darkModeEnabled) {
+    // Dark mode ON: keep smiling face, tooltip same
+    toggle.textContent = '😄';
+    toggle.title = 'Dark Mode Enabled';  // Or keep 'Enable Dark Mode' if you prefer
+    toggle.setAttribute('aria-label', 'Dark mode enabled');
+  } else {
+    // Dark mode OFF: change icon and tooltip
+    toggle.textContent = '🌓';
+    toggle.title = 'Switch to Dark Mode';
+    toggle.setAttribute('aria-label', 'Switch to dark mode');
+  }
+});
+
 </script>
 
 <script>
@@ -1014,7 +1076,7 @@ function scrollToTop() {
   });
 </script>
 
-<script src="layout.js?v=55"></script>
+<script src="layout-loader.js"></script>
 
 <script>
   // Append 75 particles inside the toast container
@@ -1048,7 +1110,4 @@ function scrollToTop() {
 
 </body>
 </html>
-
-
-
 
