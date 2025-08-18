@@ -45,8 +45,13 @@
     <button id="hamburger" type="button" class="hamburger" aria-label="Toggle menu" aria-expanded="false">Menu
       <i class="fas fa-bars"></i>
     </button>
-    <button id="nav-collapse-toggle" type="button" aria-label="Toggle navigation sidebar" aria-expanded="true" class="collapse-toggle" title="Collapse Menu">
-  <i class="fas fa-angle-left"></i>
+    <button id="nav-collapse-toggle"
+        type="button"
+        aria-label="Toggle navigation sidebar"
+        aria-expanded="true"
+        class="collapse-toggle"
+        title="Collapse Menu">
+  <i class="fas fa-angle-left"></i> <!-- start with sidebar expanded -->
 </button>
 
     <div class="header-text">
@@ -335,41 +340,45 @@ document.body.insertAdjacentHTML('beforeend', footerHTML);
     }
 
     /* Collapse toggle button for desktop nav */
-    #nav-collapse-toggle {
-      background: transparent;
-      border: none;
-      color: white;
-      font-size: 18px;
-      cursor: pointer;
-      position: fixed;
-      top: 15px;
-      left: 230px; /* 260 - 30 */
-      z-index: 10000;
-      padding: 5px 8px;
-      border-radius: 4px;
-      transition: transform 0.3s ease;
-      user-select: none;
-    }
-    #nav-collapse-toggle.collapsed {
-      transform: rotate(180deg);
-      left: 30px;
-    }
-    #nav-collapse-toggle:hover {
-      color: #feb47b;
-    }
-
-   #nav-collapse-toggle i {
-     transition: transform 0.3s ease;
-   }
-
-#nav-collapse-toggle.collapsed i {
-  transform: rotate(0deg) !important; /* arrow pointing right */
-  /* optionally, you can switch icon classes here if using something else */
+    /* Enhanced Collapse toggle button for desktop nav */
+#nav-collapse-toggle {
+  background: linear-gradient(135deg, #ffd6e8, #a0e9ff); /* pastel pink-blue gradient */
+  border: none;
+  color: #333; /* dark text for better contrast */
+  font-size: 15px;
+  cursor: pointer;
+  position: fixed;
+  top: calc(47.2px / 2); /* half header height */
+  transform: translateY(-50%);
+  left: calc(260px - 80px);
+  z-index: 10000;
+  padding: 6px 10px;
+  border-radius: 30px; /* pill shaped */
+  transition: all 0.3s ease;
+  user-select: none;
+  box-shadow: 0 4px 8px rgba(255, 182, 193, 0.4); /* soft pink shadow */
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-#nav-collapse-toggle:not(.collapsed) i {
-  transform: rotate(180deg) !important; /* arrow pointing left */
+/* Hover effects */
+#nav-collapse-toggle:hover {
+  background: linear-gradient(135deg, #ffabc1, #79d4ff);
+  color: #222;
+  box-shadow: 0 6px 12px rgba(255, 105, 180, 0.6);
 }
+
+/* Icon inside the button */
+#nav-collapse-toggle i {
+  transition: transform 0.3s ease;
+  pointer-events: none;
+}
+
+#nav-collapse-toggle.collapsed {
+  left: 30px;
+}
+
 
 /* Nav Styles */
 #main-nav {
@@ -934,6 +943,25 @@ if ('serviceWorker' in navigator) {
       });
   });
 }
+
+//9.1. Rotating arrow heads
+const toggleBtn = document.getElementById('nav-collapse-toggle');
+const icon = toggleBtn.querySelector('i');
+
+toggleBtn.addEventListener('click', () => {
+  const isExpanded = toggleBtn.getAttribute('aria-expanded') === 'true';
+
+  // Toggle Font Awesome classes correctly
+  icon.classList.remove(isExpanded ? 'fa-angle-right' : 'fa-angle-left');
+  icon.classList.add(isExpanded ? 'fa-angle-left' : 'fa-angle-right');
+
+  // Update aria-expanded and tooltip
+  toggleBtn.setAttribute('aria-expanded', String(!isExpanded));
+  toggleBtn.title = isExpanded ? 'Collapse Menu' : 'Expand Menu';
+
+  // Toggle collapsed class for positioning
+  toggleBtn.classList.toggle('collapsed', !isExpanded);
+});
 
   // 10. Disable right click and copy/paste as per your script
   document.addEventListener('contextmenu', e => e.preventDefault());
