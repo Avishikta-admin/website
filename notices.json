@@ -1,18 +1,24 @@
 [
   {
-  "icon": "🛠️",
-  "title": "Biswakarma Puja Celebration",
-  "date": "2025-09-17",
-  "content": "<p>Join us in honoring <strong>Lord Biswakarma</strong>, the divine architect and engineer. A special puja will be held in the community premises followed by <em>prasad distribution</em> and offerings. All residents and support staff are invited to participate and seek blessings for prosperity and skillful living.</p>",
-  "footer": "Avishikta – I Type A RWA"
-},
+    "icon": "🐘",
+    "title": "Ganesh Chaturthi 2025",
+    "date": "2025-08-27",
+    "content": "<p>Wishing all our members a joyous and blessed <strong>Ganesh Chaturthi</strong>! May Lord Ganesha bring wisdom, prosperity, and harmony to our homes and hearts. Let’s celebrate this auspicious occasion with love, peace, and togetherness in our community.</p>",
+    "footer": "Your EC Team – Avishikta – I Type - A RWA"
+  },
   {
-  "icon": "🪔",
-  "title": "Durga Puja Festival 2025",
-  "startDate": "2025-09-28",
-  "endDate": "2025-10-02",
-  "content": "<ul><li>Devi Arati & Pushpanjali (Daily)</li><li>Dhak Performance by Ladies</li><li>Cultural Evenings: Skits, Songs & Dance</li><li>Community Bhog & Food Stalls</li><li>Fun Activities & Raffle Draws</li></ul>",
-  "footer": "Team EC – Avishikta – I Type A RWA"
-}
+    "icon": "🛠️",
+    "title": "Biswakarma Puja Celebration",
+    "date": "2025-09-17",
+    "content": "<p>Join us in honoring <strong>Lord Biswakarma</strong>, the divine architect and engineer. A special puja will be held in the community premises followed by <em>prasad distribution</em> and offerings. All residents and support staff are invited to participate and seek blessings for prosperity and skillful living.</p>",
+    "footer": "Team EC – Avishikta – I Type - A RWA"
+  },
+  {
+    "icon": "🪔",
+    "title": "Durga Puja Festival 2025",
+    "startDate": "2025-09-28",
+    "endDate": "2025-10-02",
+    "content": "<ul><li>Devi Arati & Pushpanjali (Daily)</li><li>Dhak Performance by Ladies</li><li>Cultural Evenings: Skits, Songs & Dance</li><li>Community Bhog & Food Stalls</li><li>Fun Activities & Raffle Draws</li></ul>",
+    "footer": "Team EC – Avishikta – I Type - A RWA"
+  }
 ]
-
