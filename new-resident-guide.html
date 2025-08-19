@@ -3,10 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Official page of Avishikta - I Type - A RWA. Stay informed, get involved, and build a stronger association.">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
   <meta http-equiv="Pragma" content="no-cache" />
   <meta http-equiv="Expires" content="0" />
   <meta name="theme-color" content="#000000" />
+  
   <title>New Resident Guide | Avishikta - I Type - A RWA</title>
 
   <!-- Google Fonts -->
@@ -20,17 +22,86 @@
 
   <!-- Your layout script with header/sidebar/footer -->
   <script src="layout-loader.js"></script>
-  <style>
 
-     /* Reset */
+  <style>
+  
+  #progressBarContainer {
+  position: fixed;
+  top: 45px;
+  left: 0;
+  width: 100%;
+  height: 16px; /* taller to fit text */
+  background-color: #e0e0e0;
+  z-index: 9999;
+  border-radius: 4px;
+  overflow: visible;
+}
+
+#progressBar {
+  height: 100%;
+  width: 0;
+  background: orange;   /* changed to orange */
+  color: black;
+  font-weight: bold;
+  font-size: 10px;      /* smaller font size */
+  text-align: center;
+  line-height: 18px;    /* center vertically */
+  transition: width 0.25s ease;
+  white-space: nowrap;
+  overflow: visible;
+  border-radius: 4px 0 0 4px;
+}
+
+    /* Quick nav under heading */
+    .quick-nav {
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 0.95rem;
+      color: #ccc;
+    }
+    .quick-nav a {
+      color: #f5deb3;
+      text-decoration: none;
+      margin: 0 8px;
+      transition: color 0.3s;
+    }
+    .quick-nav a:hover {
+      color: #fff;
+      text-decoration: underline;
+    }
+.quick-nav a.active {
+  font-weight: bold;
+  color: orange;
+  text-decoration: underline;
+}
+
+    /* Sticky toggle button on mobile */
+    @media (max-width: 600px) {
+      #toggleAllBtn {
+        position: sticky;
+        top: 10px;
+        z-index: 999;
+        width: calc(100% - 40px);
+        margin: 10px auto 20px auto;
+        display: block;
+      }
+    }
+
+    .highlighted {
+  background-color: orange;  /* highlight color */
+  color: black;              /* text color to contrast */
+  transition: background-color 2s ease;
+}
+
+    /* Reset */
     *, *::before, *::after {
       box-sizing: border-box;
     }
  
     body {
       font-family: 'Poppins', sans-serif;
-      background-color: #f0f4f8;
-      color: #333;
+      background: linear-gradient(135deg, #6b8ce3, #2a3f55);
+      color: #eee;
       margin: 0;
       padding-left: 0;
       padding-right: 0;
@@ -42,58 +113,71 @@
     }
 
     main {
-      background-color: #2a3f55; /* attractive deep blue-gray */
+      background-color: #1f2c44; /* deeper navy */
       max-width: 100%;
       width: 100%;
-      border-radius: 12px;
-      padding: 40px 50px;
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.18);
+      margin: 30px auto 50px;
+      border-radius: 16px;
+      padding: 20px 25px;
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.4);
       color: #e6ebf1;
       position: relative;
       overflow: visible;
       transition: outline-color 0.3s ease;
       box-sizing: border-box;
-      transform: translateX(10px);
+      transform: translateX(-15px);
     }
     main:focus-within {
-      outline: 3px solid #0052cc;
+      outline: 3px solid #5b84e5;
     }
 
-    @keyframes fadeInScale {
-      0% { opacity: 0; transform: scale(0.9) translateY(20px); }
-      100% { opacity: 1; transform: scale(1) translateY(0); }
+    /* Show/Collapse All button */
+    #toggleAllBtn {
+      display: inline-block;
+      background: #7e57c2;
+      color: #fff;
+      font-weight: 700;
+      border: none;
+      border-radius: 12px;
+      padding: 10px 24px;
+      cursor: pointer;
+      box-shadow: 0 8px 20px rgb(126 87 194 / 0.7);
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+      margin-bottom: 30px;
+      user-select: none;
+      font-size: 0.9rem;
     }
-
-   @media (max-width: 600px) {
-  main {
-    padding: 20px 15px 25px 15px;
-    border-width: 2px;
-  }
-  h1 {
-    font-size: 1.6rem;
-  }
-  h2 {
-    font-size: 1.1rem;
-  }
-  a.button {
-    padding: 12px 24px;
-    font-size: 1rem;
-  }
-}
+    #toggleAllBtn:hover,
+    #toggleAllBtn:focus {
+      background-color: #5e35b1;
+      box-shadow: 0 10px 28px rgb(94 53 177 / 0.9);
+      outline: none;
+    }
 
     h1 {
-      font-family: 'Roboto Slab', serif;
+      font-family: 'Playfair Display', serif;
       font-weight: 700;
-      font-size: 2.5rem;
+      font-size: 1.8rem;
       margin-bottom: 2rem;
       color: #d0d9e6;
       text-align: center;
+      user-select: none;
     }
+    h1::after {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, #b39ddb, #d3c0f9);
+  margin: 16px auto 0 auto;
+  border-radius: 3px;
+   border-bottom: 3px dotted #d2b48c;
+}
 
     h2 {
       font-weight: 600;
-      font-size: 1.1rem;
-      color: #d3c0f9;
+      font-size: 1rem;
+      color: #c4a7e7;
       margin-top: 1.8rem;
       margin-bottom: 1rem;
       border-bottom: 3px solid #b39ddb;
@@ -101,25 +185,51 @@
       letter-spacing: 0.03em;
       position: relative;
       z-index: 1;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      user-select: none;
+      transition: color 0.3s ease;
+    }
+    
+    h2:hover {
+      color: #e0d7ff;
+    }
+
+    /* Collapse icon on right */
+    h2 .toggle-icon {
+      font-size: 1.2rem;
+      color: #b39ddb;
+      transition: transform 0.3s ease;
+      margin-left: 10px;
+      user-select: none;
+    }
+    h2.collapsed .toggle-icon {
+      transform: rotate(-90deg);
     }
 
     p {
-      line-height: 1.4;
+      line-height: 1.5;
       font-size: 1rem;
       margin-bottom: 1.3rem;
-      color: #eae6ff;
+      color: #e0dffb;
       text-align: justify;
       position: relative;
       z-index: 1;
+      transition: max-height 0.4s ease, opacity 0.4s ease;
+      overflow: hidden;
     }
 
     ul {
       padding-left: 1.8rem;
       margin-bottom: 1.5rem;
-      color: #dcd6ff;
+      color: #c9c1f7;
       list-style-type: square;
       position: relative;
       z-index: 1;
+      transition: max-height 0.4s ease, opacity 0.4s ease;
+      overflow: hidden;
     }
 
     li {
@@ -127,7 +237,7 @@
     }
 
     a {
-      color: #bfc0ff;
+      color: #a59fff;
       font-weight: 600;
       text-decoration: none;
       transition: color 0.3s ease;
@@ -137,7 +247,7 @@
 
     a:hover,
     a:focus {
-      color: #efe9ff;
+      color: #dcd8ff;
       outline: none;
       text-decoration: underline;
     }
@@ -146,23 +256,24 @@
       display: inline-block;
       margin-top: 30px;
       padding: 14px 36px;
-      background: #6a5299;
+      background: #7e57c2;
       color: white;
       font-weight: 700;
       border-radius: 12px;
       text-decoration: none;
-      box-shadow: 0 8px 20px rgb(106 82 153 / 0.7);
+      box-shadow: 0 8px 20px rgb(126 87 194 / 0.7);
       transition: background-color 0.3s ease, box-shadow 0.3s ease;
       font-size: 1.1rem;
       text-align: center;
       position: relative;
       z-index: 1;
+      user-select: none;
     }
 
     a.button:hover,
     a.button:focus {
-      background-color: #543a82;
-      box-shadow: 0 10px 28px rgb(84 58 130 / 0.9);
+      background-color: #5e35b1;
+      box-shadow: 0 10px 28px rgb(94 53 177 / 0.9);
       outline: none;
     }
 
@@ -174,26 +285,36 @@
       vertical-align: middle;
       position: relative;
       z-index: 1;
+      user-select: none;
     }
 
     /* Responsive */
-    @media (max-width: 650px) {
+    @media (max-width: 960px) {
       main {
-        padding: 25px 20px;
+        width: 90%;
+        padding: 30px 30px 40px 30px;
       }
       h1 {
-        font-size: 1.8rem;
+        font-size: 2.2rem;
       }
       h2 {
-        font-size: 1.2rem;
-      }
-      p, li {
-        font-size: 1rem;
+        font-size: 1.15rem;
       }
       a.button {
         width: 100%;
         padding: 14px 0;
         font-size: 1rem;
+      }
+    }
+    @media (max-width: 600px) {
+      main {
+        padding: 20px 15px 25px 15px;
+      }
+      h1 {
+        font-size: 1.8rem;
+      }
+      h2 {
+        font-size: 1.1rem;
       }
     }
 
@@ -216,66 +337,145 @@
       z-index: 9999;
       user-select: none;
     }
-
     #scrollToTop.show {
       opacity: 1;
       visibility: visible;
     }
-
     #scrollToTop:hover {
       background-color: #543a82;
     }
+
+    /* Content collapsible containers */
+    .collapsible-content {
+      overflow: hidden;
+      max-height: 1000px; /* default open */
+      opacity: 1;
+      transition: max-height 0.4s ease, opacity 0.4s ease;
+    }
+    .collapsed + .collapsible-content {
+      max-height: 0;
+      opacity: 0;
+      padding: 0;
+      margin: 0;
+      pointer-events: none;
+    }
+
+html {
+  scroll-behavior: smooth;
+}
+a.feedback-btn {
+  font-size: 0.85rem;
+  padding: 8px 20px;
+}
+
   </style>
 </head>
 <body>
   <!-- Your header/sidebar/footer are injected by layout.js -->
+  <div id="progressBarContainer">
+  <div id="progressBar">0%</div>
+</div>
 
   <main role="main" aria-labelledby="new-resident-title">
     <h1 id="new-resident-title">Welcome to Avishikta - I Type - A Association!</h1>
 
-    <p>We’re thrilled to have you join our vibrant association! This guide will help you settle in smoothly and enjoy everything our association has to offer.</p>
+   <div class="quick-nav">
+      <strong>Quick Jump:</strong>
+      <a href="#section1-header">1. Registration</a> |
+      <a href="#section2-header">2. Access & Amenities</a> |
+      <a href="#section3-header">3. Communication</a> |
+      <a href="#section4-header">4. Guidelines</a> |
+      <a href="#section5-header">5. Get Involved</a>
+    </div>
 
-    <h2><i class="fas fa-file-signature section-icon" aria-hidden="true"></i>1. Registration & Documentation</h2>
-    <p>Before accessing community amenities and services, complete your registration at the RWA office by submitting:</p>
-    <ul>
-      <li>The <a href="download-center.html" aria-label="Resident Registration Form">Resident Registration Form</a> (available in the Download Center).</li>
-      <li>Valid ID and property ownership documents.</li>
-      <li>Emergency contact details for your household.</li>
-    </ul>
-    <p>This ensures your seamless inclusion in our records and communication channels.</p>
+    <!-- Show All / Collapse All button -->
+    <button id="toggleAllBtn" aria-expanded="true" aria-controls="sections-container">Collapse All</button>
 
-    <h2><i class="fas fa-door-open section-icon" aria-hidden="true"></i>2. Access & Amenities</h2>
-    <p>Once registered, you’ll receive your access cards along with information about facilities such as:</p>
-    <ul>
-      <li>Community hall bookings.</li>
-      <li>Parking rules, visitor protocols, and security measures.</li>
-      <li>Waste disposal, recycling, and eco-friendly practices.</li>
-    </ul>
-    <p>Feel free to reach out to the office for assistance or clarifications.</p>
+    <div id="sections-container">
+      <!-- Section 1 -->
+      <h2 tabindex="0" aria-expanded="true" aria-controls="section1-content" id="section1-header">
+        <i class="fas fa-file-signature section-icon" aria-hidden="true"></i>1. Registration & Documentation
+        <i class="fas fa-chevron-down toggle-icon"></i>
+      </h2>
+      <div id="section1-content" class="collapsible-content" role="region" aria-labelledby="section1-header">
+        <p>Before accessing community amenities and services, complete your registration at the RWA office by submitting:</p>
+        <ul>
+          <li>The <a href="download-center.html" aria-label="Resident Registration Form">Resident Registration Form</a> (available in the Download Center).</li>
+          <li>Valid ID and property ownership documents.</li>
+          <li>Emergency contact details for your household.</li>
+        </ul>
+        <p>This ensures your seamless inclusion in our records and communication channels.</p>
+      </div>
 
-    <h2><i class="fas fa-comments section-icon" aria-hidden="true"></i>3. Communication Channels</h2>
-    <p>Stay updated and connected with your community by:</p>
-    <ul>
-      <li>Receiving monthly newsletters and official announcements via email.</li>
-      <li>Joining our community WhatsApp group (contact the office to join).</li>
-      <li>Using our official website for latest updates, event calendars, and feedback submissions.</li>
-    </ul>
+      <!-- Section 2 -->
+      <h2 tabindex="0" aria-expanded="true" aria-controls="section2-content" id="section2-header">
+        <i class="fas fa-door-open section-icon" aria-hidden="true"></i>2. Access & Amenities
+        <i class="fas fa-chevron-down toggle-icon"></i>
+      </h2>
+      <div id="section2-content" class="collapsible-content" role="region" aria-labelledby="section2-header">
+        <p>Once registered, you’ll receive your access cards along with information about facilities such as:</p>
+        <ul>
+          <li>Community hall bookings.</li>
+          <li>Parking rules, visitor protocols, and security measures.</li>
+          <li>Waste disposal, recycling, and eco-friendly practices.</li>
+        </ul>
+        <p>Feel free to reach out to the office for assistance or clarifications.</p>
+      </div>
 
-    <h2><i class="fas fa-handshake section-icon" aria-hidden="true"></i>4. Community Guidelines</h2>
-    <p>To maintain harmony and respect in our neighborhood, please review and follow the <a href="general-guidelines.html" aria-label="Community Guidelines page">Community Guidelines</a>. These cover conduct, noise levels, pet policies, and shared space etiquette.</p>
+      <!-- Section 3 -->
+      <h2 tabindex="0" aria-expanded="true" aria-controls="section3-content" id="section3-header">
+        <i class="fas fa-comments section-icon" aria-hidden="true"></i>3. Communication Channels
+        <i class="fas fa-chevron-down toggle-icon"></i>
+      </h2>
+      <div id="section3-content" class="collapsible-content" role="region" aria-labelledby="section3-header">
+        <p>Stay updated and connected with your community by:</p>
+        <ul>
+          <li>Receiving monthly newsletters and official announcements via email.</li>
+          <li>Joining our community WhatsApp group (contact the office to join).</li>
+          <li>Using our official website for latest updates, event calendars, and feedback submissions.</li>
+        </ul>
+      </div>
 
-    <h2><i class="fas fa-users section-icon" aria-hidden="true"></i>5. Getting Involved & Staying Engaged</h2>
-    <p>We encourage you to participate in social events, festivals, and volunteer programs — it’s a great way to meet your neighbors and enrich your community life.</p>
+      <!-- Section 4 -->
+      <h2 tabindex="0" aria-expanded="true" aria-controls="section4-content" id="section4-header">
+        <i class="fas fa-handshake section-icon" aria-hidden="true"></i>4. Community Guidelines
+        <i class="fas fa-chevron-down toggle-icon"></i>
+      </h2>
+      <div id="section4-content" class="collapsible-content" role="region" aria-labelledby="section4-header">
+        <p>To maintain harmony and respect in our neighborhood, please review and follow the <a href="general-guidelines.html" aria-label="Community Guidelines page">Community Guidelines</a>. These cover conduct, noise levels, pet policies, and shared space etiquette.</p>
+      </div>
 
-    <p>If you have questions or suggestions, don’t hesitate to contact us or use the feedback form below.</p>
+      <!-- Section 5 -->
+      <h2 tabindex="0" aria-expanded="true" aria-controls="section5-content" id="section5-header">
+        <i class="fas fa-users section-icon" aria-hidden="true"></i>5. Getting Involved & Staying Engaged
+        <i class="fas fa-chevron-down toggle-icon"></i>
+      </h2>
+      <div id="section5-content" class="collapsible-content" role="region" aria-labelledby="section5-header">
+        <p>We encourage you to participate in social events, festivals, and volunteer programs — it’s a great way to meet your neighbors and enrich your community life.</p>
 
-    <a href="feedback.html" class="button" aria-label="Give Feedback">Give Your Feedback</a>
+        <p>If you have questions or suggestions, don’t hesitate to contact us or use the feedback form below.</p>
+      </div>
+    </div>
+
+    <a href="feedback.html" class="button feedback-btn" aria-label="Give Feedback">Give Your Feedback</a>
+
   </main>
 
   <!-- Back to Top Button -->
   <button id="scrollToTop" title="Go to top" aria-label="Scroll to top">⬆️</button>
 
   <script>
+
+  window.addEventListener('scroll', () => {
+    const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+    const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    const scrolled = Math.round((winScroll / height) * 100);
+    const progressBar = document.getElementById('progressBar');
+    progressBar.style.width = scrolled + '%';
+    progressBar.textContent = scrolled + '%';
+  });
+   
+    // Scroll to top button logic
     const scrollBtn = document.getElementById('scrollToTop');
     window.addEventListener('scroll', () => {
       if (window.scrollY > 150) {
@@ -284,35 +484,124 @@
         scrollBtn.classList.remove('show');
       }
     });
-
     scrollBtn.addEventListener('click', () => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
+
+    // Collapsible sections logic
+    const toggleAllBtn = document.getElementById('toggleAllBtn');
+    const sections = document.querySelectorAll('main h2');
+    
+    function setSectionState(section, expanded) {
+      const content = section.nextElementSibling;
+      if (expanded) {
+        section.classList.remove('collapsed');
+        section.setAttribute('aria-expanded', 'true');
+        content.style.maxHeight = content.scrollHeight + "px";
+        content.style.opacity = '1';
+        content.style.pointerEvents = 'auto';
+      } else {
+        section.classList.add('collapsed');
+        section.setAttribute('aria-expanded', 'false');
+        content.style.maxHeight = '0';
+        content.style.opacity = '0';
+        content.style.pointerEvents = 'none';
+      }
+    }
+
+    // Initialize all expanded
+    // Initialize all collapsed
+sections.forEach(section => {
+  setSectionState(section, false);
+  // Add click & keyboard toggle
+  section.addEventListener('click', () => {
+    const isExpanded = section.getAttribute('aria-expanded') === 'true';
+    setSectionState(section, !isExpanded);
+    updateToggleAllBtn();
+  });
+  section.addEventListener('keydown', e => {
+    if (e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar') {
+      e.preventDefault();
+      section.click();
+    }
+  });
+});
+
+
+    function updateToggleAllBtn() {
+      const allExpanded = Array.from(sections).every(s => s.getAttribute('aria-expanded') === 'true');
+      const allCollapsed = Array.from(sections).every(s => s.getAttribute('aria-expanded') === 'false');
+
+      if (allExpanded) {
+        toggleAllBtn.textContent = 'Collapse All';
+        toggleAllBtn.setAttribute('aria-expanded', 'true');
+      } else if (allCollapsed) {
+        toggleAllBtn.textContent = 'Show All';
+        toggleAllBtn.setAttribute('aria-expanded', 'false');
+      } else {
+        toggleAllBtn.textContent = 'Show All';
+        toggleAllBtn.setAttribute('aria-expanded', 'false');
+      }
+    }
+
+    toggleAllBtn.addEventListener('click', () => {
+      const expand = toggleAllBtn.getAttribute('aria-expanded') === 'false';
+      sections.forEach(section => setSectionState(section, expand));
+      toggleAllBtn.textContent = expand ? 'Collapse All' : 'Show All';
+      toggleAllBtn.setAttribute('aria-expanded', expand ? 'true' : 'false');
+    });
+
+    // On page load, update toggle button text accordingly
+    updateToggleAllBtn();
   </script>
 
-<script>
-  const isGitHub = location.hostname.includes('github.io');
-  const base = isGitHub ? '/website' : '';
+  <script>
+    const isGitHub = window.location.hostname.includes('github.io');
+    const base = isGitHub ? '/website' : '';  // no trailing slash here
 
-  const manifest = document.createElement('link');
-  manifest.rel = 'manifest';
-  manifest.href = base + '/manifest.json';
+    const manifest = document.createElement('link');
+    manifest.rel = 'manifest';
+    manifest.href = base + '/manifest.json';  // add slash here for correct path
 
-  const themeMeta = document.createElement('meta');
-  themeMeta.name = 'theme-color';
-  themeMeta.content = '#000000';
+    const themeMeta = document.createElement('meta');
+    themeMeta.name = 'theme-color';
+    themeMeta.content = '#000000';
 
-  document.head.appendChild(manifest);
-  document.head.appendChild(themeMeta);
+    document.head.appendChild(manifest);
+    document.head.appendChild(themeMeta);
 
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register(base + '/service-worker.js', { scope: base + '/' })
-      .then(() => console.log('✅ Service Worker registered'))
-      .catch(err => console.error('❌ Service Worker failed', err));
-  }
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register(base + '/service-worker.js')
+        .then(() => console.log('✅ Service Worker registered'))
+        .catch(err => console.error('❌ Service Worker failed', err));
+    }
+
+// Function to highlight a heading temporarily
+function highlightHeading(heading) {
+  if (!heading) return;
+  heading.classList.add('highlighted');
+  setTimeout(() => {
+    heading.classList.remove('highlighted');
+  }, 2000);  // Highlight stays for 2 seconds
+}
+
+// Attach click listeners to all quick-nav links
+document.querySelectorAll('.quick-nav a').forEach(link => {
+  link.addEventListener('click', e => {
+    // Get the href target without '#'
+    const targetId = link.getAttribute('href').substring(1);
+    const targetHeading = document.getElementById(targetId);
+    
+    if (targetHeading) {
+      // Wait for the smooth scroll to finish then highlight
+      // Using setTimeout is a simple hack, adjust delay if needed
+      setTimeout(() => {
+        highlightHeading(targetHeading);
+      }, 300); // 300ms delay to let scroll happen
+    }
+  });
+});
+   
 </script>
-
 </body>
 </html>
-
-
