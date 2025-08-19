@@ -10,20 +10,27 @@
   <!-- Confetti script from CDN -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
   <script src="layout-loader.js"></script>
-
   <title>View Announcements</title>
 
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Merriweather&family=Poppins:wght@600&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --primary-gradient: linear-gradient(135deg, #6e8efb, #a777e3);
-      --secondary-gradient: linear-gradient(135deg, #ff758c, #ff7eb3);
-      --border-radius: 16px;
+      --durga-color: #ff6f61;
+      --ganesh-color: #ffb347;
+      --biswakarma-color: #7ea9f8;
+      --default-color: #6e8efb;
+      --border-radius: 14px;
     }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
     body {
-      background: #f8faff;
+      background: #f9fbfd;
       font-family: 'Merriweather', serif;
       color: #222;
       padding: 2rem 1rem;
@@ -31,155 +38,119 @@
       flex-direction: column;
       align-items: center;
       min-height: 100vh;
-      overflow-x: hidden;
     }
+
     h1 {
       font-family: 'Poppins', sans-serif;
       font-weight: 600;
       font-size: 1.5rem;
-      background: var(--primary-gradient);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      margin-bottom: 3rem;
+      color: #444;
+      margin-bottom: 2rem;
       text-align: center;
-      text-shadow: 0 4px 10px rgba(110,142,251,0.4);
     }
-  #announcements-container {
-  max-width: 900px;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-  margin-left: auto;
-  margin-right: auto;
-  padding: 0 1rem;
-  box-sizing: border-box;
-  border: 2px dashed #a777e3; /* Border for visual check */
-}
+
+    #announcements-container {
+      max-width: 900px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 1.4rem;
+    }
+
     .flyer-card {
       position: relative;
-      padding: 3.2rem 3rem 3rem;
+      padding: 1.8rem 1.5rem 1.6rem;
       border-radius: var(--border-radius);
-      box-shadow: 0 10px 30px rgba(110, 142, 251, 0.3);
-      overflow: visible;
-      animation: fadeSlideIn 0.7s ease forwards;
+      background: white;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+      transition: transform 0.3s ease;
     }
-    .flyer-card::before {
-      content: '';
-      position: absolute;
-      top: -50%; left: -50%;
-      width: 200%; height: 200%;
-      background: var(--secondary-gradient);
-      opacity: 0;
-      border-radius: var(--border-radius);
-      filter: blur(50px);
-      transition: opacity 0.4s ease;
-      z-index: 0;
-      transform: rotate(15deg);
-    }
-    .flyer-card:hover::before { opacity: 0.15; }
+
     .flyer-card:hover {
-      box-shadow: 0 20px 40px rgba(110, 142, 251, 0.5);
-      transform: translateY(-10px) scale(1.03);
-      z-index: 10;
+      transform: scale(1.015);
     }
+
+    .flyer-card.durga { border-left: 6px solid var(--durga-color); }
+    .flyer-card.ganesh { border-left: 6px solid var(--ganesh-color); }
+    .flyer-card.biswakarma { border-left: 6px solid var(--biswakarma-color); }
+    .flyer-card.default { border-left: 6px solid var(--default-color); }
 
     .flyer-icon {
       position: absolute;
-      top: -35px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 72px;
-      height: 72px;
-      background: var(--primary-gradient);
+      top: -20px;
+      left: 20px;
+      width: 48px;
+      height: 48px;
+      background: #fff;
       border-radius: 50%;
+      font-size: 26px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
       display: flex;
-      justify-content: center;
       align-items: center;
-      font-size: 38px;
-      color: #fff;
-      box-shadow: 0 6px 14px rgba(110, 142, 251, 0.7);
-      user-select: none;
-      border: 5px solid #fff;
-      z-index: 1;
+      justify-content: center;
+      border: 3px solid #eee;
     }
 
     h2 {
       font-family: 'Poppins', sans-serif;
-      font-weight: 700;
-      font-size: 1.5rem;
-      text-align: center;
-      margin: 3rem 0 1.2rem;
-      background: var(--primary-gradient);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-    .section-header.date {
-      text-align: center;
-      font-family: 'Poppins', sans-serif;
       font-weight: 600;
-      font-size: 1.1rem;
-      color: #444;
-      margin-bottom: 1.6rem;
+      font-size: 1.25rem;
+      margin-top: 1rem;
+      margin-bottom: 0.6rem;
+      padding-left: 60px;
+      color: #333;
     }
-    .section-content {
-      font-size: 1.05rem;
-      line-height: 1.7;
-      color: #555;
-      margin-bottom: 2rem;
-      text-align: justify;
-      padding: 0 0.4rem;
-    }
-    hr {
-      border: none;
-      border-top: 2px solid var(--primary-gradient);
-      opacity: 0.15;
-      margin-bottom: 1.8rem;
-    }
-    .footer-note {
+
+    .section-header.date {
+      font-family: 'Poppins', sans-serif;
       font-size: 0.95rem;
-      color: #777;
-      text-align: center;
+      color: #666;
+      margin-bottom: 1rem;
+      padding-left: 60px;
     }
 
-    @keyframes fadeSlideIn {
-      0% { opacity: 0; transform: translateY(25px); }
-      100% { opacity: 1; transform: translateY(0); }
+    .section-content {
+      font-size: 0.98rem;
+      line-height: 1.6;
+      color: #444;
+      text-align: justify;
+      padding-left: 60px;
     }
 
-    /* Scroll to top button */
+    .footer-note {
+      font-size: 0.85rem;
+      color: #888;
+      margin-top: 1.2rem;
+      text-align: right;
+      padding-right: 0.8rem;
+    }
+
     #scrollToTop {
       position: fixed;
-      bottom: 25px;
+      bottom: 20px;
       right: 20px;
-      display: none;
-      background-color: #6e8efb;
+      background-color: var(--default-color);
       color: white;
       border: none;
       border-radius: 50%;
-      padding: 12px 16px;
-      font-size: 24px;
+      padding: 8px 10px;
+      font-size: 18px;
       cursor: pointer;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-      z-index: 1000;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+      display: none;
       transition: background 0.3s ease;
-    }
-    #scrollToTop:hover {
-      background-color: #a777e3;
+      z-index: 1000;
     }
 
-    /* Mobile responsive tweaks */
+    #scrollToTop:hover {
+      background-color: var(--durga-color);
+    }
+
     @media (max-width: 600px) {
-      h1 { font-size: 1.4rem; }
-      .flyer-card {
-        padding: 2.5rem 1.6rem 2rem;
-      }
-      .flyer-icon {
-        width: 56px; height: 56px; font-size: 30px;
-      }
-      h2 { font-size: 1.3rem; }
-      .section-header.date { font-size: 1rem; }
-      .section-content { font-size: 1rem; }
+      .flyer-card { padding: 1.4rem 1rem; }
+      h2 { font-size: 1.1rem; padding-left: 52px; }
+      .section-header.date, .section-content { padding-left: 52px; }
+      .flyer-icon { width: 42px; height: 42px; font-size: 22px; }
     }
   </style>
 </head>
@@ -193,18 +164,6 @@
   <button id="scrollToTop" title="Back to Top">⬆️</button>
 
   <script>
-    // Hide flash news after 12PM tomorrow
-    window.addEventListener('DOMContentLoaded', () => {
-      const now = new Date();
-      const twelvopmTomorrow = new Date();
-      twelvopmTomorrow.setDate(now.getDate() + 1);
-      twelvopmTomorrow.setHours(12, 0, 0, 0);
-      if (now > twelvopmTomorrow) {
-        document.getElementById('flash-news').style.display = 'none';
-      }
-    });
-
-    // Load announcements
     document.addEventListener('DOMContentLoaded', () => {
       fetch('notices.json')
         .then(res => res.ok ? res.json() : Promise.reject(res))
@@ -217,8 +176,10 @@
 
           data.forEach((notice, i) => {
             const article = document.createElement('article');
-            article.className = 'flyer-card';
-            article.style.animationDelay = `${0.15 * i}s`;
+
+            // Use theme from JSON
+            const theme = notice.theme || 'default';
+            article.className = `flyer-card ${theme}`;
 
             let formattedDate;
             if (notice.startDate && notice.endDate) {
@@ -233,13 +194,13 @@
             }
 
             article.innerHTML = `
-              <div class="flyer-icon" aria-label="Community Icon" title="${notice.title}">${notice.icon}</div>
+              <div class="flyer-icon" aria-label="Icon">${notice.icon}</div>
               <h2>${notice.title}</h2>
               <div class="section-header date">📅 ${formattedDate}</div>
               <div class="section-content">${notice.content}</div>
-              <hr />
-              <div class="footer-note">${notice.footer}</div>
+              <div class="footer-note">${notice.footer || ''}</div>
             `;
+
             container.appendChild(article);
           });
         })
@@ -248,10 +209,8 @@
           container.innerHTML = `<p style="color:red;">Error loading announcements: ${err.message}</p>`;
           console.error(err);
         });
-    });
 
-    // Scroll-to-top functionality
-    document.addEventListener('DOMContentLoaded', () => {
+      // Scroll to top
       const scrollBtn = document.getElementById('scrollToTop');
       window.addEventListener('scroll', () => {
         scrollBtn.style.display = window.scrollY > 200 ? 'block' : 'none';
@@ -283,5 +242,6 @@
       .catch(err => console.error('❌ Service Worker failed', err));
   }
 </script>
+
 </body>
 </html>
