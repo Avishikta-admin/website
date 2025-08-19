@@ -1,15 +1,17 @@
 [
   {
     "icon": "🐘",
-    "title": "Ganesh Chaturthi 2025",
+    "title": "Wishing You a Blessed Ganesh Chaturthi",
     "date": "2025-08-27",
-    "content": "<p>Wishing all our members a joyous and blessed <strong>Ganesh Chaturthi</strong>! May Lord Ganesha bring wisdom, prosperity, and harmony to our homes and hearts. Let’s celebrate this auspicious occasion with love, peace, and togetherness in our community.</p>",
+    "theme": "ganesh",
+    "content": "<p>Wishing all our residents a joyful and prosperous <strong>Ganesh Chaturthi</strong>! May Lord Ganesha remove all obstacles and bless your homes with happiness, wisdom, and good fortune. 🙏<br><br><em>Let’s celebrate the spirit of unity and auspicious beginnings.</em></p>",
     "footer": "Team EC: Avishikta – I Type - A RWA"
   },
   {
     "icon": "🛠️",
     "title": "Biswakarma Puja 2025",
     "date": "2025-09-17",
+    "theme": "biswakarma",
     "content": "<p>Join us in honoring <strong>Lord Biswakarma</strong>, the divine architect and engineer. A special puja will be held in the community premises followed by <em>prasad distribution</em> and offerings. All residents and support staff are invited to participate and seek blessings for prosperity and skillful living.</p>",
     "footer": "Team EC: Avishikta – I Type - A RWA"
   },
@@ -18,8 +20,8 @@
     "title": "Durga Puja Festival 2025",
     "startDate": "2025-09-28",
     "endDate": "2025-10-02",
+    "theme": "durga",
     "content": "<ul><li>Devi Arati & Pushpanjali (Daily)</li><li>Dhak Performance by Ladies</li><li>Cultural Evenings: Skits, Songs & Dance</li><li>Community Bhog & Food Stalls</li><li>Fun Activities & Raffle Draws</li></ul>",
     "footer": "Team EC: Avishikta – I Type - A RWA"
   }
 ]
-
