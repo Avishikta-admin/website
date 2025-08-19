@@ -186,10 +186,7 @@ h1 {
   </style>
 </head>
 <body>
-<h1>📢 Latest Announcements & Upcoming Celebrations at Avishikta</h1>
-  <main id="announcements-container"></main>
-  <button id="scrollToTop" title="Back to Top">⬆️</button>
-
+  <h1>📢 Latest Announcements & Upcoming Celebrations at Avishikta</h1>
   <select id="filter">
     <option value="all">Show All</option>
     <option value="ganesh">Ganesh Chaturthi</option>
@@ -197,6 +194,8 @@ h1 {
     <option value="biswakarma">Biswakarma Puja</option>
   </select>
 
+  <main id="announcements-container"></main>
+  <button id="scrollToTop" title="Back to Top">⬆️</button>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       fetch('notices.json')
@@ -328,4 +327,5 @@ closeBtn.addEventListener('click', () => {
 
 </body>
 </html>
+
 
