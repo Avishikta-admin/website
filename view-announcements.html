@@ -23,12 +23,6 @@
       --border-radius: 14px;
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
     body {
       background: #f9fbfd;
       font-family: 'Merriweather', serif;
@@ -81,31 +75,44 @@
       left: 20px;
       width: 48px;
       height: 48px;
-      background: #fff;
       border-radius: 50%;
       font-size: 26px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
       display: flex;
       align-items: center;
       justify-content: center;
-      border: 3px solid #eee;
+      color: white;
+      font-weight: bold;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
     }
+
+    .flyer-icon.durga { background-color: var(--durga-color); }
+    .flyer-icon.ganesh { background-color: var(--ganesh-color); }
+    .flyer-icon.biswakarma { background-color: var(--biswakarma-color); }
+    .flyer-icon.default { background-color: var(--default-color); }
 
     h2 {
       font-family: 'Poppins', sans-serif;
       font-weight: 600;
       font-size: 1.25rem;
       margin-top: 1rem;
-      margin-bottom: 0.6rem;
+      margin-bottom: 0.4rem;
       padding-left: 60px;
       color: #333;
+    }
+
+    .countdown {
+      font-size: 0.95rem;
+      color: #e53935;
+      font-weight: 500;
+      margin-bottom: 0.8rem;
+      padding-left: 60px;
     }
 
     .section-header.date {
       font-family: 'Poppins', sans-serif;
       font-size: 0.95rem;
       color: #666;
-      margin-bottom: 1rem;
+      margin-bottom: 0.8rem;
       padding-left: 60px;
     }
 
@@ -149,77 +156,80 @@
     @media (max-width: 600px) {
       .flyer-card { padding: 1.4rem 1rem; }
       h2 { font-size: 1.1rem; padding-left: 52px; }
-      .section-header.date, .section-content { padding-left: 52px; }
+      .section-header.date, .section-content, .countdown { padding-left: 52px; }
       .flyer-icon { width: 42px; height: 42px; font-size: 22px; }
     }
   </style>
 </head>
 <body>
 
-  <main id="announcements-container">
-    <h1>Association Highlights & Community Buzz</h1>
-    <!-- Announcements load here -->
-  </main>
+<main id="announcements-container">
+  <h1>Association Highlights & Community Buzz</h1>
+</main>
 
-  <button id="scrollToTop" title="Back to Top">⬆️</button>
+<button id="scrollToTop" title="Back to Top">⬆️</button>
 
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      fetch('notices.json')
-        .then(res => res.ok ? res.json() : Promise.reject(res))
-        .then(data => {
-          const container = document.getElementById('announcements-container');
-          if (!data.length) {
-            container.innerHTML = '<p>No announcements available right now.</p>';
-            return;
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    fetch('notices.json')
+      .then(res => res.ok ? res.json() : Promise.reject(res))
+      .then(data => {
+        const container = document.getElementById('announcements-container');
+        if (!data.length) {
+          container.innerHTML = '<p>No announcements available right now.</p>';
+          return;
+        }
+
+        data.forEach((notice, i) => {
+          const article = document.createElement('article');
+          const theme = notice.theme || 'default';
+          article.className = `flyer-card ${theme}`;
+
+          // Format date
+          let formattedDate, eventDate;
+          if (notice.date) {
+            eventDate = new Date(notice.date);
+            formattedDate = eventDate.toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' });
+          } else if (notice.startDate) {
+            eventDate = new Date(notice.startDate);
+            formattedDate = `${new Date(notice.startDate).toLocaleDateString()} – ${new Date(notice.endDate).toLocaleDateString()}`;
           }
 
-          data.forEach((notice, i) => {
-            const article = document.createElement('article');
+          // Countdown logic
+          let countdownHtml = '';
+          const now = new Date();
+          if (eventDate && eventDate > now) {
+            const diff = eventDate - now;
+            const daysLeft = Math.ceil(diff / (1000 * 60 * 60 * 24));
+            countdownHtml = `<div class="countdown">⏳ ${daysLeft} day${daysLeft > 1 ? 's' : ''} left</div>`;
+          }
 
-            // Use theme from JSON
-            const theme = notice.theme || 'default';
-            article.className = `flyer-card ${theme}`;
-
-            let formattedDate;
-            if (notice.startDate && notice.endDate) {
-              const start = new Date(notice.startDate);
-              const end = new Date(notice.endDate);
-              formattedDate = `${start.toLocaleDateString(undefined, { month: 'short', day: 'numeric' })} – ${end.toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })}`;
-            } else if (notice.date) {
-              const singleDate = new Date(notice.date);
-              formattedDate = singleDate.toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' });
-            } else {
-              formattedDate = 'Date not specified';
-            }
-
-            article.innerHTML = `
-              <div class="flyer-icon" aria-label="Icon">${notice.icon}</div>
-              <h2>${notice.title}</h2>
-              <div class="section-header date">📅 ${formattedDate}</div>
-              <div class="section-content">${notice.content}</div>
-              <div class="footer-note">${notice.footer || ''}</div>
-            `;
-
-            container.appendChild(article);
-          });
-        })
-        .catch(err => {
-          const container = document.getElementById('announcements-container');
-          container.innerHTML = `<p style="color:red;">Error loading announcements: ${err.message}</p>`;
-          console.error(err);
+          article.innerHTML = `
+            <div class="flyer-icon ${theme}" aria-label="Icon">${notice.icon}</div>
+            <h2>${notice.title}</h2>
+            ${countdownHtml}
+            <div class="section-header date">📅 ${formattedDate}</div>
+            <div class="section-content">${notice.content}</div>
+            <div class="footer-note">${notice.footer || ''}</div>
+          `;
+          container.appendChild(article);
         });
+      })
+      .catch(err => {
+        document.getElementById('announcements-container').innerHTML =
+          `<p style="color:red;">Error loading announcements: ${err.message}</p>`;
+      });
 
-      // Scroll to top
-      const scrollBtn = document.getElementById('scrollToTop');
-      window.addEventListener('scroll', () => {
-        scrollBtn.style.display = window.scrollY > 200 ? 'block' : 'none';
-      });
-      scrollBtn.addEventListener('click', () => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      });
+    // Scroll-to-top
+    const scrollBtn = document.getElementById('scrollToTop');
+    window.addEventListener('scroll', () => {
+      scrollBtn.style.display = window.scrollY > 200 ? 'block' : 'none';
     });
-  </script>
+    scrollBtn.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  });
+</script>
 
 <script>
   const isGitHub = location.hostname.includes('github.io');
