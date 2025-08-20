@@ -1,603 +1,617 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Official page of Avishikta - I Type - A RWA. Stay informed, get involved, and build a stronger association.">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Official page of Avishikta - I Type - A RWA. Stay informed, get involved, and build a stronger association.">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
   <meta http-equiv="Pragma" content="no-cache" />
   <meta http-equiv="Expires" content="0" />
-  <!-- Confetti script from CDN -->
-  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <meta name="theme-color" content="#000000" />
+  
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet" />
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+  <!-- Your site CSS -->
+  <link rel="stylesheet" href="css/responsive-fix.css" />
+
+  <!-- Your layout script with header/sidebar/footer -->
   <script src="layout-loader.js"></script>
+  <title>Interactive Event Calendar</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
 
-    <title>Interactive Event Calendar</title>
-    <link rel="stylesheet" href="style.css">
-    <style>
-        /* Resetting margins and padding */
-        body, html {
-            margin: 0;
-            padding: 0;
-            font-family: Arial, sans-serif;
-            background: linear-gradient(to right, #4e73df, #1cc3a0); /* Blue to teal gradient */
-            min-height: 100vh;
-            transition: background-color 0.3s ease, color 0.3s ease;
-        }
+    body, html, #root {
+      height: 100%;
+      background: #f0f2f5;
+    }
 
-        .calendar-container {
-            width: 90%;
-            max-width: 800px;
-            margin: 50px auto 50px;  /* Increased the top margin to 50px */
-            padding: 20px;
-            background-color: #fff;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            border-radius: 10px;
-            position: relative;  /* Ensure proper flow */
-        }
+    .main-content {
+      margin-left: 5%;
+      padding: 10px 5px;
+      display: flex;
+      gap: 10px;
+      height: calc(100vh - 120px);
+    }
 
-        .calendar-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;  /* Reduced margin-bottom to balance */
-        }
+    #calendarContainer {
+      flex: 1 1 60%;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+    }
 
-        .calendar-header h1 {
-  		background: linear-gradient(90deg, #ff7e5f 0%, #feb47b 50%, #28a745 100%);
-  		-webkit-background-clip: text;
-  		-webkit-text-fill-color: transparent;
-  		background-clip: text;
-  		color: transparent;
-	}
+    .calendar-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
 
-        .calendar-header h2 {
-            font-size: 20px;
-            color: #333;
-        }
+    .calendar-header h2 {
+      font-weight: 700;
+      font-size: 1.4rem;
+      color: #333;
+      flex-grow: 1;
+      min-width: 150px;
+    }
 
-        .calendar-header button {
-            padding: 8px;
-            background-color: #4e73df;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
+    .nav-buttons {
+      display: flex;
+      gap: 10px;
+    }
 
-        .calendar-header button:hover {
-            background-color: #2e58b2;
-        }
+    .nav-buttons button,
+    #todayBtn {
+      background: #2575fc;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 8px;
+      color: white;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
 
-/* On hover over event day, show event details */
-/* On hover over event day, show event details */
-.calendar-grid .event-day:hover::after {
-    content: attr(data-events);
-    font-size: 12px; /* Adjust font size to fit the container */
-    color: #28a745; /* Green text color */
-    padding: 8px 12px;
-    border-radius: 5px;
-    position: absolute;
-    top: -30px; /* Adjusted position */
-    left: 50%;
-    transform: translateX(-50%);
-    white-space: nowrap; /* Prevent text from wrapping */
-    z-index: 100; /* Ensure the text is above other elements */
-    width: auto; /* Allow width to automatically adjust */
-    max-width: 200px; /* Prevent it from becoming too wide */
-    word-wrap: break-word; /* Break long text to fit inside */
-    box-sizing: border-box; /* Ensure padding is included in the width calculation */
-    display: inline-block; /* Allow the background to fit the content */
-    min-width: 80px; /* Ensure there's a minimum width for readability */
+    .nav-buttons button:hover,
+    #todayBtn:hover {
+      background: #1a5ed9;
+    }
+
+    #eventTypeFilter {
+      padding: 8px 12px;
+      border-radius: 6px;
+      border: 1.5px solid #ccc;
+      font-weight: 600;
+      font-size: 1rem;
+      background: white;
+      cursor: pointer;
+    }
+
+    #calendarGrid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 10px;
+      row-gap: 6px;
+      column-gap: 6px;
+    }
+
+    #calendarGrid > div {
+      text-align: center;
+      font-weight: 700;
+      padding: 6px 0;
+      color: #666;
+    }
+
+    .day, .day.empty {
+    height: 60px; /* or your preferred height */
+    border-radius: 10px;
+    background: #f5f7fa;
+    display: flex;
+    justify-content: center;    /* horizontal center */
+    align-items: center;        /* vertical center */
+    font-weight: 600;
+    color: #555;
+    cursor: pointer;
+    position: relative;
+    transition: background-color 0.3s;
+    user-select: none;
+    padding: 0;                 /* remove padding that could offset content */
+    font-size: 0.95rem;
 }
 
+    .day.empty {
+      background: transparent;
+      cursor: default;
+    }
 
+    .day:hover:not(.empty) {
+      background: #d1e7fd;
+    }
 
+    .event-day {
+      color: white;
+      font-weight: 700;
+      box-shadow: 0 0 8px rgba(0,0,0,0.15);
+    }
 
-/* Event Search */
-        .search-container {
-            margin-bottom: 15px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+    .event-icon {
+      position: absolute;
+      bottom: 6px;
+      right: 6px;
+      font-size: 1.2rem;
+    }
 
-        .search-container input {
-            padding: 8px;
-            border-radius: 5px;
-            border: 1px solid #ddd;
-            width: 80%;
-        }
+    .today-highlight {
+      outline: 4px solid #ffab00;
+      outline-offset: -4px;
+      border-radius: 10px;
+    }
 
-        .search-container button {
-            padding: 8px;
-            background-color: #4e73df;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
+  #upcomingSidebar {
+  width: 450px; /* Adjusted width */
+  flex: none;
+  background: linear-gradient(135deg, #6a11cb, #2575fc);
+  color: white;
+  border-radius: 12px;
+  padding: 15px;
+  overflow-y: auto;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+  max-height: 100%;
+}
 
-        .search-container button:hover {
-            background-color: #2e58b2;
-        }
+#upcomingSidebar h3 {
+  margin-bottom: 15px;
+  font-weight: 700;
+  font-size: 1.1rem;
+  border-bottom: 2px solid rgba(255,255,255,0.4);
+  padding-bottom: 8px;
+}
 
-        .search-container .clear-search {
-            background-color: #f44336;
-            color: white;
-            border-radius: 50%;
-            padding: 5px 10px;
-            cursor: pointer;
-            display: none;
-        }
+#upcomingSidebar::-webkit-scrollbar {
+  width: 8px;
+}
 
-        .search-container .clear-search:hover {
-            background-color: #e53935;
-        }
+#upcomingSidebar::-webkit-scrollbar-thumb {
+  background-color: rgba(255,255,255,0.3);
+  border-radius: 4px;
+}
 
-        /* Calendar Grid */
-        .calendar-grid {
-            display: grid;
-            grid-template-columns: repeat(7, 1fr);
-            gap: 5px;
-            background-color: #d4b897;
-            padding: 10px;
-            border-radius: 8px;
-        }
+    .event-item {
+      background: rgba(255, 255, 255, 0.15);
+      margin-bottom: 12px;
+      padding: 12px 15px;
+      border-radius: 8px;
+      box-shadow: inset 0 0 6px rgba(0,0,0,0.1);
+      transition: background 0.3s;
+    }
 
-        .calendar-grid div {
-            padding: 10px;
-            background-color: #f8f8f8;
-            border-radius: 5px;
-            text-align: center;
-            cursor: pointer;
-            position: relative;
-            font-size: 16px;
-        }
+    .event-item:hover {
+      background: rgba(255, 255, 255, 0.3);
+    }
 
-        .calendar-grid .day {
-            font-size: 16px;
-            font-weight: bold;
-            color: #333;
-        }
+    .event-item .event-type {
+      font-weight: 700;
+      margin-bottom: 4px;
+      text-transform: uppercase;
+      font-size: 0.75rem;
+      letter-spacing: 1px;
+    }
 
-        /* Event Day Styling with Blue Color */
-        .calendar-grid .event-day {
-            background-color: #4e73df; /* Blue for events */
-            border: 2px solid #2e58b2;
-            color: #fff;
-        }
+    .event-item .event-name {
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
 
-        .calendar-grid .event-day .event-icon {
-            font-size: 12px;
-            color: #fff;
-            position: absolute;
-            top: 5px;
-            right: 5px;
-        }
+    .event-item .event-date {
+      font-size: 0.9rem;
+      opacity: 1;
+    }
 
-        .calendar-grid .event-day:hover {
-            background-color: #2e58b2;
-            color: #fff;
-        }
+    
+    .event-type.religious {
+    color: #ffe600; /* bright yellow */
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+}
 
-        .calendar-grid .event-day::after {
-            content: '•';
-            font-size: 18px;
-            color: #fff;
-            position: absolute;
-            top: 5px;
-            right: 5px;
-        }
+.event-type.national {
+    color: #ff6f00; /* vivid orange */
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+}
 
-        #calendarTitle {
-            font-size: 24px;
-            font-weight: bold;
-            background: linear-gradient(to right, #ff7f50, #00bcd4);
-            -webkit-background-clip: text;
-            color: transparent;
-            text-align: center;
-            padding: 5px 0;
-        }
+#eventModal[hidden] {
+  display: none;
+}
 
-        /* Event Details */
-        .event-details {
-            margin-top: 10px;
-            background-color: #f9f9f9;
-            padding: 5px;
-            border-radius: 5px;
-            position: relative;
-            z-index: 1;
-            font-size: 12px;
-            display: none;
-        }
-
-        .event-details h3 {
-            color: #4e73df;
-            font-size: 15px;
-            margin-bottom: 5px;
-        }
-
-        .event-details ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        .event-details ul li {
-            margin-bottom: 5px;
-            font-size: 14px;
-            color: #333;
-        }
-
-        .event-details .event-description {
-            font-size: 14px;
-            color: #555;
-        }
-
-        /* Reminder Input and Button */
-        .reminder-container {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 10px;
-        }
-
-        .reminder-container input {
-            width: 70%;
-            padding: 8px;
-            border-radius: 5px;
-            border: 1px solid #ddd;
-        }
-
-        .reminder-container button {
-            width: 25%;
-            padding: 8px;
-            background-color: #ff7f50;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        .reminder-container button:hover {
-            background-color: #ff5722;
-        }
-
-        .reminder-note {
-            margin-top: 10px;
-            font-size: 14px;
-            color: #555;
-        }
-
-        /* Footer */
-        footer {
-            text-align: center;
-            padding: 10px;
-            background-color: #4e73df;
-            color: white;
-        }
-
-        footer p {
-            margin: 0;
-            font-size: 12px;
-        }
+#eventModal {
+  z-index: 1000;
+}
 
 </style>
 </head>
-
 <body>
+<div id="root">
+  <main id="main-content" class="main-content" role="main" tabindex="-1" style="display: flex; gap: 20px;">
 
-<main>
- 
-    <div class="calendar-container">
-        <!-- Search for Events -->
-        <div class="search-container">
-            <input type="text" id="eventSearch" placeholder="Search events..." />
-            <button id="searchBtn">Search</button>
-            <span id="clearSearchBtn" class="clear-search">x</span>
-        </div>
+  <section id="calendarContainer" style="flex: 1;">
+    <div class="calendar-header" style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-bottom: 10px;">
+      <h2 id="calendarTitle" style="flex-grow: 1; min-width: 150px;">Loading...</h2>
 
-        <div class="calendar-header">
-            <h1>Event Calendar</h1>
-            <button id="prevMonthBtn">Previous</button>
-            <h2 id="calendarTitle">July 2025</h2>
-            <button id="nextMonthBtn">Next</button>
-        </div>
+      <div class="nav-buttons" style="display: flex; gap: 5px;">
+        <button id="prevMonthBtn" aria-label="Previous month">&lt;</button>
+        <button id="nextMonthBtn" aria-label="Next month">&gt;</button>
+      </div>
 
-        <div class="calendar-grid" id="calendarGrid">
-            <!-- Calendar grid will be generated here -->
-        </div>
+      <div id="eventTypeFilters" aria-label="Filter events by event types" role="group" style="display: flex; gap: 15px; flex-wrap: wrap;">
+        <label><input type="checkbox" value="religious" checked> Religious</label>
+        <label><input type="checkbox" value="national" checked> National</label>
+        <label><input type="checkbox" value="meeting" checked> Meeting</label>
+      </div>
 
-        <div class="event-details" id="eventDetails">
-            <h3>Events on this Day:</h3>
-            <ul id="eventList">
-                <!-- Events will be listed here -->
-            </ul>
-            <div class="reminder-container" id="reminderContainer">
-                <input type="text" id="reminderInput" placeholder="Set a reminder..." />
-                <button id="setReminderBtn">Set Reminder</button>
-            </div>
-            <div class="reminder-note" id="reminderNote"></div>
-        </div>
+      <button id="todayBtn" aria-label="Go to today">Today</button>
     </div>
+
+    <div id="calendarGrid" aria-label="Calendar days grid" role="grid" style="display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px;"></div>
+
+  </section>
+
+  <aside id="upcomingSidebar" aria-live="polite" aria-atomic="true" tabindex="0">
+  <h3>Upcoming Events</h3>
+
+  <p style="font-style: italic; font-size: 0.9em; color: #ccc; margin-top: -6px; margin-bottom: 10px;">
+    <b>Click a date on the calendar above to view event details and add reminders.</b>
+  </p>
+
+  <div id="upcomingEventsList" style="max-height: 500px; overflow-y: auto; padding-right: 8px; margin-bottom: 10px;"></div>
+</aside>
+
 
 </main>
 
+  <footer class="footer" role="contentinfo" style="text-align:center; padding:12px; color:#777;">
+    © 2025 My Calendar App
+  </footer>
+</div>
+
+<!-- modal HTML here, before closing body -->
+<div id="eventModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" aria-describedby="modalDesc" tabindex="-1" hidden>
+  <div id="modalBackdrop" style="position:fixed; inset:0; background:rgba(0,0,0,0.5);"></div>
+  <div id="modalContent" style="position:fixed; top:50%; left:50%; transform:translate(-50%, -50%);
+    background:#fff; border-radius:12px; padding:20px; max-width:400px; box-shadow:0 8px 20px rgba(0,0,0,0.2);">
+    <h2 id="modalTitle" style="margin-bottom:12px;"></h2>
+    <div id="modalDesc" style="margin-bottom:20px;"></div>
+    <button id="closeModalBtn" style="background:#2575fc; border:none; color:#fff; padding:8px 16px; border-radius:8px; cursor:pointer;">Close</button>
+  </div>
+</div>
+
 <script>
-    // Event data for each date
-    const eventsData = {
-        "2025-07-27": [
-            { name: "Khunti Pujo - 11:00 AM onwards - Puja Location", type: "religious" },
-            { name: "19th AGM - 5:00 PM onwards - Community Hall", type: "meeting" }
-        ],
-        "2025-08-15": [{ name: "79th Independence Day", type: "national" }],
-        "2025-09-17": [{ name: "Biswakarma Puja", type: "religious" }],
-        "2025-09-28": [{ name: "Durga Puja - Maha Sasthi", type: "religious" }],
-        "2025-09-29": [{ name: "Durga Puja - Maha Saptami", type: "religious" }],
-        "2025-09-30": [{ name: "Durga Puja - Maha Ashtami", type: "religious" }],
-        "2025-10-01": [{ name: "Durga Puja - Maha Nabami", type: "religious" }],
-        "2025-10-02": [{ name: "Durga Puja - Bijoya Dashami", type: "religious" }]
+  let eventModal, modalTitle, modalDesc, closeModalBtn;
+
+  const eventColors = {
+    religious: '#d1b3e0',  // adjusted purple for better contrast
+    meeting: '#27ae60',
+    national: '#e67e22',
+  };
+
+  const eventIcons = {
+    religious: '⛪',
+    meeting: '📅',
+    national: '🎆',
+  };
+
+  const eventsData = {
+    "2025-08-15": [{ type: "national", name: "Independence Day" }],
+    "2025-08-27": [{ type: "religious", name: "Ganesh Chaturthi" }],
+    "2025-09-17": [{ type: "religious", name: "Biswakarma Puja" }],
+    "2025-09-21": [{ type: "religious", name: "Mahalaya" }],
+    "2025-09-29": [{ type: "religious", name: "Maha Saptami" }],
+    "2025-09-30": [{ type: "religious", name: "Maha Astami" }],
+    "2025-10-01": [{ type: "religious", name: "Maha Nabami" }],
+    "2025-10-02": [{ type: "religious", name: "Bijoya Dasami" }],
+  };
+
+  let currentYear, currentMonth;
+
+  window.onload = () => {
+    eventModal = document.getElementById('eventModal');
+    modalTitle = document.getElementById('modalTitle');
+    modalDesc = document.getElementById('modalDesc');
+    closeModalBtn = document.getElementById('closeModalBtn');
+
+    closeModalBtn.onclick = () => {
+      eventModal.hidden = true;
     };
-
-    let currentMonth = 6; // July (0-indexed)
-    let currentYear = 2025;
-
-    // Event types and their custom colors
-    const eventColors = {
-        religious: "#4e73df", // Blue for religious events
-        meeting: "#4e73df", // Blue for meetings
-        national: "#4e73df", // Blue for national events
+    document.getElementById('modalBackdrop').onclick = () => {
+      eventModal.hidden = true;
     };
-
-    // Function to generate the calendar
-    // Calendar rendering function
-// Calendar rendering function
-function generateCalendar() {
-    const firstDayOfMonth = new Date(currentYear, currentMonth, 1);
-    const lastDayOfMonth = new Date(currentYear, currentMonth + 1, 0);
-    const calendarGrid = document.getElementById("calendarGrid");
-    const calendarTitle = document.getElementById("calendarTitle");
-
-    // Update the month title
-    calendarTitle.textContent = `${firstDayOfMonth.toLocaleString('default', { month: 'long' })} ${currentYear}`;
-
-    // Clear the calendar grid before regenerating it
-    calendarGrid.innerHTML = "";
-
-    // Get the day of the week for the 1st of the month
-    const startDay = firstDayOfMonth.getDay(); // 0 (Sunday) to 6 (Saturday)
-
-    // Fill the calendar grid with empty cells before the 1st day of the month
-    for (let i = 0; i < startDay; i++) {
-        const emptyDiv = document.createElement("div");
-        calendarGrid.appendChild(emptyDiv);
-    }
-
-    // Loop through the days of the month and add them to the grid
-    for (let day = 1; day <= lastDayOfMonth.getDate(); day++) {
-        const dateString = `${currentYear}-${String(currentMonth + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
-        const dayCell = document.createElement("div");
-        dayCell.classList.add("day");
-
-        // Check if there's an event for this day
-        if (eventsData[dateString]) {
-            const events = eventsData[dateString];
-            const eventType = events[0].type;
-
-            // Add 'event-day' class for event days
-            dayCell.classList.add("event-day");
-            dayCell.style.backgroundColor = eventColors[eventType] || "#4e73df"; // Default color is blue
-
-            // Add event icon based on event type
-            const icon = document.createElement("span");
-            icon.classList.add("event-icon");
-            icon.textContent = "🎉"; // You can customize the icon here
-            dayCell.appendChild(icon);
-
-            // Combine all event names into a single string, separated by commas
-            const eventNames = events.map(event => event.name).join(", ");
-
-            // Set the event names in the data-events attribute for tooltip on hover
-            dayCell.dataset.events = eventNames; // Store combined event names
-            dayCell.title = "Click to see events"; // Optional tooltip on click
-        }
-
-        // Set the text content of the day cell
-        dayCell.textContent = day;
-        dayCell.onclick = () => toggleEventDetails(dateString);
-
-        // Add the day cell to the calendar grid
-        calendarGrid.appendChild(dayCell);
-    }
-}
-
-// Function to handle showing event details on click
-function toggleEventDetails(dateString) {
-    const eventDetails = document.getElementById("eventDetails");
-    const eventList = document.getElementById("eventList");
-    const reminderContainer = document.getElementById("reminderContainer");
-    const reminderInput = document.getElementById("reminderInput");
-    const reminderNote = document.getElementById("reminderNote");
-
-    // Clear previous event details
-    eventList.innerHTML = "";
-
-    // If there are events for this day, display them
-    if (eventsData[dateString]) {
-        const events = eventsData[dateString];
-        events.forEach(event => {
-            const eventItem = document.createElement("li");
-            eventItem.textContent = `${event.name}`;
-            eventList.appendChild(eventItem);
-        });
-
-        // Show the reminder input section
-        reminderContainer.style.display = "flex";
-
-        // Check if there's a saved reminder for this day
-        const savedReminder = localStorage.getItem(dateString);
-        if (savedReminder) {
-            reminderNote.textContent = `Reminder: ${savedReminder}`;
-        }
-
-        // If the event details are already shown, hide them
-        if (eventDetails.style.display === "block" && eventDetails.dataset.date === dateString) {
-            eventDetails.style.display = "none";
-        } else {
-            eventDetails.style.display = "block";
-            eventDetails.dataset.date = dateString;
-        }
-    } else {
-        // If no events, just hide the details and reminder section
-        eventDetails.style.display = "none";
-        reminderContainer.style.display = "none";
-    }
-}
-
-// Event handling code (Search, Previous, Next month buttons, etc.)
-document.getElementById("prevMonthBtn").onclick = () => {
-    currentMonth--;
-    if (currentMonth < 0) {
-        currentMonth = 11;
-        currentYear--;
-    }
-    generateCalendar();
-};
-
-document.getElementById("nextMonthBtn").onclick = () => {
-    currentMonth++;
-    if (currentMonth > 11) {
-        currentMonth = 0;
-        currentYear++;
-    }
-    generateCalendar();
-};
-
-// Call the function initially to generate the calendar for the first time
-generateCalendar();
-
-
-// Search button functionality
-document.getElementById("searchBtn").addEventListener("click", function () {
-    const searchTerm = document.getElementById("eventSearch").value.trim().toLowerCase();
-    let matchFound = false;
-    let targetDay = null;
-    let targetMonth = null;
-    let targetYear = null;
-
-    // Iterate over all months and find any events matching the search term
-    for (const [dateString, events] of Object.entries(eventsData)) {
-        events.forEach(event => {
-            if (event.name.toLowerCase().includes(searchTerm)) {
-                // If a match is found, set the target date and break out
-                const eventDate = new Date(dateString);
-                targetYear = eventDate.getFullYear();
-                targetMonth = eventDate.getMonth();
-                targetDay = eventDate.getDate();
-                matchFound = true;
-            }
-        });
-    }
-
-    // If a match is found, navigate to the corresponding month and highlight the day
-    if (matchFound && targetDay !== null && targetMonth !== null && targetYear !== null) {
-        // Update the current month and year to the one where the event was found
-        currentYear = targetYear;
-        currentMonth = targetMonth;
-
-        // Generate the calendar for the new month
-        generateCalendar();
-
-        // Now highlight the matched event day and scroll it into view
-        const eventCells = document.querySelectorAll(".calendar-grid .event-day");
-        eventCells.forEach(cell => {
-            const day = cell.textContent;
-            if (parseInt(day) === targetDay) {
-                cell.style.backgroundColor = "#f8b400"; // Highlight the matched day
-                cell.scrollIntoView({ behavior: "smooth", block: "center" }); // Scroll the event into view
-            }
-        });
-    } else {
-        alert('No events found with that search term.');
-    }
-});
-
-
-    // Clear search functionality
-    document.getElementById("clearSearchBtn").addEventListener("click", function() {
-        document.getElementById("eventSearch").value = '';
-        generateCalendar();
-        document.getElementById("clearSearchBtn").style.display = "none";
+    window.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && !eventModal.hidden) {
+        eventModal.hidden = true;
+      }
     });
 
-    // Show 'clear' button if user types in search box
-    // Show 'clear' button if user types in search box
-document.getElementById("eventSearch").addEventListener("input", function() {
-    if (this.value.trim() !== "") {
-        document.getElementById("clearSearchBtn").style.display = "inline-block";
-    } else {
-        document.getElementById("clearSearchBtn").style.display = "none";
-    }
-});
-
-// Clear search functionality
-document.getElementById("clearSearchBtn").addEventListener("click", function() {
-    document.getElementById("eventSearch").value = '';
-    generateCalendar();
-    document.getElementById("clearSearchBtn").style.display = "none";
-});
-
-
-    // Navigation buttons
-    document.getElementById("prevMonthBtn").onclick = () => {
-        currentMonth--;
-        if (currentMonth < 0) {
-            currentMonth = 11;
-            currentYear--;
-        }
+    // Add change listeners for checkboxes
+    document.querySelectorAll('#eventTypeFilters input[type="checkbox"]').forEach(chk => {
+      chk.addEventListener('change', () => {
         generateCalendar();
-        document.getElementById("eventDetails").style.display = "none";
-        localStorage.removeItem(`${currentYear}-${String(currentMonth + 1).padStart(2, '0')}`); // Remove reminders when changing months
-    };
+        populateUpcomingEvents();
+      });
+    });
 
-    document.getElementById("nextMonthBtn").onclick = () => {
-        currentMonth++;
-        if (currentMonth > 11) {
-            currentMonth = 0;
-            currentYear++;
-        }
-        generateCalendar();
-        document.getElementById("eventDetails").style.display = "none";
-        localStorage.removeItem(`${currentYear}-${String(currentMonth + 1).padStart(2, '0')}`); // Remove reminders when changing months
-    };
+    // Month navigation buttons and today button handlers remain same:
+    document.getElementById('todayBtn').addEventListener('click', () => {
+      const today = new Date();
+      currentYear = today.getFullYear();
+      currentMonth = today.getMonth();
+      generateCalendar();
+      highlightToday();
+      populateUpcomingEvents();
+    });
 
-    // Initial calendar generation
+    document.getElementById('prevMonthBtn').addEventListener('click', () => {
+      currentMonth--;
+      if (currentMonth < 0) {
+        currentMonth = 11;
+        currentYear--;
+      }
+      generateCalendar();
+      highlightToday();
+      populateUpcomingEvents();
+    });
+
+    document.getElementById('nextMonthBtn').addEventListener('click', () => {
+      currentMonth++;
+      if (currentMonth > 11) {
+        currentMonth = 0;
+        currentYear++;
+      }
+      generateCalendar();
+      highlightToday();
+      populateUpcomingEvents();
+    });
+
+    init();
+  };
+
+  function init() {
+    const today = new Date();
+    currentYear = today.getFullYear();
+    currentMonth = today.getMonth();
     generateCalendar();
-</script>
-
-<script>
-  const isGitHub = location.hostname.includes('github.io');
-  const base = isGitHub ? '/website' : '';
-
-  const manifest = document.createElement('link');
-  manifest.rel = 'manifest';
-  manifest.href = base + '/manifest.json';
-
-  const themeMeta = document.createElement('meta');
-  themeMeta.name = 'theme-color';
-  themeMeta.content = '#000000';
-
-  document.head.appendChild(manifest);
-  document.head.appendChild(themeMeta);
-
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register(base + '/service-worker.js', { scope: base + '/' })
-      .then(() => console.log('✅ Service Worker registered'))
-      .catch(err => console.error('❌ Service Worker failed', err));
+    highlightToday();
+    populateUpcomingEvents();
   }
+
+  function getSelectedEventTypes() {
+    const checkboxes = document.querySelectorAll('#eventTypeFilters input[type="checkbox"]');
+    return Array.from(checkboxes)
+      .filter(chk => chk.checked)
+      .map(chk => chk.value.toLowerCase());
+  }
+
+  function generateCalendar() {
+    const selectedTypes = getSelectedEventTypes();
+    const calendarGrid = document.getElementById('calendarGrid');
+    const calendarTitle = document.getElementById('calendarTitle');
+
+    calendarGrid.innerHTML = '';
+
+    const firstDayOfMonth = new Date(currentYear, currentMonth, 1);
+    const lastDayOfMonth = new Date(currentYear, currentMonth + 1, 0);
+    const monthName = firstDayOfMonth.toLocaleString('default', { month: 'long' });
+
+    calendarTitle.textContent = `${monthName} ${currentYear}`;
+
+    const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    dayNames.forEach(day => {
+      const header = document.createElement('div');
+      header.textContent = day;
+      header.style.fontWeight = '700';
+      header.style.textAlign = 'center';
+      calendarGrid.appendChild(header);
+    });
+
+    const startDay = firstDayOfMonth.getDay();
+    for (let i = 0; i < startDay; i++) {
+      const empty = document.createElement('div');
+      empty.className = 'day empty';
+      calendarGrid.appendChild(empty);
+    }
+
+    for (let day = 1; day <= lastDayOfMonth.getDate(); day++) {
+      const dateStr = `${currentYear}-${String(currentMonth + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+      const cell = document.createElement('div');
+      cell.className = 'day';
+      cell.setAttribute('tabindex', '0');
+      cell.setAttribute('role', 'button');
+      cell.setAttribute('aria-label', `Day ${day}`);
+      cell.textContent = day;
+
+      const events = eventsData[dateStr];
+      if (
+        events &&
+        (selectedTypes.length === 0 || events.some(e => selectedTypes.includes(e.type.toLowerCase())))
+      ) {
+        // Show first matching event’s color and icon
+        const firstMatch = events.find(e => selectedTypes.includes(e.type.toLowerCase()));
+        if (firstMatch) {
+          cell.classList.add('event-day');
+          cell.style.backgroundColor = eventColors[firstMatch.type.toLowerCase()];
+          const icon = document.createElement('span');
+          icon.className = 'event-icon';
+          icon.textContent = eventIcons[firstMatch.type.toLowerCase()];
+          cell.appendChild(icon);
+          cell.title = events.map(ev => ev.name).join(', ');
+        }
+      }
+
+      cell.onclick = () => {
+        showEventModal(dateStr, events || []);
+      };
+
+      cell.onkeydown = e => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          cell.click();
+        }
+      };
+
+      calendarGrid.appendChild(cell);
+    }
+  }
+
+  function highlightToday() {
+    const today = new Date();
+    if (today.getFullYear() === currentYear && today.getMonth() === currentMonth) {
+      const calendarGrid = document.getElementById('calendarGrid');
+      const firstDay = new Date(currentYear, currentMonth, 1).getDay();
+      const index = 7 + firstDay + today.getDate() - 1;
+      const cell = calendarGrid.children[index];
+      if (cell && cell.classList.contains('day')) {
+        cell.classList.add('today-highlight');
+      }
+    }
+  }
+
+  function populateUpcomingEvents() {
+  const list = document.getElementById('upcomingEventsList');
+  const selectedTypes = getSelectedEventTypes();
+  const today = new Date();
+  list.innerHTML = '';
+
+  const upcoming = [];
+
+  for (const [dateStr, events] of Object.entries(eventsData)) {
+    const [y, m, d] = dateStr.split('-').map(Number);
+    const localDate = new Date(y, m - 1, d);
+
+    if (localDate >= today) {
+      events.forEach(e => {
+        if (selectedTypes.length === 0 || selectedTypes.includes(e.type.toLowerCase())) {
+          upcoming.push({ date: localDate, ...e });
+        }
+      });
+    }
+  }
+
+  upcoming.sort((a, b) => a.date - b.date);
+
+  if (upcoming.length === 0) {
+    list.innerHTML = `<p style="font-style: italic;">No upcoming events.</p>`;
+  } else {
+    upcoming.forEach(e => {
+      const item = document.createElement('div');
+      item.className = 'event-item';
+      item.innerHTML = `
+        <div class="event-type ${e.type}">${e.type.toUpperCase()}</div>
+        <div class="event-name">${e.name}</div>
+        <div class="event-date">${e.date.toLocaleDateString(undefined, {
+          weekday: 'short',
+          month: 'short',
+          day: 'numeric',
+          year: 'numeric'
+        })}</div>
+      `;
+      list.appendChild(item);
+    });
+
+    // Add reminder note below the upcoming events
+    const note = document.createElement('p');
+    note.style.fontStyle = 'italic';
+    note.style.marginTop = '15px';
+    note.style.color = 'white';
+    note.textContent = 'Click a date on the calendar above to view event details and add reminders.';
+    list.appendChild(note);
+  }
+}
+
+
+  // Helper to generate Google Calendar URL for an all-day event
+  function generateGoogleCalendarURL(title, dateStr) {
+    const [y, m, d] = dateStr.split('-').map(Number);
+    const start = new Date(y, m - 1, d);
+    const end = new Date(y, m - 1, d + 1);
+
+    const formatDate = (date) =>
+      date.toISOString().replace(/[-:]|\.\d{3}/g, '').slice(0, 15);
+
+    const details = {
+      action: 'TEMPLATE',
+      text: encodeURIComponent(title),
+      dates: `${formatDate(start)}/${formatDate(end)}`,
+      details: encodeURIComponent('Reminder added from the calendar app'),
+    };
+
+    return `https://calendar.google.com/calendar/render?${Object.entries(details)
+      .map(([k, v]) => `${k}=${v}`)
+      .join('&')}`;
+  }
+
+  // Show event modal and include "Add to Google Calendar" links
+  function showEventModal(dateStr, events) {
+  modalTitle.textContent = `Events on ${dateStr}`;
+  modalDesc.innerHTML = '';
+
+  if (events.length === 0) {
+    modalDesc.textContent = "No events on this day.";
+  } else {
+    events.forEach((e) => {
+      const calendarUrl = generateGoogleCalendarURL(e.name, dateStr);
+
+      const eventEntry = document.createElement('div');
+      eventEntry.style.marginBottom = '10px';
+
+      const eventTitle = document.createElement('strong');
+      eventTitle.textContent = e.name;
+
+      const eventType = document.createTextNode(` (${e.type.toUpperCase()})`);
+
+      const br = document.createElement('br');
+
+      const link = document.createElement('a');
+      link.href = calendarUrl;
+      link.target = '_blank';
+      link.rel = 'noopener noreferrer';
+      link.style.color = '#007bff';
+      link.style.textDecoration = 'underline';
+      link.textContent = '➕ Add to Google Calendar';
+
+      eventEntry.appendChild(eventTitle);
+      eventEntry.appendChild(eventType);
+      eventEntry.appendChild(br);
+      eventEntry.appendChild(link);
+
+      modalDesc.appendChild(eventEntry);
+    });
+}
+  eventModal.hidden = false;
+  closeModalBtn.focus();
+}
 </script>
+<!-- Event Details Modal -->
+<div id="eventModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" aria-describedby="modalDesc" tabindex="-1" hidden>
+  <div id="modalBackdrop" style="position:fixed; inset:0; background:rgba(0,0,0,0.5);"></div>
+  <div id="modalContent" style="position:fixed; top:50%; left:50%; transform:translate(-50%, -50%);
+    background:#fff; border-radius:12px; padding:20px; max-width:400px; box-shadow:0 8px 20px rgba(0,0,0,0.2);">
+    <h2 id="modalTitle" style="margin-bottom:12px;"></h2>
+    <div id="modalDesc" style="margin-bottom:20px;"></div>
+    <button id="closeModalBtn" style="background:#2575fc; border:none; color:#fff; padding:8px 16px; border-radius:8px; cursor:pointer;">Close</button>
+  </div>
+</div>
 
 </body>
 </html>
-
-
-
