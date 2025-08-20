@@ -137,7 +137,7 @@ button:hover {
 
 @media (max-width: 480px) {
   .card h2, .card h3 {
-    font-size: 1rem;
+    font-size: 0.85rem;
   }
 
   button {
@@ -146,7 +146,7 @@ button:hover {
   }
 
   input, select {
-    font-size: 0.95rem;
+    font-size: 0.85rem;
   }
 }
 
@@ -263,27 +263,32 @@ button:hover {
 
 .gamification-box {
   text-align: center;
-  padding: 4px 10px;       /* simplified padding */
+  padding: 2px 8px;       /* simplified padding */
   border-radius: var(--radius);
   background: #fffbe6;
   box-shadow: 0 1px 4px rgba(0,0,0,0.1);
   font-size: 0.7rem;
-  line-height: 1.0;
+  line-height: 0.9;
   position: relative;
   /* max-height: 50%; */   /* try removing */
 }
 
 .score-circle {
-  width: 60px;
-  height: 60px;
-  margin: 0.5rem auto;
+  display: inline-block;
+  width: 60px;       /* smaller width */
+  height: 60px;      /* smaller height */
+  line-height: 60px; /* vertically center text */
   border-radius: 50%;
-  background: #4caf50;
-  color: #fff;
-  font-size: 1.2rem;
-  line-height: 60px;
+  text-align: center;
   font-weight: bold;
+  font-size: 1.4rem; /* adjust font size as needed */
+  color: black;      /* default text color */
+  background-color: #eee; /* default bg color */
+  transition: background-color 0.3s ease, color 0.3s ease;
+  user-select: none;
+  margin: 0 auto;   /* center horizontally if block */
 }
+
 
 .badge {
   font-size: 0.75rem;
@@ -328,6 +333,82 @@ button:hover {
 #toggleSavedDataBtn {
     margin: 10px 0;
     font-size: 0.85rem;
+}
+
+@media (max-width: 600px) {
+  /* Make table container scrollable if needed */
+  #healthTableView {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Make table elements block to stack for mobile */
+  #healthTableView table,
+  #healthTableView thead,
+  #healthTableView tbody,
+  #healthTableView th,
+  #healthTableView td,
+  #healthTableView tr {
+    display: block;
+    width: 100%;
+  }
+
+  /* Hide thead rows (headings) on mobile */
+  #healthTableView thead tr {
+    display: none;
+  }
+
+  /* Style tbody rows */
+  #healthTableView tbody tr {
+    border: 1px solid #ccc;
+    margin-bottom: 15px;
+    padding: 10px;
+    border-radius: 5px;
+    min-height: 50px; /* Increase height for better spacing */
+  }
+
+  /* Style each td with label and value inline */
+  #healthTableView tbody td {
+    position: relative;
+    padding-left: 110px; /* space for label */
+    padding-top: 3px;
+    padding-bottom: 3px;
+    text-align: left;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* Add the data-label content before each cell */
+  #healthTableView tbody td::before {
+    content: attr(data-label);
+    font-weight: 600;
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    white-space: nowrap;
+  }
+
+  /* Inputs should be full width and fit nicely */
+  #healthTableView tbody td input.user-input {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  /* Status cell specific padding and wrapping */
+  #healthTableView tbody td.status-cell {
+    white-space: normal;
+    padding-top: 12px;
+    padding-bottom: 12px;
+  }
+}
+h3 {
+  font-size: 0.95rem; /* or any size you prefer, e.g., 0.9rem or 14px */
+  margin-bottom: 5px; /* keep your existing margin */
+}
+
 </style>
 </head>
 
@@ -358,14 +439,23 @@ button:hover {
 </div>
 
 <!-- Gamification Box for score -->
-<div class="gamification-box" style="margin-top:20px; font-size: 1.5rem;">
+<!-- Gamification Box for score -->
+<div class="gamification-box" style="margin-top:20px; font-size: 1.2rem; display:flex; gap: 40px; justify-content: center; align-items: center;">
   <div>
-    Health Score: <span class="score-circle" style="font-weight:bold;">--</span>
+    Health Score: 
+    <span class="score-circle" 
+          style="font-weight:bold; font-size: 1.2rem; padding: 4px 9px; border-radius: 50%; background-color: #eee; display: inline-block; min-width: 32px; text-align: center;">
+      --
+    </span>
   </div>
   <div>
-    Tier: <span class="badge">--</span>
+    Tier: 
+    <span id="tierBadge" class="tier-badge" style="font-weight:bold; font-size: 1.4rem;">
+      -- Tier
+    </span>
   </div>
 </div>
+
 
 <!-- 🏥 Health Metrics Section -->
 <!-- 🔖 Common Health Metrics Heading with Buttons -->
@@ -388,20 +478,30 @@ button:hover {
       🔄 Switch View to Card View
     </button>
 
-    <!-- 🔄 Reset All Button -->
-    <button id="resetAllBtn"
-      onclick="resetAll()"
-      title="Clear all health data & results"
-      style="
-        padding: 5px 8px;
-        font-size: 0.75rem;
-        border-radius: 6px;
-        background-color: #cc3300;
-        color: white;
-        border: none;
-        cursor: pointer;">
-      ♻️ Reset All
-    </button>
+    <!-- 🔄 Reset All Button with helper text -->
+
+<!-- 🔄 Reset All Button with close descriptive text and arrow -->
+<div style="text-align: center; margin-top: 8px;">
+  <button id="resetAllBtn"
+    onclick="resetAll()"
+    title="Clear all health data & results"
+    style="
+      padding: 5px 8px;
+      font-size: 0.75rem;
+      border-radius: 6px;
+      background-color: #cc3300;
+      color: white;
+      border: none;
+      cursor: pointer;">
+    ♻️ Reset All
+  </button>
+  <div style="font-size: 0.75rem; color: #555; margin-top: 0px; line-height: 1; display: inline-flex; align-items: center; gap: 4px; user-select: none;">
+    <span style="font-weight: bold;">&lt;-</span>
+    <span><b>Click to reset all data</b></span>
+  </div>
+</div>
+
+
 
     <!-- ✅ Calculate Health Score Button -->
     <button id="calculateBtn"
@@ -422,117 +522,117 @@ button:hover {
 
 <!-- 📊 TABLE VIEW -->
 <div class="card" id="healthTableView" style="grid-column: 1 / -1; padding: 0; overflow-x: auto;">
-  <table style="width: 100%; border-collapse: collapse; font-size: 0.95rem;">
+  <table style="width: 100%; border-collapse: collapse; font-size: 0.95rem; min-width: 700px;">
     <thead style="background-color: #0077cc; color: white;">
       <tr>
         <th style="padding: 10px; text-align: left;">Parameter</th>
         <th style="padding: 10px; text-align: left;">Standard</th>
         <th style="padding: 10px; text-align: left;">Alert Threshold</th>
         <th style="padding: 10px; text-align: left;">Tip</th>
-        <th style="padding: 10px; text-align: left;">Input</th> <!-- NEW: for user input -->
-        <th style="padding: 10px; text-align: left;">Status</th> <!-- NEW -->
+        <th style="padding: 10px; text-align: left;">Input</th>
+        <th style="padding: 10px; text-align: left;">Status</th>
       </tr>
     </thead>
     <tbody>
       <tr style="background: #e0f7fa;">
-        <td>🩺 Blood Pressure</td>
-        <td>120/80 mmHg</td>
-        <td style="color: #ff9800;">&gt;130/90 mmHg</td>
-        <td>Reduce salt, manage stress</td>
-        <td><input type="text" class="user-input" data-param="bloodPressure" placeholder="e.g. 120/80" style="width: 100px;"></td>
-        <td class="status-cell"></td>
-        
+        <td data-label="Parameter">🩺 Blood Pressure</td>
+        <td data-label="Standard">120/80 mmHg</td>
+        <td data-label="Threshold" style="color: #ff9800;">&gt;130/90 mmHg</td>
+        <td data-label="Tip">Reduce salt, manage stress</td>
+        <td data-label="Input"><input type="text" class="user-input" data-param="bloodPressure" placeholder="e.g. 120/80" style="width: 100px;"></td>
+        <td data-label="Status" class="status-cell"></td>
       </tr>
       <tr style="background: #e8f5e9;">
-        <td>🍬 Blood Sugar (Fasting)</td>
-        <td>80–100 mg/dL</td>
-        <td style="color: #e53935;">&gt;110 mg/dL</td>
-        <td>Cut sweets, test regularly</td>
-        <td><input type="number" class="user-input" data-param="bloodSugarFasting" placeholder="e.g. 90" style="width: 100px;"></td>
-        <td class="status-cell"></td>
+        <td data-label="Parameter">🍬 Blood Sugar (Fasting)</td>
+        <td data-label="Standard">80–100 mg/dL</td>
+        <td data-label="Threshold" style="color: #e53935;">&gt;110 mg/dL</td>
+        <td data-label="Tip">Cut sweets, test regularly</td>
+        <td data-label="Input"><input type="number" class="user-input" data-param="bloodSugarFasting" placeholder="e.g. 90" style="width: 100px;"></td>
+        <td data-label="Status" class="status-cell"></td>
       </tr>
       <tr style="background: #e6ffe6;">
-        <td>🍭 Blood Sugar (Post-Meal)</td>
-        <td>&lt;140 mg/dL</td>
-        <td style="color: #e53935;">&gt;180 mg/dL</td>
-        <td>Avoid high-GI food, walk post meals</td>
-        <td><input type="number" class="user-input" data-param="bloodSugarPostMeal" placeholder="e.g. 130" style="width: 100px;"></td>
-        <td class="status-cell"></td>
+        <td data-label="Parameter">🍭 Blood Sugar (Post-Meal)</td>
+        <td data-label="Standard">&lt;140 mg/dL</td>
+        <td data-label="Threshold" style="color: #e53935;">&gt;180 mg/dL</td>
+        <td data-label="Tip">Avoid high-GI food, walk post meals</td>
+        <td data-label="Input"><input type="number" class="user-input" data-param="bloodSugarPostMeal" placeholder="e.g. 130" style="width: 100px;"></td>
+        <td data-label="Status" class="status-cell"></td>
       </tr>
       <tr style="background: #fff3e0;">
-        <td>🥗 Cholesterol (Total)</td>
-        <td>&lt;200 mg/dL</td>
-        <td style="color: #f44336;">&gt;240 mg/dL</td>
-        <td>More fiber, less fried food</td>
-        <td><input type="number" class="user-input" data-param="cholesterol" placeholder="e.g. 190" style="width: 100px;"></td>
-        <td class="status-cell"></td>
+        <td data-label="Parameter">🥗 Cholesterol (Total)</td>
+        <td data-label="Standard">&lt;200 mg/dL</td>
+        <td data-label="Threshold" style="color: #f44336;">&gt;240 mg/dL</td>
+        <td data-label="Tip">More fiber, less fried food</td>
+        <td data-label="Input"><input type="number" class="user-input" data-param="cholesterol" placeholder="e.g. 190" style="width: 100px;"></td>
+        <td data-label="Status" class="status-cell"></td>
       </tr>
       <tr style="background: #fce4ec;">
-        <td>⚖️ Body Mass Index (BMI)</td>
-        <td>18.5–24.9</td>
-        <td style="color: #ef6c00;">Under 18.5 or Over 25</td>
-        <td>Track weight, stay active</td>
-        <td><input type="number" step="0.1" class="user-input" data-param="bmi" placeholder="e.g. 22" style="width: 100px;"></td>
-        <td class="status-cell"></td>
+        <td data-label="Parameter">⚖️ Body Mass Index (BMI)</td>
+        <td data-label="Standard">18.5–24.9</td>
+        <td data-label="Threshold" style="color: #ef6c00;">Under 18.5 or Over 25</td>
+        <td data-label="Tip">Track weight, stay active</td>
+        <td data-label="Input"><input type="number" step="0.1" class="user-input" data-param="bmi" placeholder="e.g. 22" style="width: 100px;"></td>
+        <td data-label="Status" class="status-cell"></td>
       </tr>
       <tr style="background: #ede7f6;">
-        <td>💓 Resting Heart Rate</td>
-        <td>60–100 bpm</td>
-        <td style="color: #ff5722;">&lt;50 or &gt;100 bpm</td>
-        <td>Hydrate, reduce caffeine</td>
-        <td><input type="number" class="user-input" data-param="restingHeartRate" placeholder="e.g. 72" style="width: 100px;"></td>
-        <td class="status-cell"></td>
+        <td data-label="Parameter">💓 Resting Heart Rate</td>
+        <td data-label="Standard">60–100 bpm</td>
+        <td data-label="Threshold" style="color: #ff5722;">&lt;50 or &gt;100 bpm</td>
+        <td data-label="Tip">Hydrate, reduce caffeine</td>
+        <td data-label="Input"><input type="number" class="user-input" data-param="restingHeartRate" placeholder="e.g. 72" style="width: 100px;"></td>
+        <td data-label="Status" class="status-cell"></td>
       </tr>
       <tr style="background: #e1f5fe;">
-        <td>🌬️ SpO₂ (Oxygen Level)</td>
-        <td>95%–100%</td>
-        <td style="color: #d32f2f;">Below 94%</td>
-        <td>Seek help if persistently low</td>
-        <td><input type="number" class="user-input" data-param="spo2" placeholder="e.g. 98" style="width: 100px;"></td>
-        <td class="status-cell"></td>
+        <td data-label="Parameter">🌬️ SpO₂ (Oxygen Level)</td>
+        <td data-label="Standard">95%–100%</td>
+        <td data-label="Threshold" style="color: #d32f2f;">Below 94%</td>
+        <td data-label="Tip">Seek help if persistently low</td>
+        <td data-label="Input"><input type="number" class="user-input" data-param="spo2" placeholder="e.g. 98" style="width: 100px;"></td>
+        <td data-label="Status" class="status-cell"></td>
       </tr>
       <tr style="background: #fff8e1;">
-        <td>💤 Sleep Duration</td>
-        <td>7–9 hours/night</td>
-        <td style="color: #f57f17;">Less than 6 hours/night</td>
-        <td>Maintain regular schedule, avoid screens before bed</td>
-        <td><input type="number" class="user-input" data-param="sleepDuration" placeholder="e.g. 8" style="width: 100px;"></td>
-        <td class="status-cell"></td>
+        <td data-label="Parameter">💤 Sleep Duration</td>
+        <td data-label="Standard">7–9 hours/night</td>
+        <td data-label="Threshold" style="color: #f57f17;">Less than 6 hours/night</td>
+        <td data-label="Tip">Maintain regular schedule, avoid screens before bed</td>
+        <td data-label="Input"><input type="number" class="user-input" data-param="sleepDuration" placeholder="e.g. 8" style="width: 100px;"></td>
+        <td data-label="Status" class="status-cell"></td>
       </tr>
       <tr style="background: #f3e5f5;">
-        <td>📏 Waist Circumference</td>
-        <td>&lt;35 in (women), &lt;40 in (men)</td>
-        <td style="color: #d32f2f;">Above these values</td>
-        <td>Watch diet, increase activity</td>
-        <td><input type="number" class="user-input" data-param="waistCircumference" placeholder="e.g. 36" style="width: 100px;"></td>
-        <td class="status-cell"></td>
+        <td data-label="Parameter">📏 Waist Circumference</td>
+        <td data-label="Standard">&lt;35 in (women), &lt;40 in (men)</td>
+        <td data-label="Threshold" style="color: #d32f2f;">Above these values</td>
+        <td data-label="Tip">Watch diet, increase activity</td>
+        <td data-label="Input"><input type="number" class="user-input" data-param="waistCircumference" placeholder="e.g. 36" style="width: 100px;"></td>
+        <td data-label="Status" class="status-cell"></td>
       </tr>
       <tr style="background: #fffde7;">
-        <td>🧂 Sodium</td>
-        <td>135–145 mEq/L</td>
-        <td style="color: #f57f17;">&lt;135 or &gt;145 mEq/L</td>
-        <td>Balance salt intake, avoid processed foods</td>
-        <td><input type="number" step="0.1" class="user-input" data-param="sodium" placeholder="e.g. 140" style="width: 100px;"></td>
-        <td class="status-cell"></td>
+        <td data-label="Parameter">🧂 Sodium</td>
+        <td data-label="Standard">135–145 mEq/L</td>
+        <td data-label="Threshold" style="color: #f57f17;">&lt;135 or &gt;145 mEq/L</td>
+        <td data-label="Tip">Balance salt intake, avoid processed foods</td>
+        <td data-label="Input"><input type="number" step="0.1" class="user-input" data-param="sodium" placeholder="e.g. 140" style="width: 100px;"></td>
+        <td data-label="Status" class="status-cell"></td>
       </tr>
       <tr style="background: #e0f2f1;">
-        <td>🥔 Potassium</td>
-        <td>3.5–5.0 mEq/L</td>
-        <td style="color: #d32f2f;">&lt;3.5 or &gt;5.0 mEq/L</td>
-        <td>Eat potassium-rich foods (bananas, spinach), monitor if on meds</td>
-        <td><input type="number" step="0.1" class="user-input" data-param="potassium" placeholder="e.g. 4.5" style="width: 100px;"></td>
-        <td class="status-cell"></td>
+        <td data-label="Parameter">🥔 Potassium</td>
+        <td data-label="Standard">3.5–5.0 mEq/L</td>
+        <td data-label="Threshold" style="color: #d32f2f;">&lt;3.5 or &gt;5.0 mEq/L</td>
+        <td data-label="Tip">Eat potassium-rich foods (bananas, spinach), monitor if on meds</td>
+        <td data-label="Input"><input type="number" step="0.1" class="user-input" data-param="potassium" placeholder="e.g. 4.5" style="width: 100px;"></td>
+        <td data-label="Status" class="status-cell"></td>
       </tr>
       <tr style="background: #fff3e0;">
-        <td>🧪 Creatinine</td>
-        <td>0.6–1.3 mg/dL</td>
-        <td style="color: #f44336;">&gt;1.3 mg/dL</td>
-        <td>Stay hydrated, monitor kidney health</td>
-        <td><input type="number" step="0.1" class="user-input" data-param="creatinine" placeholder="e.g. 1.0" style="width: 100px;"></td>
-        <td class="status-cell"></td>
+        <td data-label="Parameter">🧪 Creatinine</td>
+        <td data-label="Standard">0.6–1.3 mg/dL</td>
+        <td data-label="Threshold" style="color: #f44336;">&gt;1.3 mg/dL</td>
+        <td data-label="Tip">Stay hydrated, monitor kidney health</td>
+        <td data-label="Input"><input type="number" step="0.1" class="user-input" data-param="creatinine" placeholder="e.g. 1.0" style="width: 100px;"></td>
+        <td data-label="Status" class="status-cell"></td>
       </tr>
     </tbody>
   </table>
+</div>
 
   <div id="summaryStats" style="margin: 10px 0; font-weight: 500;"></div>
   <button id="toggleSavedDataBtn" style="margin:10px 0;">Show Saved Data</button>
@@ -634,7 +734,7 @@ button:hover {
   <h2>💰 Tax Estimator (India)</h2>
 
   <label>Annual Income (₹):</label>
-  <<input type="number" min="0" id="incomeInput" placeholder="Enter total income" />
+  <input type="number" min="0" id="incomeInput" placeholder="Enter total income" />
 
   <label>Deductions (₹):</label>
   <input type="number" min="0" id="deductionInput" placeholder="Enter 80C/80D deductions" />
@@ -1166,7 +1266,6 @@ if (summaryDiv) {
 </script>
 
 <script>
-
 document.addEventListener('DOMContentLoaded', () => {
   const saved = JSON.parse(localStorage.getItem('healthInputs') || '{}');
   for (const [param, val] of Object.entries(saved)) {
@@ -1179,7 +1278,6 @@ document.addEventListener('DOMContentLoaded', () => {
   // Immediately update health status after restoring
   updateHealthStatus();
 });
-
 
 const thresholds = {
   bloodPressure: val => {
@@ -1225,9 +1323,16 @@ function updateHealthStatus() {
   if (!hasAnyInput) {
     // Clear the score display
     const scoreCircle = document.querySelector('.score-circle');
-    const badge = document.querySelector('.badge');
-    if (scoreCircle) scoreCircle.innerText = '--';
-    if (badge) badge.innerText = '--';
+    const tierBadge = document.getElementById('tierBadge');
+    if (scoreCircle) {
+      scoreCircle.innerText = '--';
+      scoreCircle.style.backgroundColor = '#eee';  // reset bg color
+      scoreCircle.style.color = 'black';           // reset text color
+    }
+    if (tierBadge) {
+      tierBadge.innerText = '-- Tier';
+      tierBadge.style.color = 'black';
+    }
     return;
   }
 
@@ -1265,97 +1370,91 @@ function updateHealthStatus() {
   });
 
   const score = totalWeight === 0 ? 0 : Math.round(((totalWeight - deductedWeight) / totalWeight) * 100);
-  const tier = score >= 90 ? 'Gold' : score >= 75 ? 'Silver' : 'Bronze';
 
+  // Determine tier based on score
+  let tier = 'Bronze';
+  if (score >= 90) tier = 'Gold';
+  else if (score >= 75) tier = 'Silver';
+
+  // Update Health Score and Tier with color and circle background
   const scoreCircle = document.querySelector('.score-circle');
-  const badge = document.querySelector('.badge');
-  if (scoreCircle) scoreCircle.innerText = score;
-  if (badge) badge.innerText = `${tier} Tier`;
+  const tierBadge = document.getElementById('tierBadge');
+
+  if (scoreCircle) {
+    scoreCircle.innerText = score;
+
+    // Color circle bg and text based on tier
+    switch (tier.toLowerCase()) {
+      case 'gold':
+        scoreCircle.style.backgroundColor = 'goldenrod';
+        scoreCircle.style.color = 'black';
+        break;
+      case 'silver':
+        scoreCircle.style.backgroundColor = 'silver';
+        scoreCircle.style.color = 'black';
+        break;
+      case 'bronze':
+        scoreCircle.style.backgroundColor = '#cd7f32'; // bronze
+        scoreCircle.style.color = 'white';
+        break;
+      default:
+        scoreCircle.style.backgroundColor = '#eee';
+        scoreCircle.style.color = 'black';
+    }
+  }
+
+  if (tierBadge) {
+    tierBadge.innerText = `${tier} Tier`;
+    switch (tier.toLowerCase()) {
+      case 'gold':
+        tierBadge.style.color = 'goldenrod';
+        break;
+      case 'silver':
+        tierBadge.style.color = 'silver';
+        break;
+      case 'bronze':
+        tierBadge.style.color = '#cd7f32'; // bronze
+        break;
+      default:
+        tierBadge.style.color = 'black';
+    }
+  }
 
   renderDashboardSummaryFromTable(affectedParams);
   renderHealthChart(affectedParams, paramValues);
 
   // 🔄 Save all inputs to localStorage
-localStorage.setItem('healthInputs', JSON.stringify(paramValues));
-  
+  localStorage.setItem('healthInputs', JSON.stringify(paramValues));
+
   let entered = 0, normal = 0, alert = 0, missing = 0;
 
-inputs.forEach(input => {
-  const val = input.value.trim();
-  const statusCell = input.closest('tr').querySelector('.status-cell');
+  inputs.forEach(input => {
+    const val = input.value.trim();
+    const statusCell = input.closest('tr').querySelector('.status-cell');
 
-  if (val === '') {
-    missing++;
-  } else {
-    entered++;
-    if (statusCell.innerHTML.includes('alert')) {
-      alert++;
+    if (val === '') {
+      missing++;
     } else {
-      normal++;
+      entered++;
+      if (statusCell.innerHTML.includes('alert')) {
+        alert++;
+      } else {
+        normal++;
+      }
     }
-  }
-});
-
-const summaryDiv = document.getElementById('summaryStats');
-if (summaryDiv) {
-  summaryDiv.innerHTML =
-    `🔢 <strong>Entered:</strong> ${entered} &nbsp;&nbsp; ✅ <strong>Normal:</strong> ${normal} &nbsp;&nbsp; ⚠️ <strong>Alerts:</strong> ${alert} &nbsp;&nbsp; 🕳️ <strong>Missing:</strong> ${missing}`;
-summaryDiv.style.display = 'block'; // 👁️ make it visible again
-}
-
-function updateSummaryDashboard(paramValues, affectedParams) {
-  const container = document.getElementById('summaryDashboard');
-  container.innerHTML = ''; // clear previous summary
-
-  Object.keys(paramValues).forEach(param => {
-    // Skip missing inputs entirely
-    if (paramValues[param] === null || paramValues[param] === '') return;
-
-    let score = 100;
-    if (affectedParams.includes(param)) score = 30;  // alert = low score
-
-    // Create container for one param summary
-    const paramDiv = document.createElement('div');
-    paramDiv.style.marginBottom = '12px';
-
-    // Label
-    const label = document.createElement('div');
-    label.textContent = paramNames[param] || (param.charAt(0).toUpperCase() + param.slice(1));
-    label.style.marginBottom = '4px';
-    paramDiv.appendChild(label);
-
-    // Progress bar container
-    const progressContainer = document.createElement('div');
-    progressContainer.style.background = '#ddd';
-    progressContainer.style.borderRadius = '8px';
-    progressContainer.style.width = '100%';
-    progressContainer.style.height = '20px';
-    progressContainer.style.overflow = 'hidden';
-
-    // Progress bar itself
-    const progressBar = document.createElement('div');
-    progressBar.style.width = score + '%';
-    progressBar.style.height = '100%';
-    progressBar.style.borderRadius = '8px';
-
-    if (score >= 90) {
-      progressBar.style.backgroundColor = 'green';
-    } else if (score >= 60) {
-      progressBar.style.backgroundColor = 'orange';
-    } else {
-      progressBar.style.backgroundColor = 'red';
-    }
-
-    progressContainer.appendChild(progressBar);
-    paramDiv.appendChild(progressContainer);
-
-    container.appendChild(paramDiv);
   });
+
+  const summaryDiv = document.getElementById('summaryStats');
+  if (summaryDiv) {
+    summaryDiv.innerHTML =
+      `🔢 <strong>Entered:</strong> ${entered} &nbsp;&nbsp; ✅ <strong>Normal:</strong> ${normal} &nbsp;&nbsp; ⚠️ <strong>Alerts:</strong> ${alert} &nbsp;&nbsp; 🕳️ <strong>Missing:</strong> ${missing}`;
+    summaryDiv.style.display = 'block'; // 👁️ make it visible again
+  }
+
+  updateSummaryDashboard(paramValues, affectedParams);
 }
 
-updateSummaryDashboard(paramValues, affectedParams);
 
-}
 
 function renderDashboardSummaryFromTable(affected = []) {
   const summaryContainer = document.getElementById('dashboardSummary');
@@ -1389,15 +1488,16 @@ function renderDashboardSummaryFromTable(affected = []) {
 function renderHealthChart(affectedParams, paramValues) {
   const chartContainer = document.getElementById('chartContainer');
   const canvas = document.getElementById('healthChart');
+  if (!canvas) return;
   const ctx = canvas.getContext('2d');
 
   const labels = Object.keys(paramValues).filter(param => paramValues[param] !== null && paramValues[param] !== '');
   if (labels.length === 0) {
-    chartContainer.style.display = 'none';
+    if(chartContainer) chartContainer.style.display = 'none';
     return;
   }
-  chartContainer.style.display = 'block';
-  canvas.height = labels.length * 10; // Adjust this number as needed
+  if(chartContainer) chartContainer.style.display = 'block';
+  canvas.height = labels.length * 10;
 
   const data = labels.map(param => {
     const val = paramValues[param];
@@ -1416,7 +1516,6 @@ function renderHealthChart(affectedParams, paramValues) {
 
   if (window.healthChartInstance) window.healthChartInstance.destroy();
 
-  // Set canvas height so each bar + label has enough space — 30px per bar is safe
   canvas.height = labels.length * 30;
 
   window.healthChartInstance = new Chart(ctx, {
@@ -1427,17 +1526,17 @@ function renderHealthChart(affectedParams, paramValues) {
         label: 'Input Values',
         data,
         backgroundColor: backgroundColors,
-        barThickness: 12,  // reasonable bar thickness
+        barThickness: 12,
       }]
     },
     options: {
       indexAxis: 'y',
-      responsive: true,      // make chart responsive inside fixed canvas height
+      responsive: true,
       maintainAspectRatio: false,
       scales: {
         x: {
           grid: {
-           display: false  // no vertical grid lines
+           display: false
           },
           beginAtZero: true,
           ticks: { precision: 0 },
@@ -1445,14 +1544,14 @@ function renderHealthChart(affectedParams, paramValues) {
         },
         y: {
           grid: {
-           display: false  // no vertical grid lines
+           display: false
           },
           ticks: {
-            font: { size: 14 },  // slightly bigger font for clarity
-            autoSkip: false,     // show all labels
+            font: { size: 14 },
+            autoSkip: false,
           },
-          categoryPercentage: 0.95,  // bigger category space
-          barPercentage: 0.95,       // reasonable bar thickness inside category
+          categoryPercentage: 0.95,
+          barPercentage: 0.95,
         }
       },
       plugins: {
@@ -1470,28 +1569,28 @@ function renderHealthChart(affectedParams, paramValues) {
 const toggleBtn = document.getElementById('toggleSavedDataBtn');
 const displayArea = document.getElementById('savedDataDisplay');
 
-toggleBtn.addEventListener('click', () => {
-  if (displayArea.style.display === 'none' || displayArea.style.display === '') {
-    // Show saved data
-    const savedData = localStorage.getItem('healthInputs');
-    if (savedData) {
-      try {
-        const obj = JSON.parse(savedData);
-        displayArea.textContent = JSON.stringify(obj, null, 2);
-      } catch (e) {
-        displayArea.textContent = "Error parsing saved data.";
+if(toggleBtn){
+  toggleBtn.addEventListener('click', () => {
+    if (displayArea.style.display === 'none' || displayArea.style.display === '') {
+      const savedData = localStorage.getItem('healthInputs');
+      if (savedData) {
+        try {
+          const obj = JSON.parse(savedData);
+          displayArea.textContent = JSON.stringify(obj, null, 2);
+        } catch (e) {
+          displayArea.textContent = "Error parsing saved data.";
+        }
+      } else {
+        displayArea.textContent = "No saved data found.";
       }
+      displayArea.style.display = 'block';
+      toggleBtn.textContent = 'Hide Saved Data';
     } else {
-      displayArea.textContent = "No saved data found.";
+      displayArea.style.display = 'none';
+      toggleBtn.textContent = 'Show Saved Data';
     }
-    displayArea.style.display = 'block';
-    toggleBtn.textContent = 'Hide Saved Data';
-  } else {
-    // Hide saved data
-    displayArea.style.display = 'none';
-    toggleBtn.textContent = 'Show Saved Data';
-  }
-});
+  });
+}
 
 window.addEventListener('DOMContentLoaded', () => {
   // Clear all inputs in the healthTableView on page load
@@ -1505,9 +1604,9 @@ window.addEventListener('DOMContentLoaded', () => {
 
   // Reset score display
   const scoreCircle = document.querySelector('.score-circle');
-  const badge = document.querySelector('.badge');
+  const tierBadge = document.getElementById('tierBadge');
   if (scoreCircle) scoreCircle.innerText = '--';
-  if (badge) badge.innerText = '--';
+  if (tierBadge) tierBadge.innerText = '-- Tier';
 
   // Reset and hide summary stats container
   const summaryDiv = document.getElementById('summaryStats');
@@ -1516,7 +1615,6 @@ window.addEventListener('DOMContentLoaded', () => {
     summaryDiv.style.display = 'none';
   }
 });
-
 </script>
 
 </body>
