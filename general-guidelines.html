@@ -239,7 +239,18 @@
   color: white;
   margin-left: 8px; /* Small margin between icon and text */
 }
+details > summary {
+  list-style: none;         /* Remove marker from summary in Firefox */
+}
 
+details > summary::-webkit-details-marker {
+  display: none;            /* Remove marker in Chrome, Safari */
+}
+@media (max-width: 600px) {
+  details.guideline-item {
+    max-width: 100%;
+  }
+}
   </style>
 </head>
 
@@ -272,7 +283,7 @@
       <ul>
         <li>The Current Monthly Maintenance Charge (MMC) is <b>₹1000</b>, effective <b>April 2025.</b>
         <li>Please set a reminder to pay your MMC by the <b>15th</b> of the following month to avoid a late fee of <b>₹50</b>.</li>
-        <li>If the MMC remains unpaid for <b>three consecutive months or more</b>, all MMC-related services will be temporarily suspended until the dues are cleared.</li>
+        <li>If the MMC remains unpaid for <b>three consecutive months or more</b>, all MMC-related services will be temporarily suspended until the dues are cleared. The defaulter list will be published across all communication channels.</li>
         <li>One-time discount structure: <b>4%</b> for 1 year, and <b>2%</b> for 6 months.</li>
       </ul>
     </details>
@@ -395,5 +406,6 @@
 </main>  
 </body>
 </html>
+
 
 
