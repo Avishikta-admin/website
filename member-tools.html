@@ -409,6 +409,19 @@ h3 {
   margin-bottom: 5px; /* keep your existing margin */
 }
 
+@media screen and (max-width: 480px) {
+  .mobile-section {
+    padding: 10px;
+    font-size: 0.85rem;
+  }
+
+  #cwe_historySection button,
+  #estimatorSection button {
+    font-size: 0.85rem;
+    padding: 10px;
+  }
+}
+
 </style>
 </head>
 
@@ -456,6 +469,86 @@ h3 {
   </div>
 </div>
 
+<!-- Save Progress Button -->
+<button id="saveProgressBtn" style="margin-top:10px; padding:6px 10px; font-size:0.9rem; cursor:pointer;">
+  💾 Save Progress
+</button>
+
+<!-- Progress History Section (Compact) -->
+<div id="progressHistory" style="margin: 12px 0 10px 0; border: 1px solid #ccc; padding: 8px; border-radius: 6px;">
+  <h4 style="margin: 4px 0 8px 0; font-size: 1rem;">📊 Progress History</h4>
+  <ul id="historyList" style="list-style-type:none; padding-left:0; font-size: 0.88rem; margin:0;"></ul>
+  <button id="clearHistoryBtn" style="margin-top:8px; padding:4px 8px; font-size:0.75rem; cursor:pointer; background:#cc3300; color:white; border:none; border-radius:4px; width: 100%;">
+    🗑️ Clear History
+  </button>
+</div>
+
+<!-- Chart Container for Progress Over Time -->
+<canvas id="progressChart" style="margin: 4px 0 10px 0; max-width: 100%; height: 160px; display: block;"></canvas>
+
+
+<!-- 🔽 Collapsible Estimator Section -->
+<div style="margin: 30px auto; max-width: 600px; font-family: Arial, sans-serif;">
+  <button onclick="toggleEstimator()" style="width: 100%; padding: 12px; font-size: 1rem; border-radius: 8px; border: 1px solid #007bff; background-color: #f0f8ff; color: #007bff; cursor: pointer;">
+    🧮 Smart Daily Calorie & Water Estimator ⌄
+  </button>
+
+  <div id="estimatorSection" style="display: none; margin-top: 15px; padding: 16px; border: 1px solid #ccc; border-radius: 10px; background: #f9f9f9;">
+    <h3 style="text-align: center; margin-bottom: 16px;">🧮 Daily Estimator</h3>
+
+    <div style="display: flex; flex-direction: column; gap: 12px;">
+      <label>Age:
+        <input type="number" id="cwe_age" placeholder="e.g., 30" style="width: 100%; padding: 6px; border-radius: 6px; border: 1px solid #ccc;">
+      </label>
+
+      <label>Gender:
+        <select id="cwe_gender" style="width: 100%; padding: 6px; border-radius: 6px; border: 1px solid #ccc;">
+          <option value="">-- Select --</option>
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+        </select>
+      </label>
+
+      <label>Weight (kg):
+        <input type="number" id="cwe_weight" placeholder="e.g., 70" style="width: 100%; padding: 6px; border-radius: 6px; border: 1px solid #ccc;">
+      </label>
+
+      <label>Height (cm):
+        <input type="number" id="cwe_height" placeholder="e.g., 175" style="width: 100%; padding: 6px; border-radius: 6px; border: 1px solid #ccc;">
+      </label>
+
+      <label>Activity Level:
+        <select id="cwe_activity" style="width: 100%; padding: 6px; border-radius: 6px; border: 1px solid #ccc;">
+          <option value="">-- Select --</option>
+          <option value="1.2">Sedentary (little to no exercise)</option>
+          <option value="1.375">Lightly active (1–3 days/week)</option>
+          <option value="1.55">Moderately active (3–5 days/week)</option>
+          <option value="1.725">Very active (6–7 days/week)</option>
+          <option value="1.9">Extra active (hard training)</option>
+        </select>
+      </label>
+
+      <button onclick="calculateCalorieWater()" style="padding: 10px; background-color: #007bff; color: white; border: none; border-radius: 6px; font-size: 1rem; cursor: pointer;">
+        🔍 Estimate Now
+      </button>
+
+     <button onclick="clearCWEInputs()" style="margin-top: 10px; padding: 8px 12px; background-color: #888; color: white; border: none; border-radius: 6px; cursor: pointer;">
+    🧹 Clear Inputs
+  </button>
+
+    </div>
+
+</div>
+
+    <div id="cwe_result" style="margin-top: 16px; font-size: 1rem; display: none; background: #eef9f1; padding: 12px; border-radius: 8px; border-left: 4px solid #4caf50;">
+      <strong>Estimated Needs:</strong><br>
+      🔥 Calories/day: <span id="cwe_calories"></span><br>
+      💧 Water/day: <span id="cwe_water"></span>
+    </div>
+  </div>
+</div>
+
+
 
 <!-- 🏥 Health Metrics Section -->
 <!-- 🔖 Common Health Metrics Heading with Buttons -->
@@ -500,8 +593,6 @@ h3 {
     <span><b>Click to reset all data</b></span>
   </div>
 </div>
-
-
 
     <!-- ✅ Calculate Health Score Button -->
     <button id="calculateBtn"
@@ -1454,8 +1545,6 @@ function updateHealthStatus() {
   updateSummaryDashboard(paramValues, affectedParams);
 }
 
-
-
 function renderDashboardSummaryFromTable(affected = []) {
   const summaryContainer = document.getElementById('dashboardSummary');
   if (!summaryContainer) return;
@@ -1615,6 +1704,199 @@ window.addEventListener('DOMContentLoaded', () => {
     summaryDiv.style.display = 'none';
   }
 });
+
+
+// Helper: Get saved progress history from localStorage
+  function getProgressHistory() {
+    return JSON.parse(localStorage.getItem('healthProgressHistory') || '[]');
+  }
+
+  // Helper: Save progress history array to localStorage
+  function saveProgressHistory(history) {
+    localStorage.setItem('healthProgressHistory', JSON.stringify(history));
+  }
+
+  // Render progress history list in UI with delete buttons
+  function renderProgressHistory() {
+    const history = getProgressHistory();
+    const list = document.getElementById('historyList');
+    if (!list) return;
+
+    list.innerHTML = ''; // clear
+
+    if (history.length === 0) {
+      list.innerHTML = '<li style="color:#666; padding: 6px 0;">No progress saved yet.</li>';
+      return;
+    }
+
+    history.forEach((entry, index) => {
+      const li = document.createElement('li');
+      li.style = "display:flex; justify-content: space-between; align-items: center; padding: 4px 0; border-bottom: 1px solid #eee;";
+      const date = new Date(entry.timestamp);
+      const dateStr = date.toLocaleDateString() + ' ' + date.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+
+      li.innerHTML = `
+        <span>📅 <strong>${dateStr}</strong> — Health Score: <strong>${entry.score}</strong> (${entry.tier} Tier)</span>
+        <button aria-label="Delete this progress entry" data-index="${index}" style="background:none; border:none; color:#cc3300; font-weight:bold; cursor:pointer; font-size:1.1rem;">✖</button>
+      `;
+
+      // Delete button event
+      li.querySelector('button').addEventListener('click', () => {
+        if (confirm('Delete this progress entry?')) {
+          const hist = getProgressHistory();
+          hist.splice(index, 1);
+          saveProgressHistory(hist);
+          renderProgressHistory();
+          renderProgressChart();
+        }
+      });
+
+      list.appendChild(li);
+    });
+  }
+
+  // Render line chart for progress history (requires Chart.js)
+  function renderProgressChart() {
+    const history = getProgressHistory();
+    const ctx = document.getElementById('progressChart')?.getContext('2d');
+    if (!ctx) return;
+
+    if (window.progressChartInstance) {
+      window.progressChartInstance.destroy();
+    }
+
+    if (history.length === 0) {
+      document.getElementById('progressChart').style.display = 'none';
+      return;
+    }
+
+    document.getElementById('progressChart').style.display = 'block';
+
+    // Sort by timestamp ascending
+    history.sort((a, b) => a.timestamp - b.timestamp);
+
+    const labels = history.map(entry => new Date(entry.timestamp).toLocaleDateString());
+    const scores = history.map(entry => entry.score);
+
+    window.progressChartInstance = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels,
+        datasets: [{
+          label: 'Health Score',
+          data: scores,
+          borderColor: 'rgb(75, 192, 192)',
+          backgroundColor: 'rgba(75, 192, 192, 0.2)',
+          tension: 0.3,
+          fill: true,
+          pointRadius: 5,
+          pointHoverRadius: 7,
+        }]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          y: {
+            min: 0,
+            max: 100,
+            ticks: { stepSize: 10 }
+          }
+        }
+      }
+    });
+  }
+
+//--------------------------------------------------
+
+  // Save current health score progress with timestamp
+  function saveCurrentProgress() {
+    const scoreText = document.querySelector('.score-circle')?.innerText;
+    const tierText = document.getElementById('tierBadge')?.innerText.replace(' Tier', '') || 'Unknown';
+
+    if (!scoreText || scoreText === '--') {
+      alert('Please enter health data to generate a score before saving progress.');
+      return;
+    }
+
+    const score = parseInt(scoreText, 10);
+    const timestamp = Date.now();
+
+    const history = getProgressHistory();
+    history.push({ timestamp, score, tier: tierText });
+    saveProgressHistory(history);
+
+    renderProgressHistory();
+    renderProgressChart();
+  }
+
+  // Clear saved progress history
+  function clearProgressHistory() {
+    if (confirm('Are you sure you want to clear all saved progress history?')) {
+      localStorage.removeItem('healthProgressHistory');
+      renderProgressHistory();
+      renderProgressChart();
+    }
+  }
+
+  // Attach event listeners after DOM loads
+  document.addEventListener('DOMContentLoaded', () => {
+    renderProgressHistory();
+    renderProgressChart();
+
+    const saveBtn = document.getElementById('saveProgressBtn');
+    const clearBtn = document.getElementById('clearHistoryBtn');
+
+    if (saveBtn) saveBtn.addEventListener('click', saveCurrentProgress);
+    if (clearBtn) clearBtn.addEventListener('click', clearProgressHistory);
+  });
+
+
+function toggleEstimator() {
+    const section = document.getElementById('estimatorSection');
+    section.style.display = section.style.display === 'none' ? 'block' : 'none';
+  }
+
+  function calculateCalorieWater() {
+    const age = parseInt(document.getElementById('cwe_age').value);
+    const gender = document.getElementById('cwe_gender').value;
+    const weight = parseFloat(document.getElementById('cwe_weight').value);
+    const height = parseFloat(document.getElementById('cwe_height').value);
+    const activityFactor = parseFloat(document.getElementById('cwe_activity').value);
+
+    if (!age || !weight || !height || !activityFactor || !gender) {
+      alert("Please fill out all fields.");
+      return;
+    }
+
+    let bmr;
+    if (gender === 'male') {
+      bmr = 10 * weight + 6.25 * height - 5 * age + 5;
+    } else {
+      bmr = 10 * weight + 6.25 * height - 5 * age - 161;
+    }
+
+    const calories = Math.round(bmr * activityFactor);
+    const waterLiters = (weight * 35) / 1000;
+
+    document.getElementById('cwe_calories').textContent = `${calories} kcal`;
+    document.getElementById('cwe_water').textContent = `${waterLiters.toFixed(1)} liters`;
+
+    document.getElementById('cwe_result').style.display = 'block';
+  }
+
+// 🧹 Clear Inputs
+function clearCWEInputs() {
+  ['cwe_age', 'cwe_gender', 'cwe_weight', 'cwe_height', 'cwe_activity'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.value = '';
+  });
+
+  document.getElementById('cwe_result').style.display = 'none';
+  document.getElementById('cwe_calories').textContent = '';
+  document.getElementById('cwe_water').textContent = '';
+}
+
+
 </script>
 
 </body>
