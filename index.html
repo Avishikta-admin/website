@@ -1246,13 +1246,32 @@ updateTexts();
 <!-- Toast notification script -->
 <script>
   (function() {
-    const latestVersion = "2025-08-21"; // Update this on every changelog update
-    const storageKey = "avishikta_changelog_seen";
+    // === CONFIG ===
+    const latestVersion = "2025-08-21"; // Update on every changelog update
+    const localStorageSeenKey = "avishikta_changelog_seen_version";
+    const localStorageNoShowKey = "avishikta_changelog_no_show"; // For "Don't show again"
+    const sessionStorageClosedKey = "avishikta_changelog_toast_closed_this_session";
+    const autoHideTimeoutMs = 10000; // 10 seconds auto-hide
 
-    // Check if user already saw this version
-    if (localStorage.getItem(storageKey) === latestVersion) {
-      return; // Already seen, no need to show
-    }
+    // === HELPER FUNCTIONS ===
+    const hasSeenVersion = () => localStorage.getItem(localStorageSeenKey) === latestVersion;
+    const hasNoShow = () => localStorage.getItem(localStorageNoShowKey) === "true";
+    const isClosedThisSession = () => sessionStorage.getItem(sessionStorageClosedKey) === "true";
+
+    // Show toast only on index.html or root page (adjust this if needed)
+    const isIndexPage = () => {
+      const path = window.location.pathname;
+      return path === "/" || path.endsWith("index.html");
+    };
+
+    // Don't show if user opted "Don't show again"
+    if (hasNoShow()) return;
+
+    // Don't show if user already saw and closed this session
+    if (hasSeenVersion() && isClosedThisSession()) return;
+
+    // Don't show if NOT on index page
+    if (!isIndexPage()) return;
 
     // Create toast container
     const toast = document.createElement("div");
@@ -1260,14 +1279,21 @@ updateTexts();
     toast.innerHTML = `
       <div class="toast-content">
         <strong>🔔 Recent Update!</strong>
-        <span>🚀 Site upgraded! Get the scoop before you explore!</span>
-        <a href="changelog.html" target="_blank" rel="noopener">View Details</a>
-        <button aria-label="Close notification">&times;</button>
+        <span id="toast-message">🚀 Site upgraded! Get the scoop before you explore!</span>
+        <a href="changelog.html" target="_blank" rel="noopener noreferrer" id="toast-link">View Details</a>
+        <label id="dont-show-label">
+          <input type="checkbox" id="dont-show-checkbox" /> Don't show again
+        </label>
+        <button aria-label="Close notification" id="toast-close-btn">&times;</button>
+      </div>
+      <div id="language-toggle">
+        <button id="lang-en" class="lang-btn active">EN</button> | 
+        <button id="lang-bn" class="lang-btn">বাংলা</button>
       </div>
     `;
     document.body.appendChild(toast);
 
-    // Style it
+    // Add styles
     const style = document.createElement("style");
     style.textContent = `
       #changelog-toast {
@@ -1280,29 +1306,42 @@ updateTexts();
         border-radius: 8px;
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         display: flex;
-        align-items: center;
-        gap: 1rem;
-        max-width: 350px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.8rem;
+        max-width: 360px;
         z-index: 9999;
         animation: slideIn 0.4s ease forwards;
         color: #333;
         font-weight: 600;
+        animation-iteration-count: infinite;
+        animation-name: pulseGlow;
+        animation-duration: 6s;
+        animation-timing-function: ease-in-out;
+      }
+      #changelog-toast.slide-out {
+        animation: slideOut 0.3s ease forwards !important;
+        animation-iteration-count: 1 !important;
       }
       #changelog-toast .toast-content {
         display: flex;
         align-items: center;
         gap: 0.6rem;
-        font-size: 0.85rem;
+        font-size: 0.9rem;
+        flex-wrap: wrap;
       }
       #changelog-toast a {
         color: #4CAF50;
         font-weight: 700;
         text-decoration: none;
+        cursor: pointer;
+        transition: color 0.3s ease;
       }
       #changelog-toast a:hover {
         text-decoration: underline;
+        color: #388E3C;
       }
-      #changelog-toast button {
+      #changelog-toast button#toast-close-btn {
         background: transparent;
         border: none;
         font-size: 1.4rem;
@@ -1310,7 +1349,41 @@ updateTexts();
         cursor: pointer;
         color: #333;
         padding: 0;
+        margin-left: auto;
       }
+      #dont-show-label {
+        display: flex;
+        align-items: center;
+        gap: 0.3rem;
+        font-weight: 400;
+        font-size: 0.8rem;
+        user-select: none;
+        cursor: pointer;
+      }
+      #dont-show-checkbox {
+        cursor: pointer;
+        width: 16px;
+        height: 16px;
+      }
+      #language-toggle {
+        font-size: 0.85rem;
+        user-select: none;
+        color: #555;
+        margin-left: auto;
+      }
+      #language-toggle .lang-btn {
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-weight: 600;
+        color: #333;
+        padding: 0 5px;
+      }
+      #language-toggle .lang-btn.active {
+        color: #4CAF50;
+        text-decoration: underline;
+      }
+
       @keyframes slideIn {
         from { opacity: 0; transform: translateX(100%); }
         to { opacity: 1; transform: translateX(0); }
@@ -1319,6 +1392,10 @@ updateTexts();
         from { opacity: 1; transform: translateX(0); }
         to { opacity: 0; transform: translateX(100%); }
       }
+      @keyframes pulseGlow {
+        0%, 100% { box-shadow: 0 0 10px 2px rgba(241, 218, 54, 0.7); }
+        50% { box-shadow: 0 0 18px 5px rgba(241, 218, 54, 1); }
+      }
 
       /* Responsive for mobile */
       @media (max-width: 480px) {
@@ -1326,35 +1403,122 @@ updateTexts();
           max-width: 90vw;
           right: 5vw;
           top: 10px;
-          font-size: 0.9rem;
+          font-size: 0.85rem;
           padding: 0.8rem 1rem;
-          flex-direction: column;
           gap: 0.5rem;
-          align-items: flex-start;
         }
         #changelog-toast .toast-content {
           flex-direction: column;
           align-items: flex-start;
           gap: 0.3rem;
         }
-        #changelog-toast button {
+        #changelog-toast button#toast-close-btn {
           align-self: flex-end;
           font-size: 1.2rem;
+          margin-left: 0;
+        }
+        #language-toggle {
+          margin-left: 0;
+          text-align: left;
         }
       }
     `;
     document.head.appendChild(style);
 
-    // Close button logic
-    toast.querySelector("button").addEventListener("click", () => {
-      toast.style.animation = "slideOut 0.3s ease forwards";
-      toast.addEventListener("animationend", () => toast.remove());
-      localStorage.setItem(storageKey, latestVersion); // Mark as seen
+    // Language data (EN/Bangla translations)
+    const messages = {
+      en: {
+        update: "🔔 Site upgraded!",
+        message: "🚀 Get the scoop before you explore!",
+        viewDetails: "View Details",
+        dontShow: "Don't show again",
+      },
+      bn: {
+        update: "🔔 সাম্প্রতিক আপডেট!",
+        message: "Browse করার পূর্বে নতুন তথ্য জেনে নিন!",
+        viewDetails: "বিস্তারিত দেখুন!",
+        dontShow: "পুনরায় দেখাবেন না!",
+      }
+    };
+
+    // Elements to localize
+    const updateTextEl = toast.querySelector("strong");
+    const messageTextEl = toast.querySelector("#toast-message");
+    const linkEl = toast.querySelector("#toast-link");
+    const dontShowLabel = toast.querySelector("#dont-show-label");
+    const dontShowCheckbox = toast.querySelector("#dont-show-checkbox");
+
+    // Language toggle buttons
+    const langEnBtn = toast.querySelector("#lang-en");
+    const langBnBtn = toast.querySelector("#lang-bn");
+
+    // Current language state
+    let currentLang = "en";
+
+    function updateLanguage(lang) {
+      currentLang = lang;
+      const msg = messages[lang];
+      updateTextEl.textContent = msg.update;
+      messageTextEl.textContent = msg.message;
+      linkEl.textContent = msg.viewDetails;
+      dontShowLabel.querySelector(".label-text").textContent = msg.dontShow;
+
+      langEnBtn.classList.toggle("active", lang === "en");
+      langBnBtn.classList.toggle("active", lang === "bn");
+
+      // Log language change (optional analytics)
+      console.log(`[Analytics] Language switched to ${lang.toUpperCase()}`);
+    }
+
+    // Initial language set
+    updateLanguage(currentLang);
+
+    // Language toggle events
+    langEnBtn.addEventListener("click", () => {
+      if (currentLang !== "en") updateLanguage("en");
     });
+    langBnBtn.addEventListener("click", () => {
+      if (currentLang !== "bn") updateLanguage("bn");
+    });
+
+    // Close toast function
+    function closeToast() {
+      toast.classList.add("slide-out");
+      toast.addEventListener("animationend", () => toast.remove());
+      localStorage.setItem(localStorageSeenKey, latestVersion);
+      sessionStorage.setItem(sessionStorageClosedKey, "true");
+      console.log("[Analytics] Toast closed");
+    }
+
+    // Close button event
+    toast.querySelector("#toast-close-btn").addEventListener("click", () => {
+      closeToast();
+    });
+
+    // "Don't show again" checkbox event
+    dontShowCheckbox.addEventListener("change", (e) => {
+      const checked = e.target.checked;
+      localStorage.setItem(localStorageNoShowKey, checked ? "true" : "false");
+      console.log(`[Analytics] Don't show again set to ${checked}`);
+      if (checked) {
+        closeToast();
+      }
+    });
+
+    // Auto-hide toast after timeout (only if NOT closed yet)
+    const autoHideTimer = setTimeout(() => {
+      if (document.body.contains(toast)) {
+        closeToast();
+      }
+    }, autoHideTimeoutMs);
+
+    // Link click analytics
+    linkEl.addEventListener("click", () => {
+      console.log("[Analytics] Changelog link clicked");
+    });
+
   })();
 </script>
 
 </body>
 </html>
-
-
