@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Changelog for Avishikta - I Type - A RWA Website" />
+  <meta name="theme-color" content="#4CAF50" />
+  <title>📄 Changelog | Avishikta - I Type - A</title>
+  <style>
+    :root {
+      --bg: #f4f6f8;
+      --text: #222;
+      --primary: #4CAF50;
+      --new: #007bff;
+      --improved: #17a2b8;
+      --fixed: #ffc107;
+      --removed: #dc3545;
+      --gradient: linear-gradient(to right, #fefcea, #f1da36);
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      padding: 2rem;
+      line-height: 1.6;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 0.2rem;
+    }
+
+    p.sub {
+      font-size: 1.1rem;
+      color: #555;
+    }
+
+    .search-wrapper {
+      max-width: 500px;
+      margin: 1.5rem auto 2rem;
+      position: relative;
+    }
+
+    #searchInput {
+      width: 100%;
+      padding: 0.75rem 2.5rem 0.75rem 1rem;
+      font-size: 1rem;
+      border: 2px solid var(--primary);
+      border-radius: 5px;
+      outline: none;
+    }
+
+    .clear-btn {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      font-size: 1.2rem;
+      color: #999;
+      cursor: pointer;
+    }
+
+    .entry {
+      background: var(--gradient);
+      border-left: 5px solid var(--primary);
+      border-radius: 6px;
+      padding: 1rem 1.25rem;
+      margin-bottom: 1rem;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+      transition: transform 0.2s;
+    }
+
+    .entry:hover {
+      transform: scale(1.01);
+    }
+
+    .date {
+      font-size: 0.95rem;
+      font-weight: bold;
+      color: #444;
+      margin-bottom: 0.6rem;
+    }
+
+    ul {
+      list-style-type: none;
+      padding-left: 0;
+      margin: 0;
+    }
+
+    li {
+      margin-bottom: 0.4rem;
+      padding-left: 1.5em;
+      position: relative;
+    }
+
+    li::before {
+      position: absolute;
+      left: 0;
+    }
+
+    .new::before { content: '✨'; color: var(--new); }
+    .improved::before { content: '🛠️'; color: var(--improved); }
+    .fixed::before { content: '🐛'; color: var(--fixed); }
+    .removed::before { content: '🗑️'; color: var(--removed); }
+
+    .links {
+      text-align: center;
+      margin-top: 3rem;
+    }
+
+    .links a {
+      display: inline-block;
+      margin: 0 1rem;
+      text-decoration: none;
+      font-weight: bold;
+      color: var(--primary);
+      border: 2px solid var(--primary);
+      padding: 0.5rem 1rem;
+      border-radius: 5px;
+      transition: all 0.3s ease;
+    }
+
+    .links a:hover {
+      background-color: var(--primary);
+      color: white;
+    }
+
+    @media (max-width: 600px) {
+      body {
+        padding: 1rem;
+      }
+
+      h1 {
+        font-size: 2rem;
+      }
+
+      .entry {
+        padding: 1rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h1>📄 Changelog</h1>
+    <p class="sub">A log of changes, updates, and improvements made to our digital platform.</p>
+  </header>
+
+  <!-- 🔍 Search -->
+  <div class="search-wrapper">
+    <input type="text" id="searchInput" placeholder="Search updates... (e.g., fixed, bilingual, dark mode)" />
+    <button class="clear-btn" onclick="clearSearch()">×</button>
+  </div>
+
+  <!-- 📝 Entries -->
+  <div id="entries">
+    <p>Loading updates...</p>
+  </div>
+
+  <!-- 🔗 External Link -->
+  <div class="links">
+    <a href="index.html">🏡 Back to Home</a>
+    <a href="https://YOUR_SITE.netlify.app" target="_blank" rel="noopener">Visit Live Site</a>
+  </div>
+
+  <script>
+    async function loadChangelog() {
+      try {
+        const response = await fetch('changelog.json');
+        const data = await response.json();
+        const entriesContainer = document.getElementById('entries');
+        entriesContainer.innerHTML = '';
+
+        data.forEach(entry => {
+          const div = document.createElement('div');
+          div.className = 'entry';
+
+          const dateDiv = document.createElement('div');
+          dateDiv.className = 'date';
+          dateDiv.textContent = '📅 ' + entry.date;
+
+          const ul = document.createElement('ul');
+
+          entry.items.forEach(item => {
+            const li = document.createElement('li');
+            li.className = item.type;
+            li.textContent = item.desc;
+            ul.appendChild(li);
+          });
+
+          div.appendChild(dateDiv);
+          div.appendChild(ul);
+          entriesContainer.appendChild(div);
+        });
+
+        initSearch(); // Re-bind search after loading
+      } catch (err) {
+        document.getElementById('entries').innerHTML = '<p>⚠️ Failed to load changelog data.</p>';
+        console.error('Error loading changelog:', err);
+      }
+    }
+
+    function clearSearch() {
+      const searchInput = document.getElementById('searchInput');
+      searchInput.value = '';
+      filterEntries('');
+    }
+
+    function filterEntries(query) {
+      const entries = document.querySelectorAll('.entry');
+      const lowerQuery = query.toLowerCase();
+      entries.forEach(entry => {
+        const text = entry.innerText.toLowerCase();
+        entry.style.display = text.includes(lowerQuery) ? 'block' : 'none';
+      });
+    }
+
+    function initSearch() {
+      const searchInput = document.getElementById('searchInput');
+      searchInput.addEventListener('input', (e) => {
+        filterEntries(e.target.value);
+      });
+    }
+
+    loadChangelog();
+  </script>
+
+</body>
+</html>

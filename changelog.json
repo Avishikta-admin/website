@@ -1,0 +1,26 @@
+[
+  {
+    "date": "2025-08-21",
+    "items": [
+      {"type": "new", "desc": "Added bilingual toggle (EN/বাংলা) to the home page"},
+      {"type": "improved", "desc": "Updated map toggle button appearance"},
+      {"type": "fixed", "desc": "Fixed hover state on language toggle button"}
+    ]
+  },
+  {
+    "date": "2025-08-20",
+    "items": [
+      {"type": "new", "desc": "New event calendar with category filters: National, Religious, Other"},
+      {"type": "new", "desc": "Users can add events to Google Calendar"},
+      {"type": "new", "desc": "Launched dark mode feature 🌙"}
+    ]
+  },
+  {
+    "date": "2025-08-19",
+    "items": [
+      {"type": "improved", "desc": "Better Bengali translations: context-aware + hybrid terms"},
+      {"type": "fixed", "desc": "Typing animation text rendering bug resolved"},
+      {"type": "new", "desc": "Introduced 🥳 confetti celebration for first-time visitors"}
+    ]
+  }
+]
