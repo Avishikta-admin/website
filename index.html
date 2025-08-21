@@ -1243,7 +1243,7 @@ updateTexts();
 
 <script src="layout-loader.js"></script>
 
-<!-- Toast notification script -->
+<!-- Toast notification script with full features -->
 <script>
   (function() {
     // === CONFIG ===
@@ -1282,8 +1282,9 @@ updateTexts();
         <span id="toast-message">🚀 Site upgraded! Get the scoop before you explore!</span>
         <a href="changelog.html" target="_blank" rel="noopener noreferrer" id="toast-link">View Details</a>
         <label id="dont-show-label">
-          <input type="checkbox" id="dont-show-checkbox" /> Don't show again
-        </label>
+  	   <input type="checkbox" id="dont-show-checkbox" />
+	   <span class="label-text">Don't show again</span>
+	</label>
         <button aria-label="Close notification" id="toast-close-btn">&times;</button>
       </div>
       <div id="language-toggle">
@@ -1522,3 +1523,4 @@ updateTexts();
 
 </body>
 </html>
+
