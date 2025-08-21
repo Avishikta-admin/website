@@ -267,6 +267,24 @@
     grid-template-columns: 1fr !important; /* Fall back to single column */
   }
 }
+@media (max-width: 768px) {
+  .main-content {
+    flex-direction: column;
+    margin-left: 0;
+    padding: 10px;
+    height: auto;
+  }
+
+  #upcomingSidebar {
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  #calendarContainer {
+    width: 100%;
+    flex: none;
+  }
+}
 
 </style>
 </head>
@@ -643,3 +661,4 @@
 
 </body>
 </html>
+
