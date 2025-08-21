@@ -306,7 +306,7 @@ document.body.insertAdjacentHTML('beforeend', footerHTML);
       user-select: none;
       box-shadow: 0 2px 8px rgba(0,0,0,0.3);
       z-index: 9999;
-      padding: 0.5rem 60px; /* padding instead of fixed height */
+      padding: 0.3rem 60px; /* padding instead of fixed height */
       flex-wrap: wrap;      /* allow wrapping */
       text-align: center;
     }
@@ -609,23 +609,25 @@ li.locked .submenu,
 
     /* Footer */
     #page-footer {
-      position: fixed;
-      bottom: 0; left: 0; right: 0;
-      background: linear-gradient(135deg, #2a72d8, #feb47b);
-      color: #fff;
-      height: 50px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 0.75rem;
-      padding: 4px 15px;
-      box-shadow: 0 -2px 8px rgba(0,0,0,0.3);
-      user-select: none;
-      white-space: nowrap;  /* Prevent wrapping */
-      z-index: 9999;
-      text-align: center;
-      overflow-x: auto;     /* In case screen is too narrow */
-    }
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  background: linear-gradient(135deg, #2a72d8, #feb47b);
+  color: #fff;
+  /* Remove fixed height for flexibility */
+  min-height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.75rem;
+  padding: 6px 15px;  /* more padding for comfort */
+  box-shadow: 0 -2px 8px rgba(0,0,0,0.3);
+  user-select: none;
+  white-space: nowrap;  /* Prevent wrapping */
+  z-index: 9999;
+  text-align: center;
+  overflow-x: auto;     /* In case screen is too narrow */
+}
+
     .footer-content {
       display: flex;
       flex-direction: column;
