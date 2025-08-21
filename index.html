@@ -8,7 +8,7 @@
   <meta http-equiv="Pragma" content="no-cache" />
   <meta http-equiv="Expires" content="0" />
   <meta name="theme-color" content="#000000" />
-  
+
   <!-- Confetti script from CDN -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
@@ -337,10 +337,31 @@ html, body {
   }
 
   .toast {
-    top: 70px;
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  max-width: 320px;
+  padding: 1rem 1.5rem;
+  background-color: #4CAF50;
+  color: white;
+  border-radius: 8px;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+  font-weight: bold;
+  cursor: pointer;
+  z-index: 9999;
+  transition: opacity 0.3s ease;
+}
+
+@media (max-width: 480px) {
+  .toast {
+    max-width: 90vw;
+    right: 5vw;
+    top: 10px;
     font-size: 0.9rem;
-    padding: 10px 18px;
+    padding: 0.8rem 1rem;
   }
+}
+
 
   .hero {
     min-height: 180px;
@@ -614,7 +635,7 @@ header.hero .hero-image {
   box-shadow: 0 4px 12px rgba(0,0,0,0.2);
   z-index: 1001;
   transition: background 0.3s, transform 0.3s;
-  poistion:sticky;
+  position:sticky;
   }
 
   #map-toggle-btn:hover {
@@ -733,6 +754,11 @@ header.hero .hero-image {
   font-size: 1.2em; /* Optional: slightly bigger */
   vertical-align: middle; /* align nicely with text */
 }
+.emoji {
+  color: #00c853; /* or use a hex like #00c853 for a fresher green */
+  font-style: normal;
+  font-size: 1.2em; /* optional: make it a bit larger if needed */
+}
 
 
 #scrollToTop {
@@ -755,6 +781,28 @@ header.hero .hero-image {
   background-color: #87cefa; /* Slightly brighter light blue */
   transform: scale(1.1);
 }
+#langToggle {
+  background-color: transparent;
+  border: 2px solid #666;
+  padding: 8px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  background-image: linear-gradient(to right, #4b6cb7, #182848); /* blue gradient */
+  color: white;
+  border: none;
+}
+
+#langToggle:hover,
+#langToggle:focus,
+#langToggle:active {
+  background-image: linear-gradient(to right, #1d976c, #93f9b9); /* green gradient on hover */
+  color: #000;
+}
+
+#langToggle:focus {
+  outline: none;
+}
 
 </style>
 </head>
@@ -774,116 +822,247 @@ header.hero .hero-image {
 </div>
 
 <!-- Hero section with header -->
-  <header class="hero full-width-hero" role="banner">
+<header class="hero full-width-hero" role="banner">
   <img src="homepage1.jpg" alt="Community Image" class="hero-image" />
   <div class="overlay">
       🖥️ Avishikta - 1 Type - A | Digital Hub
-    </div>
+  </div>
 </header>
 
+<!-- Dark mode and Language toggle buttons -->
 <button id="darkModeToggle" aria-label="Toggle dark mode" title="Enable dark mode">🌞</button>
+<button id="langToggle" aria-label="Change language to Bengali" title="Change language to Bengali">EN/বাংলা</button>
+
 <button id="map-toggle-btn">📍 Show Map</button>
-<div id="map-popup">
-  <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3685.896188561506!2d88.39841147507572!3d22.508077779537675!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a027157cc327c1b%3A0xfe9d5576fd4d1272!2sAvishikta%20Phase%201!5e0!3m2!1sen!2sin!4v1753114166780!5m2!1sen!2sin" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
-    allowfullscreen=""
-    loading="lazy"
-    referrerpolicy="no-referrer-when-downgrade"
-  ></iframe>
+<div id="map-popup" style="display:none;">
+  <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3685.896188561506!2d88.39841147507572!3d22.508077779537675!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a027157cc327c1b%3A0xfe9d5576fd4d1272!2sAvishikta%20Phase%201!5e0!3m2!1sen!2sin!4v1753114166780!5m2!1sen!2sin" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
 </div>
 
 <!-- Ticker BELOW header -->
-  <main role="main" tabindex="-1">
+<main role="main" tabindex="-1">
   <h2 class="main-heading">
     <span class="emoji">🌱</span>
     Empowering Our Association, Digitally & Sustainably
   </h2>
 
-<!-- TESTIMONIAL SLIDER -->
-<section class="testimonials">
-  <div class="testimonial active">🌟 “A truly warm and serene community — it feels like home.” – R. Sen</div>
-  <div class="testimonial">🌟 “The digital strides by Type - A Association are both thoughtful and inspiring.” – A. Mukherjee</div>
-  <div class="testimonial">🌟 “The lush greenery here soothes the soul and lifts the spirit.” – B. Moitra</div>
-  <div class="testimonial">🌟 “Type - A Association blends calm surroundings with a quietly powerful sense of progress.” – N. Saha</div>
-  <div class="testimonial">🌟 “From thoughtful landscaping to digital ease — Type - A raises the bar for community living.” – P. Das</div>
-</section>
+  <!-- TESTIMONIAL SLIDER -->
+  <section class="testimonials">
+    <div class="testimonial active">🌟 “A truly warm and serene community — it feels like home.” – R. Sen</div>
+    <div class="testimonial">🌟 “The digital strides by Type - A Association are both thoughtful and inspiring.” – A. Mukherjee</div>
+    <div class="testimonial">🌟 “The lush greenery here soothes the soul and lifts the spirit.” – B. Moitra</div>
+    <div class="testimonial">🌟 “Type - A Association blends calm surroundings with a quietly powerful sense of progress.” – N. Saha</div>
+    <div class="testimonial">🌟 “From thoughtful landscaping to digital ease — Type - A raises the bar for community living.” – P. Das</div>
+  </section>
 
-<!-- Typing Animation Section -->
-<div class="typing-container">
-  <span id="typing-text"></span>
-</div>
+  <!-- Typing Animation Section -->
+  <div class="typing-container">
+    <span id="typing-text"></span>
+  </div>
 
   <div class="card-grid">
-  <div class="card" tabindex="0" role="article" aria-label="Smart and Secure Living">
-    <i class="fas fa-shield-alt" aria-hidden="true"></i>
-    <h3>Smart & Secure Living</h3>
-    <p>24/7 safety and smart tech at your fingertips.</p>
-  </div>
+    <div class="card" tabindex="0" role="article" aria-label="Smart and Secure Living">
+      <i class="fas fa-shield-alt" aria-hidden="true"></i>
+      <h3>Smart & Secure Living</h3>
+      <p>24/7 safety and smart tech at your fingertips.</p>
+    </div>
 
-  <div class="card" tabindex="0" role="article" aria-label="Sustainable Living">
-    <i class="fas fa-leaf" aria-hidden="true"></i>
-    <h3>Green Living</h3>
-    <p>Live clean and green — for you and the planet.</p>
-  </div>
+    <div class="card" tabindex="0" role="article" aria-label="Sustainable Living">
+      <i class="fas fa-leaf" aria-hidden="true"></i>
+      <h3>Green Living</h3>
+      <p>Live clean and green — for you and the planet.</p>
+    </div>
 
-  <div class="card" tabindex="0" role="article" aria-label="Community Events and Bulletin">
-    <i class="fas fa-calendar-check" aria-hidden="true"></i>
-    <h3>Events & Updates</h3>
-    <p>Stay in the loop with our community happenings.</p>
-  </div>
+    <div class="card" tabindex="0" role="article" aria-label="Community Events and Bulletin">
+      <i class="fas fa-calendar-check" aria-hidden="true"></i>
+      <h3>Events & Updates</h3>
+      <p>Stay in the loop with our community happenings.</p>
+    </div>
 
-  <div class="card" tabindex="0" role="article" aria-label="Resident Services">
-    <i class="fas fa-headset" aria-hidden="true"></i>
-    <h3>Resident Support</h3>
-    <p>From maintenance to questions — we’re ready to assist.</p>
+    <div class="card" tabindex="0" role="article" aria-label="Resident Services">
+      <i class="fas fa-headset" aria-hidden="true"></i>
+      <h3>Resident Support</h3>
+      <p>From maintenance to questions — we’re ready to assist.</p>
+    </div>
   </div>
-</div>
 
 </main>
 
+<button id="scrollToTop" title="Scroll to top">🔝</button>
+
 <script>
 
-    // Welcome Overlay Countdown + Progress + Fade + Confetti
+// Bilingual content for main UI texts beyond greetings
+const content = {
+  en: {
+    heroOverlay: "🖥️ Avishikta - 1 Type - A | Digital Hub",
+    mainHeading: "🌱 Empowering Our Association, Digitally & Sustainably",
+    testimonials: [
+      "🌟 “A truly warm and serene community — it feels like home.” – R. Sen",
+      "🌟 “The digital strides by Type - A Association are both thoughtful and inspiring.” – A. Mukherjee",
+      "🌟 “The lush greenery here soothes the soul and lifts the spirit.” – B. Moitra",
+      "🌟 “Type - A Association blends calm surroundings with a quietly powerful sense of progress.” – N. Saha",
+      "🌟 “From thoughtful landscaping to digital ease — Type - A raises the bar for community living.” – P. Das"
+    ],
+    cards: [
+      { title: "Smart & Secure Living", desc: "24/7 safety and smart tech at your fingertips." },
+      { title: "Green Living", desc: "Live clean and green — for you and the planet." },
+      { title: "Events & Updates", desc: "Stay in the loop with our community happenings." },
+      { title: "Resident Support", desc: "From maintenance to questions — we’re ready to assist." }
+    ],
+    map: {
+      show: "📍 Show Map",
+      hide: "Hide Map"
+    },
+    darkMode: {
+      on: "Dark Mode Enabled",
+      off: "Switch to Dark Mode"
+    },
+    scrollTop: "Scroll to top",
+    langToggle: {
+      label: "Change language to Bengali",
+      title: "Change language to Bengali",
+      buttonText: "EN/বাংলা"
+    },
+    typingPhrases: [
+      "At the Heart of Avishikta - I, Beats Type - A Association",
+      "Smiles Shared, Stories Grown",
+      "Green Grounds, Gentle Vibes",
+      "Harmony in Every Home",
+      "Kindness Keeps Us Connected",
+      "Together in Trust, Always",
+      "Where Neighbours Become Friends",
+      "Rooted in Care, Rising Together"
+    ]
+  },
+  bn: {
+    heroOverlay: "🖥️ অভিষিক্তা - ১ টাইপ - এ | ডিজিটাল হাব",
+    mainHeading: "🌱 আমাদের সমিতিকে শক্তিশালী করা, ডিজিটালি ও টেকসইভাবে",
+    testimonials: [
+      "🌟 “একটি সত্যিকারের উষ্ণ আর শান্তিপূর্ণ পরিবেশ — এটি বাড়ির মতো মনে হয়।” – আর. সেন",
+      "🌟 “টাইপ - এ অ্যাসোসিয়েশনের ডিজিটাল অগ্রগতি খুবই চিন্তাশীল এবং অনুপ্রেরণাদায়ক।” – এ. মুখার্জি",
+      "🌟 “সবুজ এই পরিবেশ মনকে শান্ত করে, আর ভালো লাগায় ভরিয়ে দেয়।” – বি. মৈত্র",
+      "🌟 “টাইপ - এ অ্যাসোসিয়েশন নিঃশব্দে অগ্রগতির সাথে শান্ত পরিবেশের এক অনন্য মেলবন্ধন।” – এন. সাহা",
+      "🌟 “সু-পরিকল্পিত ল্যান্ডস্কেপিং থেকে ডিজিটাল সহজতায় — টাইপ - এ টাইপ - এ কমিউনিটি সত্যিকারের উদাহরণ।” – পি. দাস"
+    ],
+    cards: [
+      { title: "স্মার্ট ও সুরক্ষিত জীবনধারা", desc: "২৪/৭ নিরাপত্তা আর স্মার্ট প্রযুক্তির সঙ্গে থাকুন।" },
+      { title: "সবুজ জীবন", desc: "নিজের জন্য আর পরিবেশের জন্য বেছে নিন সবুজ জীবনযাত্রা।" },
+      { title: "ইভেন্ট ও আপডেট", desc: "আমাদের কমিউনিটির কার্যক্রম সম্পর্কে আপডেট থাকুন।" },
+      { title: "রেসিডেন্ট সাপোর্ট", desc: "রক্ষণাবেক্ষণ থেকে প্রশ্ন — আমরা পাশে আছি সবসময়।" }
+    ],
+    map: {
+      show: "📍 মানচিত্র প্রদর্শন করুন",
+      hide: "মানচিত্র বন্ধ করুন"
+    },
+    darkMode: {
+      on: "ডার্ক মোড অন",
+      off: "ডার্ক মোড অফ্"
+    },
+    scrollTop: "টপ-এ যান",
+    langToggle: {
+      label: "Change language to English",
+      title: "Change language to English",
+      buttonText: "বাংলা/EN"
+    },
+    typingPhrases: [
+      "অভিষিক্তা - ১ এর হৃদয়ে রয়েছে টাইপ - এ অ্যাসোসিয়েশন",
+      "মিলন ঘটে হাসিতে, বেড়ে যায় Stories-এ",
+      "সবুজ মাঠ, শান্ত পরিবেশ",
+      "প্রতিটি বাড়িতে Harmony ও শান্তি",
+      "দয়ায় আমরা একসাথে বাঁধা",
+      "বিশ্বাসের Bandhan-এ একত্রিত আমরা",
+      "যেখানে প্রতিবেশী হয়ে ওঠে বন্ধু",
+      "যত্নে মিশে, একসাথে বেড়ে উঠা"
+    ]
+  }
+};
 
-    const mainContent = document.querySelector('main');
+// Bilingual texts for greetings and UI labels
+const texts = {
+  en: {
+    greeting: {
+      morningTitle: '🌅 Namaskar!',
+      morningMsg: 'As the sun rises, may your heart be light, your thoughts be clear, and your spirit shine bright!',
+      afternoonTitle: '🌤️ Good Afternoon!',
+      afternoonMsg: 'May the rhythm of the day move with purpose, and your efforts blossom into fulfillment!',
+      eveningTitle: '🌆 Good Evening!',
+      eveningMsg: 'Let the dusk bring calm to your soul, and the quiet hours prepare you for dreams yet to unfold!',
+      defaultTitle: '✨ Welcome!',
+      defaultMsg: 'Grateful to have you here — may your time with us bring inspiration and clarity!',
+    },
+    closeGreetingBtn: 'Close',
+    toastMsg: '🙏 Thanks for visiting us again!',
+  },
+  bn: {
+    greeting: {
+      morningTitle: '🌅 নমস্কার!',
+      morningMsg: 'সূর্য ওঠার সঙ্গে আপনার হৃদয় হালকা হোক, আপনার চিন্তা স্পষ্ট হোক, এবং আপনার আত্মা উজ্জ্বল হোক!',
+      afternoonTitle: '🌤️ শুভ অপরাহ্ন!',
+      afternoonMsg: 'দিনের ছন্দ উদ্দেশ্যপূর্ণ হোক, এবং আপনার প্রচেষ্টা সফল হোক!',
+      eveningTitle: '🌆 শুভ সন্ধ্যা!',
+      eveningMsg: 'সন্ধ্যার শান্তি আপনার আত্মাকে শান্তি দিক, এবং স্বপ্নগুলো পূর্ণ হবার প্রস্তুতি নিক!',
+      defaultTitle: '✨ স্বাগতম!',
+      defaultMsg: 'আমাদের এখানে আসার জন্য ধন্যবাদ — আপনার সময় অনুপ্রেরণা এবং স্পষ্টতায় ভরপুর হোক!',
+    },
+    closeGreetingBtn: 'বন্ধ করুন',
+    toastMsg: '🙏 পুনরায় ভিজিট করার জন্য ধন্যবাদ!',
+  }
+};
 
-  function runConfetti() {
-  const duration = 1.5 * 1000;  // Reduced duration to 1.5 seconds for faster sparkling
+let currentLang = localStorage.getItem('lang') || 'en';
+
+// Cache DOM elements used multiple times
+const modal = document.getElementById('greetingModal');
+const closeBtn = document.getElementById('closeGreetingBtn');
+const mapToggleBtn = document.getElementById('map-toggle-btn');
+const mapPopup = document.getElementById('map-popup');
+const toggle = document.getElementById('darkModeToggle');
+const scrollBtn = document.getElementById('scrollToTop');
+const langToggleBtn = document.getElementById('langToggle');
+const heroOverlay = document.querySelector('.overlay');
+const mainHeading = document.querySelector('.main-heading');
+const testimonialElements = document.querySelectorAll('.testimonial');
+const cardElements = document.querySelectorAll('.card');
+const typingText = document.getElementById('typing-text');
+
+
+// --- Confetti logic unchanged ---
+function runConfetti() {
+  const duration = 1.5 * 1000;
   const end = Date.now() + duration;
 
   (function frame() {
-    // Add confetti with some randomness in the particle count, spread, angle, etc.
     confetti({
-      particleCount: 20,  // Increased particle count for denser confetti
-      angle: Math.random() * 180,  // Random angle for more dynamic spread
-      spread: 150 + Math.random() * 50,  // Random spread to make it look more natural
-      origin: { x: Math.random() },  // Random origin for more randomness
+      particleCount: 20,
+      angle: Math.random() * 180,
+      spread: 150 + Math.random() * 50,
+      origin: { x: Math.random() },
       colors: ['#ff0000', '#ff7300', '#fffb00', '#00ff00', '#00bfff', '#800080', '#ff1493', '#ff69b4', '#f0e68c', '#adff2f'],
-      scalar: 1.0 + Math.random() * 0.5,  // Smaller particle size (lower range)
-      drift: Math.random() * 3,  // Random drift for a more natural effect
-      gravity: 0.5 + Math.random() * 0.5,  // Slight random gravity for more fluid motion
+      scalar: 1.0 + Math.random() * 0.5,
+      drift: Math.random() * 3,
+      gravity: 0.5 + Math.random() * 0.5,
     });
     confetti({
-      particleCount: 20,  // Increased density
-      angle: Math.random() * 180,  // Random angle
-      spread: 150 + Math.random() * 50,  // Random spread
-      origin: { x: Math.random() },  // Random horizontal origin
+      particleCount: 20,
+      angle: Math.random() * 180,
+      spread: 150 + Math.random() * 50,
+      origin: { x: Math.random() },
       colors: ['#ff0000', '#ff7300', '#fffb00', '#00ff00', '#00bfff', '#800080', '#ff1493', '#ff69b4', '#f0e68c', '#adff2f'],
-      scalar: 1.0 + Math.random() * 0.5,  // Smaller particle size (lower range)
-      drift: Math.random() * 3,  // Random drift
-      gravity: 0.5 + Math.random() * 0.5,  // Random gravity
+      scalar: 1.0 + Math.random() * 0.5,
+      drift: Math.random() * 3,
+      gravity: 0.5 + Math.random() * 0.5,
     });
     confetti({
-      particleCount: 20,  // Slightly fewer particles for the middle confetti
-      angle: Math.random() * 180,  // Random angles
-      spread: 200,  // Spread across a wider area
-      origin: { x: 0.5 },  // Center origin
+      particleCount: 20,
+      angle: Math.random() * 180,
+      spread: 200,
+      origin: { x: 0.5 },
       colors: ['#ff0000', '#ff7300', '#fffb00', '#00ff00', '#00bfff', '#800080', '#ff1493', '#ff69b4', '#f0e68c', '#adff2f'],
-      scalar: 1.0 + Math.random() * 0.5,  // Smaller particle size (lower range)
-      drift: Math.random() * 3,  // Random drift
-      gravity: 0.5 + Math.random() * 0.5,  // Random gravity
+      scalar: 1.0 + Math.random() * 0.5,
+      drift: Math.random() * 3,
+      gravity: 0.5 + Math.random() * 0.5,
     });
 
-    // Continue the animation until the duration is over
     if (Date.now() < end) {
       requestAnimationFrame(frame);
     }
@@ -891,226 +1070,289 @@ header.hero .hero-image {
 }
 
 
-  window.addEventListener('DOMContentLoaded', () => {
-  const modal = document.getElementById('greetingModal');
-  const closeBtn = document.getElementById('closeGreetingBtn');
-  const title = document.getElementById('greetingTitle');
-  const message = document.getElementById('greetingMessage');
-
-  // Check if greeting was already shown
-  if (sessionStorage.getItem('greetingShown')) {
-    // Don't show modal again
-    return;
-  }
-
-  // Set greeting text based on time
+// Update all texts for UI elements based on currentLang
+function updateTexts() {
+  // Update greeting modal text
   const hour = new Date().getHours();
-  let greetText = '✨ Welcome!';
-  let greetMsg = 'Grateful to have you here — may your time with us bring inspiration and clarity!';
+  let greetTitle, greetMsg;
 
   if (hour < 12) {
-    greetText = '🌅 Namaskar!';
-    greetMsg = 'As the sun rises, may your heart be light, your thoughts be clear, and your spirit shine bright!';
+    greetTitle = texts[currentLang].greeting.morningTitle;
+    greetMsg = texts[currentLang].greeting.morningMsg;
   } else if (hour < 17) {
-    greetText = '🌤️ Good Afternoon!';
-    greetMsg = 'May the rhythm of the day move with purpose, and your efforts blossom into fulfillment!';
+    greetTitle = texts[currentLang].greeting.afternoonTitle;
+    greetMsg = texts[currentLang].greeting.afternoonMsg;
   } else {
-    greetText = '🌆 Good Evening!';
-    greetMsg = 'Let the dusk bring calm to your soul, and the quiet hours prepare you for dreams yet to unfold!';
+    greetTitle = texts[currentLang].greeting.eveningTitle;
+    greetMsg = texts[currentLang].greeting.eveningMsg;
   }
 
-  title.textContent = greetText;
-  message.textContent = greetMsg;
+  document.getElementById('greetingTitle').textContent = greetTitle;
+  document.getElementById('greetingMessage').textContent = greetMsg;
+  closeBtn.textContent = texts[currentLang].closeGreetingBtn;
 
-  // Show modal
-  modal.classList.add('show');
-  modal.style.display = 'flex';
+  // Update map toggle button text
+  if (mapPopup.style.display === 'block') {
+    mapToggleBtn.textContent = content[currentLang].map.hide;
+  } else {
+    mapToggleBtn.textContent = content[currentLang].map.show;
+  }
 
-  // Run confetti only once when modal shows
+  // Update dark mode toggle button tooltip & aria-label
+  const darkModeEnabled = document.body.classList.contains('dark');
+  if (darkModeEnabled) {
+    toggle.title = content[currentLang].darkMode.on;
+    toggle.setAttribute('aria-label', content[currentLang].darkMode.on);
+  } else {
+    toggle.title = content[currentLang].darkMode.off;
+    toggle.setAttribute('aria-label', content[currentLang].darkMode.off);
+  }
 
-  function showThankYouToast() {
+  // Update scroll to top button tooltip & aria-label
+  scrollBtn.title = content[currentLang].scrollTop;
+  scrollBtn.setAttribute('aria-label', content[currentLang].scrollTop);
+
+  // Update hero texts
+  if(heroOverlay) heroOverlay.textContent = content[currentLang].heroOverlay;
+  if(mainHeading) mainHeading.textContent = content[currentLang].mainHeading;
+
+  // Update testimonials
+  testimonialElements.forEach((el, idx) => {
+    if(content[currentLang].testimonials[idx]) {
+      el.textContent = content[currentLang].testimonials[idx];
+    }
+  });
+
+  // Update cards titles and descriptions
+  cardElements.forEach((el, idx) => {
+    if(content[currentLang].cards[idx]) {
+      const h3 = el.querySelector('h3');
+      const p = el.querySelector('p');
+      if(h3) h3.textContent = content[currentLang].cards[idx].title;
+      if(p) p.textContent = content[currentLang].cards[idx].desc;
+    }
+  });
+
+  // Update language toggle button
+  langToggleBtn.textContent = content[currentLang].langToggle.buttonText;
+  langToggleBtn.setAttribute('aria-label', content[currentLang].langToggle.label);
+  langToggleBtn.title = content[currentLang].langToggle.title;
+}
+
+
+// Show thank you toast after closing greeting
+function showThankYouToast() {
   const toast = document.createElement('div');
   toast.className = 'toast';
-  toast.textContent = '🙏 Thanks for visiting us again!';
+  toast.textContent = texts[currentLang].toastMsg;
   document.body.appendChild(toast);
 
-  // Remove after animation
   setTimeout(() => {
     toast.remove();
   }, 3100);
 }
 
 
-  function closeGreeting() {
+// Close greeting modal function
+function closeGreeting() {
   modal.classList.remove('show');
   setTimeout(() => {
     modal.style.display = 'none';
     sessionStorage.setItem('greetingShown', 'true');
-    showThankYouToast();  // ✅ <-- NEW toast trigger
+    showThankYouToast();
   }, 400);
 }
 
 
-  closeBtn.addEventListener('click', closeGreeting);
-
-  modal.addEventListener('click', (e) => {
-    if (e.target === modal) {
-      closeGreeting();
-    }
-  });
-
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && modal.classList.contains('show')) {
-      closeGreeting();
-    }
-  });
-
-});
-
-</script>
-<script>
-// Function to scroll to the top
+// Scroll to top helper
 function scrollToTop() {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
-</script>
 
-<script>
-const toggle = document.getElementById('darkModeToggle');
 
-toggle.addEventListener('click', () => {
-  const darkModeEnabled = document.body.classList.toggle('dark');
+// Typing animation variables
+let phraseIndex = 0;
+let letterIndex = 0;
+let typingInterval;
+let deleting = false;
 
-  if (darkModeEnabled) {
-    // Dark mode ON: keep smiling face, tooltip same
-    toggle.textContent = '😄';
-    toggle.title = 'Dark Mode Enabled';  // Or keep 'Enable Dark Mode' if you prefer
-    toggle.setAttribute('aria-label', 'Dark mode enabled');
-  } else {
-    // Dark mode OFF: change icon and tooltip
-    toggle.textContent = '🌓';
-    toggle.title = 'Switch to Dark Mode';
-    toggle.setAttribute('aria-label', 'Switch to dark mode');
-  }
-});
-
-</script>
-
-<script>
-  const testimonials = document.querySelectorAll('.testimonial');
-  let index = 0;
-
-  setInterval(() => {
-    testimonials[index].classList.remove('active');
-    index = (index + 1) % testimonials.length;
-    testimonials[index].classList.add('active');
-  }, 4000); // changes every 4 seconds
-</script>
-
-<script>
-  const mapToggleBtn = document.getElementById('map-toggle-btn');
-  const mapPopup = document.getElementById('map-popup');
-
-  mapToggleBtn.addEventListener('click', () => {
-    if (mapPopup.style.display === 'block') {
-      mapPopup.style.display = 'none';
-      mapToggleBtn.textContent = '📍 Show Map';
-    } else {
-      mapPopup.style.display = 'block';
-      mapToggleBtn.textContent = 'Hide Map';
-    }
-  });
-</script>
-
-<script>
-  // Typing animation logic
-  const phrases = [
-  "At the Heart of Avishikta - I, Beats Type - A Association",
-  "Smiles Shared, Stories Grown",
-  "Green Grounds, Gentle Vibes",
-  "Harmony in Every Home",
-  "Kindness Keeps Us Connected",
-  "Together in Trust, Always",
-  "Where Neighbours Become Friends",
-  "Rooted in Care, Rising Together"
-];
-
-  const typingText = document.getElementById("typing-text");
-  let currentPhrase = 0;
-  let currentChar = 0;
-  let isDeleting = false;
+// Typing animation function using current language phrases
+function startTypingAnimation() {
+  const phrases = content[currentLang].typingPhrases;
 
   function type() {
-    const phrase = phrases[currentPhrase];
-    if (isDeleting) {
-      currentChar--;
+    if (!deleting) {
+      typingText.textContent += phrases[phraseIndex][letterIndex];
+      letterIndex++;
+      if (letterIndex === phrases[phraseIndex].length) {
+        deleting = true;
+        clearInterval(typingInterval);
+                setTimeout(() => {
+          typingInterval = setInterval(type, 100);
+        }, 2000);
+      }
     } else {
-      currentChar++;
+      typingText.textContent = phrases[phraseIndex].substring(0, letterIndex - 1);
+      letterIndex--;
+      if (letterIndex === 0) {
+        deleting = false;
+        clearInterval(typingInterval);
+        phraseIndex = (phraseIndex + 1) % phrases.length;
+        setTimeout(() => {
+          typingInterval = setInterval(type, 150);
+        }, 1000);
+      }
     }
-
-    typingText.textContent = phrase.substring(0, currentChar);
-
-    if (!isDeleting && currentChar === phrase.length) {
-      setTimeout(() => { isDeleting = true; }, 1500);
-    } else if (isDeleting && currentChar === 0) {
-      isDeleting = false;
-      currentPhrase = (currentPhrase + 1) % phrases.length;
-    }
-
-    const typingSpeed = isDeleting ? 50 : 100;
-    setTimeout(type, typingSpeed);
   }
 
-  type();
+  // Start fresh
+  clearInterval(typingInterval);
+  typingText.textContent = '';
+  phraseIndex = 0;
+  letterIndex = 0;
+  deleting = false;
+  typingInterval = setInterval(type, 150);
+}
 
-</script>
+// Start typing animation on load
+startTypingAnimation();
 
-<button id="scrollToTop" title="Scroll to top">🔝</button>
+// Scroll to top button
+scrollBtn.addEventListener('click', scrollToTop);
 
-<script>
-  const scrollBtn = document.getElementById("scrollToTop");
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 100) {
+    scrollBtn.style.display = 'block';
+  } else {
+    scrollBtn.style.display = 'none';
+  }
+});
 
-  window.addEventListener("scroll", () => {
-    scrollBtn.style.display = window.scrollY > 300 ? "block" : "none";
-  });
+// Language toggle button
+langToggleBtn.addEventListener('click', () => {
+  currentLang = currentLang === 'en' ? 'bn' : 'en';
+  localStorage.setItem('lang', currentLang);
+  updateTexts();
+  startTypingAnimation(); // Restart animation in new language
+});
 
-  scrollBtn.addEventListener("click", () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  });
+// Initialize UI texts on load
+updateTexts();
+
 </script>
 
 <script src="layout-loader.js"></script>
 
+<!-- Toast notification script -->
 <script>
-  // Append 75 particles inside the toast container
-  const container = document.getElementById('janmashtamiToast');
-  const colors = ['#f9d71c', '#fff176', '#ffeb3b'];
+  (function() {
+    const latestVersion = "2025-08-21"; // Update this on every changelog update
+    const storageKey = "avishikta_changelog_seen";
 
-  for (let i = 0; i < 75; i++) {
-    const particle = document.createElement('div');
-    particle.classList.add('particle');
+    // Check if user already saw this version
+    if (localStorage.getItem(storageKey) === latestVersion) {
+      return; // Already seen, no need to show
+    }
 
-    // Random size 4px to 9px
-    const size = Math.random() * 5 + 4;
-    particle.style.width = `${size}px`;
-    particle.style.height = `${size}px`;
+    // Create toast container
+    const toast = document.createElement("div");
+    toast.id = "changelog-toast";
+    toast.innerHTML = `
+      <div class="toast-content">
+        <strong>🔔 Recent Update!</strong>
+        <span>We've made some improvements. </span>
+        <a href="/changelog.html" target="_blank" rel="noopener">View Details</a>
+        <button aria-label="Close notification">&times;</button>
+      </div>
+    `;
+    document.body.appendChild(toast);
 
-    // Random horizontal position inside container width
-    particle.style.left = `${Math.random() * 100}%`;
+    // Style it
+    const style = document.createElement("style");
+    style.textContent = `
+      #changelog-toast {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: linear-gradient(to right, #fefcea, #f1da36);
+        box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        padding: 1rem 1.5rem;
+        border-radius: 8px;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        max-width: 350px;
+        z-index: 9999;
+        animation: slideIn 0.4s ease forwards;
+        color: #333;
+        font-weight: 600;
+      }
+      #changelog-toast .toast-content {
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+        font-size: 0.85rem;
+      }
+      #changelog-toast a {
+        color: #4CAF50;
+        font-weight: 700;
+        text-decoration: none;
+      }
+      #changelog-toast a:hover {
+        text-decoration: underline;
+      }
+      #changelog-toast button {
+        background: transparent;
+        border: none;
+        font-size: 1.4rem;
+        line-height: 1;
+        cursor: pointer;
+        color: #333;
+        padding: 0;
+      }
+      @keyframes slideIn {
+        from { opacity: 0; transform: translateX(100%); }
+        to { opacity: 1; transform: translateX(0); }
+      }
+      @keyframes slideOut {
+        from { opacity: 1; transform: translateX(0); }
+        to { opacity: 0; transform: translateX(100%); }
+      }
 
-    // Random animation duration 5s to 9s
-    particle.style.animationDuration = `${Math.random() * 4 + 5}s`;
+      /* Responsive for mobile */
+      @media (max-width: 480px) {
+        #changelog-toast {
+          max-width: 90vw;
+          right: 5vw;
+          top: 10px;
+          font-size: 0.9rem;
+          padding: 0.8rem 1rem;
+          flex-direction: column;
+          gap: 0.5rem;
+          align-items: flex-start;
+        }
+        #changelog-toast .toast-content {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 0.3rem;
+        }
+        #changelog-toast button {
+          align-self: flex-end;
+          font-size: 1.2rem;
+        }
+      }
+    `;
+    document.head.appendChild(style);
 
-    // Random color from palette
-    particle.style.background = colors[Math.floor(Math.random() * colors.length)];
-
-    // Random bottom start position inside container height (0 to 100%)
-    particle.style.bottom = `${Math.random() * 100}%`;
-
-    container.appendChild(particle);
-  }
+    // Close button logic
+    toast.querySelector("button").addEventListener("click", () => {
+      toast.style.animation = "slideOut 0.3s ease forwards";
+      toast.addEventListener("animationend", () => toast.remove());
+      localStorage.setItem(storageKey, latestVersion); // Mark as seen
+    });
+  })();
 </script>
 
 </body>
 </html>
-
