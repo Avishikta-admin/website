@@ -3,7 +3,6 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="description" content="Official page of Avishikta - I Type - A RWA. Stay informed, get involved, and build a stronger association.">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
   <meta http-equiv="Pragma" content="no-cache" />
@@ -43,19 +42,22 @@
       height: calc(100vh - 120px);
     }
 
-    #calendarContainer {
-      flex: 1 1 60%;
-      background: white;
-      border-radius: 12px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-      padding: 20px;
-      display: flex;
-      flex-direction: column;
-    }
+  #calendarContainer {
+  flex: 1 1 60%;
+  background: linear-gradient(135deg, #ffffff, #f4f8fd);
+  backdrop-filter: blur(10px);
+  border: 1px solid #dfe8f3;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  transition: background 0.3s ease-in-out;
+}
 
     .calendar-header {
       display: flex;
-      align-items: center;
+      align-items: center; 
       justify-content: space-between;
       margin-bottom: 10px;
       flex-wrap: wrap;
@@ -63,12 +65,18 @@
     }
 
     .calendar-header h2 {
-      font-weight: 700;
-      font-size: 1.4rem;
-      color: #333;
-      flex-grow: 1;
-      min-width: 150px;
-    }
+  font-weight: 700;
+  font-size: 1.4rem;
+  /* gradient text */
+  background: linear-gradient(90deg, #6a11cb, #2575fc, #00c6ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text; /* for Firefox */
+  color: transparent; /* fallback */
+  flex-grow: 1;
+  min-width: 150px;
+}
+
 
     .nav-buttons {
       display: flex;
@@ -118,21 +126,23 @@
     }
 
     .day, .day.empty {
-    height: 60px; /* or your preferred height */
-    border-radius: 10px;
-    background: #f5f7fa;
-    display: flex;
-    justify-content: center;    /* horizontal center */
-    align-items: center;        /* vertical center */
-    font-weight: 600;
-    color: #555;
-    cursor: pointer;
-    position: relative;
-    transition: background-color 0.3s;
-    user-select: none;
-    padding: 0;                 /* remove padding that could offset content */
-    font-size: 0.95rem;
+  height: 60px;
+  border-radius: 12px;
+  background: #eef2f7;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 600;
+  color: #444;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.3s ease;
+  user-select: none;
+  padding: 0;
+  font-size: 0.95rem;
+  box-shadow: inset 0 1px 2px rgba(0,0,0,0.05);
 }
+
 
     .day.empty {
       background: transparent;
@@ -140,8 +150,10 @@
     }
 
     .day:hover:not(.empty) {
-      background: #d1e7fd;
-    }
+  background: #d8eaff;
+  transform: scale(1.03);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
 
     .event-day {
       color: white;
@@ -222,23 +234,38 @@
       opacity: 1;
     }
 
-    
     .event-type.religious {
     color: #ffe600; /* bright yellow */
     text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
-}
+    }
 
 .event-type.national {
     color: #ff6f00; /* vivid orange */
     text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
 }
-
+.event-type.other {
+    color: #00e5ff; /* bright cyan */
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
 #eventModal[hidden] {
   display: none;
 }
 
 #eventModal {
   z-index: 1000;
+}
+#upcomingEventsList {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Two equal-width columns */
+  gap: 12px; /* Spacing between items */
+}
+@media (max-width: 500px) {
+  #upcomingEventsList {
+    grid-template-columns: 1fr !important; /* Fall back to single column */
+  }
 }
 
 </style>
@@ -259,7 +286,7 @@
       <div id="eventTypeFilters" aria-label="Filter events by event types" role="group" style="display: flex; gap: 15px; flex-wrap: wrap;">
         <label><input type="checkbox" value="religious" checked> Religious</label>
         <label><input type="checkbox" value="national" checked> National</label>
-        <label><input type="checkbox" value="meeting" checked> Meeting</label>
+        <label><input type="checkbox" value="other" checked> Other</label>
       </div>
 
       <button id="todayBtn" aria-label="Go to today">Today</button>
@@ -276,7 +303,7 @@
     <b>Click a date on the calendar above to view event details and add reminders.</b>
   </p>
 
-  <div id="upcomingEventsList" style="max-height: 500px; overflow-y: auto; padding-right: 8px; margin-bottom: 10px;"></div>
+  <div id="upcomingEventsList" style="padding-right: 8px; margin-bottom: 10px;"></div>
 </aside>
 
 
@@ -308,14 +335,16 @@
   };
 
   const eventIcons = {
-    religious: '⛪',
-    meeting: '📅',
+    religious: '🙏',
+    other: '📅',
     national: '🎆',
   };
 
   const eventsData = {
     "2025-08-15": [{ type: "national", name: "Independence Day" }],
+    "2025-08-25": [{ type: "other", name: "Valve Repair" }],
     "2025-08-27": [{ type: "religious", name: "Ganesh Chaturthi" }],
+    "2025-09-05": [{ type: "national", name: "Teacher's Day" }],
     "2025-09-17": [{ type: "religious", name: "Biswakarma Puja" }],
     "2025-09-21": [{ type: "religious", name: "Mahalaya" }],
     "2025-09-29": [{ type: "religious", name: "Maha Saptami" }],
@@ -443,9 +472,10 @@
 
       const events = eventsData[dateStr];
       if (
-        events &&
-        (selectedTypes.length === 0 || events.some(e => selectedTypes.includes(e.type.toLowerCase())))
+         events &&
+         events.some(e => selectedTypes.includes(e.type.toLowerCase()))
       ) {
+
         // Show first matching event’s color and icon
         const firstMatch = events.find(e => selectedTypes.includes(e.type.toLowerCase()));
         if (firstMatch) {
@@ -501,7 +531,7 @@
 
     if (localDate >= today) {
       events.forEach(e => {
-        if (selectedTypes.length === 0 || selectedTypes.includes(e.type.toLowerCase())) {
+        if (selectedTypes.includes(e.type.toLowerCase())) {
           upcoming.push({ date: localDate, ...e });
         }
       });
@@ -517,7 +547,9 @@
       const item = document.createElement('div');
       item.className = 'event-item';
       item.innerHTML = `
-        <div class="event-type ${e.type}">${e.type.toUpperCase()}</div>
+        <div class="event-type ${e.type}">
+  ${eventIcons[e.type.toLowerCase()] || '📅'} ${e.type.toUpperCase()}
+</div>
         <div class="event-name">${e.name}</div>
         <div class="event-date">${e.date.toLocaleDateString(undefined, {
           weekday: 'short',
@@ -529,16 +561,8 @@
       list.appendChild(item);
     });
 
-    // Add reminder note below the upcoming events
-    const note = document.createElement('p');
-    note.style.fontStyle = 'italic';
-    note.style.marginTop = '15px';
-    note.style.color = 'white';
-    note.textContent = 'Click a date on the calendar above to view event details and add reminders.';
-    list.appendChild(note);
   }
 }
-
 
   // Helper to generate Google Calendar URL for an all-day event
   function generateGoogleCalendarURL(title, dateStr) {
@@ -597,11 +621,15 @@
 
       modalDesc.appendChild(eventEntry);
     });
+
 }
+
   eventModal.hidden = false;
   closeModalBtn.focus();
 }
+
 </script>
+
 <!-- Event Details Modal -->
 <div id="eventModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" aria-describedby="modalDesc" tabindex="-1" hidden>
   <div id="modalBackdrop" style="position:fixed; inset:0; background:rgba(0,0,0,0.5);"></div>
