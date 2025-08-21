@@ -2,7 +2,7 @@
   {
     "date": "2025-08-21",
     "items": [
-      {"type": "new", "desc": "Added bilingual toggle (EN/বাংলা) to the home page"},
+      {"type": "new", "desc": "Added bilingual toggle (EN/বাংলা) to the home page — Please suggest a better Bengali version!"},
       {"type": "improved", "desc": "Updated map toggle button appearance"},
       {"type": "fixed", "desc": "Fixed hover state on language toggle button"}
     ]
@@ -24,3 +24,4 @@
     ]
   }
 ]
+
