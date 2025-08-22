@@ -576,25 +576,28 @@ header.hero .hero-image {
 
 .testimonials {
   margin: -1.0rem auto;
-  max-width: 700px;
+  max-width: 800px;
   background: rgba(255, 255, 255, 0.1);
-  color: #fff; /* white text */
+  color: #fffacd; /* light yellow (LemonChiffon) */
   font-style: italic;
-  font-size: 1.0rem;
-  font-weight: 600; /* semi-bold for better emphasis */
+  font-size: 0.85rem; /* slightly smaller */
+  font-weight: 600;
   text-align: center;
-  min-height: 1em; /* keep height consistent */
+  min-height: 1em;
   position: relative;
 }
 
+/* individual testimonial item */
 .testimonial {
   display: none;
-  animation: fadeIn 3s ease-in forwards;
+  animation: fadeIn 1.2s ease-in-out forwards;
 }
 
+/* only the active one is shown */
 .testimonial.active {
   display: block;
 }
+
 
 /* Fade animation */
 @keyframes fadeIn {
@@ -646,7 +649,7 @@ header.hero .hero-image {
 .typing-container {
   text-align: center;
   margin: 3rem auto 1.5rem; /* Adds space above and below */
-  font-size: 1rem;
+  font-size: 0.90rem;
   color: #f5e6c4; /* Light cream color */
   font-family: 'Open Sans', sans-serif;
   font-weight: 700; /* Bold */
@@ -781,28 +784,6 @@ header.hero .hero-image {
   background-color: #87cefa; /* Slightly brighter light blue */
   transform: scale(1.1);
 }
-#langToggle {
-  background-color: transparent;
-  border: 2px solid #666;
-  padding: 8px 12px;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease, color 0.3s ease;
-  background-image: linear-gradient(to right, #4b6cb7, #182848); /* blue gradient */
-  color: white;
-  border: none;
-}
-
-#langToggle:hover,
-#langToggle:focus,
-#langToggle:active {
-  background-image: linear-gradient(to right, #1d976c, #93f9b9); /* green gradient on hover */
-  color: #000;
-}
-
-#langToggle:focus {
-  outline: none;
-}
 
 </style>
 </head>
@@ -831,7 +812,6 @@ header.hero .hero-image {
 
 <!-- Dark mode and Language toggle buttons -->
 <button id="darkModeToggle" aria-label="Toggle dark mode" title="Enable dark mode">🌞</button>
-<button id="langToggle" aria-label="Change language to Bengali" title="Change language to Bengali">EN/বাংলা</button>
 
 <button id="map-toggle-btn">📍 Show Map</button>
 <div id="map-popup" style="display:none;">
@@ -848,7 +828,7 @@ header.hero .hero-image {
   <!-- TESTIMONIAL SLIDER -->
   <section class="testimonials">
     <div class="testimonial active">🌟 “A truly warm and serene community — it feels like home.” – R. Sen</div>
-    <div class="testimonial">🌟 “The digital strides by Type - A Association are both thoughtful and inspiring.” – A. Mukherjee</div>
+    <div class="testimonial">🌟 “The digital strides by Type - A RWA are both thoughtful and inspiring.” – A. Mukherjee</div>
     <div class="testimonial">🌟 “The lush greenery here soothes the soul and lifts the spirit.” – B. Moitra</div>
     <div class="testimonial">🌟 “Type - A Association blends calm surroundings with a quietly powerful sense of progress.” – N. Saha</div>
     <div class="testimonial">🌟 “From thoughtful landscaping to digital ease — Type - A raises the bar for community living.” – P. Das</div>
@@ -890,8 +870,6 @@ header.hero .hero-image {
 <button id="scrollToTop" title="Scroll to top">🔝</button>
 
 <script>
-
-// Bilingual content for main UI texts beyond greetings
 const content = {
   en: {
     heroOverlay: "🖥️ Avishikta - 1 Type - A | Digital Hub",
@@ -1011,234 +989,178 @@ const texts = {
 
 let currentLang = localStorage.getItem('lang') || 'en';
 
-// Cache DOM elements used multiple times
-const modal = document.getElementById('greetingModal');
-const closeBtn = document.getElementById('closeGreetingBtn');
-const mapToggleBtn = document.getElementById('map-toggle-btn');
-const mapPopup = document.getElementById('map-popup');
-const toggle = document.getElementById('darkModeToggle');
-const scrollBtn = document.getElementById('scrollToTop');
-const langToggleBtn = document.getElementById('langToggle');
-const heroOverlay = document.querySelector('.overlay');
-const mainHeading = document.querySelector('.main-heading');
-const testimonialElements = document.querySelectorAll('.testimonial');
-const cardElements = document.querySelectorAll('.card');
-const typingText = document.getElementById('typing-text');
+document.addEventListener('DOMContentLoaded', () => {
+  const modal = document.getElementById('greetingModal');
+  const closeBtn = document.getElementById('closeGreetingBtn');
+  const mapToggleBtn = document.getElementById('map-toggle-btn');
+  const mapPopup = document.getElementById('map-popup');
+  const toggleBtn = document.getElementById('darkModeToggle');
+  const scrollBtn = document.getElementById('scrollToTop');
+  const langToggleBtn = document.getElementById('langToggle');
+  const heroOverlay = document.querySelector('.overlay');
+  const mainHeading = document.querySelector('.main-heading');
+  const testimonialEls = document.querySelectorAll('.testimonial');
+  const cardEls = document.querySelectorAll('.card');
+  const typingText = document.getElementById('typing-text');
 
+  function updateTexts() {
+    const hour = new Date().getHours();
+    const greeting = texts[currentLang].greeting;
+    let greetTitle = greeting.eveningTitle;
+    let greetMsg = greeting.eveningMsg;
 
-// --- Confetti logic unchanged ---
-function runConfetti() {
-  const duration = 1.5 * 1000;
-  const end = Date.now() + duration;
-
-  (function frame() {
-    confetti({
-      particleCount: 20,
-      angle: Math.random() * 180,
-      spread: 150 + Math.random() * 50,
-      origin: { x: Math.random() },
-      colors: ['#ff0000', '#ff7300', '#fffb00', '#00ff00', '#00bfff', '#800080', '#ff1493', '#ff69b4', '#f0e68c', '#adff2f'],
-      scalar: 1.0 + Math.random() * 0.5,
-      drift: Math.random() * 3,
-      gravity: 0.5 + Math.random() * 0.5,
-    });
-    confetti({
-      particleCount: 20,
-      angle: Math.random() * 180,
-      spread: 150 + Math.random() * 50,
-      origin: { x: Math.random() },
-      colors: ['#ff0000', '#ff7300', '#fffb00', '#00ff00', '#00bfff', '#800080', '#ff1493', '#ff69b4', '#f0e68c', '#adff2f'],
-      scalar: 1.0 + Math.random() * 0.5,
-      drift: Math.random() * 3,
-      gravity: 0.5 + Math.random() * 0.5,
-    });
-    confetti({
-      particleCount: 20,
-      angle: Math.random() * 180,
-      spread: 200,
-      origin: { x: 0.5 },
-      colors: ['#ff0000', '#ff7300', '#fffb00', '#00ff00', '#00bfff', '#800080', '#ff1493', '#ff69b4', '#f0e68c', '#adff2f'],
-      scalar: 1.0 + Math.random() * 0.5,
-      drift: Math.random() * 3,
-      gravity: 0.5 + Math.random() * 0.5,
-    });
-
-    if (Date.now() < end) {
-      requestAnimationFrame(frame);
+    if (hour < 12) {
+      greetTitle = greeting.morningTitle;
+      greetMsg = greeting.morningMsg;
+    } else if (hour < 17) {
+      greetTitle = greeting.afternoonTitle;
+      greetMsg = greeting.afternoonMsg;
     }
-  })();
-}
 
+    const gt = document.getElementById('greetingTitle');
+    const gm = document.getElementById('greetingMessage');
+    if (gt) gt.textContent = greetTitle;
+    if (gm) gm.textContent = greetMsg;
+    if (closeBtn) closeBtn.textContent = texts[currentLang].closeGreetingBtn;
 
-// Update all texts for UI elements based on currentLang
-function updateTexts() {
-  // Update greeting modal text
-  const hour = new Date().getHours();
-  let greetTitle, greetMsg;
-
-  if (hour < 12) {
-    greetTitle = texts[currentLang].greeting.morningTitle;
-    greetMsg = texts[currentLang].greeting.morningMsg;
-  } else if (hour < 17) {
-    greetTitle = texts[currentLang].greeting.afternoonTitle;
-    greetMsg = texts[currentLang].greeting.afternoonMsg;
-  } else {
-    greetTitle = texts[currentLang].greeting.eveningTitle;
-    greetMsg = texts[currentLang].greeting.eveningMsg;
-  }
-
-  document.getElementById('greetingTitle').textContent = greetTitle;
-  document.getElementById('greetingMessage').textContent = greetMsg;
-  closeBtn.textContent = texts[currentLang].closeGreetingBtn;
-
-  // Update map toggle button text
-  if (mapPopup.style.display === 'block') {
-    mapToggleBtn.textContent = content[currentLang].map.hide;
-  } else {
-    mapToggleBtn.textContent = content[currentLang].map.show;
-  }
-
-  // Update dark mode toggle button tooltip & aria-label
-  const darkModeEnabled = document.body.classList.contains('dark');
-  if (darkModeEnabled) {
-    toggle.title = content[currentLang].darkMode.on;
-    toggle.setAttribute('aria-label', content[currentLang].darkMode.on);
-  } else {
-    toggle.title = content[currentLang].darkMode.off;
-    toggle.setAttribute('aria-label', content[currentLang].darkMode.off);
-  }
-
-  // Update scroll to top button tooltip & aria-label
-  scrollBtn.title = content[currentLang].scrollTop;
-  scrollBtn.setAttribute('aria-label', content[currentLang].scrollTop);
-
-  // Update hero texts
-  if(heroOverlay) heroOverlay.textContent = content[currentLang].heroOverlay;
-  if(mainHeading) mainHeading.textContent = content[currentLang].mainHeading;
-
-  // Update testimonials
-  testimonialElements.forEach((el, idx) => {
-    if(content[currentLang].testimonials[idx]) {
-      el.textContent = content[currentLang].testimonials[idx];
+    if (mapToggleBtn && mapPopup) {
+      mapToggleBtn.textContent = (mapPopup.style.display === 'block')
+        ? content[currentLang].map.hide
+        : content[currentLang].map.show;
     }
-  });
 
-  // Update cards titles and descriptions
-  cardElements.forEach((el, idx) => {
-    if(content[currentLang].cards[idx]) {
-      const h3 = el.querySelector('h3');
-      const p = el.querySelector('p');
-      if(h3) h3.textContent = content[currentLang].cards[idx].title;
-      if(p) p.textContent = content[currentLang].cards[idx].desc;
+    if (toggleBtn) {
+      const darkModeOn = document.body.classList.contains('dark');
+      const modeText = content[currentLang].darkMode[darkModeOn ? 'on' : 'off'];
+      toggleBtn.title = modeText;
+      toggleBtn.setAttribute('aria-label', modeText);
+      toggleBtn.textContent = modeText;  // optional, update button text if you want
     }
-  });
 
-  // Update language toggle button
-  langToggleBtn.textContent = content[currentLang].langToggle.buttonText;
-  langToggleBtn.setAttribute('aria-label', content[currentLang].langToggle.label);
-  langToggleBtn.title = content[currentLang].langToggle.title;
-}
+    if (scrollBtn) {
+      scrollBtn.title = content[currentLang].scrollTop;
+      scrollBtn.setAttribute('aria-label', content[currentLang].scrollTop);
+    }
 
+    if (heroOverlay) heroOverlay.textContent = content[currentLang].heroOverlay;
+    if (mainHeading) mainHeading.textContent = content[currentLang].mainHeading;
 
-// Show thank you toast after closing greeting
-function showThankYouToast() {
-  const toast = document.createElement('div');
-  toast.className = 'toast';
-  toast.textContent = texts[currentLang].toastMsg;
-  document.body.appendChild(toast);
-
-  setTimeout(() => {
-    toast.remove();
-  }, 3100);
-}
-
-
-// Close greeting modal function
-function closeGreeting() {
-  modal.classList.remove('show');
-  setTimeout(() => {
-    modal.style.display = 'none';
-    sessionStorage.setItem('greetingShown', 'true');
-    showThankYouToast();
-  }, 400);
-}
-
-
-// Scroll to top helper
-function scrollToTop() {
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-
-
-// Typing animation variables
-let phraseIndex = 0;
-let letterIndex = 0;
-let typingInterval;
-let deleting = false;
-
-// Typing animation function using current language phrases
-function startTypingAnimation() {
-  const phrases = content[currentLang].typingPhrases;
-
-  function type() {
-    if (!deleting) {
-      typingText.textContent += phrases[phraseIndex][letterIndex];
-      letterIndex++;
-      if (letterIndex === phrases[phraseIndex].length) {
-        deleting = true;
-        clearInterval(typingInterval);
-                setTimeout(() => {
-          typingInterval = setInterval(type, 100);
-        }, 2000);
+    testimonialEls.forEach((el, i) => {
+      if (content[currentLang].testimonials[i]) {
+        el.textContent = content[currentLang].testimonials[i];
       }
-    } else {
-      typingText.textContent = phrases[phraseIndex].substring(0, letterIndex - 1);
-      letterIndex--;
+    });
+
+    cardEls.forEach((el, i) => {
+      const card = content[currentLang].cards[i];
+      if (card) {
+        const h3 = el.querySelector('h3');
+        const p = el.querySelector('p');
+        if (h3) h3.textContent = card.title;
+        if (p) p.textContent = card.desc;
+      }
+    });
+
+    if (langToggleBtn) {
+      langToggleBtn.textContent = content[currentLang].langToggle.buttonText;
+      langToggleBtn.title = content[currentLang].langToggle.title;
+      langToggleBtn.setAttribute('aria-label', content[currentLang].langToggle.label);
+    }
+  }
+
+  function startTypingAnimation() {
+    const phrases = content[currentLang].typingPhrases;
+    let phraseIndex = 0, letterIndex = 0, typingInterval, deleting = false;
+
+    function type() {
+      if (!typingText) return;
+      if (!deleting) {
       if (letterIndex === 0) {
-        deleting = false;
-        clearInterval(typingInterval);
-        phraseIndex = (phraseIndex + 1) % phrases.length;
-        setTimeout(() => {
-          typingInterval = setInterval(type, 150);
-        }, 1000);
+      // Clear text before starting new phrase
+      typingText.textContent = '';
+      }
+        typingText.textContent += phrases[phraseIndex][letterIndex++];
+        if (letterIndex === phrases[phraseIndex].length) {
+          deleting = true;
+          clearInterval(typingInterval);
+          setTimeout(() => typingInterval = setInterval(type, 100), 2000);
+        }
+      } else {
+        typingText.textContent = phrases[phraseIndex].substring(0, letterIndex--);
+        if (letterIndex === 0) {
+          deleting = false;
+          phraseIndex = (phraseIndex + 1) % phrases.length;
+          clearInterval(typingInterval);
+          setTimeout(() => typingInterval = setInterval(type, 150), 1000);
+        }
       }
     }
+
+    clearInterval(typingInterval);
+    if (typingText) typingText.textContent = '';
+    typingInterval = setInterval(type, 150);
   }
 
-  // Start fresh
-  clearInterval(typingInterval);
-  typingText.textContent = '';
-  phraseIndex = 0;
-  letterIndex = 0;
-  deleting = false;
-  typingInterval = setInterval(type, 150);
+  // Bind click handlers
+
+  if (langToggleBtn) {
+    langToggleBtn.addEventListener('click', () => {
+      console.log('Lang toggle clicked!');
+      currentLang = currentLang === 'en' ? 'bn' : 'en';
+      localStorage.setItem('lang', currentLang);
+      updateTexts();
+      startTypingAnimation();
+    });
+  }
+
+  if (scrollBtn) {
+    scrollBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+    window.addEventListener('scroll', () => {
+      scrollBtn.style.display = window.scrollY > 100 ? 'block' : 'none';
+    });
+  }
+
+  // Map toggle button
+  if (mapToggleBtn && mapPopup) {
+    mapToggleBtn.addEventListener('click', () => {
+      if (mapPopup.style.display === 'block') {
+        mapPopup.style.display = 'none';
+        mapToggleBtn.textContent = content[currentLang].map.show;
+      } else {
+        mapPopup.style.display = 'block';
+        mapToggleBtn.textContent = content[currentLang].map.hide;
+      }
+    });
+  }
+
+  // Dark mode toggle button
+  if (toggleBtn) {
+    toggleBtn.addEventListener('click', () => {
+      document.body.classList.toggle('dark');
+      const darkModeOn = document.body.classList.contains('dark');
+      const modeText = content[currentLang].darkMode[darkModeOn ? 'on' : 'off'];
+      toggleBtn.title = modeText;
+      toggleBtn.setAttribute('aria-label', modeText);
+      toggleBtn.textContent = modeText;
+    });
+  }
+function rotateTestimonials() {
+  let current = 0;
+  const testimonials = document.querySelectorAll('.testimonial');
+
+  if (!testimonials.length) return;
+
+  setInterval(() => {
+    testimonials[current].classList.remove('active');
+    current = (current + 1) % testimonials.length;
+    testimonials[current].classList.add('active');
+  }, 4000); // 4 seconds per testimonial
 }
-
-// Start typing animation on load
-startTypingAnimation();
-
-// Scroll to top button
-scrollBtn.addEventListener('click', scrollToTop);
-
-window.addEventListener('scroll', () => {
-  if (window.scrollY > 100) {
-    scrollBtn.style.display = 'block';
-  } else {
-    scrollBtn.style.display = 'none';
-  }
-});
-
-// Language toggle button
-langToggleBtn.addEventListener('click', () => {
-  currentLang = currentLang === 'en' ? 'bn' : 'en';
-  localStorage.setItem('lang', currentLang);
+  // Initialize on page load
   updateTexts();
-  startTypingAnimation(); // Restart animation in new language
+  startTypingAnimation();
+  rotateTestimonials(); // ✅ make sure this is called
 });
-
-// Initialize UI texts on load
-updateTexts();
-
 </script>
 
 <script src="layout-loader.js"></script>
@@ -1519,8 +1441,8 @@ updateTexts();
     });
 
   })();
+
 </script>
 
 </body>
 </html>
-
