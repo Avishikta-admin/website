@@ -73,6 +73,15 @@ const footerHTML = `
       <a href="index.html" class="footer-home-link" aria-label="Go to Home page">
         <i class="fas fa-home home-icon"></i> Home
       </a>
+      <a href="glossary.html" 
+         aria-label="Go to Glossary page"
+         title="Common community terms and their meanings"
+         style="margin-left: 1rem; font-weight: 700; color: #00ffff; text-decoration: none;">
+        📘 Glossary
+      </a>
+      <span style="color: #00ffff; font-size: 0.8rem; margin-left: 0.3rem;">
+        (Common terms & definitions)
+      </span>
       <span class="current-time" id="current-time" aria-live="polite" aria-atomic="true"></span>
     </div>
   </div>
