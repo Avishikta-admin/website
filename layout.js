@@ -40,26 +40,26 @@
   document.head.appendChild(manifestLink);
 
  // 2. Header HTML
- const headerHTML = `
+const headerHTML = `
   <header id="page-header" role="banner" aria-label="Site Header">
-    <button id="hamburger" type="button" class="hamburger" aria-label="Toggle menu" aria-expanded="false">Menu
-      <i class="fas fa-bars"></i>
+    <button id="hamburger" type="button" class="hamburger" aria-label="Toggle menu" aria-expanded="false">
+      Menu <i class="fas fa-bars"></i>
     </button>
-    <button id="nav-collapse-toggle"
-        type="button"
-        aria-label="Toggle navigation sidebar"
-        aria-expanded="true"
-        class="collapse-toggle"
-        title="Collapse Menu">
-  <i class="fas fa-angle-left"></i> <!-- start with sidebar expanded -->
-</button>
+    <button id="nav-collapse-toggle" type="button" aria-label="Toggle navigation sidebar" aria-expanded="true" class="collapse-toggle" title="Collapse Menu">
+      <i class="fas fa-angle-left"></i>
+    </button>
 
     <div class="header-text">
       AVISHIKTA PHASE – 1 LIG (TYPE – A) APARTMENT RESIDENTS’ WELFARE ASSOCIATION<br>
       369/1, PURBACHAL KALITALA ROAD, KOLKATA – 700078
     </div>
+
+    <div class="lang-toggle-wrapper">
+      <button id="langToggle" aria-label="Change language to Bengali" title="Change language to Bengali">EN/বাংলা</button>
+    </div>
   </header>
 `;
+
 
 const footerHTML = `
 <footer id="page-footer" role="contentinfo" aria-label="Site Footer">
@@ -193,6 +193,38 @@ document.body.insertAdjacentHTML('afterbegin', headerHTML);
 document.body.insertAdjacentHTML('afterbegin', navHTML);
 document.body.insertAdjacentHTML('beforeend', footerHTML);
 
+//for language button ---------------------------
+(function setupLangToggle() {
+  const langToggle = document.getElementById('langToggle');
+  if (!langToggle) return;
+
+  const supportedPages = ['index.html', 'about-us.html', 'contact-us.html', 'vision-mission.html'];
+  const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+
+  const lang = localStorage.getItem('lang') || 'en';
+
+  if (supportedPages.includes(currentPage)) {
+    // Update label
+    langToggle.textContent = lang === 'en' ? 'EN/বাংলা' : 'বাংলা/EN';
+    langToggle.title = lang === 'en' ? 'Change language to Bengali' : 'Change language to English';
+
+    // Handle click
+    langToggle.addEventListener('click', () => {
+      const lang = localStorage.getItem('lang') || 'en';
+      const newLang = lang === 'en' ? 'bn' : 'en';
+      localStorage.setItem('lang', newLang);
+      location.reload();
+    });
+  } else {
+    // Disable on unsupported pages
+    langToggle.disabled = true;
+    langToggle.title = "Currently, Bengali version is available only on these pages:\n- Home\n- Who We Are\n- Vision & Mission\n- Ready to Hear You";
+    langToggle.style.opacity = 0.6;
+    langToggle.style.cursor = 'not-allowed';
+  }
+})();
+
+
   // 6. Insert breadcrumb above main
   function renderBreadcrumb() {
     const breadcrumbMap = {
@@ -315,7 +347,7 @@ document.body.insertAdjacentHTML('beforeend', footerHTML);
       flex: 1;
       font-weight: 600;
       line-height: 1.3;
-      font-size: 0.75rem;
+      font-size: 0.70rem;
       word-break: break-word;
       white-space: normal;
     }
@@ -379,11 +411,10 @@ document.body.insertAdjacentHTML('beforeend', footerHTML);
   left: 30px;
 }
 
-
 /* Nav Styles */
 #main-nav {
   position: fixed;
-  top: 54px;
+  top: 40px;
   left: 0;
   width: 200px;
   bottom: 50px;
@@ -618,7 +649,7 @@ li.locked .submenu,
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 0.75rem;
+  font-size: 0.70rem;
   padding: 6px 15px;  /* more padding for comfort */
   box-shadow: 0 -2px 8px rgba(0,0,0,0.3);
   user-select: none;
@@ -749,6 +780,30 @@ li.locked .submenu,
       z-index: 10000;
     }
     
+  #langToggle {
+  margin-left: auto; /* push it to the far right */
+  margin-right: 10px;
+  background-color: transparent;
+  padding: 8px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  background-image: linear-gradient(to right, #4b6cb7, #182848);
+  color: white;
+  border: none;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+#langToggle:hover,
+#langToggle:focus,
+#langToggle:active {
+  background-image: linear-gradient(to right, #1d976c, #93f9b9);
+  color: #000;
+}
+
+#langToggle:focus {
+  outline: none;
+}
+
   `;
   document.head.appendChild(style);
 
@@ -862,7 +917,6 @@ sectionHeaders.forEach(button => {
     }
   });
 });
-
 
 function updateLayout() {
   const isMobile = window.innerWidth <= 768;
