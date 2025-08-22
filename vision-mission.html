@@ -7,8 +7,8 @@
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
   <meta http-equiv="Pragma" content="no-cache" />
   <meta http-equiv="Expires" content="0" />
-  <!-- Confetti script from CDN -->
-  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <!-- Font Awesome for icons -->
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
   <script src="layout-loader.js"></script>
 
   <title>Vision & Mission | AVISHIKTA PHASE – I Type A RWA</title>
@@ -202,56 +202,67 @@ section:hover {
 <body>
 
 <button id="scrollToTop" onclick="window.scrollTo(0, 0);" title="Go to the top">⬆️</button>
-
   <!-- layout.js will dynamically inject header and footer -->
-
   <main>
-    <div class="hero-combo">
-      <img src="img-3.jpg" alt="AVISHIKTA - I Community Image" />
-      <div class="hero-text">Vision & Mission</div>
-    </div>
+  <!-- Hero Combo Section -->
+  <div class="hero-combo">
+    <img src="img-3.jpg" alt="AVISHIKTA - I Community Image" />
+    <div class="hero-text lang-en">Vision & Mission</div>
+    <div class="hero-text lang-bn" style="display:none;">দর্শন ও লক্ষ্য</div>
+  </div>
 
-    <section>
-      <h2 id="vision-toggle" tabindex="0" aria-expanded="false" aria-controls="vision-content" class="collapsed">
-        <i class="fas fa-seedling"></i> 🌄 Our Vision
-      </h2>
-      <div id="vision-content" class="content collapsed" aria-hidden="true">
-        <p>
-          To cultivate a model micro-community within <strong>Avishikta – I</strong>, where the 64 families of <strong>Type – A</strong> Housing flourish in dignity, harmony, and shared responsibility.
-        </p>
-        <p>
-          We envision a neighborhood that exemplifies <strong>sustainability</strong>, <strong>civic unity</strong>, and <strong>mutual empowerment</strong> — becoming a living expression of the values that strengthen the larger <strong>Avishikta Fraternity</strong>.
-        </p>
-        <p>
-          Together, we strive to create a vibrant and resilient residential environment that serves as a beacon of inclusive and compassionate community living.
-        </p>
+  <!-- Vision Section -->
+  <section>
+    <h2 id="vision-toggle" tabindex="0" aria-expanded="false" aria-controls="vision-content" class="collapsed">
+      <i class="fas fa-seedling"></i>
+      <span class="lang-en">🌄 Our Vision</span>
+      <span class="lang-bn" style="display:none;">🌄 আমাদের দর্শন</span>
+    </h2>
+    <div id="vision-content" class="content collapsed" aria-hidden="true">
+      <div class="lang-en">
+        <p>To cultivate a model micro-community within <strong>Avishikta – I</strong>, where the 64 families of <strong>Type – A</strong> Housing flourish in dignity, harmony, and shared responsibility.</p>
+        <p>We envision a neighborhood that exemplifies <strong>sustainability</strong>, <strong>civic unity</strong>, and <strong>mutual empowerment</strong> — becoming a living expression of the values that strengthen the larger <strong>Avishikta Fraternity</strong>.</p>
+        <p>Together, we strive to create a vibrant and resilient residential environment that serves as a beacon of inclusive and compassionate community living.</p>
       </div>
-    </section>
+      <div class="lang-bn" style="display:none;">
+        <p><strong>অভিষিক্ত – আই</strong> এর মধ্যে একটি আদর্শ মাইক্রো-কমিউনিটি গড়ে তোলা যেখানে <strong>টাইপ – এ</strong> হাউজিং-এর ৬৪ টি পরিবার সম্মান, ঐক্য এবং পারস্পরিক দায়িত্ববোধে বিকশিত হয়।</p>
+        <p>আমরা এমন একটি প্রতিবেশ কল্পনা করি যা <strong>টেকসইতা</strong>, <strong>নাগরিক ঐক্য</strong> এবং <strong>পারস্পরিক ক্ষমতায়ন</strong> এর প্রতীক হয়ে ওঠে — যা বৃহত্তর <strong>অভিষিক্ত ভাইত্ব</strong> কে শক্তিশালী করে।</p>
+        <p>একসাথে আমরা এমন একটি প্রাণবন্ত এবং স্থিতিশীল আবাসিক পরিবেশ তৈরি করার চেষ্টা করি যা অন্তর্ভুক্তিমূলক এবং সহানুভূতিশীল কমিউনিটি জীবনের দৃষ্টান্ত হয়ে থাকে।</p>
+      </div>
+    </div>
+  </section>
 
-    <section>
-      <h2 id="mission-toggle" tabindex="0" aria-expanded="false" aria-controls="mission-content" class="collapsed">
-        <i class="fas fa-hands-helping"></i> 🌟 Our Mission
-      </h2>
-      <div id="mission-content" class="content collapsed" aria-hidden="true">
-        <p>
-          Our mission is to foster a <strong>safe, inclusive, and vibrant</strong> living environment for the residents of <strong>Avishikta Phase – I Type – A (LIG)</strong>. Through community collaboration and transparent governance, we endeavor to:
-        </p>
+  <!-- Mission Section -->
+  <section>
+    <h2 id="mission-toggle" tabindex="0" aria-expanded="false" aria-controls="mission-content" class="collapsed">
+      <i class="fas fa-hands-helping"></i>
+      <span class="lang-en">🌟 Our Mission</span>
+      <span class="lang-bn" style="display:none;">🌟 আমাদের লক্ষ্য</span>
+    </h2>
+    <div id="mission-content" class="content collapsed" aria-hidden="true">
+      <div class="lang-en">
+        <p>Our mission is to foster a <strong>safe, inclusive, and vibrant</strong> living environment for the residents of <strong>Avishikta Phase – I Type – A (LIG)</strong>. Through community collaboration and transparent governance, we endeavor to:</p>
         <ul>
           <li>Preserve the dignity and collective voice of every resident</li>
           <li>Strengthen neighborhood bonds through participation and trust</li>
           <li>Maintain a clean, green, and well-managed space for all</li>
         </ul>
-        <p>
-          While serving the needs of our 64-flat enclave, we remain rooted in the spirit of fraternity, working in synergy with our neighboring associations for the collective growth of Avishikta.
-        </p>
+        <p>While serving the needs of our 64-flat enclave, we remain rooted in the spirit of fraternity, working in synergy with our neighboring associations for the collective growth of Avishikta.</p>
         <p class="thank-you-note">🙏 Thank you for being an essential part of our journey!</p>
       </div>
-    </section>
-  </main>
-
-  <!-- Font Awesome for icons -->
-  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-
+      <div class="lang-bn" style="display:none;">
+        <p>আমাদের লক্ষ্য হল <strong>অভিষিক্ত ফেজ – আই টাইপ – এ (এলআইজি)</strong> বাসিন্দাদের জন্য একটি <strong>নিরাপদ, অন্তর্ভুক্তিমূলক, এবং প্রাণবন্ত</strong> আবাসিক পরিবেশ তৈরি করা। কমিউনিটি সহযোগিতা এবং স্বচ্ছ প্রশাসনের মাধ্যমে আমরা চেষ্টা করি:</p>
+        <ul>
+          <li>প্রতিটি বাসিন্দার সম্মান এবং সম্মিলিত কণ্ঠ রক্ষা করা</li>
+          <li>অংশগ্রহণ ও বিশ্বাসের মাধ্যমে প্রতিবেশী বন্ধন শক্তিশালী করা</li>
+          <li>সবাই জন্য পরিষ্কার, সবুজ এবং সুষ্ঠুভাবে পরিচালিত পরিবেশ বজায় রাখা</li>
+        </ul>
+        <p>আমাদের ৬৪ ফ্ল্যাটের আবাসিক এলাকায় সেবা প্রদান করার সময় আমরা ভাইত্বের মূলে প্রতিষ্ঠিত থেকে অভিষিক্তের সামগ্রিক উন্নয়নের জন্য পার্শ্ববর্তী সমিতিগুলোর সঙ্গে সমন্বয় করি।</p>
+        <p class="thank-you-note">🙏 আমাদের যাত্রার একটি গুরুত্বপূর্ণ অংশ হওয়ার জন্য ধন্যবাদ!</p>
+      </div>
+    </div>
+  </section>
+</main>
   <!-- Expand/Collapse toggle -->
   <script>
     function toggleSection(headerId, contentId) {
@@ -323,8 +334,25 @@ window.addEventListener('scroll', () => {
       .catch(err => console.error('❌ Service Worker failed', err));
   }
 </script>
-  
+
+<script>
+  (function handleLanguageSwitch() {
+    const currentLang = localStorage.getItem("lang") || "en";
+    const enElems = document.querySelectorAll('.lang-en');
+    const bnElems = document.querySelectorAll('.lang-bn');
+
+    if (currentLang === "bn") {
+      enElems.forEach(el => el.style.display = "none");
+      bnElems.forEach(el => el.style.display = "block");
+    } else {
+      enElems.forEach(el => el.style.display = "block");
+      bnElems.forEach(el => el.style.display = "none");
+    }
+  })();
+</script>
+
 </body>
 </html>
+
 
 
