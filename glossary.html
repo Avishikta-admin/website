@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Glossary of terms used within the Avishikta Type-A Community site." />
+  <meta property="og:title" content="Glossary - Avishikta Type-A" />
+  <meta property="og:description" content="Explore common community terms and their meanings." />
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <meta name="theme-color" content="#000000" />
+  
+  <!-- Fonts & Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+  <title>Glossary - Avishikta Type-A</title>
+
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      background: #f9fafb;
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    main {
+      max-width: 900px;
+      margin: 1rem auto 3rem;
+      padding: 0 1rem;
+      flex-grow: 1;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+      font-weight: 700;
+      background: linear-gradient(45deg, #6ec1e4, #2980b9, #27ae60, #f39c12);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .last-updated {
+      text-align: center;
+      color: #2980b9;
+      font-weight: bold;
+      font-size: 0.95rem;
+      margin-bottom: 1rem;
+    }
+
+    /* Search input */
+    .search-wrapper {
+      position: relative;
+      max-width: 400px;
+      margin: 0 auto 1rem;
+    }
+
+    #searchInput {
+      width: 100%;
+      padding: 0.5rem 2.5rem 0.5rem 0.8rem;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      box-sizing: border-box;
+    }
+
+    .clear-btn {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      font-size: 1.4rem;
+      color: #666;
+      cursor: pointer;
+      display: none;
+    }
+
+    .clear-btn:hover {
+      color: #c0392b;
+    }
+
+    .alphabet-filter {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .alphabet-filter button {
+      flex: 1 1 6%;
+      min-width: 32px;
+      padding: 0.4rem 0;
+      font-size: 0.95rem;
+      background-image: linear-gradient(135deg, #5dade2, #7d3c98);
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .alphabet-filter button:hover,
+    .alphabet-filter button.active {
+      background-color: #2980b9;
+    }
+
+    #showAllBtn {
+      flex: 1 1 20%;
+      min-width: 90px;
+      background-color: #27ae60;
+    }
+
+    #showAllBtn:hover {
+      background-color: #1e8449;
+    }
+
+    ul.glossary-list {
+      list-style: none;
+      padding: 0;
+      margin: 0 auto;
+      max-width: 700px;
+    }
+
+    ul.glossary-list li {
+      background: white;
+      margin: 0.3rem 0;
+      padding: 1rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    ul.glossary-list li strong {
+      color: #34495e;
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+
+    .dash {
+      color: #999;
+      font-weight: bold;
+      margin: 0 0.4rem;
+      user-select: none;
+    }
+
+    ul.glossary-list li p {
+      background: linear-gradient(to right, #6ec1e4, #2980b9);
+      color: white;
+      margin: 0;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      flex-grow: 1;
+    }
+
+    #scrollTopBtn {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background-color: #3498db;
+      color: white;
+      border: none;
+      padding: 0.6rem 1rem;
+      font-size: 1.5rem;
+      border-radius: 50%;
+      cursor: pointer;
+      display: none;
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+      transition: background-color 0.3s;
+      z-index: 1000;
+    }
+
+    #scrollTopBtn:hover {
+      background-color: #2980b9;
+    }
+
+    @media (max-width: 600px) {
+      .alphabet-filter button {
+        flex: 1 1 14%;
+        font-size: 0.9rem;
+        min-width: 28px;
+      }
+
+      #showAllBtn {
+        flex: 1 1 40%;
+        min-width: 120px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Glossary of Terms</h1>
+    <p class="last-updated" aria-live="polite"></p>
+
+    <div class="search-wrapper">
+      <input type="text" id="searchInput" placeholder="Search glossary..." aria-label="Search glossary" />
+      <button class="clear-btn" id="clearSearchBtn" title="Clear search">×</button>
+    </div>
+
+    <div class="alphabet-filter" role="toolbar" aria-label="Filter glossary by letter">
+      <button id="showAllBtn">Show All</button>
+      <button>A</button><button>B</button><button>C</button><button>D</button><button>E</button>
+      <button>F</button><button>G</button><button>H</button><button>I</button><button>J</button>
+      <button>K</button><button>L</button><button>M</button><button>N</button><button>O</button>
+      <button>P</button><button>Q</button><button>R</button><button>S</button><button>T</button>
+      <button>U</button><button>V</button><button>W</button><button>X</button><button>Y</button><button>Z</button>
+    </div>
+
+    <ul class="glossary-list" id="glossaryList" aria-live="polite"></ul>
+  </main>
+
+  <button id="scrollTopBtn" title="Scroll to top">⬆</button>
+
+  <script>
+    const glossaryData = [
+      { term: 'Association', desc: 'A group of members in a residential community.' },
+      { term: 'AGM', desc: 'Annual General Meeting held once in a year' },
+      { term: 'EC', desc: 'Elected members managing the association.' },
+      { term: 'Bylaws', desc: 'Rules that govern the association.' },
+      { term: 'Common Area', desc: 'Shared spaces owned by the association.' },
+      { term: 'Declaration', desc: 'Legal document establishing the association.' },
+      { term: 'Dues', desc: 'Fees paid regularly by members.' },
+      { term: 'Election', desc: 'Process of choosing board members.' },
+      { term: 'General Body Meeting (GBM)', desc: 'Annual meeting of all members.' },
+      { term: 'MMC', desc: 'Monthly Maintenance Charge to be deposited by each member to run the association.' },
+      { term: 'President', desc: 'Head of the board of trustees.' },
+      { term: 'Secretary', desc: 'Keeps records and minutes for the board.' },
+      { term: 'Treasurer', desc: 'Manages association funds.' },
+      { term: 'Quorum', desc: 'Minimum members required to conduct business.' },
+      { term: 'Resolution', desc: 'Formal decision made by the board.' }
+    ];
+
+    const glossaryList = document.getElementById('glossaryList');
+    const buttons = document.querySelectorAll('.alphabet-filter button');
+    const showAllBtn = document.getElementById('showAllBtn');
+    const searchInput = document.getElementById('searchInput');
+    const clearBtn = document.getElementById('clearSearchBtn');
+    const scrollTopBtn = document.getElementById('scrollTopBtn');
+    const lastUpdatedEl = document.querySelector('.last-updated');
+
+    function renderGlossary(filterLetter = null, overrideList = null) {
+      glossaryList.innerHTML = '';
+      let filtered = overrideList || glossaryData;
+
+      if (filterLetter && !overrideList) {
+        filtered = glossaryData.filter(item => item.term.startsWith(filterLetter));
+      }
+
+      if (filtered.length === 0) {
+        glossaryList.innerHTML = `<li>No terms found${filterLetter ? ` for '${filterLetter}'` : ''}.</li>`;
+        return;
+      }
+
+      filtered.forEach(item => {
+        const li = document.createElement('li');
+        li.innerHTML = `<strong>${item.term}</strong><span class="dash">-</span><p>${item.desc}</p>`;
+        glossaryList.appendChild(li);
+      });
+    }
+
+    renderGlossary();
+
+    buttons.forEach(button => {
+      button.addEventListener('click', () => {
+        buttons.forEach(btn => btn.classList.remove('active'));
+        searchInput.value = '';
+        clearBtn.style.display = 'none';
+
+        if (button === showAllBtn) {
+          renderGlossary();
+        } else {
+          const letter = button.textContent;
+          renderGlossary(letter);
+        }
+
+        button.classList.add('active');
+      });
+    });
+
+    searchInput.addEventListener('input', () => {
+      const query = searchInput.value.trim().toLowerCase();
+      clearBtn.style.display = query ? 'block' : 'none';
+      buttons.forEach(btn => btn.classList.remove('active'));
+
+      if (query === '') {
+        renderGlossary();
+        return;
+      }
+
+      const filtered = glossaryData.filter(item =>
+        item.term.toLowerCase().includes(query) || item.desc.toLowerCase().includes(query)
+      );
+      renderGlossary(null, filtered);
+    });
+
+    clearBtn.addEventListener('click', () => {
+      searchInput.value = '';
+      clearBtn.style.display = 'none';
+      renderGlossary();
+    });
+
+    window.addEventListener('scroll', () => {
+      scrollTopBtn.style.display = window.scrollY > 200 ? 'block' : 'none';
+    });
+
+    scrollTopBtn.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // Set system date as "Last updated"
+    function formatDate(date) {
+      return date.toLocaleDateString(undefined, {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      });
+    }
+    lastUpdatedEl.textContent = `📅 Last updated: ${formatDate(new Date())}`;
+  </script>
+
+<script src="layout-loader.js"></script>
+</body>
+</html>
