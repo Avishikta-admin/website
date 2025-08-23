@@ -1,5 +1,26 @@
 [
   {
+    "date": "2025-08-24",
+    "items": [
+      {
+        "type": "new",
+        "desc": "Implemented an intelligent chatbot feature enabling natural language search and dynamic responses within the FAQs section."
+      },
+      {
+        "type": "improved",
+        "desc": "Enhanced FAQs with chatbot integration for a more interactive and user-friendly experience."
+      },
+      {
+        "type": "improved",
+        "desc": "Optimized chatbot responses to deliver accurate, context-aware information quickly."
+      },
+      {
+        "type": "new",
+        "desc": "Added a direct link to the Glossary page in the site footer for easier access."
+      }
+    ]
+  },
+  {
     "date": "2025-08-23",
     "items": [
       {
