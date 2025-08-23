@@ -39,27 +39,29 @@
   manifestLink.href = '/website/manifest.json'; // Path to your manifest file
   document.head.appendChild(manifestLink);
 
- // 2. Header HTML
 const headerHTML = `
   <header id="page-header" role="banner" aria-label="Site Header">
     <button id="hamburger" type="button" class="hamburger" aria-label="Toggle menu" aria-expanded="false">
-      Menu <i class="fas fa-bars"></i>
+      <span></span>
+      <span></span>
+      <span></span>
     </button>
+
     <button id="nav-collapse-toggle" type="button" aria-label="Toggle navigation sidebar" aria-expanded="true" class="collapse-toggle" title="Collapse Menu">
       <i class="fas fa-angle-left"></i>
     </button>
 
     <div class="header-text">
-      AVISHIKTA PHASE – 1 LIG (TYPE – A) APARTMENT RESIDENTS’ WELFARE ASSOCIATION<br>
-      369/1, PURBACHAL KALITALA ROAD, KOLKATA – 700078
+      AVISHIKTA PHASE – 1 LIG (TYPE – A) APARTMENT RESIDENTS’ WELFARE ASSOCIATION
     </div>
 
     <div class="lang-toggle-wrapper">
-      <button id="langToggle" aria-label="Change language to Bengali" title="Change language to Bengali">EN/বাংলা</button>
+      <button id="langToggle" aria-label="Change language to Bengali" title="Change language to Bengali">
+        EN/বাংলা
+      </button>
     </div>
   </header>
 `;
-
 
 const footerHTML = `
 <footer id="page-footer" role="contentinfo" aria-label="Site Footer">
@@ -347,7 +349,7 @@ document.body.insertAdjacentHTML('beforeend', footerHTML);
       user-select: none;
       box-shadow: 0 2px 8px rgba(0,0,0,0.3);
       z-index: 9999;
-      padding: 0.3rem 60px; /* padding instead of fixed height */
+      padding: 0.2rem 40px; /* padding instead of fixed height */
       flex-wrap: wrap;      /* allow wrapping */
       text-align: center;
     }
@@ -356,29 +358,62 @@ document.body.insertAdjacentHTML('beforeend', footerHTML);
       flex: 1;
       font-weight: 600;
       line-height: 1.3;
-      font-size: 0.70rem;
+      font-size: 0.75rem;
       word-break: break-word;
       white-space: normal;
     }
-    /* Hamburger button */
-    #hamburger {
-      background-color: #fd7e14;
-      border: none;
-      font-size: 10px;
-      color: white;
-      cursor: pointer;
-      position: fixed;
-      top: 8px;
-      left: 10px;
-      z-index: 10000;
-      padding: 8px;
-      border-radius: 6px;
-      display: none; /* hidden on desktop */
-      transition: background-color 0.3s ease;
+/* Clean Hamburger button - no background */
+#hamburger {
+  width: 16px;
+  height: 18px;
+  padding: 0;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  position: fixed;
+  top: 4px;
+  left: 4px;
+  z-index: 10000;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  transition: background-color 0.3s ease;
+}
+
+/* The three lines */
+#hamburger span {
+      display: block;
+      height: 2px;
+      width: 100%;
+      background: white;
+      border-radius: 1px;
+      transition: all 0.3s ease;
+      margin: 3px 0; /* ✅ Add spacing */
     }
-    #hamburger:hover {
-      background-color: #e35d04;
-    }
+#hamburger.open span {
+  background-color: #ff3366; /* ❤️ Example: nice pink/red */
+}
+
+/* Hover effect - subtle background */
+#hamburger:hover {
+  background-color: rgba(255, 255, 255, 0.1); /* Slight white hover */
+  border-radius: 4px;
+}
+
+/* Open state - smaller 'X' */
+#hamburger.open span:nth-child(1) {
+  transform: rotate(45deg) translate(3px, 3px);
+}
+
+#hamburger.open span:nth-child(2) {
+  opacity: 0;
+  transform: scaleX(0); /* shrink to center */
+}
+
+#hamburger.open span:nth-child(3) {
+  transform: rotate(-45deg) translate(3px, -3px);
+}
 
     /* Collapse toggle button for desktop nav */
     /* Enhanced Collapse toggle button for desktop nav */
@@ -423,7 +458,7 @@ document.body.insertAdjacentHTML('beforeend', footerHTML);
 /* Nav Styles */
 #main-nav {
   position: fixed;
-  top: 40px;
+  top: var(--header-height, 40px); /* optional fallback */
   left: 0;
   width: 200px;
   bottom: 50px;
@@ -435,6 +470,7 @@ document.body.insertAdjacentHTML('beforeend', footerHTML);
   transition: opacity 0.3s ease;
   box-shadow: 2px 0 8px rgba(0,0,0,0.15);
   border-right: 1px solid #324060;
+  transition: top 0.3s ease, transform 0.3s ease;
 }
 
 #main-nav.nav-open {
@@ -648,7 +684,7 @@ li.locked .submenu,
     }
 
     /* Footer */
-    #page-footer {
+  #page-footer {
   position: fixed;
   bottom: 0; left: 0; right: 0;
   background: linear-gradient(135deg, #2a72d8, #feb47b);
@@ -812,7 +848,6 @@ li.locked .submenu,
 #langToggle:focus {
   outline: none;
 }
-
   `;
   document.head.appendChild(style);
 
@@ -824,11 +859,18 @@ li.locked .submenu,
 
   // Handle hamburger toggle for mobile
   hamburger.addEventListener("click", () => {
-    const open = nav.classList.toggle("nav-open");
-    hamburger.setAttribute("aria-expanded", open);
-  });
+  const open = nav.classList.toggle("nav-open");
+  hamburger.setAttribute("aria-expanded", open);
 
-  
+  // Toggle 'open' class on hamburger for animation
+  if (open) {
+    hamburger.classList.add("open");
+  } else {
+    hamburger.classList.remove("open");
+  }
+});
+
+ 
   // on load
   collapseToggle.addEventListener("click", () => {
   const collapsed = nav.classList.toggle("nav-collapsed");
@@ -955,7 +997,6 @@ updateLayout();
 window.addEventListener("resize", () => {
     updateLayout();
 });
-
 
   // 9. Current time update in footer
   function updateTime() {
