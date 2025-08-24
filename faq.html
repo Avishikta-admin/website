@@ -292,7 +292,7 @@
 
     <div class="alphabet-filter" role="toolbar" aria-label="Filter glossary by letter">
       <button id="showAllBtn" aria-pressed="true">Show All</button>
-      <button id="sortToggleBtn" title="Toggle sort A-Z / Z-A" aria-pressed="true">Sort: Z-A</button>
+      <button id="sortToggleBtn" title="Toggle sort A-Z / Z-A" aria-pressed="true">Sort: A-Z</button>
       <button>A</button><button>B</button><button>C</button><button>D</button><button>E</button>
       <button>F</button><button>G</button><button>H</button><button>I</button><button>J</button>
       <button>K</button><button>L</button><button>M</button><button>N</button><button>O</button>
@@ -380,25 +380,44 @@
       return matrix[b.length][a.length];
     }
 
-    // Find closest term to suggest
-    function findClosestTerm(query) {
-  let minDistance = Infinity;
-  let closestTerm = null;
+  // Find closest term to suggest
+  function findClosestTerms(query) {
+  if (query.length < 3) return [];
+
+  const suggestions = [];
+  const threshold = Math.min(3, query.length / 1.5);
   const lowerQuery = query.toLowerCase();
 
   glossaryData.forEach(item => {
-    const termLower = item.term.toLowerCase();
-    const dist = levenshtein(lowerQuery, termLower);
-    if (dist < minDistance) {
-      minDistance = dist;
-      closestTerm = item.term;
+    const termDist = levenshtein(lowerQuery, item.term.toLowerCase());
+    const descDist = levenshtein(lowerQuery, item.desc.toLowerCase());
+
+    if (termDist <= threshold) {
+      suggestions.push({ text: item.term, distance: termDist });
+    } else if (descDist <= threshold) {
+      suggestions.push({ text: item.term, distance: descDist });
     }
   });
 
-  // Only suggest if reasonably close (distance less than half the length)
-  if (minDistance <= query.length / 2) return closestTerm;
-  return null;
+  // Remove duplicates, keep best distance for each term
+  const uniqueSuggestions = [];
+  const seen = new Map();
+
+  suggestions.forEach(({ text, distance }) => {
+    if (!seen.has(text) || distance < seen.get(text)) {
+      seen.set(text, distance);
+    }
+  });
+
+  seen.forEach((distance, text) => {
+    uniqueSuggestions.push({ text, distance });
+  });
+
+  uniqueSuggestions.sort((a, b) => a.distance - b.distance);
+
+  return uniqueSuggestions.slice(0, 3);
 }
+
 
   function renderGlossary(filterLetter = null, overrideList = null, query = '') {
   glossaryList.innerHTML = '';
@@ -422,27 +441,31 @@
     );
 
     if (filtered.length === 0) {
-      const suggestion = findClosestTerm(query);
-      if (suggestion && suggestion.toLowerCase() !== query.toLowerCase()) {
-        didYouMeanContainer.innerHTML = `Did you mean ? <button id="didYouMeanBtn" aria-label="Did you mean ${suggestion}">${suggestion}</button>`;
-        const didYouMeanBtn = document.getElementById('didYouMeanBtn');
-        if (didYouMeanBtn) {
-          didYouMeanBtn.addEventListener('click', () => {
-            searchInput.value = suggestion;
-            filterGlossary(null, suggestion);
-            didYouMeanContainer.textContent = '';
-          });
-          didYouMeanBtn.focus();
-        }
+  const suggestions = findClosestTerms(query);
+  
+  if (suggestions.length > 0) {
+    didYouMeanContainer.innerHTML = `Did you mean? ` + suggestions.map(s => 
+      `<button class="didYouMeanBtn" data-suggestion="${s.text}" aria-label="Did you mean ${s.text}">${s.text}</button>`
+    ).join(' ');
 
-        glossaryList.innerHTML = '';
-        return;
-      } else {
+    document.querySelectorAll('.didYouMeanBtn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const suggestion = btn.dataset.suggestion;
+        searchInput.value = suggestion;
+        filterGlossary(null, suggestion);
         didYouMeanContainer.textContent = '';
-        glossaryList.innerHTML = '<li>No terms found.</li>';
-        return;
-      }
-    }
+      });
+    });
+
+    glossaryList.innerHTML = '';
+    return;
+  } else {
+    didYouMeanContainer.innerHTML = '<span>No close matches found.</span>';
+  glossaryList.innerHTML = '<li>No terms found.</li>';
+  return;
+  }
+}
+
   }
 
   didYouMeanContainer.textContent = ''; // Clear "Did You Mean" if results found or no query
@@ -511,13 +534,29 @@
       searchInput.focus();
     });
 
+function updateSortButtonLabel() {
+  sortToggleBtn.textContent = currentSortAsc ? 'Sort: A-Z' : 'Sort: Z-A';
+  sortToggleBtn.setAttribute('aria-pressed', currentSortAsc.toString());
+}
+
     // Event: Sort toggle button
     sortToggleBtn.addEventListener('click', () => {
-      currentSortAsc = !currentSortAsc;
-      sortToggleBtn.textContent = currentSortAsc ? 'Sort: Z-A' : 'Sort: A-Z';
-      sortToggleBtn.setAttribute('aria-pressed', currentSortAsc.toString());
-      filterGlossary(null, searchInput.value.trim());
-    });
+  // Toggle the sort order boolean
+  currentSortAsc = !currentSortAsc;
+
+  // Update button text based on the new sort order
+  if (currentSortAsc) {
+    sortToggleBtn.textContent = 'Sort: A-Z';
+  } else {
+    sortToggleBtn.textContent = 'Sort: Z-A';
+  }
+
+  // Update aria-pressed attribute for accessibility
+  sortToggleBtn.setAttribute('aria-pressed', currentSortAsc.toString());
+
+  // Re-render glossary with new sort order and current search query
+  filterGlossary(null, searchInput.value.trim());
+});
 
     // Scroll to top button logic
     window.addEventListener('scroll', () => {
@@ -534,6 +573,7 @@
     });
 
     // Initialize with all terms shown, sorted A-Z
+    updateSortButtonLabel();
     filterGlossary('Show All');
 
   </script>
