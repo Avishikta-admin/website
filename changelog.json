@@ -1,5 +1,34 @@
 [
   {
+    "date": "2025-08-25",
+    "items": [
+      {
+        "type": "new",
+        "desc": "Added smart search functionality to Glossary with real-time filtering by term or description."
+      },
+      {
+        "type": "new",
+        "desc": "Implemented 'Did You Mean' suggestions using Levenshtein distance for better user assistance."
+      },
+      {
+        "type": "improved",
+        "desc": "Glossary now includes toggleable A–Z / Z–A sorting and sticky alphabet filters with responsive layout."
+      },
+      {
+        "type": "improved",
+        "desc": "Enhanced Glossary UI with vibrant orange gradient background and subtle shadows for better aesthetics."
+      },
+      {
+        "type": "improved",
+        "desc": "Improved accessibility with ARIA live regions, focus management, and semantic markup."
+      },
+      {
+        "type": "new",
+        "desc": "Scroll-to-top button now floats above footer and auto-hides to avoid overlapping on small screens."
+      }
+    ]
+  },
+  {
     "date": "2025-08-24",
     "items": [
       {
