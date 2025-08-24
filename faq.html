@@ -186,7 +186,7 @@ h1 span:hover, p.subtitle span:hover {
 
     .faq-item.active .answer {
       padding: 14px 30px 18px;
-      max-height: 300px;
+      max-height: 1000px;
       opacity: 1;
     }
 
@@ -315,16 +315,18 @@ h1 span:hover, p.subtitle span:hover {
 }
 
 #chatbot-response {
-  margin-top: 0;
-  font-size: 0.90rem;
+  font-size: 0.85rem;
   color: #1e3559;
   background: #e9f3ff;
-  padding: 8px 12px;  /* Add some padding for better look */
   border-radius: 6px;
   border-left: 3px solid #2a72d8;
   white-space: pre-wrap;
-  max-height: none;  /* Remove max height */
   overflow-y: visible;  /* Remove scroll */
+}
+
+#chatbot-response strong {
+  display: inline-block;
+  margin-bottom: 2px;
 }
 
 /* --- Chatbot Enhancements --- */
@@ -382,36 +384,35 @@ h1 span:hover, p.subtitle span:hover {
 }
 
 .chat-entry {
-  margin: 2px 0 !important;
-  padding: 2px 0 !important;
-  border-bottom: none!important;
-  line-height: 1.2 !important;
-  margin-bottom: 8px; /* smaller space between entries */
-  padding-bottom: 0; /* remove extra padding if any */
-}
-hr {
-  margin: 6px 0; /* reduce vertical spacing of horizontal line */
-  border-top: 1px solid #cce; /* keep thin line */
+  margin: 0;
+  padding: 6px 12px; /* less padding */
+  font-size: 0.9rem;
+  color: #1e3559;
+  background: #e9f3ff;
+  border-radius: 6px;
+  border-left: 3px solid #2a72d8;
+  white-space: pre-wrap;
+  line-height: 1.3; /* tighten line height */
 }
 
 .chat-entry:last-child {
-  border-bottom: none !important;
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 6px;
 }
 
 .chat-entry strong {
-  display: inline-block !important;
-  margin-right: 4px !important;
- margin-bottom: 0 !important; /* Remove bottom margin if any */
+  display: inline;
+  font-weight: bold;
+  color: #2a72d8;
+}
+
+.chat-entry p {
+  margin: 0 0 4px 0; /* less bottom margin */
 }
 
 .chat-entry mark {
-  background-color: #fff3b0 !important;
-  padding: 1px 3px !important;
-  border-radius: 3px !important;
-}
-
-.chat-entry mark {
-  background-color: #fff3b0; /* soft yellow */
+  background-color: #fff3b0;
   padding: 1px 3px;
   border-radius: 3px;
 }
@@ -492,7 +493,7 @@ hr {
       <div class="question">🔔What is the procedure for carrying out alterations, repairs, or installations within my flat?</div>
       <div class="answer">While residents are free to carry out work within their flats, the Association must be informed at least 7 days in advance to ensure that safety, structural integrity, and community norms are upheld during the process. Hence,residents must: &nbsp;
       <ul><li>Review the protocol available under Community Guidelines in the RESOURCE menu.</li>
-          <li>Download  (available in the <a href="download-center.html">Download-Center</a>&nbsp;after AGM approval) and submit the filled form  at the association office.</li></ul>
+          <li>Download  (available in the <a href="download-center.html">Download-Center</a>&nbsp;) and submit the filled form  at the association office.</li></ul>
       </div>
       </div>     
 
@@ -590,154 +591,130 @@ hr {
   });
 
   // Chatbot Elements
-const chatbotInput = document.getElementById('chatbot-input');
-const chatbotResponse = document.getElementById('chatbot-response');
-const clearChatBtn = document.getElementById('clear-chatbot');
+  const chatbotInput = document.getElementById('chatbot-input');
+  const chatbotResponse = document.getElementById('chatbot-response');
+  const clearChatBtn = document.getElementById('clear-chatbot');
 
-// Prepare FAQ data as before
-const faqData = [...document.querySelectorAll('.faq-item')].map(item => {
-  return {
-    question: item.querySelector('.question').innerText,
-    answer: item.querySelector('.answer').innerText
-  };
-});
-
-// Normalize helper
-function normalizeText(text) {
-  return text.toLowerCase()
-    .replace(/[.,/#!$%^&*;:{}=\-_`~()]/g, ' ')
-    .replace(/\s+/g, ' ')
-    .trim();
-}
-
-// Escape RegExp helper
-function escapeRegExp(string) {
-  return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-}
-
-// Simple Levenshtein Distance for fuzzy matching (helps with typos)
-function levenshteinDistance(a, b) {
-  const matrix = Array.from({ length: b.length + 1 }, (_, i) => [i]);
-  for (let j = 0; j <= a.length; j++) matrix[0][j] = j;
-  for (let i = 1; i <= b.length; i++) {
-    for (let j = 1; j <= a.length; j++) {
-      if (b.charAt(i-1) === a.charAt(j-1)) matrix[i][j] = matrix[i-1][j-1];
-      else matrix[i][j] = Math.min(
-        matrix[i-1][j-1] + 1,
-        matrix[i][j-1] + 1,
-        matrix[i-1][j] + 1
-      );
-    }
-  }
-  return matrix[b.length][a.length];
-}
-
-// Highlight matched query words in text
-function highlightMatch(text, query) {
-  const words = query.split(' ').filter(Boolean);
-  let highlighted = text;
-  words.forEach(word => {
-    const regex = new RegExp(`(${escapeRegExp(word)})`, 'gi');
-    highlighted = highlighted.replace(regex, '<mark>$1</mark>');
-  });
-  return highlighted;
-}
-
-// Find closest matches by fuzzy distance (for suggestions)
-function findClosestQuestions(query, maxResults=3) {
-  const normalizedQuery = normalizeText(query);
-  const distances = faqData.map(faq => {
+  const faqData = [...document.querySelectorAll('.faq-item')].map(item => {
     return {
-      question: faq.question,
-      distance: levenshteinDistance(normalizedQuery, normalizeText(faq.question))
+      question: item.querySelector('.question').innerText,
+      answer: item.querySelector('.answer').innerText
     };
   });
-  distances.sort((a,b) => a.distance - b.distance);
-  return distances.slice(0, maxResults).map(d => d.question);
-}
 
-// Disable input helper
-function setInputDisabled(disabled) {
-  chatbotInput.disabled = disabled;
-  if(disabled) chatbotInput.style.opacity = 0.6;
-  else chatbotInput.style.opacity = 1;
-}
+  function normalizeText(text) {
+    return text.toLowerCase()
+      .replace(/[.,/#!$%^&*;:{}=\-_`~()]/g, ' ')
+      .replace(/\s+/g, ' ')
+      .trim();
+  }
 
-// Handle Enter key
-chatbotInput.addEventListener('keydown', async (e) => {
-  if (e.key === 'Enter') {
-    e.preventDefault();
-
-    const rawQuery = chatbotInput.value.trim();
-    if (!rawQuery) {
-      chatbotResponse.innerHTML = `<div class="chat-entry"><strong>Bot:</strong> Please type a question or keyword.</div>`;
-      return;
+  function levenshteinDistance(a, b) {
+    const matrix = Array.from({ length: b.length + 1 }, (_, i) => [i]);
+    for (let j = 0; j <= a.length; j++) matrix[0][j] = j;
+    for (let i = 1; i <= b.length; i++) {
+      for (let j = 1; j <= a.length; j++) {
+        if (b.charAt(i - 1) === a.charAt(j - 1)) matrix[i][j] = matrix[i - 1][j - 1];
+        else matrix[i][j] = Math.min(
+          matrix[i - 1][j - 1] + 1,
+          matrix[i][j - 1] + 1,
+          matrix[i - 1][j] + 1
+        );
+      }
     }
+    return matrix[b.length][a.length];
+  }
 
-    setInputDisabled(true);
+  function highlightMatch(text, query) {
+    const words = query.toLowerCase().split(' ').filter(Boolean);
+    if (!words.length) return text;
+    const escapedWords = words.map(w => w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'));
+    const regex = new RegExp(`(${escapedWords.join('|')})`, 'gi');
+    return text.replace(regex, '<mark>$1</mark>');
+  }
 
-    chatbotResponse.innerHTML = `<div class="chat-entry typing">Typing<span>.</span><span>.</span><span>.</span></div>`;
-
-    // Simulate a small delay for "typing"
-    await new Promise(resolve => setTimeout(resolve, 600));
-
-    const normalizedQuery = normalizeText(rawQuery);
-    const queryWords = normalizedQuery.split(' ').filter(Boolean);
-
-    // Scoring FAQ based on multiple factors
-    let matches = faqData.map(faq => {
+  // Removed the maxResults limitation, returns all matches with score > 0
+  function findClosestQuestions(query) {
+    const normalizedQuery = normalizeText(query);
+    return faqData.filter(faq => {
       const normQ = normalizeText(faq.question);
       const normA = normalizeText(faq.answer);
-
-      // Basic substring match scoring
-      let score = 0;
-      queryWords.forEach(word => {
-        if (normQ.includes(word)) score += 3;
-        if (normA.includes(word)) score += 1;
-      });
-
-      // Add fuzzy match bonus if close
-      const levDist = levenshteinDistance(normalizedQuery, normQ);
-      if (levDist <= 5) score += (5 - levDist);
-
-      return score > 0 ? { ...faq, score } : null;
-    }).filter(Boolean);
-
-    matches.sort((a, b) => b.score - a.score);
-
-    if (matches.length === 0) {
-      // No direct matches - suggest closest questions
-      const suggestions = findClosestQuestions(rawQuery);
-      chatbotResponse.innerHTML = `
-        <div class="chat-entry"><strong>Bot:</strong> Sorry, I couldn't find a direct answer. Here are some questions you might be interested in:</div>
-        <ul>
-          ${suggestions.map(q => `<li>${q}</li>`).join('')}
-        </ul>
-      `;
-    } else {
-      // Show top 3 matches
-      const topMatches = matches.slice(0, 3);
-      chatbotResponse.innerHTML = topMatches.map(match => `
-        <div class="chat-entry">
-          <strong>Q:</strong> ${highlightMatch(match.question, normalizedQuery)}<br>
-          <strong>A:</strong> <div style="text-align: justify;">${highlightMatch(match.answer, normalizedQuery)}</div>
-
-        </div>
-      `).join('<hr style="margin:10px 0; border:none; border-top:1px solid #cce;">');
-    }
-
-    setInputDisabled(false);
+      return normQ.includes(normalizedQuery) || normA.includes(normalizedQuery);
+    }).map(faq => faq.question);
   }
-});
 
-// Clear chat button logic
-clearChatBtn.addEventListener('click', () => {
-  chatbotInput.value = '';
-  chatbotResponse.innerHTML = '';
-  chatbotInput.focus();
-});
+  function setInputDisabled(disabled) {
+    chatbotInput.disabled = disabled;
+    chatbotInput.style.opacity = disabled ? 0.6 : 1;
+  }
 
+  chatbotInput.addEventListener('keydown', async (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+
+      const rawQuery = chatbotInput.value.trim();
+      if (!rawQuery) {
+        chatbotResponse.innerHTML = `<div class="chat-entry"><strong>Bot:</strong> Please type a question or keyword.</div>`;
+        return;
+      }
+
+      setInputDisabled(true);
+
+      chatbotResponse.innerHTML = `<div class="chat-entry typing">Typing<span>.</span><span>.</span><span>.</span></div>`;
+
+      await new Promise(resolve => setTimeout(resolve, 600));
+
+      const normalizedQuery = normalizeText(rawQuery);
+      const queryWords = normalizedQuery.split(' ').filter(Boolean);
+
+      // Calculate scores for all FAQs, return all with score > 0 (no limit)
+      let matches = faqData.map(faq => {
+        const normQ = normalizeText(faq.question);
+        const normA = normalizeText(faq.answer);
+
+        let score = 0;
+        queryWords.forEach(word => {
+          if (normQ.includes(word)) score += 3;
+          if (normA.includes(word)) score += 1;
+        });
+
+        const levDist = levenshteinDistance(normalizedQuery, normQ);
+        if (levDist <= 5) score += (5 - levDist);
+
+        return score > 0 ? { ...faq, score } : null;
+      }).filter(Boolean);
+
+      matches.sort((a, b) => b.score - a.score);
+
+      if (matches.length === 0) {
+        const suggestions = findClosestQuestions(rawQuery);
+        chatbotResponse.innerHTML = `
+          <div class="chat-entry"><strong>Bot:</strong> Sorry, I couldn't find a direct answer. Here are some questions you might be interested in:</div>
+          <ul>
+            ${suggestions.map(q => `<li>${q}</li>`).join('')}
+          </ul>
+        `;
+      } else {
+        chatbotResponse.innerHTML = matches.map(match => `
+          <div class="chat-entry">
+            <strong>Q:</strong> ${highlightMatch(match.question, normalizedQuery)}<br>
+            <strong>A:</strong> <span style="display:inline-block; text-align: justify; max-width: 100%;">${highlightMatch(match.answer, normalizedQuery)}</span>
+          </div>
+          <hr style="margin:6px 0; border:none; border-top:1px solid #ddd;">
+        `).join('');
+      }
+
+      setInputDisabled(false);
+    }
+  });
+
+  clearChatBtn.addEventListener('click', () => {
+    chatbotInput.value = '';
+    chatbotResponse.innerHTML = '';
+    chatbotInput.focus();
+  });
 </script>
+
 
 <!-- ✅ This should be last -->
 </body>
