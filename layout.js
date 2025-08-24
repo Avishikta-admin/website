@@ -56,16 +56,16 @@ const headerHTML = `
     </div>
 
   <div class="header-actions">
-  <a href="index.html" class="header-icon-btn btn-home" title="Home"><i class="fas fa-home"></i></a>
-  <a href="contact-us.html" class="header-icon-btn btn-contact" title="Contact Us"><i class="fas fa-phone-alt"></i></a>
-  <a href="faq.html" class="header-icon-btn btn-faq" title="FAQ"><i class="fas fa-question-circle"></i></a>
-  <a href="glossary.html" class="header-icon-btn btn-glossary" title="Glossary (Common definitions)"><i class="fas fa-book"></i></a>
-  <button id="langToggle" aria-label="Change language to Bengali" title="Change language to Bengali">
+  <a href="index.html" class="header-icon-btn btn-home" data-tooltip="Home"><i class="fas fa-home"></i></a>
+  <a href="contact-us.html" class="header-icon-btn btn-contact" data-tooltip="Contact Us"><i class="fas fa-phone-alt"></i></a>
+  <a href="faq.html" class="header-icon-btn btn-faq" data-tooltip="FAQ"><i class="fas fa-question-circle"></i></a>
+  <a href="glossary.html" class="header-icon-btn btn-glossary" data-tooltip="Glossary (Common definitions)"><i class="fas fa-book"></i></a>
+  <button id="langToggle" aria-label="Change language to Bengali" data-tooltip="Change language to Bengali">
     EN/বাংলা
   </button>
 </div>
 
-  </header>
+</header>
 `;
 
 const footerHTML = `
@@ -849,6 +849,7 @@ li.locked .submenu,
   align-items: center;
   gap: 0.4rem;
   margin-left: auto;
+  position: relative;
 }
 
 /* Icon buttons */
@@ -918,6 +919,38 @@ li.locked .submenu,
 
 #langToggle:focus {
   outline: none;
+}
+
+.header-icon-btn,
+#langToggle {
+  position: relative;
+}
+
+.tooltip-bubble {
+  position: absolute;
+  top: calc(100% - 4px); /* Move slightly up (closer to button) */
+  margin-top: 6px; /* spacing below button */
+  bottom: 120%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #007BFF;
+  color: #fff;
+  padding: 6px 10px;
+  border-radius: 4px;
+  font-size: 10px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+  z-index: 1000;
+  /* Center text horizontally and vertically */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tooltip-bubble.show {
+  opacity: 1;
 }
   `;
   document.head.appendChild(style);
@@ -1068,6 +1101,48 @@ updateLayout();
 window.addEventListener("resize", () => {
     updateLayout();
 });
+
+
+// Tooltips for header buttons
+document.querySelectorAll('.header-icon-btn, #langToggle').forEach(el => {
+  const tooltipText = el.getAttribute('data-tooltip') || el.getAttribute('title');
+  if (!tooltipText) return;
+
+  // Create tooltip bubble
+  const bubble = document.createElement('div');
+  bubble.className = 'tooltip-bubble';
+  bubble.innerText = tooltipText;
+  el.appendChild(bubble);
+
+  const isLink = el.tagName.toLowerCase() === 'a';
+
+  // Desktop hover
+  el.addEventListener('mouseenter', () => {
+    if (window.innerWidth > 768) {
+      bubble.classList.add('show');
+    }
+  });
+  el.addEventListener('mouseleave', () => {
+    bubble.classList.remove('show');
+  });
+
+  // Mobile click (show tooltip, delay link)
+  el.addEventListener('click', e => {
+    if (window.innerWidth <= 768) {
+      e.preventDefault(); // Delay link for tooltip
+
+      // Show tooltip
+      bubble.classList.add('show');
+
+      // Hide tooltip and go to link (if applicable)
+      setTimeout(() => {
+        bubble.classList.remove('show');
+        if (isLink) window.location.href = el.getAttribute('href');
+      }, 1500);
+    }
+  });
+});
+
 
   // 9. Current time update in footer
   function updateTime() {
