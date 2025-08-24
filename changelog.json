@@ -3,6 +3,18 @@
     "date": "2025-08-24",
     "items": [
       {
+        "type": "removed",
+        "desc": "'Get in Touch' menu has been removed from the Menu."
+      },
+      {
+        "type": "new",
+        "desc": "Added FAQ, Contact Us, Glossary, and Home buttons to the header container with improved wording for better clarity and user experience."
+      },
+      {
+        "type": "new",
+        "desc": "Enhanced header navigation structure for easier access to key sections."
+      },
+      {
         "type": "new",
         "desc": "Implemented an intelligent chatbot feature enabling natural language search and dynamic responses within the FAQs section."
       },
@@ -13,10 +25,6 @@
       {
         "type": "improved",
         "desc": "Optimized chatbot responses to deliver accurate, context-aware information quickly."
-      },
-      {
-        "type": "new",
-        "desc": "Added a direct link to the Glossary page in the site footer for easier access."
       }
     ]
   },
