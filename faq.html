@@ -3,719 +3,539 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Official page of Avishikta - I Type - A RWA. Stay informed, get involved, and build a stronger association.">
+  <meta name="description" content="Glossary of terms used within the Avishikta Type-A Community site." />
+  <meta property="og:title" content="Glossary - Avishikta Type-A" />
+  <meta property="og:description" content="Explore common community terms and their meanings." />
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
   <meta http-equiv="Pragma" content="no-cache" />
   <meta http-equiv="Expires" content="0" />
-  <!-- Confetti script from CDN -->
-  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <meta name="theme-color" content="#000000" />
   <script src="layout-loader.js"></script>
+  
+  <!-- Fonts & Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
-  <title>FAQs | Avishikta -1 Type-A RWA</title>
-  <link rel="icon" href="favicon.ico" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Poppins:wght@600&display=swap" rel="stylesheet">
+  <title>Glossary - Avishikta - I Type-A</title>
 
   <style>
-    *, *::before, *::after { box-sizing: border-box; }
-
-  body {
-  margin: 0;
-  min-height: 100vh;
-  background-image: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
-  background-size: cover;
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  font-family: 'Inter', sans-serif;
-  color: #2c3e50;
-}
-html {
-  scroll-behavior: smooth;
-}
-
-h1 span, p.subtitle span {
-  transition: transform 0.3s ease;
-  display: inline-block;
-}
-
-h1 span:hover, p.subtitle span:hover {
-  transform: rotate(15deg) scale(1.2);
-  cursor: default;
-}
-
-    /* ✅ Breadcrumb Styles */
-    .breadcrumb {
-      position: relative;
-      font-size: 0.9rem;
-      color: #f5f5dc;
-      background-color: #003366;
-      padding: 6px 12px;
-      margin: 10px 0 20px 0;
-      border-radius: 6px;
-      display: inline-block;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.3);
-      user-select: none;
-      z-index: 1000;
-      white-space: nowrap;
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      background: linear-gradient(to right, #ffe0b2, #fff3e0); /* light orange to very light */
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
     }
 
-    .breadcrumb a {
-      color: #f5f5dc;
-      text-decoration: none;
-      font-weight: 600;
+    main {
+      max-width: 900px;
+      margin: 1rem auto 3rem;
+      padding: 0 1rem;
+      flex-grow: 1;
     }
-
-    .breadcrumb a:hover {
-      text-decoration: underline;
-      color: #fff;
-    }
-
-    .breadcrumb span {
-      font-weight: 600;
-      color: #f5f5dc;
-    }
-
-  main {
-  background: rgba(255, 255, 255, 0.9); /* slightly transparent so bg shows through */
-  max-width: 850px;
-  width: 100%;
-  border-radius: 14px;
-  box-shadow: 0 10px 24px rgba(42, 114, 216, 0.12);
-  padding: 30px 40px 40px;
-  animation: fadeInUp 0.6s ease forwards;
-  box-sizing: border-box;
-  margin: 0 auto; /* center fallback */
-}
 
     h1 {
-      font-family: 'Poppins', sans-serif;
       text-align: center;
-      color: #2a72d8;
-      font-size: 2.3rem;
-      margin: 0 0 10px;
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
       font-weight: 700;
-      border-bottom: 3px solid #2a72d8;
-      padding-bottom: 8px;
-      margin-bottom: 16px;
-      text-shadow: 0 2px 6px rgba(42,114,216,0.2);
+      background: linear-gradient(45deg, #6ec1e4, #2980b9, #27ae60, #f39c12);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
 
-    p.subtitle {
+    .last-updated {
       text-align: center;
+      color: #2980b9;
+      font-weight: bold;
+      font-size: 0.95rem;
+      margin-bottom: 1rem;
+    }
+
+    /* Search input */
+    .search-wrapper {
+      position: relative;
+      max-width: 400px;
+      margin: 0 auto 1rem;
+    }
+
+    #searchInput {
+      width: 100%;
+      padding: 0.5rem 2.5rem 0.5rem 0.8rem;
       font-size: 1rem;
-      margin-bottom: 30px;
-      color: #4a5a75;
-      font-weight: 500;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      box-sizing: border-box;
     }
 
-    .faq-item {
-      border-radius: 12px;
-      background: #f9fbff;
-      margin-bottom: 6px;
-      box-shadow: 0 6px 16px rgba(42, 114, 216, 0.08);
-      transition: box-shadow 0.3s ease;
-      cursor: pointer;
-      border: 1px solid transparent;
-      padding: 6px 12px;
-    }
-
-    .faq-item:hover {
-      box-shadow: 0 10px 20px rgba(42, 114, 216, 0.15);
-      border-color: #a6c1ff;
-    }
-
-    .faq-item:focus-within {
-      outline: 2px solid #2a72d8;
-      border-color: #2a72d8;
-      outline: 3px solid #2a72d8;
-    }
-
-    .question {
-      padding: 5px 20px;
-      font-size: 0.85rem;
-      font-weight: 600;
-      color: #1e3559;
-      display: flex;
-      justify-content: space-between;
-      background: linear-gradient(90deg, #e4f0ff 0%, #d6e5ff 100%);
-      border-radius: 12px;
-      transition: background 0.3s, color 0.3s;
-      padding: 6px 12px !important;   /* less padding inside question */
-    }
-
-    .faq-item.active .question {
-      background: linear-gradient(90deg, #2a72d8 0%, #1f59bb 100%);
-      color: #fff;
-      box-shadow: 0 4px 12px rgba(42,114,216,0.3);
-    }
-
-    .question:hover {
-      background: linear-gradient(90deg, #c3dafd 0%, #aecbfd 100%);
-      text-align:justify;
-    }
-
-    .question::after {
-      content: '+';
-      font-size: 1.2rem;
-      font-weight: 900;
-      color: #2a72d8;
-      transition: transform 0.3s ease, color 0.3s ease;
-    }
-
-    .faq-item.active .question::after {
-      content: '−';
-      color: #fff;
-      transform: rotate(180deg);
-    }
-
-    .answer {
-      max-height: 0;
-      overflow: hidden;
-      padding: 0 30px;
-      font-size: 0.85rem;
-      line-height: 1.3;
-      color: #33475b;
-      background: #f0f6ff;
-      border-left: 4px solid #2a72d8;
-      border-radius: 0 0 12px 12px;
-      opacity: 0;
-      transition: max-height 0.4s ease, padding 0.4s ease, opacity 0.4s ease;
-      text-align:justify;
-      padding: 8px 12px 10px !important; /* compact padding */
-    }
-
-    .faq-item.active .answer {
-      padding: 14px 30px 18px;
-      max-height: 1000px;
-      opacity: 1;
-    }
-
-    @keyframes fadeInUp {
-      0% { opacity: 0; transform: translateY(20px); }
-      100% { opacity: 1; transform: translateY(0); }
-    }
-
-    @media (max-width: 650px) {
-      main {
-        padding: 24px 20px;
-      }
-      h1 {
-        font-size: 2rem;
-      }
-      .question {
-        font-size: 1rem;
-        padding: 14px 22px;
-      }
-      .answer {
-        font-size: 0.9rem;
-        padding: 12px 22px 16px;
-      }
-    }
-
-    #scrollToTop {
-      position: fixed;
-      bottom: 50px;
-      right: 20px;
-      background-color: #ff6347;
-      color: white;
-      border-radius: 50%;
-      padding: 5px;
-      font-size: 1rem;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    .clear-btn {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
       border: none;
+      font-size: 1.4rem;
+      color: #666;
       cursor: pointer;
-      z-index: 10000;
-      transition: background-color 0.3s ease;
       display: none;
-      opacity: 0;
-      justify-content: center;
-      align-items: center;
     }
 
-    #scrollToTop.show {
+    .clear-btn:hover {
+      color: #c0392b;
+    }
+
+    /* Sticky alphabet filter bar */
+    .alphabet-filter {
       display: flex;
-      opacity: 1;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-bottom: 1.2rem;
+      background: linear-gradient(90deg, #ffe0b2, #fff3e0); /* light orange gradient */
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1); /* subtle shadow to lift it */
+      padding: 0.5rem 0;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+      position: sticky;
+      top: 30px;
+      z-index: 100;
     }
 
-    #scrollToTop:hover {
-      background-color: #4b0082;
-    }
-
-    #scrollToTop:focus {
-      outline: none;
-    }
-
-    #scrollToTop:hover::after {
-      content: " Go to top";
+    .alphabet-filter button {
+      flex: 1 1 4%;
+      min-width: 24px;
+      padding: 0.4rem 0;
       font-size: 0.85rem;
+      background-image: linear-gradient(135deg, #5dade2, #7d3c98);
       color: white;
-      margin-left: 8px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: 0.3s;
+      user-select: none;
     }
 
-/* Chatbot styles */
-    /* Sleeker Chatbot Styles */
-#faq-chatbot {
-  padding: 16px 20px;
-  background: #f5faff;
-  border-radius: 10px;
-  border: 1px solid #c9e1ff;
-  box-shadow: 0 2px 10px rgba(42, 114, 216, 0.1);
-  font-size: 0.95rem;
-  margin-bottom: 25px;
-  transition: box-shadow 0.3s ease;
-}
+    .alphabet-filter button:hover,
+    .alphabet-filter button.active {
+      background-color: #2980b9;
+      background-image: none;
+    }
 
-#faq-chatbot h2 {
-  font-family: 'Poppins', sans-serif;
-  font-size: 1.0rem;
-  color: #2a72d8;
-  margin-bottom: 10px;
-  font-weight: 600;
-  display: flex;
-  align-items: center;
-}
+    #showAllBtn {
+      flex: 1 1 12%;
+      min-width: 90px;
+      background-color: #27ae60;
+    }
 
-#faq-chatbot h2::before {
-  content: "🤖";
-  margin-right: 8px;
-  font-size: 1.4rem;
-}
+    #showAllBtn:hover {
+      background-color: #1e8449;
+      background-image: none;
+    }
 
-#chatbot-input {
-  width: 100%;
-  padding: 8px 10px;
-  font-size: 0.95rem;
-  border-radius: 6px;
-  border: 1px solid #a4c4f5;
-  box-sizing: border-box;
-  transition: border-color 0.3s ease;
-}
+    #sortToggleBtn {
+      flex: 1 1 12%;
+      min-width: 90px;
+      background-color: #f39c12;
+    }
 
-#chatbot-input:focus {
-  outline: none;
-  border-color: #2a72d8;
-  box-shadow: 0 0 5px rgba(42,114,216,0.3);
-}
+    #sortToggleBtn:hover {
+      background-color: #d68910;
+      background-image: none;
+    }
 
-#clear-chatbot {
-  margin-top: 10px;
-  padding: 6px 10px;
-  font-size: 0.85rem;
-  border: none;
-  background-color: #2a72d8;
+    ul.glossary-list {
+      list-style: none;
+      padding: 0;
+      margin: 0 auto;
+      max-width: 700px;
+    }
+
+    ul.glossary-list li {
+      background: white;
+      margin: 0.3rem 0;
+      padding: 1rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    ul.glossary-list li strong {
+      color: #34495e;
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+
+    .dash {
+      color: #999;
+      font-weight: bold;
+      margin: 0 0.4rem;
+      user-select: none;
+    }
+
+    ul.glossary-list li p {
+      background: #ffffff;
+      color: #333;
+      margin: 0;
+      border-left: 4px solid #3498db;
+      padding-left: 1rem;
+      border-radius: 6px;
+      flex-grow: 1;
+    }
+
+    /* Highlight for search matches */
+    .highlight {
+      background-color: #ffeb3b;
+      color: #000;
+      font-weight: 700;
+      padding: 0 2px;
+      border-radius: 3px;
+    }
+
+  #scrollTopBtn {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background-color: #f39c12; /* Vibrant orange */
   color: white;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  margin-right: 10px; /* add spacing between clear buttons */
-}
-
-#clear-chatbot:hover {
-  background-color: #1f59bb;
-}
-
-#chatbot-response {
+  border: none;
+  padding: 0.5rem 0.6rem;
   font-size: 0.85rem;
-  color: #1e3559;
-  background: #e9f3ff;
-  border-radius: 6px;
-  border-left: 3px solid #2a72d8;
-  white-space: pre-wrap;
-  overflow-y: visible;  /* Remove scroll */
+  border-radius: 50%;
+  cursor: pointer;
+  display: none;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+  transition: background-color 0.3s, transform 0.2s;
+  z-index: 1000;
 }
 
-#chatbot-response strong {
-  display: inline-block;
-  margin-bottom: 2px;
+#scrollTopBtn:hover {
+  background-color: #d68910; /* Darker orange on hover */
+  transform: scale(1.1);
 }
 
-/* --- Chatbot Enhancements --- */
-.chatbot-input-wrapper {
+    /* Did You Mean container */
+    #didYouMeanContainer {
   display: flex;
+  justify-content: center;
   align-items: center;
-  background: #fff;
-  border: 1px solid #a4c4f5;
-  border-radius: 6px;
-  padding: 6px 10px;
-  margin-bottom: 4px;
-  transition: border-color 0.3s ease;
-}
-
-.chatbot-input-wrapper:focus-within {
-  border-color: #2a72d8;
-  box-shadow: 0 0 5px rgba(42,114,216,0.3);
-}
-#faq-chatbot > * {
-  margin-top: 0;
-  margin-bottom: 0;
-  padding-top: 0;
-  padding-bottom: 0;
-}
-
-.chat-icon {
-  font-size: 1.2rem;
-  color: #2a72d8;
-  margin-right: 8px;
-}
-
-#chatbot-input {
-  border: none;
-  flex: 1;
-  font-size: 0.95rem;
-  padding: 6px;
-  outline: none;
-  background: transparent;
-}
-
-#clear-chatbot {
-  margin-top: 10px;
-  padding: 6px 10px;
-  font-size: 0.85rem;
-  border: none;
-  background-color: #2a72d8;
-  color: white;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-#clear-chatbot:hover {
-  background-color: #1f59bb;
-}
-
-.chat-entry {
-  margin: 0;
-  padding: 6px 12px; /* less padding */
-  font-size: 0.9rem;
-  color: #1e3559;
-  background: #e9f3ff;
-  border-radius: 6px;
-  border-left: 3px solid #2a72d8;
-  white-space: pre-wrap;
-  line-height: 1.3; /* tighten line height */
-}
-
-.chat-entry:last-child {
-  border-bottom: none;
-  margin-bottom: 0;
-  padding-bottom: 6px;
-}
-
-.chat-entry strong {
-  display: inline;
-  font-weight: bold;
-  color: #2a72d8;
-}
-
-.chat-entry p {
-  margin: 0 0 4px 0; /* less bottom margin */
-}
-
-.chat-entry mark {
-  background-color: #fff3b0;
-  padding: 1px 3px;
-  border-radius: 3px;
-}
-
-/* ✅ Fixed and Working Typing Dots Animation */
-.typing {
-  display: inline-flex;
+  gap: 0.8rem; /* bigger gap between text and button */
   font-style: italic;
-  color: #4a5a75;
-  align-items: center;
-  gap: 2px;
+  color: #2980b9; /* a nice blue */
+  font-weight: 600;
+  font-size: 1.1rem;
 }
 
-.typing span {
-  display: inline-block;
-  font-weight: bold;
-  font-size: 1.2em;
-  animation: blink 1.4s infinite;
+#didYouMeanContainer span {
+  color: #2980b9; /* same blue for the text */
 }
 
-.typing span:nth-child(2) {
-  animation-delay: 0.2s;
-}
-.typing span:nth-child(3) {
-  animation-delay: 0.4s;
+#didYouMeanContainer button {
+  margin-left: 0.3rem;
+  padding: 0.3rem 0.7rem;
+  font-style: normal;
+  font-weight: 600;
+  background: #3498db; /* bright blue button */
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s;
 }
 
-@keyframes blink {
-  0%, 80%, 100% {
-    opacity: 0;
+#didYouMeanContainer button:hover,
+#didYouMeanContainer button:focus {
+  background: #217dbb; /* darker blue on hover/focus */
+  outline: none;
+}
+
+    @media (max-width: 600px) {
+      .alphabet-filter {
+        top: 65px; /* or adjust as needed */
+       }
+      .alphabet-filter button {
+        flex: 1 1 10%;
+        font-size: 0.85rem;
+        min-width: 20px;
+      }
+
+      #showAllBtn {
+        flex: 1 1 30%;
+        min-width: 100px;
+      }
+
+      #sortToggleBtn {
+        flex: 1 1 30%;
+        min-width: 100px;
+      }
+      #scrollTopBtn {
+    bottom: 80px; /* Move up a bit */
   }
-  40% {
-    opacity: 1;
-  }
 }
 
-  </style>
+</style>
 </head>
-
 <body>
-  <button id="scrollToTop" onclick="window.scrollTo(0, 0);" title="Go to the top">⬆️</button>
-
-  <!-- ✅ Breadcrumb will be inserted here by layout.js -->
-
   <main>
-    <h1><span aria-hidden="true" style="margin-right: 8px;">❓</span>Frequently Asked Questions</h1>
-<p class="subtitle"><span aria-hidden="true" style="margin-right: 6px;">🔍</span>Quick, easy answers to help you get the most out of your community experience.</p>
+    <h1>Glossary of Terms</h1>
+    <p class="last-updated" aria-live="polite"></p>
 
-<!-- Chatbot Section -->
-    <section id="faq-chatbot" aria-label="FAQ Chatbot">
-  <h2>Need Help? Ask the FAQ Bot 🤖</h2>
-  
-  <!-- New Input with Chat Icon -->
-  <div class="chatbot-input-wrapper">
-    <span class="chat-icon" aria-hidden="true">💬</span>
-    <input 
-      type="text" 
-      id="chatbot-input" 
-      placeholder="Type your question or keyword here..." 
-      aria-label="Ask the FAQ Bot"
-    />
-  </div>
-
-  <!-- Fix Clear Chat and Clear History buttons: separate them properly -->
-<button id="clear-chatbot" type="button" style="margin-right: 10px;">
-  Clear Chat
-</button>
-
-<div id="chatbot-response" aria-live="polite" role="region"></div>
-</section>
-
-    <div class="faq-item" tabindex="0">
-      <div class="question">⏰What is the due date for paying monthly maintenance charge?</div>
-      <div class="answer">Maintenance charge must be paid on or before the 15th of the following month. Payments made thereafter will incur a late fee of ₹50.</div>
+    <div class="search-wrapper">
+      <input type="text" id="searchInput" placeholder="Search glossary..." aria-label="Search glossary" />
+      <button class="clear-btn" id="clearSearchBtn" title="Clear search">×</button>
     </div>
 
-      <div class="faq-item" tabindex="0">
-      <div class="question">🔔What is the procedure for carrying out alterations, repairs, or installations within my flat?</div>
-      <div class="answer">While residents are free to carry out work within their flats, the Association must be informed at least 7 days in advance to ensure that safety, structural integrity, and community norms are upheld during the process. Hence,residents must: &nbsp;
-      <ul><li>Review the protocol available under Community Guidelines in the RESOURCE menu.</li>
-          <li>Download  (available in the <a href="download-center.html">Download-Center</a>&nbsp;) and submit the filled form  at the association office.</li></ul>
-      </div>
-      </div>     
-
-<div class="faq-item" tabindex="0">
-      <div class="question">📝How do I book the community hall?</div>
-      <div class="answer">You can book the Community Hall by filling out the <i>Community Hall Reservation Form</i> available on the Download Center page and submitting it to the Association Office located at the Community Hall on the 1st Floor.</div>
+    <div class="alphabet-filter" role="toolbar" aria-label="Filter glossary by letter">
+      <button id="showAllBtn" aria-pressed="true">Show All</button>
+      <button id="sortToggleBtn" title="Toggle sort A-Z / Z-A" aria-pressed="true">Sort: Z-A</button>
+      <button>A</button><button>B</button><button>C</button><button>D</button><button>E</button>
+      <button>F</button><button>G</button><button>H</button><button>I</button><button>J</button>
+      <button>K</button><button>L</button><button>M</button><button>N</button><button>O</button>
+      <button>P</button><button>Q</button><button>R</button><button>S</button><button>T</button>
+      <button>U</button><button>V</button><button>W</button><button>X</button><button>Y</button><button>Z</button>
     </div>
 
-    <div class="faq-item" tabindex="0">
-      <div class="question">📞Whom should I contact for urgent maintenance issues?</div>
-      <div class="answer"> You can contact Mr. Subhash Ch. Pal, the Office Executive, at <b>9073599299</b>.</div>
-    </div>
+    <div id="didYouMeanContainer" aria-live="polite"></div>
 
-    <div class="faq-item" tabindex="0">
-      <div class="question">🕒What are the office hours for the management office?</div>
-      <div class="answer">The management office is open from Monday to Saturday, <b>9:00 AM</b> to <b>12:00 Noon</b> and <b>4:00 PM</b> to <b>6:00 PM</b>. Sunday from <b>9:00 AM</b> to <b>12:00 Noon</b>.</div>
-    </div>
-
-    <div class="faq-item" tabindex="0">
-      <div class="question">👮How can I contact the security service?</div>
-      <div class="answer">Security service contact numbers are listed on the <b>Helpdesk & Contacts</b> page.</div>
-    </div>
-
-    <div class="faq-item" tabindex="0">
-  	<div class="question">📲 Can I pay my fees online?</div>
- 	 <div class="answer">Yes, you can conveniently pay your fees online using popular UPI apps such as Google Pay, PhonePe, Paytm, or BHIM. For more details about the Monthly Maintenance Charge, please refer to our <a href="general-guidelines-html">General Guidelines</a> page.</div>
-	</div>
-
-    <div class="faq-item" tabindex="0">
-      <div class="question">🐾Are pets allowed in the society?</div>
-      <div class="answer">Yes, pets are allowed, but we request all pet owners to follow community guidelines (please check 'Community Guidelines' under 'RESOURCE' in the navigation bar.</div>
-    </div>
-
-     <div class="faq-item" tabindex="0">
-      <div class="question">📩How can I submit feedback or suggestions to the RWA?</div>
-      <div class="answer">You can email us at <b>atarwa2005@gmail.com</b> or drop a note in the suggestion box at the office. We value your input—it helps us serve you better!</div>
-    </div>
-
-    <div class="faq-item" tabindex="0">
-      <div class="question"> 📂Where can I find the latest GB or AGM minutes or community updates?</div>
-      <div class="answer"> Visit the "Download Center" and check the Meeting Minutes section. We regularly upload AGM, GB meeting records, and important circulars there.</div>
-    </div>
-
-<div class="faq-item" tabindex="0">
-  <div class="question">🏡 Where can I find the New Resident Guide?</div>
-  <div class="answer">
-    We have a dedicated <a href="new-resident-guide.html" style="color:#2a72d8; text-decoration:underline;">New Resident Guide</a> page designed to help you get started with everything you need to know as a newcomer to our community.
-<p><i>🏢 All membership formalities including registration, documentation, and access rights are to be completed in-person at the RWA Office. Online facilities are provided only after successful verification.</i></p>
-  </div>
-</div>
-
+    <ul class="glossary-list" id="glossaryList" aria-live="polite"></ul>
   </main>
 
-<script>
-  // Accordion logic
-  const faqItems = document.querySelectorAll('.faq-item');
-  faqItems.forEach(item => {
-    const question = item.querySelector('.question');
-    question.setAttribute('role', 'button');
-    question.setAttribute('tabindex', '0');
-    question.setAttribute('aria-expanded', 'false');
+  <button id="scrollTopBtn" title="Scroll to top" aria-label="Scroll to top">
+  <i class="fas fa-chevron-up"></i>
+  </button>
 
-    question.addEventListener('click', () => {
-      const isActive = item.classList.contains('active');
-      faqItems.forEach(i => {
-        i.classList.remove('active');
-        i.querySelector('.question').setAttribute('aria-expanded', 'false');
-      });
-      if (!isActive) {
-        item.classList.add('active');
-        question.setAttribute('aria-expanded', 'true');
+  <script>
+    const glossaryData = [
+      { term: 'Association', desc: 'A group of members in a residential community.' },
+      { term: 'AGM', desc: 'Annual General Meeting held once in a year' },
+      { term: 'EC', desc: 'Elected members managing the association.' },
+      { term: 'Bylaws', desc: 'Rules that govern the association.' },
+      { term: 'Common Area', desc: 'Shared spaces owned by the association.' },
+      { term: 'Declaration', desc: 'Legal document establishing the association.' },
+      { term: 'Dues', desc: 'Fees paid regularly by members.' },
+      { term: 'Election', desc: 'Process of choosing board members.' },
+      { term: 'General Body Meeting (GBM)', desc: 'Annual meeting of all members.' },
+      { term: 'MMC', desc: 'Monthly Maintenance Charge to be deposited by each member to run the association.' },
+      { term: 'President', desc: 'Head of the board of trustees.' },
+      { term: 'Secretary', desc: 'Keeps records and minutes for the board.' },
+      { term: 'Treasurer', desc: 'Manages association funds.' },
+      { term: 'Quorum', desc: 'Minimum members required to conduct business.' },
+      { term: 'Resolution', desc: 'Formal decision made by the board.' }
+    ];
+
+    const glossaryList = document.getElementById('glossaryList');
+    const buttons = document.querySelectorAll('.alphabet-filter button:not(#sortToggleBtn)');
+    const showAllBtn = document.getElementById('showAllBtn');
+    const sortToggleBtn = document.getElementById('sortToggleBtn');
+    const searchInput = document.getElementById('searchInput');
+    const clearBtn = document.getElementById('clearSearchBtn');
+    const scrollTopBtn = document.getElementById('scrollTopBtn');
+    const lastUpdatedEl = document.querySelector('.last-updated');
+    const didYouMeanContainer = document.getElementById('didYouMeanContainer');
+
+    let currentSortAsc = true; // true = A-Z, false = Z-A
+
+    // Show last updated date (today)
+    function updateLastUpdated() {
+      const today = new Date();
+      lastUpdatedEl.textContent = `Last Updated: ${today.toLocaleDateString()}`;
+    }
+    updateLastUpdated();
+
+    // Helper: Escape regex special chars for safe highlighting
+    function escapeRegExp(string) {
+      return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    }
+
+    // Helper: Highlight matched substrings inside a string (case insensitive)
+    function highlightMatches(text, query) {
+      if (!query) return text;
+      const regex = new RegExp(`(${escapeRegExp(query)})`, 'gi');
+      return text.replace(regex, '<span class="highlight">$1</span>');
+    }
+
+    // Levenshtein Distance for "Did You Mean" suggestions
+    function levenshtein(a, b) {
+      const matrix = Array.from({ length: b.length + 1 }, (_, i) => [i]);
+      for (let j = 0; j <= a.length; j++) matrix[0][j] = j;
+
+      for (let i = 1; i <= b.length; i++) {
+        for (let j = 1; j <= a.length; j++) {
+          if (b.charAt(i - 1).toLowerCase() === a.charAt(j - 1).toLowerCase()) {
+            matrix[i][j] = matrix[i - 1][j - 1];
+          } else {
+            matrix[i][j] = Math.min(
+              matrix[i - 1][j - 1] + 1,
+              matrix[i][j - 1] + 1,
+              matrix[i - 1][j] + 1
+            );
+          }
+        }
       }
-    });
+      return matrix[b.length][a.length];
+    }
 
-    question.addEventListener('keydown', e => {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        question.click();
-      }
-    });
-  });
+    // Find closest term to suggest
+    function findClosestTerm(query) {
+  let minDistance = Infinity;
+  let closestTerm = null;
+  const lowerQuery = query.toLowerCase();
 
-  // Scroll to top button
-  const scrollToTopBtn = document.getElementById('scrollToTop');
-  window.addEventListener('scroll', () => {
-    if (window.scrollY > 100) {
-      scrollToTopBtn.classList.add('show');
-    } else {
-      scrollToTopBtn.classList.remove('show');
+  glossaryData.forEach(item => {
+    const termLower = item.term.toLowerCase();
+    const dist = levenshtein(lowerQuery, termLower);
+    if (dist < minDistance) {
+      minDistance = dist;
+      closestTerm = item.term;
     }
   });
 
-  scrollToTopBtn.addEventListener('click', () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  });
+  // Only suggest if reasonably close (distance less than half the length)
+  if (minDistance <= query.length / 2) return closestTerm;
+  return null;
+}
 
-  // Chatbot Elements
-  const chatbotInput = document.getElementById('chatbot-input');
-  const chatbotResponse = document.getElementById('chatbot-response');
-  const clearChatBtn = document.getElementById('clear-chatbot');
+  function renderGlossary(filterLetter = null, overrideList = null, query = '') {
+  glossaryList.innerHTML = '';
 
-  const faqData = [...document.querySelectorAll('.faq-item')].map(item => {
-    return {
-      question: item.querySelector('.question').innerText,
-      answer: item.querySelector('.answer').innerText
-    };
-  });
-
-  function normalizeText(text) {
-    return text.toLowerCase()
-      .replace(/[.,/#!$%^&*;:{}=\-_`~()]/g, ' ')
-      .replace(/\s+/g, ' ')
-      .trim();
+  // Only clear Did You Mean if no search query
+  if (!query) {
+    didYouMeanContainer.textContent = '';
   }
 
-  function levenshteinDistance(a, b) {
-    const matrix = Array.from({ length: b.length + 1 }, (_, i) => [i]);
-    for (let j = 0; j <= a.length; j++) matrix[0][j] = j;
-    for (let i = 1; i <= b.length; i++) {
-      for (let j = 1; j <= a.length; j++) {
-        if (b.charAt(i - 1) === a.charAt(j - 1)) matrix[i][j] = matrix[i - 1][j - 1];
-        else matrix[i][j] = Math.min(
-          matrix[i - 1][j - 1] + 1,
-          matrix[i][j - 1] + 1,
-          matrix[i - 1][j] + 1
-        );
-      }
-    }
-    return matrix[b.length][a.length];
+  let filtered = overrideList || glossaryData;
+
+  if (filterLetter && filterLetter !== 'Show All') {
+    filtered = filtered.filter(item => item.term.toUpperCase().startsWith(filterLetter));
   }
 
-  function highlightMatch(text, query) {
-    const words = query.toLowerCase().split(' ').filter(Boolean);
-    if (!words.length) return text;
-    const escapedWords = words.map(w => w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'));
-    const regex = new RegExp(`(${escapedWords.join('|')})`, 'gi');
-    return text.replace(regex, '<mark>$1</mark>');
-  }
+  if (query) {
+    const lowerQuery = query.toLowerCase();
+    filtered = filtered.filter(item =>
+      item.term.toLowerCase().includes(lowerQuery) ||
+      item.desc.toLowerCase().includes(lowerQuery)
+    );
 
-  // Removed the maxResults limitation, returns all matches with score > 0
-  function findClosestQuestions(query) {
-    const normalizedQuery = normalizeText(query);
-    return faqData.filter(faq => {
-      const normQ = normalizeText(faq.question);
-      const normA = normalizeText(faq.answer);
-      return normQ.includes(normalizedQuery) || normA.includes(normalizedQuery);
-    }).map(faq => faq.question);
-  }
+    if (filtered.length === 0) {
+      const suggestion = findClosestTerm(query);
+      if (suggestion && suggestion.toLowerCase() !== query.toLowerCase()) {
+        didYouMeanContainer.innerHTML = `Did you mean ? <button id="didYouMeanBtn" aria-label="Did you mean ${suggestion}">${suggestion}</button>`;
+        const didYouMeanBtn = document.getElementById('didYouMeanBtn');
+        if (didYouMeanBtn) {
+          didYouMeanBtn.addEventListener('click', () => {
+            searchInput.value = suggestion;
+            filterGlossary(null, suggestion);
+            didYouMeanContainer.textContent = '';
+          });
+          didYouMeanBtn.focus();
+        }
 
-  function setInputDisabled(disabled) {
-    chatbotInput.disabled = disabled;
-    chatbotInput.style.opacity = disabled ? 0.6 : 1;
-  }
-
-  chatbotInput.addEventListener('keydown', async (e) => {
-    if (e.key === 'Enter') {
-      e.preventDefault();
-
-      const rawQuery = chatbotInput.value.trim();
-      if (!rawQuery) {
-        chatbotResponse.innerHTML = `<div class="chat-entry"><strong>Bot:</strong> Please type a question or keyword.</div>`;
+        glossaryList.innerHTML = '';
+        return;
+      } else {
+        didYouMeanContainer.textContent = '';
+        glossaryList.innerHTML = '<li>No terms found.</li>';
         return;
       }
+    }
+  }
 
-      setInputDisabled(true);
+  didYouMeanContainer.textContent = ''; // Clear "Did You Mean" if results found or no query
 
-      chatbotResponse.innerHTML = `<div class="chat-entry typing">Typing<span>.</span><span>.</span><span>.</span></div>`;
+  filtered.sort((a, b) => {
+    if (currentSortAsc) return a.term.localeCompare(b.term);
+    return b.term.localeCompare(a.term);
+  });
 
-      await new Promise(resolve => setTimeout(resolve, 600));
+  if (filtered.length === 0) {
+    glossaryList.innerHTML = '<li>No terms found.</li>';
+    return;
+  }
 
-      const normalizedQuery = normalizeText(rawQuery);
-      const queryWords = normalizedQuery.split(' ').filter(Boolean);
+  filtered.forEach(item => {
+    const li = document.createElement('li');
+    const termHTML = highlightMatches(item.term, query);
+    const descHTML = highlightMatches(item.desc, query);
+    li.innerHTML = `<strong>${termHTML}</strong><span class="dash">—</span><p>${descHTML}</p>`;
+    glossaryList.appendChild(li);
+  });
+}
 
-      // Calculate scores for all FAQs, return all with score > 0 (no limit)
-      let matches = faqData.map(faq => {
-        const normQ = normalizeText(faq.question);
-        const normA = normalizeText(faq.answer);
-
-        let score = 0;
-        queryWords.forEach(word => {
-          if (normQ.includes(word)) score += 3;
-          if (normA.includes(word)) score += 1;
-        });
-
-        const levDist = levenshteinDistance(normalizedQuery, normQ);
-        if (levDist <= 5) score += (5 - levDist);
-
-        return score > 0 ? { ...faq, score } : null;
-      }).filter(Boolean);
-
-      matches.sort((a, b) => b.score - a.score);
-
-      if (matches.length === 0) {
-        const suggestions = findClosestQuestions(rawQuery);
-        chatbotResponse.innerHTML = `
-          <div class="chat-entry"><strong>Bot:</strong> Sorry, I couldn't find a direct answer. Here are some questions you might be interested in:</div>
-          <ul>
-            ${suggestions.map(q => `<li>${q}</li>`).join('')}
-          </ul>
-        `;
-      } else {
-        chatbotResponse.innerHTML = matches.map(match => `
-          <div class="chat-entry">
-            <strong>Q:</strong> ${highlightMatch(match.question, normalizedQuery)}<br>
-            <strong>A:</strong> <span style="display:inline-block; text-align: justify; max-width: 100%;">${highlightMatch(match.answer, normalizedQuery)}</span>
-          </div>
-          <hr style="margin:6px 0; border:none; border-top:1px solid #ddd;">
-        `).join('');
-      }
-
-      setInputDisabled(false);
+    // Wrapper to filter glossary by letter and/or search query
+    function filterGlossary(filterLetter = null, searchQuery = '') {
+  buttons.forEach(btn => {
+    if (filterLetter === 'Show All' && btn.id === 'showAllBtn') {
+      btn.classList.add('active');
+      btn.setAttribute('aria-pressed', 'true');
+    } else if (btn.textContent === filterLetter) {
+      btn.classList.add('active');
+      btn.setAttribute('aria-pressed', 'true');
+    } else {
+      btn.classList.remove('active');
+      btn.setAttribute('aria-pressed', 'false');
     }
   });
 
-  clearChatBtn.addEventListener('click', () => {
-    chatbotInput.value = '';
-    chatbotResponse.innerHTML = '';
-    chatbotInput.focus();
-  });
-</script>
+  renderGlossary(filterLetter, null, searchQuery);
+}
 
+    // Event: Letter filter click
+    buttons.forEach(button => {
+      button.addEventListener('click', () => {
+        const letter = button.id === 'showAllBtn' ? 'Show All' : button.textContent;
+        searchInput.value = '';
+        clearBtn.style.display = 'none';
+        didYouMeanContainer.textContent = '';
+        filterGlossary(letter);
+      });
+    });
 
-<!-- ✅ This should be last -->
+    // Event: Search input keyup
+    searchInput.addEventListener('input', () => {
+      const val = searchInput.value.trim();
+      clearBtn.style.display = val ? 'inline' : 'none';
+      filterGlossary(null, val);
+    });
+
+    // Event: Clear search button
+    clearBtn.addEventListener('click', () => {
+      searchInput.value = '';
+      clearBtn.style.display = 'none';
+      didYouMeanContainer.textContent = '';
+      filterGlossary('Show All');
+      searchInput.focus();
+    });
+
+    // Event: Sort toggle button
+    sortToggleBtn.addEventListener('click', () => {
+      currentSortAsc = !currentSortAsc;
+      sortToggleBtn.textContent = currentSortAsc ? 'Sort: Z-A' : 'Sort: A-Z';
+      sortToggleBtn.setAttribute('aria-pressed', currentSortAsc.toString());
+      filterGlossary(null, searchInput.value.trim());
+    });
+
+    // Scroll to top button logic
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 300) {
+        scrollTopBtn.style.display = 'block';
+      } else {
+        scrollTopBtn.style.display = 'none';
+      }
+    });
+
+    scrollTopBtn.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      searchInput.focus();
+    });
+
+    // Initialize with all terms shown, sorted A-Z
+    filterGlossary('Show All');
+
+  </script>
 </body>
 </html>
