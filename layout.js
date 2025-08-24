@@ -51,15 +51,20 @@ const headerHTML = `
       <i class="fas fa-angle-left"></i>
     </button>
 
-    <div class="header-text">
+    <div class="header-text" title="AVISHIKTA PHASE – 1 LIG (TYPE – A) APARTMENT RESIDENTS’ WELFARE ASSOCIATION">
       AVISHIKTA PHASE – 1 LIG (TYPE – A) APARTMENT RESIDENTS’ WELFARE ASSOCIATION
     </div>
 
-    <div class="lang-toggle-wrapper">
-      <button id="langToggle" aria-label="Change language to Bengali" title="Change language to Bengali">
-        EN/বাংলা
-      </button>
-    </div>
+  <div class="header-actions">
+  <a href="index.html" class="header-icon-btn btn-home" title="Home"><i class="fas fa-home"></i></a>
+  <a href="contact-us.html" class="header-icon-btn btn-contact" title="Contact Us"><i class="fas fa-phone-alt"></i></a>
+  <a href="faq.html" class="header-icon-btn btn-faq" title="FAQ"><i class="fas fa-question-circle"></i></a>
+  <a href="glossary.html" class="header-icon-btn btn-glossary" title="Glossary (Common definitions)"><i class="fas fa-book"></i></a>
+  <button id="langToggle" aria-label="Change language to Bengali" title="Change language to Bengali">
+    EN/বাংলা
+  </button>
+</div>
+
   </header>
 `;
 
@@ -71,19 +76,6 @@ const footerHTML = `
       <strong><span class="blinking-text">Niloy Pandit</span></strong> |
       &copy; 2025 Avishikta - I Type - A RWA. All rights reserved.
     </div>
-    <div class="footer-meta">
-      <a href="index.html" class="footer-home-link" aria-label="Go to Home page">
-        <i class="fas fa-home home-icon"></i> Home
-      </a>
-      <a href="glossary.html" 
-         aria-label="Go to Glossary page"
-         title="Common community terms and their meanings"
-         style="margin-left: 1rem; font-weight: 700; color: #00ffff; text-decoration: none;">
-        📘 Glossary
-      </a>
-      <span style="color: #00ffff; font-size: 0.8rem; margin-left: 0.3rem;">
-        (Common terms & definitions)
-      </span>
       <span class="current-time" id="current-time" aria-live="polite" aria-atomic="true"></span>
     </div>
   </div>
@@ -142,20 +134,6 @@ const navHTML = `
   <ul id="submenu-getinvolved" class="submenu" aria-hidden="true">
     <li><a href="feedback.html"><i class="fas fa-comment-dots"></i> Give Feedback</a></li>
     <li><a href="volunteer.html"><i class="fas fa-hands-helping"></i> Volunteer Opportunities</a></li>
-  </ul>
-</li>
-
-<!-- Get in Touch -->
-<li>
-  <button class="section-header" aria-expanded="false" aria-controls="submenu-getintouch">
-    <span class="menu-label">
-      <i class="fas fa-envelope"></i> Get in Touch
-    </span>
-    <i class="fas fa-caret-down"></i>
-  </button>
-  <ul id="submenu-getintouch" class="submenu" aria-hidden="true">
-    <li><a href="contact-us.html"><i class="fas fa-phone-alt"></i> Ready to hear you</a></li>
-    <li><a href="faq.html"><i class="fas fa-question-circle"></i> FAQs</a></li>
   </ul>
 </li>
 
@@ -255,8 +233,6 @@ document.body.insertAdjacentHTML('beforeend', footerHTML);
       'member-tools.html': ['Home', 'Resources','Resident Utilities'],
       'feedback.html': ['Home', 'Get Involved','Give Feedback'],
       'volunteer.html': ['Home', 'Get Involved','Volunteer Opportunities'],
-      'contact-us.html': ['Home', 'Get in Touch','Ready to hear you'],
-      'faq.html': ['Home', 'Get in Touch','FAQs'],
       'search.html': ['Home', 'Find & Explore','Site Search'],
       'event-calendar.html': ['Home', 'Find & Explore','Event Calendar']
     };
@@ -282,8 +258,6 @@ document.body.insertAdjacentHTML('beforeend', footerHTML);
       'Give Feedback': 'feedback.html',
       'Volunteer Opportunities': 'volunteer.html',
       'Get in Touch': '#',
-      'Ready to hear you': 'contact-us.html',
-      'FAQs': 'faq.html',
       'Find & Explore': '#',
       'Site Search': 'search.html',
       'Event Calendar': 'event-calendar.html'
@@ -319,49 +293,54 @@ document.body.insertAdjacentHTML('beforeend', footerHTML);
       box-sizing: border-box;
     }
     body {
-      font-family: 'Poppins', sans-serif;
-      margin: 0;
-      background-color: #f4f6f9;
-      color: #333;
-      padding-top: 54px; /* header */
-      padding-bottom: 60px; /* footer */
-      padding-left: 260px; /* nav width */
-      transition: padding-left 0.3s ease;
-    }
-    main {
-      margin: 20px auto;
-      max-width: 1200px;
-      box-sizing: border-box;
-    }
-    /* Header */
-    header#page-header {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      height: auto;
-      background: linear-gradient(135deg, #2a72d8, #feb47b);
-      color: #fff;
-      font-weight: 600;
-      font-size: 0.95rem;
-      line-height: 1.4;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      user-select: none;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-      z-index: 9999;
-      padding: 0.2rem 40px; /* padding instead of fixed height */
-      flex-wrap: wrap;      /* allow wrapping */
-      text-align: center;
-    }
-    header#page-header .header-text {
-      text-align: center;
-      flex: 1;
-      font-weight: 600;
-      line-height: 1.3;
-      font-size: 0.75rem;
-      word-break: break-word;
-      white-space: normal;
-    }
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  background-color: #f4f6f9;
+  color: #333;
+  padding-top: 3.1rem; /* adjusted for reduced header height */
+  padding-bottom: 60px;
+  padding-left: 260px;
+  transition: padding-left 0.3s ease;
+}
+
+main {
+  margin: 20px auto;
+  max-width: 1200px;
+  box-sizing: border-box;
+}
+
+/* Header */
+header#page-header {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  background: linear-gradient(135deg, #2a72d8, #feb47b);
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.7rem;       /* smaller font */
+  line-height: 1.1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  user-select: none;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  z-index: 9999;
+  padding: 0.15rem 0.5rem; /* very tight vertical padding */
+  flex-wrap: nowrap;
+}
+
+/* Header text - no wrap, ellipsis */
+header#page-header .header-text {
+  flex: 1;
+  font-weight: 600;
+  font-size: 0.7rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: calc(100% - 8rem); /* leave space for buttons */
+  text-align: center;
+  user-select: text;
+}
+
 /* Clean Hamburger button - no background */
 #hamburger {
   width: 16px;
@@ -415,24 +394,25 @@ document.body.insertAdjacentHTML('beforeend', footerHTML);
   transform: rotate(-45deg) translate(3px, -3px);
 }
 
-    /* Collapse toggle button for desktop nav */
-    /* Enhanced Collapse toggle button for desktop nav */
+/* Collapse toggle button for desktop nav */
+/* Enhanced Collapse toggle button for desktop nav */
+
 #nav-collapse-toggle {
   background: linear-gradient(135deg, #ffd6e8, #a0e9ff); /* pastel pink-blue gradient */
   border: none;
-  color: #333; /* dark text for better contrast */
-  font-size: 15px;
+  color: #333;
+  font-size: 13px; /* smaller font */
   cursor: pointer;
-  position: fixed;
-  top: calc(47.2px / 2); /* half header height */
+  position: absolute;
+  top: 50%; /* center vertically */
   transform: translateY(-50%);
-  left: calc(260px - 80px);
+  left: calc(260px - 70px); /* adjusted position closer */
   z-index: 10000;
-  padding: 6px 10px;
-  border-radius: 30px; /* pill shaped */
+  padding: 4px 8px; /* reduced padding */
+  border-radius: 30px;
   transition: all 0.3s ease;
   user-select: none;
-  box-shadow: 0 4px 8px rgba(255, 182, 193, 0.4); /* soft pink shadow */
+  box-shadow: 0 4px 8px rgba(255, 182, 193, 0.4);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -449,6 +429,8 @@ document.body.insertAdjacentHTML('beforeend', footerHTML);
 #nav-collapse-toggle i {
   transition: transform 0.3s ease;
   pointer-events: none;
+  font-size: 14px; /* smaller icon */
+  line-height: 1;
 }
 
 #nav-collapse-toggle.collapsed {
@@ -458,10 +440,10 @@ document.body.insertAdjacentHTML('beforeend', footerHTML);
 /* Nav Styles */
 #main-nav {
   position: fixed;
-  top: var(--header-height, 40px); /* optional fallback */
+  top: 35px; /* optional fallback */
   left: 0;
   width: 200px;
-  bottom: 50px;
+  bottom: 25px;
   background: linear-gradient(135deg, #1e2a47 0%, #16213e 100%);
   color: #fff;
   overflow-y: auto;
@@ -518,7 +500,6 @@ document.body.insertAdjacentHTML('beforeend', footerHTML);
     display: block; /* Show nav when hamburger clicked */
   }
 }
-
 
 /* Home link: icon + text aligned left with gap */
 #main-nav ul li a.nav-link {
@@ -683,41 +664,57 @@ li.locked .submenu,
       color: #ffffff;;
     }
 
-    /* Footer */
-  #page-footer {
+/* Footer */
+#page-footer {
   position: fixed;
   bottom: 0; left: 0; right: 0;
   background: linear-gradient(135deg, #2a72d8, #feb47b);
   color: #fff;
-  /* Remove fixed height for flexibility */
-  min-height: 40px;
+  min-height: 28px;  /* Sleek and tight */
   display: flex;
   justify-content: center;
   align-items: center;
   font-size: 0.70rem;
-  padding: 6px 15px;  /* more padding for comfort */
+  padding: 4px 10px;  /* Reduced padding */
   box-shadow: 0 -2px 8px rgba(0,0,0,0.3);
   user-select: none;
-  white-space: nowrap;  /* Prevent wrapping */
+  white-space: normal;  /* Allow wrapping */
   z-index: 9999;
   text-align: center;
-  overflow-x: auto;     /* In case screen is too narrow */
+  overflow-x: auto;
 }
 
-    .footer-content {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 2px;
-      line-height: 1.4;
-    }
-    .footer-meta {
+.footer-content {
+  display: flex;
+  flex-direction: row;  /* Change from column */
+  align-items: center;
+  gap: 1rem;  /* Space between credit and meta */
+  line-height: 1.2;  /* tighter */
+  width: 100%;
+  max-width: 1200px;
+  padding: 0 5px;
+  justify-content: space-between;
+}
+
+.footer-credit {
+  flex-shrink: 1;
+  white-space: nowrap;
+  user-select: text;
+  line-height: 1.2;
+  font-weight: 400;
+  font-size: 0.70rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.footer-meta {
   display: flex;
   align-items: center;
-  gap: 12px;              /* Space between icon+link and time */
+  gap: 12px;
   font-size: 0.75rem;
   color: #eee;
-  flex-wrap: wrap;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .footer-home-link {
@@ -731,46 +728,67 @@ li.locked .submenu,
 
 .footer-home-link:hover {
   text-decoration: underline;
-  color: #ffd700; /* Optional hover color */
+  color: #ffd700;
+}
+#page-footer a {
+  color: #fff;
+  text-decoration: none;
+  margin-left: 12px;
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
 }
 
-.home-icon {
-  color: #ffd700; /* Gold or any color you like */
-  font-size: 1rem;
+#page-footer a:hover {
+  text-decoration: underline;
 }
 
-    #page-footer a {
-      color: #fff;
-      text-decoration: none;
-      margin-left: 12px;
-      display: flex;
-      align-items: center;
-    }
-    #page-footer a:hover {
-      text-decoration: underline;
-    }
-    .footer-credit {
-      flex: 1;
-      user-select: text;
-      flex-shrink: 0;       /* Prevent shrinking */
-      line-height: 1.5;
-      white-space: normal;  
-    }
-    .footer-links {
-      user-select: text;
-    }
-    .heart {
-      color: red;
-      margin: 0 4px;
-      user-select: none;
-    }
-    .blinking-text {
-      background-color: #1e40af; /* Medium dark blue - Tailwind’s blue-800 */
-      color: #fff;               /* White text */
-      padding: 1px 4px;
-      border-radius: 6px;
-      font-weight: bold;
-    }
+.heart {
+  color: red;
+  margin: 0 4px;
+  user-select: none;
+}
+
+.blinking-text {
+  background-color: #1e40af;
+  color: #fff;
+  padding: 1px 4px;
+  border-radius: 6px;
+  font-weight: bold;
+}
+
+/* Current time tweaks */
+.current-time {
+  color: #00ffff;
+  font-weight: 700;
+  margin-left: 8px;
+  white-space: nowrap;
+}
+
+@media (max-width: 600px) {
+  #page-footer {
+    white-space: normal;  /* allow wrapping on mobile */
+    min-height: auto;
+    padding: 8px 10px;
+  }
+  .footer-content {
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+  }
+  .footer-credit {
+    white-space: normal;
+    text-align: center;
+    overflow: visible;
+  }
+  .footer-meta {
+    white-space: normal;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+  }
+}
+
     /* Responsive */
     @media (max-width: 768px) {
       main {
@@ -825,17 +843,70 @@ li.locked .submenu,
       z-index: 10000;
     }
     
-  #langToggle {
-  margin-left: auto; /* push it to the far right */
-  margin-right: 10px;
-  background-color: transparent;
-  padding: 8px 12px;
-  border-radius: 5px;
-  cursor: pointer;
+/* Container for icon buttons + lang toggle */
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-left: auto;
+}
+
+/* Icon buttons */
+.header-icon-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #ffd6e8, #a0e9ff); /* 🌈 pastel circle */
+  font-size: 14px;
+  text-decoration: none;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.header-icon-btn:hover {
+  background: linear-gradient(135deg, #b4f8c8, #a0c4ff); /* 🌟 hover effect */
+  transform: scale(1.1);
+}
+
+.header-icon-btn i {
+  font-size: 14px;
+  color: inherit;
+}
+
+/* Home icon - dark blue/grey */
+.btn-home i {
+  color: #f1c40f;
+}
+
+/* Contact icon - green */
+.btn-contact i {
+  color: #27ae60;
+}
+
+/* FAQ icon - purple (same as yours) */
+.btn-faq i {
+  color: #9b59b6;
+}
+
+/* Glossary icon - orange */
+.btn-glossary i {
+  color: #e67e22;
+}
+
+/* Language Toggle */
+#langToggle {
   background-image: linear-gradient(to right, #4b6cb7, #182848);
   color: white;
+  padding: 4px 8px;
+  border-radius: 5px;
+  font-size: 0.7rem;
   border: none;
+  cursor: pointer;
   transition: background-color 0.3s ease, color 0.3s ease;
+  white-space: nowrap;
 }
 
 #langToggle:hover,
