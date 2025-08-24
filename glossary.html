@@ -10,18 +10,19 @@
   <meta http-equiv="Pragma" content="no-cache" />
   <meta http-equiv="Expires" content="0" />
   <meta name="theme-color" content="#000000" />
+  <script src="layout-loader.js"></script>
   
   <!-- Fonts & Icons -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
-  <title>Glossary - Avishikta Type-A</title>
+  <title>Glossary - Avishikta - I Type-A</title>
 
   <style>
     body {
       font-family: 'Poppins', sans-serif;
       margin: 0;
-      background: #f9fafb;
+      background: linear-gradient(to right, #ffe0b2, #fff3e0); /* light orange to very light */
       color: #333;
       display: flex;
       flex-direction: column;
@@ -86,40 +87,63 @@
       color: #c0392b;
     }
 
+    /* Sticky alphabet filter bar */
     .alphabet-filter {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
       gap: 0.5rem;
       margin-bottom: 1.2rem;
+      background: linear-gradient(90deg, #ffe0b2, #fff3e0); /* light orange gradient */
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1); /* subtle shadow to lift it */
+      padding: 0.5rem 0;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+      position: sticky;
+      top: 30px;
+      z-index: 100;
     }
 
     .alphabet-filter button {
-      flex: 1 1 6%;
-      min-width: 32px;
+      flex: 1 1 4%;
+      min-width: 24px;
       padding: 0.4rem 0;
-      font-size: 0.95rem;
+      font-size: 0.85rem;
       background-image: linear-gradient(135deg, #5dade2, #7d3c98);
       color: white;
       border: none;
       border-radius: 5px;
       cursor: pointer;
       transition: 0.3s;
+      user-select: none;
     }
 
     .alphabet-filter button:hover,
     .alphabet-filter button.active {
       background-color: #2980b9;
+      background-image: none;
     }
 
     #showAllBtn {
-      flex: 1 1 20%;
+      flex: 1 1 12%;
       min-width: 90px;
       background-color: #27ae60;
     }
 
     #showAllBtn:hover {
       background-color: #1e8449;
+      background-image: none;
+    }
+
+    #sortToggleBtn {
+      flex: 1 1 12%;
+      min-width: 90px;
+      background-color: #f39c12;
+    }
+
+    #sortToggleBtn:hover {
+      background-color: #d68910;
+      background-image: none;
     }
 
     ul.glossary-list {
@@ -155,48 +179,106 @@
     }
 
     ul.glossary-list li p {
-      background: linear-gradient(to right, #6ec1e4, #2980b9);
-      color: white;
+      background: #ffffff;
+      color: #333;
       margin: 0;
-      padding: 0.5rem 1rem;
+      border-left: 4px solid #3498db;
+      padding-left: 1rem;
       border-radius: 6px;
       flex-grow: 1;
     }
 
-    #scrollTopBtn {
-      position: fixed;
-      bottom: 30px;
-      right: 30px;
-      background-color: #3498db;
-      color: white;
-      border: none;
-      padding: 0.6rem 1rem;
-      font-size: 1.5rem;
-      border-radius: 50%;
-      cursor: pointer;
-      display: none;
-      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
-      transition: background-color 0.3s;
-      z-index: 1000;
+    /* Highlight for search matches */
+    .highlight {
+      background-color: #ffeb3b;
+      color: #000;
+      font-weight: 700;
+      padding: 0 2px;
+      border-radius: 3px;
     }
 
-    #scrollTopBtn:hover {
-      background-color: #2980b9;
-    }
+  #scrollTopBtn {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background-color: #f39c12; /* Vibrant orange */
+  color: white;
+  border: none;
+  padding: 0.5rem 0.6rem;
+  font-size: 0.85rem;
+  border-radius: 50%;
+  cursor: pointer;
+  display: none;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+  transition: background-color 0.3s, transform 0.2s;
+  z-index: 1000;
+}
+
+#scrollTopBtn:hover {
+  background-color: #d68910; /* Darker orange on hover */
+  transform: scale(1.1);
+}
+
+    /* Did You Mean container */
+    #didYouMeanContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.8rem; /* bigger gap between text and button */
+  font-style: italic;
+  color: #2980b9; /* a nice blue */
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+#didYouMeanContainer span {
+  color: #2980b9; /* same blue for the text */
+}
+
+#didYouMeanContainer button {
+  margin-left: 0.3rem;
+  padding: 0.3rem 0.7rem;
+  font-style: normal;
+  font-weight: 600;
+  background: #3498db; /* bright blue button */
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+#didYouMeanContainer button:hover,
+#didYouMeanContainer button:focus {
+  background: #217dbb; /* darker blue on hover/focus */
+  outline: none;
+}
 
     @media (max-width: 600px) {
+      .alphabet-filter {
+        top: 65px; /* or adjust as needed */
+       }
       .alphabet-filter button {
-        flex: 1 1 14%;
-        font-size: 0.9rem;
-        min-width: 28px;
+        flex: 1 1 10%;
+        font-size: 0.85rem;
+        min-width: 20px;
       }
 
       #showAllBtn {
-        flex: 1 1 40%;
-        min-width: 120px;
+        flex: 1 1 30%;
+        min-width: 100px;
       }
-    }
-  </style>
+
+      #sortToggleBtn {
+        flex: 1 1 30%;
+        min-width: 100px;
+      }
+      #scrollTopBtn {
+    bottom: 80px; /* Move up a bit */
+  }
+}
+
+</style>
 </head>
 <body>
   <main>
@@ -209,7 +291,8 @@
     </div>
 
     <div class="alphabet-filter" role="toolbar" aria-label="Filter glossary by letter">
-      <button id="showAllBtn">Show All</button>
+      <button id="showAllBtn" aria-pressed="true">Show All</button>
+      <button id="sortToggleBtn" title="Toggle sort A-Z / Z-A" aria-pressed="true">Sort: Z-A</button>
       <button>A</button><button>B</button><button>C</button><button>D</button><button>E</button>
       <button>F</button><button>G</button><button>H</button><button>I</button><button>J</button>
       <button>K</button><button>L</button><button>M</button><button>N</button><button>O</button>
@@ -217,10 +300,14 @@
       <button>U</button><button>V</button><button>W</button><button>X</button><button>Y</button><button>Z</button>
     </div>
 
+    <div id="didYouMeanContainer" aria-live="polite"></div>
+
     <ul class="glossary-list" id="glossaryList" aria-live="polite"></ul>
   </main>
 
-  <button id="scrollTopBtn" title="Scroll to top">⬆</button>
+  <button id="scrollTopBtn" title="Scroll to top" aria-label="Scroll to top">
+  <i class="fas fa-chevron-up"></i>
+  </button>
 
   <script>
     const glossaryData = [
@@ -242,93 +329,213 @@
     ];
 
     const glossaryList = document.getElementById('glossaryList');
-    const buttons = document.querySelectorAll('.alphabet-filter button');
+    const buttons = document.querySelectorAll('.alphabet-filter button:not(#sortToggleBtn)');
     const showAllBtn = document.getElementById('showAllBtn');
+    const sortToggleBtn = document.getElementById('sortToggleBtn');
     const searchInput = document.getElementById('searchInput');
     const clearBtn = document.getElementById('clearSearchBtn');
     const scrollTopBtn = document.getElementById('scrollTopBtn');
     const lastUpdatedEl = document.querySelector('.last-updated');
+    const didYouMeanContainer = document.getElementById('didYouMeanContainer');
 
-    function renderGlossary(filterLetter = null, overrideList = null) {
-      glossaryList.innerHTML = '';
-      let filtered = overrideList || glossaryData;
+    let currentSortAsc = true; // true = A-Z, false = Z-A
 
-      if (filterLetter && !overrideList) {
-        filtered = glossaryData.filter(item => item.term.startsWith(filterLetter));
-      }
+    // Show last updated date (today)
+    function updateLastUpdated() {
+      const today = new Date();
+      lastUpdatedEl.textContent = `Last Updated: ${today.toLocaleDateString()}`;
+    }
+    updateLastUpdated();
 
-      if (filtered.length === 0) {
-        glossaryList.innerHTML = `<li>No terms found${filterLetter ? ` for '${filterLetter}'` : ''}.</li>`;
-        return;
-      }
-
-      filtered.forEach(item => {
-        const li = document.createElement('li');
-        li.innerHTML = `<strong>${item.term}</strong><span class="dash">-</span><p>${item.desc}</p>`;
-        glossaryList.appendChild(li);
-      });
+    // Helper: Escape regex special chars for safe highlighting
+    function escapeRegExp(string) {
+      return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
     }
 
-    renderGlossary();
+    // Helper: Highlight matched substrings inside a string (case insensitive)
+    function highlightMatches(text, query) {
+      if (!query) return text;
+      const regex = new RegExp(`(${escapeRegExp(query)})`, 'gi');
+      return text.replace(regex, '<span class="highlight">$1</span>');
+    }
 
-    buttons.forEach(button => {
-      button.addEventListener('click', () => {
-        buttons.forEach(btn => btn.classList.remove('active'));
-        searchInput.value = '';
-        clearBtn.style.display = 'none';
+    // Levenshtein Distance for "Did You Mean" suggestions
+    function levenshtein(a, b) {
+      const matrix = Array.from({ length: b.length + 1 }, (_, i) => [i]);
+      for (let j = 0; j <= a.length; j++) matrix[0][j] = j;
 
-        if (button === showAllBtn) {
-          renderGlossary();
-        } else {
-          const letter = button.textContent;
-          renderGlossary(letter);
+      for (let i = 1; i <= b.length; i++) {
+        for (let j = 1; j <= a.length; j++) {
+          if (b.charAt(i - 1).toLowerCase() === a.charAt(j - 1).toLowerCase()) {
+            matrix[i][j] = matrix[i - 1][j - 1];
+          } else {
+            matrix[i][j] = Math.min(
+              matrix[i - 1][j - 1] + 1,
+              matrix[i][j - 1] + 1,
+              matrix[i - 1][j] + 1
+            );
+          }
+        }
+      }
+      return matrix[b.length][a.length];
+    }
+
+    // Find closest term to suggest
+    function findClosestTerm(query) {
+  let minDistance = Infinity;
+  let closestTerm = null;
+  const lowerQuery = query.toLowerCase();
+
+  glossaryData.forEach(item => {
+    const termLower = item.term.toLowerCase();
+    const dist = levenshtein(lowerQuery, termLower);
+    if (dist < minDistance) {
+      minDistance = dist;
+      closestTerm = item.term;
+    }
+  });
+
+  // Only suggest if reasonably close (distance less than half the length)
+  if (minDistance <= query.length / 2) return closestTerm;
+  return null;
+}
+
+  function renderGlossary(filterLetter = null, overrideList = null, query = '') {
+  glossaryList.innerHTML = '';
+
+  // Only clear Did You Mean if no search query
+  if (!query) {
+    didYouMeanContainer.textContent = '';
+  }
+
+  let filtered = overrideList || glossaryData;
+
+  if (filterLetter && filterLetter !== 'Show All') {
+    filtered = filtered.filter(item => item.term.toUpperCase().startsWith(filterLetter));
+  }
+
+  if (query) {
+    const lowerQuery = query.toLowerCase();
+    filtered = filtered.filter(item =>
+      item.term.toLowerCase().includes(lowerQuery) ||
+      item.desc.toLowerCase().includes(lowerQuery)
+    );
+
+    if (filtered.length === 0) {
+      const suggestion = findClosestTerm(query);
+      if (suggestion && suggestion.toLowerCase() !== query.toLowerCase()) {
+        didYouMeanContainer.innerHTML = `Did you mean ? <button id="didYouMeanBtn" aria-label="Did you mean ${suggestion}">${suggestion}</button>`;
+        const didYouMeanBtn = document.getElementById('didYouMeanBtn');
+        if (didYouMeanBtn) {
+          didYouMeanBtn.addEventListener('click', () => {
+            searchInput.value = suggestion;
+            filterGlossary(null, suggestion);
+            didYouMeanContainer.textContent = '';
+          });
+          didYouMeanBtn.focus();
         }
 
-        button.classList.add('active');
+        glossaryList.innerHTML = '';
+        return;
+      } else {
+        didYouMeanContainer.textContent = '';
+        glossaryList.innerHTML = '<li>No terms found.</li>';
+        return;
+      }
+    }
+  }
+
+  didYouMeanContainer.textContent = ''; // Clear "Did You Mean" if results found or no query
+
+  filtered.sort((a, b) => {
+    if (currentSortAsc) return a.term.localeCompare(b.term);
+    return b.term.localeCompare(a.term);
+  });
+
+  if (filtered.length === 0) {
+    glossaryList.innerHTML = '<li>No terms found.</li>';
+    return;
+  }
+
+  filtered.forEach(item => {
+    const li = document.createElement('li');
+    const termHTML = highlightMatches(item.term, query);
+    const descHTML = highlightMatches(item.desc, query);
+    li.innerHTML = `<strong>${termHTML}</strong><span class="dash">—</span><p>${descHTML}</p>`;
+    glossaryList.appendChild(li);
+  });
+}
+
+    // Wrapper to filter glossary by letter and/or search query
+    function filterGlossary(filterLetter = null, searchQuery = '') {
+  buttons.forEach(btn => {
+    if (filterLetter === 'Show All' && btn.id === 'showAllBtn') {
+      btn.classList.add('active');
+      btn.setAttribute('aria-pressed', 'true');
+    } else if (btn.textContent === filterLetter) {
+      btn.classList.add('active');
+      btn.setAttribute('aria-pressed', 'true');
+    } else {
+      btn.classList.remove('active');
+      btn.setAttribute('aria-pressed', 'false');
+    }
+  });
+
+  renderGlossary(filterLetter, null, searchQuery);
+}
+
+    // Event: Letter filter click
+    buttons.forEach(button => {
+      button.addEventListener('click', () => {
+        const letter = button.id === 'showAllBtn' ? 'Show All' : button.textContent;
+        searchInput.value = '';
+        clearBtn.style.display = 'none';
+        didYouMeanContainer.textContent = '';
+        filterGlossary(letter);
       });
     });
 
+    // Event: Search input keyup
     searchInput.addEventListener('input', () => {
-      const query = searchInput.value.trim().toLowerCase();
-      clearBtn.style.display = query ? 'block' : 'none';
-      buttons.forEach(btn => btn.classList.remove('active'));
-
-      if (query === '') {
-        renderGlossary();
-        return;
-      }
-
-      const filtered = glossaryData.filter(item =>
-        item.term.toLowerCase().includes(query) || item.desc.toLowerCase().includes(query)
-      );
-      renderGlossary(null, filtered);
+      const val = searchInput.value.trim();
+      clearBtn.style.display = val ? 'inline' : 'none';
+      filterGlossary(null, val);
     });
 
+    // Event: Clear search button
     clearBtn.addEventListener('click', () => {
       searchInput.value = '';
       clearBtn.style.display = 'none';
-      renderGlossary();
+      didYouMeanContainer.textContent = '';
+      filterGlossary('Show All');
+      searchInput.focus();
     });
 
+    // Event: Sort toggle button
+    sortToggleBtn.addEventListener('click', () => {
+      currentSortAsc = !currentSortAsc;
+      sortToggleBtn.textContent = currentSortAsc ? 'Sort: Z-A' : 'Sort: A-Z';
+      sortToggleBtn.setAttribute('aria-pressed', currentSortAsc.toString());
+      filterGlossary(null, searchInput.value.trim());
+    });
+
+    // Scroll to top button logic
     window.addEventListener('scroll', () => {
-      scrollTopBtn.style.display = window.scrollY > 200 ? 'block' : 'none';
+      if (window.scrollY > 300) {
+        scrollTopBtn.style.display = 'block';
+      } else {
+        scrollTopBtn.style.display = 'none';
+      }
     });
 
     scrollTopBtn.addEventListener('click', () => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
+      searchInput.focus();
     });
 
-    // Set system date as "Last updated"
-    function formatDate(date) {
-      return date.toLocaleDateString(undefined, {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric'
-      });
-    }
-    lastUpdatedEl.textContent = `📅 Last updated: ${formatDate(new Date())}`;
-  </script>
+    // Initialize with all terms shown, sorted A-Z
+    filterGlossary('Show All');
 
-<script src="layout-loader.js"></script>
+  </script>
 </body>
 </html>
