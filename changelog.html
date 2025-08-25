@@ -48,19 +48,32 @@
       color: #555;
     }
 
-    .search-wrapper {
+    /* Container for search input + back button side by side */
+    .top-controls {
       max-width: 500px;
-      margin: 1.5rem auto 2rem;
+      margin: 0 auto 2rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap; /* Wrap on smaller screens */
+      justify-content: center;
+    }
+
+    /* Wrapper for search + clear button to keep position relative */
+    .search-wrapper {
       position: relative;
+      flex: 1 1 250px;
+      min-width: 0; /* Important for flex shrinking */
     }
 
     #searchInput {
       width: 100%;
-      padding: 0.75rem 2.5rem 0.75rem 1rem;
-      font-size: 1rem;
+      padding: 0.4rem 2.5rem 0.4rem 1rem; /* less vertical padding */
+      font-size: 0.9rem;
       border: 2px solid var(--primary);
       border-radius: 5px;
       outline: none;
+      box-sizing: border-box;
     }
 
     .clear-btn {
@@ -73,6 +86,28 @@
       font-size: 1.2rem;
       color: #999;
       cursor: pointer;
+      padding: 0;
+      line-height: 1;
+    }
+
+    .back-home {
+      display: inline-block;
+      text-decoration: none;
+      font-weight: bold;
+      color: var(--primary);
+      border: 2px solid var(--primary);
+      padding: 0.3rem 0.8rem; /* Reduced padding */
+      border-radius: 5px;
+      transition: all 0.3s ease;
+      white-space: nowrap;
+      font-size: 0.85rem; /* Smaller font size */
+      flex-shrink: 0;
+      text-align: center;
+    }
+
+    .back-home:hover {
+      background-color: var(--primary);
+      color: white;
     }
 
     .entry {
@@ -118,28 +153,6 @@
     .fixed::before { content: '🐛'; color: var(--fixed); }
     .removed::before { content: '🗑️'; color: var(--removed); }
 
-    .links {
-      text-align: center;
-      margin-top: 3rem;
-    }
-
-    .links a {
-      display: inline-block;
-      margin: 0 1rem;
-      text-decoration: none;
-      font-weight: bold;
-      color: var(--primary);
-      border: 2px solid var(--primary);
-      padding: 0.5rem 1rem;
-      border-radius: 5px;
-      transition: all 0.3s ease;
-    }
-
-    .links a:hover {
-      background-color: var(--primary);
-      color: white;
-    }
-
     @media (max-width: 600px) {
       body {
         padding: 1rem;
@@ -152,6 +165,27 @@
       .entry {
         padding: 1rem;
       }
+
+      .top-controls {
+        justify-content: stretch;
+        gap: 0.75rem;
+      }
+
+      .search-wrapper {
+        flex: 1 1 100%;
+        margin-bottom: 0.5rem;
+      }
+
+      .back-home {
+        flex: 1 1 100%;
+        font-size: 1rem;
+        padding: 0.5rem;
+        text-align: center;
+      }
+
+      .clear-btn {
+        right: 8px;
+      }
     }
   </style>
 </head>
@@ -163,21 +197,18 @@
     <p class="sub">A log of changes, updates, and improvements made to our digital platform.</p>
   </header>
 
-  <!-- 🔍 Search -->
-  <div class="search-wrapper">
-    <input type="text" id="searchInput" placeholder="Search updates... (e.g., fixed, bilingual, dark mode)" />
-    <button class="clear-btn" onclick="clearSearch()">×</button>
+  <!-- Search + Back to Home button container -->
+  <div class="top-controls">
+    <div class="search-wrapper">
+      <input type="text" id="searchInput" placeholder="Search updates... (e.g., fixed, bilingual, dark mode)" />
+      <button class="clear-btn" onclick="clearSearch()">×</button>
+    </div>
+    <a href="index.html" class="back-home">🏡 Back to Home</a>
   </div>
 
   <!-- 📝 Entries -->
   <div id="entries">
     <p>Loading updates...</p>
-  </div>
-
-  <!-- 🔗 External Link -->
-  <div class="links">
-    <a href="index.html">🏡 Back to Home</a>
-    <a href="https://avishikta-1typea-rwa.netlify.app/" rel="noopener">Visit Live Site</a>
   </div>
 
   <script>
@@ -244,4 +275,3 @@
 
 </body>
 </html>
-
