@@ -440,7 +440,7 @@ header#page-header .header-text {
 /* Nav Styles */
 #main-nav {
   position: fixed;
-  top: 35px; /* optional fallback */
+  top: 30px; /* optional fallback */
   left: 0;
   width: 200px;
   bottom: 25px;
@@ -854,14 +854,15 @@ li.locked .submenu,
 
 /* Icon buttons */
 .header-icon-btn {
+  width: 24px;            /* smaller width */
+  height: 24px;           /* smaller height */
+  font-size: 12px;        /* smaller icon size */
+  padding: 4px;           /* add padding if needed, though your flex centering may not need much */
+  border-radius: 50%;     /* keep circular */
+  background: linear-gradient(135deg, #ffd6e8, #a0e9ff);
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #ffd6e8, #a0e9ff); /* 🌈 pastel circle */
-  font-size: 14px;
   text-decoration: none;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
   transition: background 0.3s ease, transform 0.2s ease;
@@ -1220,3 +1221,4 @@ toggleBtn.addEventListener('click', () => {
   document.addEventListener('copy', e => e.preventDefault());
   document.addEventListener('paste', e => e.preventDefault());
 })();
+
