@@ -1,5 +1,22 @@
 [
   {
+    "date": "2025-08-26",
+    "items": [
+      {
+        "type": "new",
+        "desc": "Added Durga Puja Nirghanta 2025 timeline with bilingual English/Bengali toggle."
+      },
+      {
+        "type": "improved",
+        "desc": "Integrated dynamic countdown badge for Durga Puja Nirghanta that updates and persists across language switches."
+      },
+      {
+        "type": "improved",
+        "desc": "Enhanced countdown badge styling for better readability and consistent festive theme colors."
+      }
+    ]
+  },
+  {
     "date": "2025-08-25",
     "items": [
       {
