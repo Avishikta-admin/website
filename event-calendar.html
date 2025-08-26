@@ -479,6 +479,11 @@
     padding: 6px 10px;
     font-size: 0.9rem;
   }
+  #upcomingEvents {
+    max-height: 300px;       /* Or any height you want */
+    overflow-y: auto;        /* Enable vertical scroll */
+    -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+  }
 }
 
 @media (min-width: 1024px) {
@@ -1017,3 +1022,4 @@ updateCountdownText(currentLang);
 
 </body>
 </html>
+
