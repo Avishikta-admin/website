@@ -3,15 +3,16 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Official page of Avishikta - I Type - A RWA. Stay informed, get involved, and build a stronger association.">
+  <meta name="description" content="Official page of Avishikta - I Type - A RWA. Stay informed, get involved, and build a stronger association." />
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
   <meta http-equiv="Pragma" content="no-cache" />
   <meta http-equiv="Expires" content="0" />
   <meta name="theme-color" content="#000000" />
 
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Open+Sans&display=swap" rel="stylesheet" />  
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Open+Sans&display=swap" rel="stylesheet" />
   <meta name="theme-color" content="#4CAF50" />
   <title>📄 Changelog | Avishikta - I Type - A</title>
+
   <style>
     :root {
       --bg: #f4f6f8;
@@ -46,6 +47,35 @@
     p.sub {
       font-size: 1.1rem;
       color: #555;
+    }
+
+    /* Filter buttons container */
+    .filter-controls {
+      max-width: 500px;
+      margin: 0 auto 1.5rem;
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .filter-btn {
+      background-color: var(--primary);
+      border: none;
+      color: white;
+      font-weight: bold;
+      padding: 0.3rem 0.8rem;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1.1rem;
+      user-select: none;
+      transition: background-color 0.3s ease;
+      min-width: 50px;
+      text-align: center;
+    }
+
+    .filter-btn.active {
+      background-color: #333;
     }
 
     /* Container for search input + back button side by side */
@@ -118,10 +148,24 @@
       margin-bottom: 1rem;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
       transition: transform 0.2s;
+      overflow: hidden;
+      max-height: 1000px; /* will be toggled */
+      position: relative;
+    }
+
+    .entry.collapsed {
+      max-height: 3.5rem; /* approx height of date + margin */
+      cursor: pointer;
+      box-shadow: none;
     }
 
     .entry:hover {
       transform: scale(1.01);
+    }
+
+    .entry.collapsed:hover {
+      transform: none;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
     }
 
     .date {
@@ -129,6 +173,7 @@
       font-weight: bold;
       color: #444;
       margin-bottom: 0.6rem;
+      user-select: none;
     }
 
     ul {
@@ -148,10 +193,32 @@
       left: 0;
     }
 
-    .new::before { content: '✨'; color: var(--new); }
-    .improved::before { content: '🛠️'; color: var(--improved); }
-    .fixed::before { content: '🐛'; color: var(--fixed); }
-    .removed::before { content: '🗑️'; color: var(--removed); }
+    /* Emoji as bullet for each type */
+    .🆕::before { content: '🆕'; color: var(--new); }
+    .🎨::before { content: '🎨'; color: var(--improved); }
+    .🛠️::before { content: '🛠️'; color: var(--fixed); }
+    .❌::before { content: '❌'; color: var(--removed); }
+
+    /* Collapse toggle button */
+    .toggle-collapse {
+      position: absolute;
+      right: 10px;
+      bottom: 10px;
+      background: var(--primary);
+      border: none;
+      color: white;
+      font-size: 0.85rem;
+      padding: 0.2rem 0.5rem;
+      border-radius: 3px;
+      cursor: pointer;
+      user-select: none;
+      display: none; /* shown only on collapsed */
+      z-index: 10;
+    }
+
+    .entry.collapsed .toggle-collapse {
+      display: inline-block;
+    }
 
     @media (max-width: 600px) {
       body {
@@ -186,6 +253,18 @@
       .clear-btn {
         right: 8px;
       }
+
+      .filter-controls {
+        max-width: 100%;
+        margin: 0 0 1rem 0;
+        gap: 0.5rem;
+      }
+
+      .filter-btn {
+        flex: 1 1 40px;
+        padding: 0.3rem 0;
+        font-size: 1.3rem;
+      }
     }
   </style>
 </head>
@@ -197,11 +276,25 @@
     <p class="sub">A log of changes, updates, and improvements made to our digital platform.</p>
   </header>
 
+  <!-- Filter buttons -->
+  <div class="filter-controls" aria-label="Filter changelog by category">
+    <button class="filter-btn active" data-filter="all" title="Show all">All</button>
+    <button class="filter-btn" data-filter="🆕" title="New">🆕</button>
+    <button class="filter-btn" data-filter="🎨" title="Improved">🎨</button>
+    <button class="filter-btn" data-filter="🛠️" title="Fixed">🛠️</button>
+    <button class="filter-btn" data-filter="❌" title="Removed">❌</button>
+  </div>
+
   <!-- Search + Back to Home button container -->
   <div class="top-controls">
     <div class="search-wrapper">
-      <input type="text" id="searchInput" placeholder="Search updates... (e.g., fixed, bilingual, dark mode)" />
-      <button class="clear-btn" onclick="clearSearch()">×</button>
+      <input
+        type="text"
+        id="searchInput"
+        placeholder="Search updates... (e.g., fixed, bilingual, dark mode)"
+        aria-label="Search changelog updates"
+      />
+      <button class="clear-btn" onclick="clearSearch()" aria-label="Clear search">×</button>
     </div>
     <a href="index.html" class="back-home">🏡 Back to Home</a>
   </div>
@@ -212,6 +305,8 @@
   </div>
 
   <script>
+    const MAX_EXPANDED_ENTRIES = 3; // Number of entries to show expanded by default
+
     async function loadChangelog() {
       try {
         const response = await fetch('changelog.json');
@@ -219,9 +314,14 @@
         const entriesContainer = document.getElementById('entries');
         entriesContainer.innerHTML = '';
 
-        data.forEach(entry => {
+        data.forEach((entry, index) => {
           const div = document.createElement('div');
           div.className = 'entry';
+
+          // Auto-collapse older entries beyond MAX_EXPANDED_ENTRIES
+          if (index >= MAX_EXPANDED_ENTRIES) {
+            div.classList.add('collapsed');
+          }
 
           const dateDiv = document.createElement('div');
           dateDiv.className = 'date';
@@ -231,17 +331,42 @@
 
           entry.items.forEach(item => {
             const li = document.createElement('li');
-            li.className = item.type;
+            li.className = item.type; // emoji class names
             li.textContent = item.desc;
             ul.appendChild(li);
           });
 
           div.appendChild(dateDiv);
           div.appendChild(ul);
+
+          // Add collapse toggle button for collapsed entries
+          if (div.classList.contains('collapsed')) {
+            const toggleBtn = document.createElement('button');
+            toggleBtn.className = 'toggle-collapse';
+            toggleBtn.textContent = 'Show more ▼';
+            toggleBtn.addEventListener('click', e => {
+              e.stopPropagation();
+              if (div.classList.contains('collapsed')) {
+                div.classList.remove('collapsed');
+                toggleBtn.textContent = 'Show less ▲';
+              } else {
+                div.classList.add('collapsed');
+                toggleBtn.textContent = 'Show more ▼';
+              }
+            });
+            div.appendChild(toggleBtn);
+
+            // Also allow clicking anywhere on entry to toggle collapse (optional)
+            div.addEventListener('click', () => {
+              toggleBtn.click();
+            });
+          }
+
           entriesContainer.appendChild(div);
         });
 
-        initSearch(); // Re-bind search after loading
+        initSearch();
+        initFilter();
       } catch (err) {
         document.getElementById('entries').innerHTML = '<p>⚠️ Failed to load changelog data.</p>';
         console.error('Error loading changelog:', err);
@@ -254,19 +379,60 @@
       filterEntries('');
     }
 
-    function filterEntries(query) {
+    function filterEntries(query = '') {
       const entries = document.querySelectorAll('.entry');
       const lowerQuery = query.toLowerCase();
       entries.forEach(entry => {
         const text = entry.innerText.toLowerCase();
         entry.style.display = text.includes(lowerQuery) ? 'block' : 'none';
       });
+
+      // Also apply category filter if active
+      applyCategoryFilter();
     }
 
     function initSearch() {
       const searchInput = document.getElementById('searchInput');
       searchInput.addEventListener('input', (e) => {
         filterEntries(e.target.value);
+      });
+    }
+
+    // Category filter state
+    let activeCategoryFilter = 'all';
+
+    function initFilter() {
+      const buttons = document.querySelectorAll('.filter-btn');
+      buttons.forEach(button => {
+        button.addEventListener('click', () => {
+          // Toggle active class
+          buttons.forEach(btn => btn.classList.remove('active'));
+          button.classList.add('active');
+
+          activeCategoryFilter = button.dataset.filter;
+          applyCategoryFilter();
+        });
+      });
+    }
+
+    function applyCategoryFilter() {
+      const entries = document.querySelectorAll('.entry');
+      entries.forEach(entry => {
+        if (entry.style.display === 'none') {
+          // Already hidden by search filter
+          return;
+        }
+
+        if (activeCategoryFilter === 'all') {
+          entry.style.display = 'block';
+          return;
+        }
+
+        // Check if any item in entry matches the active category
+        const items = entry.querySelectorAll('li');
+        const hasMatch = Array.from(items).some(item => item.classList.contains(activeCategoryFilter));
+
+        entry.style.display = hasMatch ? 'block' : 'none';
       });
     }
 
