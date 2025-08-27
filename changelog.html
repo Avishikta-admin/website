@@ -278,7 +278,8 @@
 
   <!-- Filter buttons -->
   <div class="filter-controls" aria-label="Filter changelog by category">
-    <button class="filter-btn active" data-filter="all" title="Show all">All</button>
+    <!-- New Expand/Collapse Toggle Button -->
+    <button id="toggleExpandBtn" class="filter-btn" title="Toggle expand/collapse all">🔽 Expand All</button>
     <button class="filter-btn" data-filter="🆕" title="New">🆕</button>
     <button class="filter-btn" data-filter="🎨" title="Improved">🎨</button>
     <button class="filter-btn" data-filter="🛠️" title="Fixed">🛠️</button>
@@ -306,8 +307,9 @@
   </div>
 
   <script>
-  const MAX_EXPANDED_ENTRIES = 1; // Number of entries to show expanded by default
-  let activeCategoryFilter = 'all'; // Default filter
+  const MAX_EXPANDED_ENTRIES = 1;
+  let activeCategoryFilter = 'all';
+  let allExpanded = false; // state for toggle
 
   async function loadChangelog() {
     try {
@@ -319,11 +321,7 @@
       data.forEach((entry, index) => {
         const div = document.createElement('div');
         div.className = 'entry';
-
-        // Auto-collapse older entries
-        if (index >= MAX_EXPANDED_ENTRIES) {
-          div.classList.add('collapsed');
-        }
+        if (index >= MAX_EXPANDED_ENTRIES) div.classList.add('collapsed');
 
         const dateDiv = document.createElement('div');
         dateDiv.className = 'date';
@@ -333,7 +331,9 @@
 
         entry.items.forEach(item => {
           const li = document.createElement('li');
-          li.className = item.type;
+          const emoji = item.type.trim().split(' ')[0]; // e.g., 🆕 from "🆕 new"
+          li.className = emoji;
+          li.setAttribute('data-fulltype', item.type);
           li.textContent = item.desc;
           ul.appendChild(li);
         });
@@ -341,26 +341,17 @@
         div.appendChild(dateDiv);
         div.appendChild(ul);
 
-        // Add collapse toggle button
         if (div.classList.contains('collapsed')) {
           const toggleBtn = document.createElement('button');
           toggleBtn.className = 'toggle-collapse';
           toggleBtn.textContent = 'Show more ▼';
           toggleBtn.addEventListener('click', e => {
             e.stopPropagation();
-            if (div.classList.contains('collapsed')) {
-              div.classList.remove('collapsed');
-              toggleBtn.textContent = 'Show less ▲';
-            } else {
-              div.classList.add('collapsed');
-              toggleBtn.textContent = 'Show more ▼';
-            }
+            div.classList.toggle('collapsed');
+            toggleBtn.textContent = div.classList.contains('collapsed') ? 'Show more ▼' : 'Show less ▲';
           });
           div.appendChild(toggleBtn);
-
-          div.addEventListener('click', () => {
-            toggleBtn.click();
-          });
+          div.addEventListener('click', () => toggleBtn.click());
         }
 
         entriesContainer.appendChild(div);
@@ -369,48 +360,71 @@
       initSearch();
       initFilter();
       initClearFilters();
+      initExpandCollapseToggle();
     } catch (err) {
       document.getElementById('entries').innerHTML = '<p>⚠️ Failed to load changelog data.</p>';
       console.error('Error loading changelog:', err);
     }
   }
 
-  function applyFilters() {
-    const searchValue = document.getElementById('searchInput').value.toLowerCase();
+  function clearSearch() {
+    const searchInput = document.getElementById('searchInput');
+    searchInput.value = '';
+    filterEntries('');
+  }
+
+  function filterEntries(query = '') {
     const entries = document.querySelectorAll('.entry');
+    const lowerQuery = query.toLowerCase();
 
     entries.forEach(entry => {
       const text = entry.innerText.toLowerCase();
-      const items = entry.querySelectorAll('li');
-
-      const matchesSearch = text.includes(searchValue);
-      const matchesCategory =
-        activeCategoryFilter === 'all' ||
-        Array.from(items).some(item => item.classList.contains(activeCategoryFilter));
-
-      entry.style.display = (matchesSearch && matchesCategory) ? 'block' : 'none';
+      entry.style.display = text.includes(lowerQuery) ? 'block' : 'none';
     });
+
+    applyCategoryFilter();
   }
 
-  function clearSearch() {
-    document.getElementById('searchInput').value = '';
-    applyFilters();
+  function applyCategoryFilter() {
+    const entries = document.querySelectorAll('.entry');
+
+    entries.forEach(entry => {
+      const lis = entry.querySelectorAll('li');
+      let anyVisible = false;
+
+      lis.forEach(li => {
+        if (activeCategoryFilter === 'all') {
+          li.style.display = 'list-item';
+          anyVisible = true;
+        } else {
+          const emoji = li.className.trim();
+          const matches = emoji === activeCategoryFilter;
+          li.style.display = matches ? 'list-item' : 'none';
+          if (matches) anyVisible = true;
+        }
+      });
+
+      entry.style.display = anyVisible ? 'block' : 'none';
+    });
   }
 
   function initSearch() {
     const searchInput = document.getElementById('searchInput');
-    searchInput.addEventListener('input', applyFilters);
+    searchInput.addEventListener('input', (e) => {
+      filterEntries(e.target.value);
+    });
   }
 
   function initFilter() {
     const buttons = document.querySelectorAll('.filter-btn');
     buttons.forEach(button => {
-      button.addEventListener('click', () => {
-        buttons.forEach(btn => btn.classList.remove('active'));
-        button.classList.add('active');
+      if (button.id === 'toggleExpandBtn') return; // Skip toggle button
 
+      button.addEventListener('click', () => {
+        document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+        button.classList.add('active');
         activeCategoryFilter = button.dataset.filter;
-        applyFilters();
+        applyCategoryFilter();
       });
     });
   }
@@ -418,19 +432,46 @@
   function initClearFilters() {
     const clearBtn = document.getElementById('clearFiltersBtn');
     if (!clearBtn) return;
+
     clearBtn.addEventListener('click', () => {
-      // Reset filters
       activeCategoryFilter = 'all';
-      document.getElementById('searchInput').value = '';
       document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
-      const allBtn = document.querySelector('.filter-btn[data-filter="all"]');
-      if (allBtn) allBtn.classList.add('active');
-      applyFilters();
+      const firstFilter = document.querySelector('.filter-btn[data-filter]');
+      if (firstFilter) firstFilter.classList.add('active');
+
+      const searchInput = document.getElementById('searchInput');
+      searchInput.value = '';
+      filterEntries('');
+    });
+  }
+
+  function initExpandCollapseToggle() {
+    const toggleBtn = document.getElementById('toggleExpandBtn');
+    if (!toggleBtn) return;
+
+    toggleBtn.addEventListener('click', () => {
+      allExpanded = !allExpanded;
+      const entries = document.querySelectorAll('.entry');
+      entries.forEach(entry => {
+        if (allExpanded) {
+          entry.classList.remove('collapsed');
+        } else {
+          entry.classList.add('collapsed');
+        }
+
+        const btn = entry.querySelector('.toggle-collapse');
+        if (btn) {
+          btn.textContent = entry.classList.contains('collapsed') ? 'Show more ▼' : 'Show less ▲';
+        }
+      });
+
+      toggleBtn.innerHTML = allExpanded ? '🔼 Collapse All' : '🔽 Expand All';
     });
   }
 
   loadChangelog();
 </script>
+
 
 </body>
 </html>
