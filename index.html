@@ -31,7 +31,6 @@
     --bg-color: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(9, 9, 121, 1) 24%, rgba(17, 145, 209, 1) 100%, rgba(1, 186, 238, 1) 100%, rgba(0, 212, 255, 1) 100%);
     --text-color: #fff;
   }
-
   body {
     font-family: 'Open Sans', sans-serif;
     background: var(--bg-color);
@@ -71,29 +70,6 @@ html, body {
       padding: 0;
       box-sizing: border-box;
     }
-
-  body.dark {
-    --bg-color: #121212;
-    --text-color: #e0e0e0;
-  }
-
-  #darkModeToggle {
-    padding: 10px 10px;
-    background: #0072ff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    position: sticky;
-    top: 10px;
-    right: 20px;
-    z-index: 1000;
-}
-
-  #darkModeToggle:hover {
-    background: #005bb5;
-  }
 
   #layout-root { }
 
@@ -195,28 +171,40 @@ html, body {
 }
 
     .card-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 1.5rem;
-      margin-top: 2rem;
-      padding: 0 2rem 3rem;
-    }
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+  padding: 0 2rem 3rem;
+}
 
-    .card {
-      background: linear-gradient(145deg, #2c3e50, #4ca1af); /* Stunning gradient */
-      padding: 1rem;
-      border-radius: 12px;
-      box-shadow: 0 6px 18px rgba(0,0,0,0.2);
-      transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-      cursor: default;
-      width: 100%; /* Ensures the card takes the full available space */
-      max-width: 350px; /* Keeps card width under control */
-      margin: 0 auto; /* Centers the card */
-      transform: translateY(20px);
-    }
+.card {
+  background: linear-gradient(145deg, #2c3e50, #4ca1af); /* Stunning gradient */
+  padding: 1rem;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+  transition: 
+    transform 0.3s ease, 
+    box-shadow 0.3s ease, 
+    background-color 0.3s ease,
+    opacity 0.4s ease;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  cursor: default;
+  width: 100%; /* Ensures the card takes the full available space */
+  max-width: 350px; /* Keeps card width under control */
+  margin: 0 auto; /* Centers the card */
+
+  /* Initial animation state */
+  opacity: 0;
+  transform: translateY(20px);
+}
+.card.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
     .card::after {
       content: "";
       position: absolute;
@@ -315,6 +303,8 @@ html, body {
   color: #ba68c8; /* Purple – support/help */
   font-weight: 900;
 }
+
+
     a {
       color: #a3d2ca;
       text-decoration: none;
@@ -359,6 +349,7 @@ html, body {
     padding: 0.8rem 1rem;
   }
 }
+
   .hero {
     min-height: 180px;
   }
@@ -367,6 +358,7 @@ html, body {
     object-fit: contain;
   }
 }
+
   .full-width-hero {
   width: 100vw;
   height: 280px;
@@ -804,9 +796,6 @@ header.hero .hero-image {
   </div>
 </header>
 
-<!-- Dark mode and Language toggle buttons -->
-<button id="darkModeToggle" aria-label="Toggle dark mode" title="Enable dark mode">🌞</button>
-
 <button id="map-toggle-btn">📍 Show Map</button>
 <div id="map-popup" style="display:none;">
   <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3685.896188561506!2d88.39841147507572!3d22.508077779537675!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a027157cc327c1b%3A0xfe9d5576fd4d1272!2sAvishikta%20Phase%201!5e0!3m2!1sen!2sin!4v1753114166780!5m2!1sen!2sin" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
@@ -885,10 +874,6 @@ const content = {
       show: "📍 Show Map",
       hide: "Hide Map"
     },
-    darkMode: {
-      on: "Dark Mode Enabled",
-      off: "Switch to Dark Mode"
-    },
     scrollTop: "Scroll to top",
     langToggle: {
       label: "Change language to Bengali",
@@ -908,7 +893,7 @@ const content = {
   },
   bn: {
     heroOverlay: "🖥️ অভিষিক্তা - ১ টাইপ - এ | ডিজিটাল হাব",
-    mainHeading: "🌱 প্রযুক্তির ছোঁয়ায় দীর্ঘস্থায়ী ও শক্তিশালী অ্যাসোসিয়েশন গড়ে তোলা",
+    mainHeading: "🌱 প্রযুক্তির ছোঁয়ায় দীর্ঘস্থায়ী ও অ্যাসোসিয়েশন গড়ে তোলা",
     testimonials: [
       "🌟 “এটা শুধুই প্ল্যাটফর্ম নয় — এটা আমাদের ডিজিটাল পরিবার।” – আর. সেন",
       "🌟 “টাইপ - এ অ্যাসোসিয়েশনের ডিজিটাল অগ্রগতি খুবই চিন্তাশীল এবং অনুপ্রেরণাদায়ক।” – এ. মুখার্জি",
@@ -926,10 +911,6 @@ const content = {
       show: "📍 মানচিত্র প্রদর্শন করুন",
       hide: "মানচিত্র বন্ধ করুন"
     },
-    darkMode: {
-      on: "ডার্ক মোড অন",
-      off: "ডার্ক মোড অফ্"
-    },
     scrollTop: "টপ-এ যান",
     langToggle: {
       label: "Change language to English",
@@ -938,9 +919,9 @@ const content = {
     },
     typingPhrases: [
       "অভিষিক্তা - ১ এর হৃদয়ে রয়েছে টাইপ - এ অ্যাসোসিয়েশন",
-      "হাসির ছোঁয়ায় গড়ে ওঠে মিলন, গল্পে রচিত হয় মুহূর্ত,",
+      "হাসির ছোঁয়ায় গড়ে ওঠে মিলন, গল্পে রচিত হয় মুহূর্ত",
       "সবুজ মাঠ, শান্ত পরিবেশ",
-      "প্সৌহার্দ্যের সুরে গাঁথা থাকে প্রতিটি পরিবার,",
+      "সৌহার্দ্যের সুরে গাঁথা থাকে প্রতিটি পরিবার,",
       "মমতার স্পর্শেই জোড়া থাকে হৃদয়,",
       "বিশ্বাসের Bandhan-এ একত্রিত আমরা",
       "যেখানে প্রতিবেশী হয়ে ওঠে বন্ধু",
@@ -1023,14 +1004,6 @@ document.addEventListener('DOMContentLoaded', () => {
         : content[currentLang].map.show;
     }
 
-    if (toggleBtn) {
-      const darkModeOn = document.body.classList.contains('dark');
-      const modeText = content[currentLang].darkMode[darkModeOn ? 'on' : 'off'];
-      toggleBtn.title = modeText;
-      toggleBtn.setAttribute('aria-label', modeText);
-      toggleBtn.textContent = modeText;  // optional, update button text if you want
-    }
-
     if (scrollBtn) {
       scrollBtn.title = content[currentLang].scrollTop;
       scrollBtn.setAttribute('aria-label', content[currentLang].scrollTop);
@@ -1054,13 +1027,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (p) p.textContent = card.desc;
       }
     });
-
-    if (langToggleBtn) {
-      langToggleBtn.textContent = content[currentLang].langToggle.buttonText;
-      langToggleBtn.title = content[currentLang].langToggle.title;
-      langToggleBtn.setAttribute('aria-label', content[currentLang].langToggle.label);
-    }
-  }
+   }
 
   function startTypingAnimation() {
     const phrases = content[currentLang].typingPhrases;
@@ -1097,16 +1064,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Bind click handlers
 
-  if (langToggleBtn) {
-    langToggleBtn.addEventListener('click', () => {
-      console.log('Lang toggle clicked!');
-      currentLang = currentLang === 'en' ? 'bn' : 'en';
-      localStorage.setItem('lang', currentLang);
-      updateTexts();
-      startTypingAnimation();
-    });
-  }
-
   if (scrollBtn) {
     scrollBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
     window.addEventListener('scroll', () => {
@@ -1127,17 +1084,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Dark mode toggle button
-  if (toggleBtn) {
-    toggleBtn.addEventListener('click', () => {
-      document.body.classList.toggle('dark');
-      const darkModeOn = document.body.classList.contains('dark');
-      const modeText = content[currentLang].darkMode[darkModeOn ? 'on' : 'off'];
-      toggleBtn.title = modeText;
-      toggleBtn.setAttribute('aria-label', modeText);
-      toggleBtn.textContent = modeText;
-    });
-  }
 function rotateTestimonials() {
   let current = 0;
   const testimonials = document.querySelectorAll('.testimonial');
@@ -1161,13 +1107,21 @@ function rotateTestimonials() {
 
 <!-- Toast notification script with full features -->
 <script>
-  (function() {
+
+ (function() {
+
+   // === Dark Mode Detection ===
+    const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    if (prefersDark) {
+      document.body.classList.add('dark-mode');
+    }
+
     // === CONFIG ===
     const latestVersion = "2025-08-21"; // Update on every changelog update
     const localStorageSeenKey = "avishikta_changelog_seen_version";
     const localStorageNoShowKey = "avishikta_changelog_no_show"; // For "Don't show again"
     const sessionStorageClosedKey = "avishikta_changelog_toast_closed_this_session";
-    const autoHideTimeoutMs = 5000; // 10 seconds auto-hide
+    const autoHideTimeoutMs = 5000; // 5 seconds auto-hide
 
     // === HELPER FUNCTIONS ===
     const hasSeenVersion = () => localStorage.getItem(localStorageSeenKey) === latestVersion;
@@ -1353,7 +1307,7 @@ function rotateTestimonials() {
       bn: {
         update: "🔔 সর্বশেষ আপডেট!",
         message: "Browse করার পূর্বে নতুন পরিবর্তন সম্পর্কে জেনে নিন!",
-        viewDetails: "বিস্তারিত জানুন!",
+        viewDetails: "বিস্তারিত দেখুন!",
         dontShow: "পুনরায় প্রদর্শন বন্ধ করুন!",
       }
     };
@@ -1436,15 +1390,17 @@ function rotateTestimonials() {
 
   })();
 
+// Animate cards on page load with staggered fade-in
+window.addEventListener('DOMContentLoaded', () => {
+  const cards = document.querySelectorAll('.card');
+  cards.forEach((card, index) => {
+    setTimeout(() => {
+      card.classList.add('visible');
+    }, index * 400); // slower stagger: 400ms delay between cards
+  });
+});
+
 </script>
 
 </body>
 </html>
-
-
-
-
-
-
-
-
