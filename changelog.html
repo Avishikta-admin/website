@@ -64,14 +64,19 @@
       border: none;
       color: white;
       font-weight: bold;
-      padding: 0.3rem 0.8rem;
+      padding: 0.2rem 0.6rem;
       border-radius: 5px;
       cursor: pointer;
-      font-size: 1.1rem;
+      font-size: 0.85rem;
       user-select: none;
       transition: background-color 0.3s ease;
       min-width: 50px;
       text-align: center;
+    }
+
+    .expand-toggle {
+      font-size: 0.85rem; /* Smaller font size */
+      padding: 0.2rem 0.6rem;
     }
 
     .filter-btn.active {
@@ -207,7 +212,7 @@
       background: var(--primary);
       border: none;
       color: white;
-      font-size: 0.85rem;
+      font-size: 0.75rem;
       padding: 0.2rem 0.5rem;
       border-radius: 3px;
       cursor: pointer;
@@ -263,8 +268,12 @@
       .filter-btn {
         flex: 1 1 40px;
         padding: 0.3rem 0;
-        font-size: 1.3rem;
+        font-size: 0.75rem;
       }
+      .expand-toggle {
+        font-size: 0.75rem;
+        padding: 0.2rem 0.5rem;
+     }
     }
   </style>
 </head>
@@ -471,7 +480,6 @@
 
   loadChangelog();
 </script>
-
 
 </body>
 </html>
