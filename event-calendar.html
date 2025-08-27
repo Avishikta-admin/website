@@ -18,6 +18,8 @@
   <!-- Your site CSS -->
   <link rel="stylesheet" href="css/responsive-fix.css" />
 
+  <script src="https://cdn.jsdelivr.net/npm/suncalc@1.9.0/suncalc.js"></script>
+
   <!-- Your layout script with header/sidebar/footer -->
   <script src="layout-loader.js"></script>
   <title>Avishikta - I Type - A | Interactive Event Calendar</title>
@@ -51,13 +53,14 @@
 
   /* Calendar container styling */
   #calendarContainer {
-    max-width: 500px;
-    margin: 0 auto 40px;
-    background: #fff;
-    border-radius: 12px;
-    padding: 10px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  }
+  width: 100%;      /* 90% of parent/container width */
+  max-width: 1200px; /* max cap */
+  margin: 0 auto 20px;
+  background: #fff;
+  border-radius: 12px;
+  padding: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
 
   /* Calendar title & buttons */
   #calendarTitle {
@@ -88,13 +91,45 @@
   #calendarControls button:hover {
     background: #155ecf;
   }
+  /* 3. Style for the day number inside each day cell */
+.day-number {
+  font-weight: 600;
+  font-size: 0.8rem;
+  margin-bottom: 2px;
+}
 
+* 4. Container for sunrise/sunset info inside each day */
+.sunrise-sunset {
+  display: flex;
+  flex-direction: column; /* stack sunrise & sunset vertically */
+  font-size: 0.55rem;     /* smaller font */
+  color: #555;
+  gap: 1px;               /* small gap between lines */
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+/* 5. Individual sunrise or sunset row */
+.sunrise-sunset div {
+  display: flex;
+  align-items: center;
+  gap: 4px; /* gap between icon and time */
+}
+
+/* 6. Sunrise/sunset icon styling (using emojis) */
+.sunrise-icon {
+  font-size: 0.55rem;
+  line-height: 1;
+}
   /* Event filters styling */
   #eventTypeFilters {
     display: flex;
     justify-content: center;
     gap: 10px;
     margin-bottom: 8px;
+    font-size: 0.85rem;
   }
 
   #eventTypeFilters label {
@@ -104,34 +139,35 @@
   }
 
   /* Calendar grid */
-  #calendarGrid {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 4px;
-    font-size: 0.85rem;
-  }
+#calendarGrid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 1px; /* reduced from 2px to 1px */
+  font-size: 0.75rem;
+}
 
-  /* Day names styling */
-  #calendarGrid > div:nth-child(-n+7) {
-    font-weight: 700;
-    text-align: center;
-    padding: 4px 0;
-    background: #eaeaea;
-    border-radius: 4px;
-    user-select: none;
-  }
+/* Day names styling */
+#calendarGrid > div:nth-child(-n+7) {
+  font-weight: 700;
+  text-align: center;
+  padding: 4px 0;
+  background: #eaeaea;
+  border-radius: 4px;
+  user-select: none;
+}
 
-  /* Day cells */
-  .day {
-    height: 30px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 4px;
-    cursor: pointer;
-    position: relative;
-    outline-offset: 2px;
-  }
+/* Day cells */
+.day {
+  height: 70px; /* keep your height */
+  display: flex;
+  flex-direction: column; /* stack content vertically */
+  align-items: center;    /* center horizontally */
+  justify-content: flex-start; /* top align content */
+  border-radius: 4px;
+  cursor: pointer;
+  position: relative;
+  padding: 2px 1px 1px 1px; /* reduced padding from 4px 2px 2px 2px */
+}
 
   .day.empty {
     cursor: default;
@@ -484,6 +520,42 @@
     overflow-y: auto;        /* Enable vertical scroll */
     -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
   }
+  /* Calendar adjustments */
+  #calendarContainer {
+    max-width: 100%;
+    padding: 5px 10px;
+  }
+
+  #calendarGrid {
+    font-size: 0.6rem;
+    gap: 1px;
+  }
+
+  /* Make day cells smaller and less tall */
+  .day {
+    height: 50px;
+    padding: 2px 2px 1px 2px;
+  }
+
+  /* Reduce sunrise/sunset font and spacing */
+  .sunrise-sunset {
+    font-size: 0.45rem;
+    gap: 0.3em;
+  }
+
+  .sunrise-sunset div {
+    gap: 2px;
+  }
+
+  .sunrise-sunset div span {
+    font-size: 0.5rem;
+    line-height: 1;
+  }
+
+  /* Optional: hide event icons on very small screens */
+  .event-icon {
+    display: none;
+  }
 }
 
 @media (min-width: 1024px) {
@@ -518,6 +590,7 @@
 </style>
 </head>
 <body>
+<main>
 
 <!-- Calendar container on top for mobile first -->
 <div id="calendarContainer">
@@ -653,7 +726,7 @@
   </section>
 
   <div id="upcomingEvents" tabindex="0" aria-label="Upcoming Events">
-    <h2>Upcoming Events</h2>
+    <h2 style="font-size: 18px; color: #0056A4;">Upcoming Events</h2>
     <div id="upcomingEventsList" role="list" aria-live="polite">
       <!-- Populated dynamically -->
     </div>
@@ -669,7 +742,7 @@
     <button id="closeModalBtn">Close</button>
   </div>
 </div>
-
+</main>
 <button id="scrollToTopBtn" aria-label="Scroll to top">⬆</button>
 
 <script>
@@ -784,82 +857,121 @@
     populateUpcomingEvents();
   };
 
+  //to calculate sunrise and sunset time for each date
+
   function generateCalendar() {
-    const calendarGrid = document.getElementById('calendarGrid');
-    const calendarTitle = document.getElementById('calendarTitle');
-    calendarGrid.innerHTML = '';
+  const calendarGrid = document.getElementById('calendarGrid');
+  const calendarTitle = document.getElementById('calendarTitle');
+  calendarGrid.innerHTML = '';
 
-    // Set title like "August 2025"
-    const monthNames = [
-      "January", "February", "March", "April", "May", "June",
-      "July", "August", "September", "October", "November", "December"
-    ];
-    calendarTitle.textContent = `${monthNames[currentMonth]} ${currentYear}`;
+  // Set title like "August 2025"
+  const monthNames = [
+    "January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December"
+  ];
+  calendarTitle.textContent = `${monthNames[currentMonth]} ${currentYear}`;
 
-    // Day names header
-    const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-    for (const dayName of dayNames) {
-      const dayHeader = document.createElement('div');
-      dayHeader.textContent = dayName;
-      dayHeader.setAttribute('role', 'columnheader');
-      calendarGrid.appendChild(dayHeader);
-    }
-
-    // First day of month index
-    const firstDay = new Date(currentYear, currentMonth, 1).getDay();
-    // Number of days in month
-    const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
-
-    // Add empty cells for days before month start
-    for (let i = 0; i < firstDay; i++) {
-      const emptyCell = document.createElement('div');
-      emptyCell.className = 'day empty';
-      emptyCell.setAttribute('aria-hidden', 'true');
-      calendarGrid.appendChild(emptyCell);
-    }
-
-    // Get selected event types for filtering
-    const selectedTypes = Array.from(document.querySelectorAll('#eventTypeFilters input[type="checkbox"]:checked')).map(cb => cb.value);
-
-    // Fill days
-    for (let day = 1; day <= daysInMonth; day++) {
-      const dayCell = document.createElement('div');
-      dayCell.className = 'day';
-      dayCell.textContent = day;
-      dayCell.tabIndex = 0;
-      const dateKey = `${currentYear}-${String(currentMonth+1).padStart(2,'0')}-${String(day).padStart(2,'0')}`;
-
-      // If events exist on this date and match filter
-      if (eventsData[dateKey]) {
-        const filteredEvents = eventsData[dateKey].filter(ev => selectedTypes.includes(ev.type));
-        if (filteredEvents.length > 0) {
-          dayCell.classList.add('event-day');
-          // Color background with first event type color (could be improved if multiple)
-          dayCell.style.backgroundColor = eventColors[filteredEvents[0].type];
-
-          // Add icon for the first event type
-          const iconSpan = document.createElement('span');
-          iconSpan.className = 'event-icon';
-          iconSpan.textContent = eventIcons[filteredEvents[0].type];
-          dayCell.appendChild(iconSpan);
-
-          // Add click to show modal with all events of the day
-          dayCell.addEventListener('click', () => {
-            showEventDetails(dateKey, filteredEvents);
-          });
-
-          dayCell.addEventListener('keypress', e => {
-            if (e.key === 'Enter' || e.key === ' ') {
-              e.preventDefault();
-              showEventDetails(dateKey, filteredEvents);
-            }
-          });
-        }
-      }
-
-      calendarGrid.appendChild(dayCell);
-    }
+  // Day names header
+  const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  for (const dayName of dayNames) {
+    const dayHeader = document.createElement('div');
+    dayHeader.textContent = dayName;
+    dayHeader.setAttribute('role', 'columnheader');
+    calendarGrid.appendChild(dayHeader);
   }
+
+  // First day of month index
+  const firstDay = new Date(currentYear, currentMonth, 1).getDay();
+  // Number of days in month
+  const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+
+  // Add empty cells for days before month start
+  for (let i = 0; i < firstDay; i++) {
+    const emptyCell = document.createElement('div');
+    emptyCell.className = 'day empty';
+    emptyCell.setAttribute('aria-hidden', 'true');
+    calendarGrid.appendChild(emptyCell);
+  }
+
+  // Get selected event types for filtering
+  const selectedTypes = Array.from(
+    document.querySelectorAll('#eventTypeFilters input[type="checkbox"]:checked')
+  ).map(cb => cb.value);
+
+  // Kolkata coordinates
+  const latitude = 22.5726;
+  const longitude = 88.3639;
+
+  // Fill days
+  for (let day = 1; day <= daysInMonth; day++) {
+    const dayCell = document.createElement('div');
+    dayCell.className = 'day';
+    dayCell.tabIndex = 0;
+
+    // Create and append day number container
+    const dayNumber = document.createElement('div');
+    dayNumber.className = 'day-number';
+    dayNumber.textContent = day;
+    dayCell.appendChild(dayNumber);
+
+    const dateKey = `${currentYear}-${String(currentMonth + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+    dayCell.setAttribute('data-date', dateKey);
+
+    // 🌅 Calculate sunrise and sunset
+    const dateObj = new Date(currentYear, currentMonth, day);
+    const sunTimes = SunCalc.getTimes(dateObj, latitude, longitude);
+
+    const sunriseTime = sunTimes.sunrise.toLocaleTimeString([], {
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: true
+    });
+
+    const sunsetTime = sunTimes.sunset.toLocaleTimeString([], {
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: true
+    });
+
+    // 🌇 Add sunrise/sunset to cell
+    const sunInfo = document.createElement('div');
+    sunInfo.className = 'sunrise-sunset';
+    sunInfo.innerHTML = `
+      <div><span class="sunrise-icon">🌅</span> ${sunriseTime}</div>
+      <div><span class="sunrise-icon">🌇</span> ${sunsetTime}</div>
+    `;
+    dayCell.appendChild(sunInfo);
+
+    // 🎯 Event logic
+    if (eventsData[dateKey]) {
+      const filteredEvents = eventsData[dateKey].filter(ev => selectedTypes.includes(ev.type));
+      if (filteredEvents.length > 0) {
+        dayCell.classList.add('event-day');
+        dayCell.style.backgroundColor = eventColors[filteredEvents[0].type];
+
+        const iconSpan = document.createElement('span');
+        iconSpan.className = 'event-icon';
+        iconSpan.textContent = eventIcons[filteredEvents[0].type];
+        dayCell.appendChild(iconSpan);
+
+        dayCell.addEventListener('click', () => {
+          showEventDetails(dateKey, filteredEvents);
+        });
+
+        dayCell.addEventListener('keypress', e => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            showEventDetails(dateKey, filteredEvents);
+          }
+        });
+      }
+    }
+
+    calendarGrid.appendChild(dayCell);
+  }
+}
+
+
 
   function showEventDetails(dateKey, events) {
     modalTitle.textContent = `Events on ${dateKey}`;
@@ -1022,4 +1134,3 @@ updateCountdownText(currentLang);
 
 </body>
 </html>
-
