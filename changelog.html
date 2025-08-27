@@ -283,6 +283,7 @@
     <button class="filter-btn" data-filter="🎨" title="Improved">🎨</button>
     <button class="filter-btn" data-filter="🛠️" title="Fixed">🛠️</button>
     <button class="filter-btn" data-filter="❌" title="Removed">❌</button>
+    <button id="clearFiltersBtn" class="filter-btn" title="Clear all filters">✖</button>
   </div>
 
   <!-- Search + Back to Home button container -->
@@ -367,6 +368,7 @@
 
         initSearch();
         initFilter();
+        initClearFilters();
       } catch (err) {
         document.getElementById('entries').innerHTML = '<p>⚠️ Failed to load changelog data.</p>';
         console.error('Error loading changelog:', err);
@@ -414,6 +416,25 @@
         });
       });
     }
+
+    function initClearFilters() {
+  const clearBtn = document.getElementById('clearFiltersBtn');
+  clearBtn.addEventListener('click', () => {
+    // Reset category filter to 'all' and update buttons
+    activeCategoryFilter = 'all';
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.classList.remove('active');
+    });
+    document.querySelector('.filter-btn[data-filter="all"]').classList.add('active');
+
+    // Clear search input
+    const searchInput = document.getElementById('searchInput');
+    searchInput.value = '';
+
+    // Show all entries
+    filterEntries('');
+  });
+}
 
     function applyCategoryFilter() {
       const entries = document.querySelectorAll('.entry');
