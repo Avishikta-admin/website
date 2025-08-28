@@ -34,25 +34,30 @@
     }
 
   .intro {
-  padding: 0.5rem;  /* Reduced vertical padding */
+  padding: 0.5rem 0;  /* Reduced vertical padding */
   background: #f5f9ff;
-  border-bottom: 2px solid #d0d7e3;
-  margin-bottom: 1.5rem;
   text-align: center;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.intro h1 {
-  font-size: 1.1rem;      /* Slightly smaller font */
-  margin-bottom: 0.2rem;  /* Reduced gap */
+.intro h3 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.1rem;
   color: #2c3e50;
 }
-
-.intro p {
-  margin-top: 0;
-  font-size: 1rem;        /* Slightly smaller font */
-  color: #555;
+.intro ul {
+  margin: 0;
+  padding-left: 1.2rem;
+  line-height: 1.2;
 }
+
+.intro li {
+  margin-bottom: 0.3rem;
+  font-size: 0.85rem;
+}
+#layout { background: rgba(255, 0, 0, 0.1); }
+main { background: rgba(255, 165, 0, 0.1); }
+.intro { background: rgba(0, 0, 255, 0.1); }
 
     .utility-grid {
       display: grid;
@@ -134,7 +139,6 @@ button:hover {
   }
 }
 
-
 @media (max-width: 480px) {
   .card h2, .card h3 {
     font-size: 0.85rem;
@@ -162,22 +166,24 @@ button:hover {
 
 #goTopBtn {
   position: fixed;
-  bottom: 40px;
+  bottom: 20px;
   right: 20px;
   z-index: 999;
-  width: 40px;
-  height: 40px;
+  width: 30px;
+  height: 30px;
   background-color: var(--primary);
   color: white;
   border: none;
   border-radius: 50%;
-  font-size: 1.0rem;
+  font-size: 0.85rem;
   cursor: pointer;
-  display: none; /* Initially hidden */
+  display: none; /* <- This is the key to fix alignment */
   align-items: center;
   justify-content: center;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
   transition: opacity 0.3s ease-in-out;
+  padding: 0; /* ensure no padding offsets text */
+  line-height: 1; /* avoid any vertical misalignment */
 }
 
 #goTopBtn:hover {
@@ -421,27 +427,138 @@ h3 {
     padding: 10px;
   }
 }
+.filter-btn {
+  padding: 6px 14px;       /* a bit wider for emoji + text */
+  border-radius: 9999px;   /* pill shape */
+  border: none;
+  background-color: #e0f3ff;  /* light blue */
+  color: blue;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  border: 1px solid #b3d7f5;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;                /* space between emoji and text */
+}
+
+.filter-btn:hover {
+  background-color: #cce7ff; /* slightly darker on hover */
+}
+
+.filter-btn.active {
+  background-color: #007acc; /* active bold blue */
+  color: white;
+  font-weight: bold;
+}
+body.member-tools header#page-header {
+  min-height: 32px;
+  max-height: 32px;
+  padding: 0.1rem 0.4rem !important;
+  font-size: 0.65rem !important;
+  line-height: 1 !important;
+  overflow: hidden;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(135deg, #2a72d8, #feb47b);
+  color: #fff;
+  font-weight: 600;
+  user-select: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  flex-wrap: nowrap;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  gap: 0.5rem;
+  position: fixed;
+  z-index: 9999;
+}
+
+/* Make header-text horizontally centered without messing vertical alignment */
+body.member-tools header#page-header .header-text {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 50%; /* reduce width to avoid overlap */
+  font-size: 0.65rem;
+  line-height: 1;
+  pointer-events: none;
+  user-select: none;
+  top: 50%;
+  transform: translate(-50%, -50%); /* perfectly vertical & horizontal center */
+  z-index: 1;
+}
+
+/* Keep hamburger and collapse toggle normally positioned and vertically centered */
+body.member-tools header#page-header #nav-collapse-toggle {
+  position: relative;
+  margin-top: 35px; /* Push down by 4 pixels */
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  height: 25px; /* same as header height */
+}
+
+/* Right side buttons container */
+body.member-tools header#page-header .header-actions {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+/* Individual buttons on right */
+body.member-tools header#page-header .header-actions a,
+body.member-tools header#page-header .header-actions button {
+  padding: 0.05rem 0.25rem;
+  margin: 0;
+  font-size: 0.65rem;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 24px;
+}
+
+/* On mobile, ensure header-text max-width is smaller to avoid overlap */
+@media (max-width: 768px) {
+  body.member-tools header#page-header .header-text {
+    max-width: 40%;
+  }
+}
 
 </style>
 </head>
 
-<body>
+<body class="member-tools">
   <div id="layout"></div>
 
-  <main style="margin-top: 0px; padding: 0 1rem 1rem 1rem;">
-    <section class="intro">
-      <div class="whats-new">
-  <h3>✨ What's New</h3>
+  <main>
+  <section class="intro">
+  <h3>🏡 Member Utilities</h3>
   <ul>
+    <li>Smart tools crafted with our housing association members in mind</li>
     <li><strong>New:</strong> Daily Inspiration Recommender</li>
     <li><strong>Improved:</strong> Health Metrics now switchable between Table & Card view</li>
     <li><strong>Now Available:</strong> Mini Dashboard Summary for your key tools</li>
   </ul>
-</div>
+</section>
 
-      <h1>🏡 Member Utilities</h1>
-      <p>Smart tools crafted with our housing association members in mind</p>
-    </section>
+<div id="summaryFilterContainer" style="display: none; margin-bottom: 12px; gap: 10px; flex-wrap: wrap;">
+  <button class="filter-btn" data-filter="all" onclick="renderDashboardSummaryFromTable()" style="background:#ccc;">🌈 Show All</button>
+  <button class="filter-btn" data-filter="alert" onclick="renderDashboardSummaryFromTable()">⚠️ Alerts</button>
+  <button class="filter-btn" data-filter="normal" onclick="renderDashboardSummaryFromTable()">✅ Normal</button>
+  <button class="filter-btn" data-filter="neutral" onclick="renderDashboardSummaryFromTable()">⚪ Not Entered</button>
+</div>
 
 <!-- Summary Dashboard -->
 <div id="dashboardSummary" class="dashboard-summary" style="margin-top:20px;"></div>
@@ -451,7 +568,6 @@ h3 {
   <canvas id="healthChart" width="350" height="250" style="border:1px solid #ccc;"></canvas>
 </div>
 
-<!-- Gamification Box for score -->
 <!-- Gamification Box for score -->
 <div class="gamification-box" style="margin-top:20px; font-size: 1.2rem; display:flex; gap: 40px; justify-content: center; align-items: center;">
   <div>
@@ -535,9 +651,7 @@ h3 {
      <button onclick="clearCWEInputs()" style="margin-top: 10px; padding: 8px 12px; background-color: #888; color: white; border: none; border-radius: 6px; cursor: pointer;">
     🧹 Clear Inputs
   </button>
-
     </div>
-
 </div>
 
     <div id="cwe_result" style="margin-top: 16px; font-size: 1rem; display: none; background: #eef9f1; padding: 12px; border-radius: 8px; border-left: 4px solid #4caf50;">
@@ -547,8 +661,6 @@ h3 {
     </div>
   </div>
 </div>
-
-
 
 <!-- 🏥 Health Metrics Section -->
 <!-- 🔖 Common Health Metrics Heading with Buttons -->
@@ -944,7 +1056,7 @@ h3 {
 </main>
 
   <script>
-
+  
     // 💰 Tax Estimator
   function calculateTax() {
       const inc = parseFloat(document.getElementById('incomeInput').value) || 0;
@@ -1344,6 +1456,9 @@ function resetAll() {
   if (typeof loadIssues === 'function') loadIssues();
   if (typeof showNextItem === 'function') showNextItem();
 
+  //Reset filters
+  document.getElementById('summaryFilterContainer').style.display = 'none';
+
   // Reset summary stats
 const summaryDiv = document.getElementById('summaryStats');
 if (summaryDiv) {
@@ -1545,115 +1660,198 @@ function updateHealthStatus() {
   updateSummaryDashboard(paramValues, affectedParams);
 }
 
-function renderDashboardSummaryFromTable(affected = []) {
-  const summaryContainer = document.getElementById('dashboardSummary');
-  if (!summaryContainer) return;
-  summaryContainer.innerHTML = '';
+// Chart instance
+  let healthChartInstance = null;
 
-  const tableRows = document.querySelectorAll('#healthTableView tbody tr');
+  // Render dashboard summary cards with optional affected param highlights
+  function renderDashboardSummaryFromTable(affected = []) {
+    const summaryContainer = document.getElementById('dashboardSummary');
+    if (!summaryContainer) return;
+    summaryContainer.innerHTML = '';
 
-  tableRows.forEach(row => {
-    const input = row.querySelector('input.user-input');
-    const param = input?.dataset.param || '';
-    const parameter = row.querySelectorAll('td')[0]?.innerText || 'Unknown';
-    const statusCell = row.querySelector('.status-cell');
-    const statusText = statusCell ? statusCell.innerText : 'Status Unknown';
-    const statusColor = statusCell ? statusCell.style.color : 'inherit';
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    let selectedFilter = 'all';
+    filterButtons.forEach(btn => {
+      if (btn.classList.contains('active')) selectedFilter = btn.dataset.filter;
+    });
 
-    const dsCard = document.createElement('div');
-    dsCard.className = 'ds-card';
-    dsCard.style.border = affected.includes(param) ? '2px solid red' : '1px solid #ccc';
-    dsCard.style.padding = '8px';
-    dsCard.style.marginBottom = '8px';
-    dsCard.style.borderRadius = '4px';
-    dsCard.innerHTML = `
-      <h4>${parameter}</h4>
-      <p style="color: ${statusColor}; margin: 0;">${statusText}</p>
-    `;
-    summaryContainer.appendChild(dsCard);
-  });
-}
+    const tableRows = document.querySelectorAll('#healthTableView tbody tr');
+    let visibleCardCount = 0;
 
-function renderHealthChart(affectedParams, paramValues) {
-  const chartContainer = document.getElementById('chartContainer');
-  const canvas = document.getElementById('healthChart');
-  if (!canvas) return;
-  const ctx = canvas.getContext('2d');
+    tableRows.forEach(row => {
+      const input = row.querySelector('input.user-input');
+      const param = input?.dataset.param || '';
+      const parameter = row.querySelectorAll('td')[0]?.innerText || 'Unknown';
+      const statusCell = row.querySelector('.status-cell');
+      const statusText = statusCell ? statusCell.innerText : 'Status Unknown';
+      const statusColor = statusCell ? statusCell.style.color : 'inherit';
 
-  const labels = Object.keys(paramValues).filter(param => paramValues[param] !== null && paramValues[param] !== '');
-  if (labels.length === 0) {
-    if(chartContainer) chartContainer.style.display = 'none';
-    return;
-  }
-  if(chartContainer) chartContainer.style.display = 'block';
-  canvas.height = labels.length * 10;
+      let cardBg = '#f5f5f5';
+      let statusType = 'neutral';
 
-  const data = labels.map(param => {
-    const val = paramValues[param];
-    if (typeof val === 'string' && val.includes('/')) {
-      const parts = val.split('/').map(x => parseInt(x.trim()));
-      return parts[0] || 0;
+      if (statusText.includes('✅')) {
+        cardBg = '#e8f5e9';
+        statusType = 'normal';
+      } else if (statusText.includes('⚠️')) {
+        cardBg = '#ffebee';
+        statusType = 'alert';
+      } else if (statusText.includes('⚪')) {
+        cardBg = '#fffde7';
+        statusType = 'neutral';
+      }
+
+      if (selectedFilter !== 'all' && selectedFilter !== statusType) {
+        return;
+      }
+
+      const dsCard = document.createElement('div');
+      dsCard.className = 'ds-card';
+      dsCard.style.border = affected.includes(param) ? '2px solid red' : '1px solid #ccc';
+      dsCard.style.padding = '8px';
+      dsCard.style.marginBottom = '8px';
+      dsCard.style.borderRadius = '6px';
+      dsCard.style.backgroundColor = cardBg;
+
+      dsCard.innerHTML = `
+        <h4 style="margin-top: 0;">${parameter}</h4>
+        <p style="color: ${statusColor}; margin: 0;">${statusText}</p>
+      `;
+
+      summaryContainer.appendChild(dsCard);
+      visibleCardCount++;
+    });
+
+    // Show/hide filter container based on visible cards
+    const filterContainer = document.getElementById('summaryFilterContainer');
+    if (filterContainer) {
+      filterContainer.style.display = visibleCardCount > 0 ? 'flex' : 'none';
     }
-    return Number(val) || 0;
-  });
+  }
 
-  const backgroundColors = labels.map(param =>
-    affectedParams.includes(param)
-      ? 'rgba(255, 99, 132, 0.8)'
-      : 'rgba(75, 192, 192, 0.8)'
-  );
+  // Render Chart using Chart.js with affectedParams highlighting
+  function renderHealthChart(affectedParams, paramValues) {
+    const chartContainer = document.getElementById('chartContainer');
+    const canvas = document.getElementById('healthChart');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
 
-  if (window.healthChartInstance) window.healthChartInstance.destroy();
+    // Filter labels according to paramValues (only those with a value)
+    const labels = Object.keys(paramValues).filter(param => paramValues[param] !== null && paramValues[param] !== '');
+    if (labels.length === 0) {
+      if (chartContainer) chartContainer.style.display = 'none';
+      return;
+    }
+    if (chartContainer) chartContainer.style.display = 'block';
 
-  canvas.height = labels.length * 30;
+    // Prepare chart data values
+    const data = labels.map(param => {
+      const val = paramValues[param];
+      if (typeof val === 'string' && val.includes('/')) {
+        const parts = val.split('/').map(x => parseInt(x.trim()));
+        return parts[0] || 0;
+      }
+      return Number(val) || 0;
+    });
 
-  window.healthChartInstance = new Chart(ctx, {
-    type: 'bar',
-    data: {
-      labels,
-      datasets: [{
-        label: 'Input Values',
-        data,
-        backgroundColor: backgroundColors,
-        barThickness: 12,
-      }]
-    },
-    options: {
-      indexAxis: 'y',
-      responsive: true,
-      maintainAspectRatio: false,
-      scales: {
-        x: {
-          grid: {
-           display: false
-          },
-          beginAtZero: true,
-          ticks: { precision: 0 },
-          max: Math.max(...data) * 1.2 || 100,
-        },
-        y: {
-          grid: {
-           display: false
-          },
-          ticks: {
-            font: { size: 14 },
-            autoSkip: false,
-          },
-          categoryPercentage: 0.95,
-          barPercentage: 0.95,
-        }
+    // Color bars red for affected params, teal for others
+    const backgroundColors = labels.map(param =>
+      affectedParams.includes(param)
+        ? 'rgba(255, 99, 132, 0.8)'
+        : 'rgba(75, 192, 192, 0.8)'
+    );
+
+    // Destroy old chart instance if exists
+    if (healthChartInstance) healthChartInstance.destroy();
+
+    canvas.height = labels.length * 30;
+
+    healthChartInstance = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels,
+        datasets: [{
+          label: 'Input Values',
+          data,
+          backgroundColor: backgroundColors,
+          barThickness: 12,
+        }]
       },
-      plugins: {
-        legend: { display: false },
-        tooltip: {
-          callbacks: {
-            label: context => `${context.parsed.x}`
+      options: {
+        indexAxis: 'y',
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+          x: {
+            grid: { display: false },
+            beginAtZero: true,
+            ticks: { precision: 0 },
+            max: Math.max(...data) * 1.2 || 100,
+          },
+          y: {
+            grid: { display: false },
+            ticks: { font: { size: 14 }, autoSkip: false },
+            categoryPercentage: 0.95,
+            barPercentage: 0.95,
           }
+        },
+        plugins: {
+          legend: { display: false },
+          tooltip: { callbacks: { label: ctx => `${ctx.parsed.x}` } }
         }
       }
-    }
+    });
+  }
+
+  // Collect filtered data based on active filter button
+  function getFilteredParamData() {
+    const paramValues = {};
+    const affectedParams = [];
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    let selectedFilter = 'all';
+
+    filterButtons.forEach(btn => {
+      if (btn.classList.contains('active')) selectedFilter = btn.dataset.filter;
+    });
+
+    const rows = document.querySelectorAll('#healthTableView tbody tr');
+    rows.forEach(row => {
+      const input = row.querySelector('input.user-input');
+      const param = input?.dataset.param || '';
+      const valRaw = input?.value || '';
+
+      const statusCell = row.querySelector('.status-cell');
+      const statusText = statusCell ? statusCell.innerText : '';
+      let statusType = 'neutral';
+      if (statusText.includes('✅')) statusType = 'normal';
+      else if (statusText.includes('⚠️')) statusType = 'alert';
+      else if (statusText.includes('⚪')) statusType = 'neutral';
+
+      // Skip if filter does not match
+      if (selectedFilter !== 'all' && selectedFilter !== statusType) return;
+
+      paramValues[param] = valRaw;
+      if (statusType === 'alert') affectedParams.push(param);
+    });
+
+    return { paramValues, affectedParams };
+  }
+
+  // This function is called when filter changes
+  function onFilterChange() {
+    const { paramValues, affectedParams } = getFilteredParamData();
+    renderDashboardSummaryFromTable(affectedParams);
+    renderHealthChart(affectedParams, paramValues);
+  }
+
+  // Setup filter buttons event listeners
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.onclick = () => {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      onFilterChange();
+    };
   });
-}
+
 
 const toggleBtn = document.getElementById('toggleSavedDataBtn');
 const displayArea = document.getElementById('savedDataDisplay');
@@ -1896,6 +2094,25 @@ function clearCWEInputs() {
   document.getElementById('cwe_water').textContent = '';
 }
 
+function filterDashboardCards() {
+  const filter = document.getElementById('cardFilter').value;
+  const cards = document.querySelectorAll('.dashboard-summary .ds-card');
+
+  cards.forEach(card => {
+    const text = card.innerText.toLowerCase();
+    if (filter === 'all') {
+      card.style.display = 'block';
+    } else if (filter === 'alert' && text.includes('⚠️')) {
+      card.style.display = 'block';
+    } else if (filter === 'normal' && text.includes('✅')) {
+      card.style.display = 'block';
+    } else if (filter === 'neutral' && text.includes('⚪')) {
+      card.style.display = 'block';
+    } else {
+      card.style.display = 'none';
+    }
+  });
+}
 
 </script>
 
