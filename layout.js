@@ -72,12 +72,10 @@ const footerHTML = `
 <footer id="page-footer" role="contentinfo" aria-label="Site Footer">
   <div class="footer-content">
     <div class="footer-credit">
-      Designed, Developed and Maintained with <span class="heart">❤</span> by
-      <strong><span class="blinking-text">Niloy Pandit</span></strong> |
-      &copy; 2025 Avishikta - I Type - A RWA. All rights reserved.
+      Designed and Developed by <strong><span class="blinking-text">Niloy Pandit</span></strong> | Maintained by the <strong>Technical Team</strong> |
+      &copy; Avishikta - I Type - A RWA. All rights reserved.
     </div>
       <span class="current-time" id="current-time" aria-live="polite" aria-atomic="true"></span>
-    </div>
   </div>
 </footer>
 `;
@@ -1221,4 +1219,5 @@ toggleBtn.addEventListener('click', () => {
   document.addEventListener('copy', e => e.preventDefault());
   document.addEventListener('paste', e => e.preventDefault());
 })();
+
 
