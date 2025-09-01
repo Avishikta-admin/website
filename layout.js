@@ -72,8 +72,8 @@ const footerHTML = `
 <footer id="page-footer" role="contentinfo" aria-label="Site Footer">
   <div class="footer-content">
     <div class="footer-credit">
-      Designed and Developed by <strong><span class="blinking-text">Niloy Pandit</span></strong> | Maintained by the <strong>Technical Team</strong> |
-      &copy; Avishikta - I Type - A RWA. All rights reserved.
+      Designed and Developed by <strong><span class="blinking-text">Niloy Pandit</span></strong> | ⚡Powered by the <strong style="color: #e0ffff;">Type - A Tech Team</strong> |
+      Copyright &copy Avishikta – 1 Type – A RWA, All rights reserved
     </div>
       <span class="current-time" id="current-time" aria-live="polite" aria-atomic="true"></span>
   </div>
@@ -643,8 +643,8 @@ li.locked .submenu,
       display: inline-block;          /* Shrinks to content */
       margin: 10px 20px 0 0;
       padding: 8px 12px;
-      font-size: 0.75rem;
-      background-color: #2a72d8; /* Blue background */
+      font-size: 0.7rem;
+      background-color: #78206E; /* Deep purple background */
       color: #ffffff;
       user-select: none;
       border-radius: 4px;
@@ -658,7 +658,7 @@ li.locked .submenu,
       text-decoration: underline;
     }
     nav.breadcrumb span {
-      font-weight: 600;
+      font-weight: 550;
       color: #ffffff;;
     }
 
@@ -1219,5 +1219,6 @@ toggleBtn.addEventListener('click', () => {
   document.addEventListener('copy', e => e.preventDefault());
   document.addEventListener('paste', e => e.preventDefault());
 })();
+
 
 
