@@ -1,5 +1,22 @@
 [
   {
+    "date": "2025-09-01",
+    "items": [
+      {
+        "type": "🎨 improved",
+        "desc": "Updated combined News & Event Calendar page with new layout and bright cyan text highlights."
+      },
+      {
+        "type": "🆕 new",
+        "desc": "Added tooltip support for menu items for better user guidance."
+      },
+      {
+        "type": "🛠️ fixed",
+        "desc": "Corrected sunrise and sunset time styling to use bold font weight."
+      }
+    ]
+  },
+  {
     "date": "2025-08-26",
     "items": [
       {
@@ -71,94 +88,6 @@
       {
         "type": "🎨 improved",
         "desc": "Optimized chatbot responses to deliver accurate, context-aware information quickly."
-      }
-    ]
-  },
-  {
-    "date": "2025-08-23",
-    "items": [
-      {
-        "type": "🌐 new",
-        "desc": "Launched bilingual toggle (EN/বাংলা) on the home page."
-      },
-      {
-        "type": "🎨 improved",
-        "desc": "Language toggle tooltip updated to show available Bengali-supported pages."
-      },
-      {
-        "type": "🛠️ fixed",
-        "desc": "Scroll-to-top button now appears only when needed."
-      },
-      {
-        "type": "🆕 new",
-        "desc": "Glossary page now includes filter-by-alphabet buttons with gradient backgrounds."
-      },
-      {
-        "type": "🎨 improved",
-        "desc": "Search input now includes a clear (×) button inside the box."
-      },
-      {
-        "type": "🎨 improved",
-        "desc": "Glossary page shows system date as last updated dynamically."
-      },
-      {
-        "type": "🎨 improved",
-        "desc": "Glossary heading now uses colorful diagonal gradient text."
-      },
-      {
-        "type": "🎨 improved",
-        "desc": "Improved glossary accessibility using ARIA roles."
-      }
-    ]
-  },
-  {
-    "date": "2025-08-21",
-    "items": [
-      {
-        "type": "🌐 new",
-        "desc": "Added bilingual toggle (EN/বাংলা) to the home page."
-      },
-      {
-        "type": "🎨 improved",
-        "desc": "Updated map toggle button appearance."
-      },
-      {
-        "type": "🛠️ fixed",
-        "desc": "Fixed hover state on language toggle button."
-      }
-    ]
-  },
-  {
-    "date": "2025-08-20",
-    "items": [
-      {
-        "type": "🆕 new",
-        "desc": "New event calendar with category filters: National, Religious, Other."
-      },
-      {
-        "type": "🆕 new",
-        "desc": "Users can add events to Google Calendar."
-      },
-      {
-        "type": "🌙 new",
-        "desc": "Launched dark mode feature 🌙"
-      }
-    ]
-  },
-  {
-    "date": "2025-08-19",
-    "items": [
-      {
-        "type": "🎨 improved",
-        "desc": "Better Bengali translations: context-aware + hybrid terms."
-      },
-      {
-        "type": "🛠️ fixed",
-        "desc": "Typing animation text rendering bug resolved."
-      },
-      {
-        "type": "🆕 new",
-        "desc": "Introduced 🥳 confetti celebration for first-time visitors."
       }
     ]
   }
