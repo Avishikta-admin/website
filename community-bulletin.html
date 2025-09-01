@@ -1,0 +1,1499 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <meta name="description" content="Official page of Avishikta - I Type - A RWA. Stay informed, get involved, and build a stronger association.">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.8.162/pdf.min.js"></script>
+  <script src="layout-loader.js"></script>
+    <title>Association announcements and upcoming events</title>
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Section Styles */
+        section {
+            background-color: white;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .section-header {
+            padding: 10px;
+            background-color: #0066cc;
+            color: white;
+            border-radius: 8px 8px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .section-header h2 {
+            font-size: 0.9rem;
+        }
+
+        .toggle-btn {
+            background-color: #11B0FF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 6px 12px;
+            font-size: 0.85rem;
+            cursor: pointer;
+        }
+
+        .toggle-btn:hover {
+            background-color: #ff4d40;
+        }
+
+        /* Content Styling */
+        .section-content {
+            padding: 15px;
+            display: none;
+            transition: all 0.3s ease;
+        }
+
+        .announcement {
+            margin-bottom: 15px;
+        }
+
+        .announcement h3 {
+            font-size: 1.25rem;
+            color: #444;
+        }
+
+        .announcement p {
+            font-size: 1rem;
+            color: #555;
+        }
+
+        .announcement-date {
+            display: block;
+            font-size: 0.9rem;
+            color: #888;
+            margin-top: 5px;
+        }
+
+        /* Nirghanta Specific Styling */
+        .nirghanta {
+            background-color: #ffcc00;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .nirghanta .section-header {
+            background-color: #cc6600;
+        }
+
+        .nirghanta h2 {
+            color: white;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Styling */
+        @media (max-width: 768px) {
+            .calendar {
+                grid-template-columns: repeat(7, 1fr);
+            }
+
+            .section-header h2 {
+                font-size: 0.9rem;
+            }
+
+            .toggle-btn {
+                font-size: 0.8rem;
+            }
+        }
+
+/* Nirghanta Table Styling (updated for container fit) */
+.nirghanta-container {
+  max-width: 1200px;
+  margin: 0 auto 20px auto;
+  padding: 15px 30px 25px;
+  background: #fff9f4;
+  border: 8px double #e75480;
+  border-radius: 20px;
+  box-shadow: 0 0 18px rgba(231, 84, 128, 0.35);
+  color: #4b2e3b;
+  position: relative;
+  overflow: visible;
+  box-sizing: border-box;
+}
+
+.nirghanta-container::before,
+.nirghanta-container::after {
+  content: "❀";
+  font-size: 20px;
+  color: #e75480;
+  position: absolute;
+}
+
+.nirghanta-container::before {
+  top: 10px;
+  left: 10px;
+}
+
+.nirghanta-container::after {
+  bottom: 12px;
+  right: 12px;
+}
+
+.nirghanta-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  border-bottom: 2px solid #e75480;
+  padding-bottom: 8px;
+}
+
+.nirghanta-header h3 {
+  margin: 0;
+  font-size: 0.8rem;
+}
+
+#langToggleBtn {
+  background: #e75480;
+  border: none;
+  border-radius: 25px;
+  color: white;
+  font-weight: 600;
+  padding: 6px 14px;
+  cursor: pointer;
+  box-shadow: 0 3px 6px rgba(231, 84, 128, 0.6);
+  transition: background 0.3s ease;
+}
+
+#langToggleBtn:hover {
+  background: #d1426e;
+}
+
+.nirghanta-note {
+  font-style: italic;
+  font-size: 0.8rem;
+  color: #b55376;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.nirghanta-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 25px;
+  box-shadow: 0 2px 6px rgba(231, 84, 128, 0.2);
+  border-radius: 12px;
+  overflow: hidden;
+  box-sizing: border-box; /* added for sizing */
+}
+
+.nirghanta-table thead tr {
+  background: #ffe7f0;
+  border-left: 6px solid #e75480;
+}
+
+.nirghanta-table th,
+.nirghanta-table td {
+  padding: 14px 18px;
+  border-bottom: 2px solid #e75480;
+  text-align: left;
+  color: #581c36;
+  font-weight: 600;
+  font-size: 0.8rem;
+  box-sizing: border-box; /* added */
+  word-break: break-word; /* added for better text wrap */
+}
+
+.nirghanta-table th {
+  color: #a31f4b;
+  font-size: 0.85rem;
+}
+
+.event-name {
+  font-weight: 600;
+  color: #4b2e3b;
+}
+
+.event-time {
+  font-style: italic;
+  color: #9c3655;
+  text-align: right;
+  white-space: nowrap;
+  font-weight: 500;
+}
+
+.nirghanta-table tbody tr {
+  background: #fff9f4;
+  transition: background 0.4s ease;
+}
+
+.nirghanta-table tbody tr:hover {
+  background: #ffd1df;
+}
+
+/* Responsive tweaks */
+@media (max-width: 480px) {
+  .nirghanta-container {
+    padding: 15px 20px;
+    border-width: 6px;
+  }
+
+  .nirghanta-header h3 {
+    font-size: 0.85rem;
+  }
+
+  .nirghanta-table th,
+  .nirghanta-table td {
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: 10px 5px;
+  }
+
+  .nirghanta-table thead {
+    display: none;
+  }
+
+  .nirghanta-table tbody tr {
+    margin-bottom: 20px;
+    display: block;
+    border: 2px solid #e75480;
+    border-radius: 12px;
+    padding: 15px;
+  }
+
+  .event-time {
+    text-align: left;
+    margin-top: 4px;
+    color: #b55376;
+  }
+
+  #langToggleBtn {
+    padding: 6px 10px;
+    font-size: 0.8r5em;
+  }
+  /* Base countdown badge (Durga Puja theme) */
+  .countdown-badge {
+  background-color: #b30000; /* Festive red */
+  color: #fff8dc;             /* Light golden */
+  font-weight: bold;
+  margin-left: 8px;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 10px;
+  display: inline-block;
+}
+
+.countdown-glow-pulse {
+  animation: glowPulse 1.5s infinite ease-in-out;
+  text-shadow: 0 0 6px #ffcc00, 0 0 12px #ffcc00; /* soft golden glow */
+}
+
+@keyframes glowPulse {
+  0% { transform: scale(1); text-shadow: 0 0 6px #ffcc00; }
+  50% { transform: scale(1.1); text-shadow: 0 0 12px #ffcc00; }
+  100% { transform: scale(1); text-shadow: 0 0 6px #ffcc00; }
+}
+
+.overall-title h2{
+    font-family: 'Segoe UI', 'Arial', sans-serif;
+    font-size: 30px;
+    color: blue;
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    margin: 0;
+}
+
+/* Optional Hover Effect */
+.overall-title:hover {
+    color: #28a745; /* green tone on hover */
+    cursor: default;
+    text-decoration: underline;
+}
+
+/* Center calendar day text and make bold */
+/* Calendar grid days */
+#calendarGrid .day {
+  font-weight: bold; /* Bold all text inside the day cell */
+  font-size: 12px;   /* Base font size */
+  display: flex;
+  flex-direction: column;
+  align-items: center;    /* Center horizontally */
+  justify-content: flex-start;
+  padding: 4px;
+  min-height: 60px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  background-color: #fff;
+  box-sizing: border-box;
+  text-align: center; /* Center text */
+  cursor: pointer;    /* pointer cursor on day cells */
+  user-select: none;  /* prevent text selection on clicks */
+  transition: background-color 0.2s ease;
+}
+
+/* Empty cells (before first day and after last day) */
+#calendarGrid .day.empty {
+  border: none;
+  background-color: transparent;
+  cursor: default;
+  user-select: none;
+}
+
+/* Day number inside each day */
+#calendarGrid .day .day-number {
+  font-weight: bold;
+  font-size: 10px;
+  margin-bottom: 2px;
+}
+
+/* Sunrise/Sunset times container */
+#calendarGrid .day .sunrise-sunset {
+  font-size: 8px;   /* smaller than base */
+  line-height: 1.1;
+  user-select: none;
+  margin-top: auto;  /* push to bottom */
+  color: #555;
+}
+
+/* Sunrise and Sunset emojis */
+#calendarGrid .day .sunrise-icon,
+#calendarGrid .day .sunset-icon {
+  font-size: 14px;  /* smaller emojis */
+  vertical-align: middle;
+  margin-right: 2px;
+}
+
+/* Desktop view only */
+@media (min-width: 769px) {
+  #calendarGrid .day .day-number {
+    font-size: 10px !important;
+  }
+
+  #calendarGrid .day .sunrise-sunset {
+    font-size: 8px !important;
+  }
+
+  #calendarGrid .day .sunrise-icon,
+  #calendarGrid .day .sunset-icon {
+    font-size: 10px !important;
+  }
+}
+
+/* Highlight today */
+#calendarGrid .day.today-highlight {
+  border: 2px solid #0056A4;
+  box-shadow: 0 0 8px #0056A4;
+}
+
+/* Hover effect for event days */
+#calendarGrid .day.event-day:hover {
+  background-color: #f0f8ff;
+}
+
+
+/* Base (desktop-first) layout */
+#upcomingEvents {
+  width: 100%;
+  max-width: 100%;
+}
+
+/* 🖥️ Desktop: horizontal layout */
+.upcoming-events-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  justify-content: center;
+  width: 100%;
+  align-items: stretch;
+  padding: 10px 0;
+}
+
+.upcoming-events-container .event-item {
+  flex: 0 0 200px;  /* Fixed width, no grow/shrink */
+  width: 200px;
+  margin: 5px;
+  border: 1px solid #ccc;
+  border-left: 5px solid;
+  padding: 10px;
+  border-radius: 5px;
+  background: #f9f9f9;
+  box-sizing: border-box;
+}
+
+.upcoming-events-container .event-item:hover {
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+/* Event type colors */
+.event-religious {
+  border-left-color: #4a90e2;   /* blue */
+  background-color: #e8f0fe;
+}
+
+.event-meeting {
+  border-left-color: #f5a623;   /* orange */
+  background-color: #fff4e5;
+}
+
+.event-national {
+  border-left-color: #7ed321;   /* green */
+  background-color: #ecf9ec;
+}
+
+.event-other {
+  border-left-color: #bd10e0;   /* purple */
+  background-color: #f5e6fb;
+}
+.event-type {
+  font-weight: 700;
+  margin-bottom: 5px;
+  text-transform: uppercase;
+  font-size: 12px;
+  color: #666;
+}
+
+.event-name {
+  font-weight: 600;
+  font-size: 15px;
+  margin-bottom: 6px;
+  color: #222;
+}
+
+.event-date {
+  font-size: 13px;
+  color: #555;
+}
+
+@media (max-width: 600px) {
+  .upcoming-events-container {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .upcoming-events-container .event-item {
+    flex: 1 1 auto;
+    width: 100%;
+    max-width: 100%;
+  }
+}
+
+#eventTypeFilters {
+  font-size: 12px;
+}
+
+#eventTypeFilters legend {
+  font-size: 13px;
+  font-weight: bold;
+}
+
+#calendarControls button {
+  background-color: #0056A4;      /* Nice blue */
+  color: white;                   /* Text color */
+  border: none;                   /* Remove default border */
+  padding: 8px 15px;              /* Comfortable padding */
+  margin: 0 5px;                  /* Space between buttons */
+  border-radius: 5px;             /* Rounded corners */
+  font-weight: 600;
+  cursor: pointer;                /* Pointer on hover */
+  box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+#calendarControls button:hover {
+  background-color: #003f7d;      /* Darker blue on hover */
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+#calendarControls button:focus {
+  outline: 2px solid #ffbf47;    /* Visible focus outline */
+  outline-offset: 2px;
+}
+.new-label {
+  color: #ffffff;         /* Bright red color */
+  font-weight: bold;
+  margin-left: 8px;       /* Space between heading and label */
+  font-size: 0.75em;
+  animation: blink 1.2s infinite;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: Arial, sans-serif;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+</style>
+</head>
+
+<body>
+    <!-- Header, Sidebar, and Breadcrumb - Injected by layout.js -->
+    <div id="header-placeholder"></div>
+    <div id="sidebar-placeholder"></div>
+    <div id="breadcrumb-placeholder"></div>
+
+<main>
+
+<h2 style="
+  font-family: 'Segoe UI', Arial, sans-serif; 
+  font-weight: 700; 
+  font-size: 25px; 
+  text-transform: uppercase; 
+  letter-spacing: 1.5px; 
+  text-align: center; 
+  margin: 10px 0 20px; 
+  
+  background: linear-gradient(90deg, #007BFF, #28a745);
+  -webkit-background-clip: text; 
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+  cursor: default;
+">Association Announcements & Upcoming Events</h2>
+
+    <div class="container">
+        <!-- Association Announcements Section -->
+        <section id="association-announcements">
+    <div class="section-header">
+        <h2>Association Announcements</h2>
+        <button class="toggle-btn" data-label="Announcement">+ Show Announcement</button>
+    </div>
+    <div class="section-content">
+        <div class="announcement">
+    <h3>19th AGM - Held on 27th July, 2025</h3>
+    <div class="announcement-points">
+        <div class="point">
+            <span class="icon">✔️</span> Unanimously approved resolutions were discussed and adopted during the meeting.
+        </div>
+        <div class="point">
+            <span class="icon">✔️</span> The Annual General Meeting covered community plans, upcoming events, and financial updates.
+        </div>
+        <div class="point">
+            <span class="icon">✔️</span> A new website for the association was officially unveiled by Senior Member Mr. S. K. Roy, to resounding applause. The unveiling ceremony was followed by a heartfelt recognition of the designer and developer behind the site, Niloy Pandit, the Secretary, whose exceptional vision and dedication played a pivotal role in bringing the website to life.
+        </div>
+        <div class="point">
+            <span class="icon">✔️</span> It was resolved that members with monthly maintenance dues for 3 or more consecutive months will temporarily be deprived of maintenance-oriented services until the due amount is cleared. Furthermore, the names of defaulters will be displayed across all communication channels.
+        </div>
+    </div>
+    <p style="color: #007BFF;">For more details, please refer to the <b>Meeting Minutes Submenu</b> under the <b>Resource Menu.</b></p>
+</div>
+
+    </div>
+</section>
+
+<!-- Event Calendar Section -->
+<section id="event-calendar">
+  <div class="section-header">
+    <h2>Event Calendar</h2>
+    <button class="toggle-btn" data-label="Calendar">+ Show Calendar</button>
+  </div>
+
+  <div class="section-content">
+    <!-- Controls -->
+    <div id="calendarControls" style="margin-bottom: 10px; text-align: center;">
+      <button id="prevMonthBtn" aria-label="Previous month">&lt;</button>
+      <button id="todayBtn" aria-label="Go to today">Today</button>
+      <button id="nextMonthBtn" aria-label="Next month">&gt;</button>
+      <span id="calendarTitle" aria-live="polite" style="margin-left: 10px; font-weight: bold;"></span>
+    </div>
+
+    <!-- Filters -->
+    <fieldset id="eventTypeFilters" aria-label="Filter events by type" style="margin-bottom: 15px; text-align: center;">
+      <legend>Filter Events</legend>
+      <label><input type="checkbox" value="religious" checked> Religious</label>
+      <label><input type="checkbox" value="meeting" checked> Meeting</label>
+      <label><input type="checkbox" value="national" checked> National</label>
+      <label><input type="checkbox" value="other" checked> Other</label>
+    </fieldset>
+
+    <!-- Calendar Grid -->
+    <div id="calendarGrid" role="grid" aria-label="Calendar"
+         style="display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px;">
+    </div>
+
+    <!-- Upcoming Events -->
+    <div id="upcomingEvents" tabindex="0" aria-label="Upcoming Events" style="margin-top: 30px;">
+      <h2 style="font-size: 18px; color: #0056A4;">Upcoming Events</h2>
+      <div id="upcomingEventsList" role="list" aria-live="polite" 
+     class="upcoming-events-container" 
+     style="display: flex; flex-wrap: wrap; gap: 15px; justify-content: center;">
+</div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Event Details Modal -->
+<div id="eventModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" aria-describedby="modalDesc"
+     tabindex="-1" class="hidden" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+     justify-content: center; align-items: center; background: rgba(0,0,0,0.5); display: none;">
+  <div id="modalBackdrop" style="position:absolute; width:100%; height:100%;"></div>
+  <div id="modalContent" style="background: white; padding: 20px; border-radius: 8px; z-index: 10; max-width: 400px; width: 90%;">
+    <h2 id="modalTitle"></h2>
+    <div id="modalDesc" style="margin: 15px 0;"></div>
+    <button id="closeModalBtn" aria-label="Close modal">Close</button>
+  </div>
+</div>
+
+<!-- Include SunCalc -->
+<script src="https://cdn.jsdelivr.net/npm/suncalc@1.9.0/suncalc.js"></script>
+
+
+<!-- Durga Puja Nirghanta Section -->
+<!-- Durga Puja Nirghanta Section -->
+<section id="nirghanta" class="nirghanta">
+  <div class="section-header">
+  <h2>
+  Durga Puja Nirghanta
+  <span 
+    style="
+      color: white; 
+      background-color: #ff4d4d; 
+      font-weight: bold; 
+      margin-left: 8px; 
+      font-size: 0.8em; 
+      padding: 2px 6px; 
+      border-radius: 4px; 
+      font-family: Arial, sans-serif; 
+      display: inline-block;
+      animation-name: blink;
+      animation-duration: 1.2s;
+      animation-iteration-count: infinite;
+    "
+  >
+    New
+  </span>
+</h2>
+
+<!-- Add this style block once somewhere in your page: -->
+<style>
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+</style>
+
+  <button class="toggle-btn" data-label="Nirghanta" onclick="toggleNirghantaDetails(this)">+ Show Nirghanta</button>
+</div>
+
+  <!-- This entire block will be toggled -->
+  <div id="nirghantaContent" style="display: none;">
+    <div class="section-content" style="display: block;">
+  <div style="display: flex; justify-content: space-between; align-items: center;">
+    <h3 style="font-size: 15px; margin: 0;">
+      🔔 দেবীর আগমন গজ বা হাতিতে | দেবীর গমন দোলা বা পালকিতে
+    </h3>
+    <button id="langToggleBtn" title="Toggle Language" aria-label="Toggle Language"
+            style="display: inline-block; padding: 5px 10px; font-size: 13px; cursor: pointer;">
+      🌐 Switch to <span id="nextLangLabel">বাংলা</span>
+    </button>
+  </div>
+
+  <p id="disclaimer" style="color: blue; font-weight: bold; font-size: 0.85rem;">
+    **Disclaimer:** The timings shown below are indicative only. Please check with the priest to know the current timings
+  </p>
+</div>
+
+    <!-- Nirghanta Timeline Table (Collapsible Section) -->
+    <div id="nirghantaTimeline" class="nirghanta-timeline">
+        <table class="nirghanta-table" aria-label="Durga Puja Nirghanta Timeline">
+            <thead>
+                <tr>
+                    <th>দিন (Day)</th>
+                    <th>তারিখ (Date)</th>
+                    <th>অনুষ্ঠানের নাম (Event Name)</th>
+                    <th>সময় (Timing)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="shasthi">
+                   <td id="mahaShasthiCell" data-en="🌿 Maha Shasthi" data-bn="🌿 মহাষষ্ঠী">
+  			<span class="event-name">🌿 Maha Shasthi</span>
+  			<span class="countdown-badge" id="countdownBadge"></span>
+		   </td> 
+                    <td data-en="(28 Sept)" data-bn="(২৮ সেপ্টেম্বর)">(28 Sept)</td>
+                    <td>
+                        <span class="event-name" data-en="Bodhon (Invocation of Goddess)" data-bn="বোধন (মহাষষ্ঠী)">Bodhon (Invocation of Goddess)</span><br/>
+                        <span class="event-name" data-en="Sandhi Puja Preparation" data-bn="সন্ধি পূজার প্রস্তুতি">Sandhi Puja Preparation</span>
+                    </td>
+                    <td><span class="event-time" data-en="5:30 PM to 7:00 PM" data-bn="সন্ধ্যা ৫:৩০ থেকে সন্ধ্যা ৭:০০">5:30 PM to 7:00 PM</span></td>
+                </tr>
+                <tr class="saptami">
+                    <td data-en="🌅 Maha Saptami" data-bn="🌅 মহাসপ্তমী">🌅 Maha Saptami</td>
+                    <td data-en="(29 Sept)" data-bn="(২৯ সেপ্টেম্বর)">(29 Sept)</td>
+                    <td>
+                        <span class="event-name" data-en="Nabapatrika Snan (Bathing the nine plants)" data-bn="নবপত্রিকা স্নান">Nabapatrika Snan</span><br/>
+                        <span class="event-name" data-en="Pratah Puja (Morning worship)" data-bn="প্রাতঃ পূজা">Pratah Puja</span><br/>
+                        <span class="event-name" data-en="Pushpanjali (Offering of flowers)" data-bn="পুষ্পাঞ্জলি">Pushpanjali</span>
+                    </td>
+                    <td><span class="event-time" data-en="6:15 AM to 9:30 AM" data-bn="সকাল ৬:১৫ থেকে সকাল ৯:৩০">6:15 AM to 9:30 AM</span></td>
+                </tr>
+                <tr class="astami">
+                    <td data-en="🔥 Maha Astami" data-bn="🔥 মহাঅষ্টমী">🔥 Maha Astami</td>
+                    <td data-en="(30 Sept)" data-bn="(৩০ সেপ্টেম্বর)">(30 Sept)</td>
+                    <td>
+                        <span class="event-name" data-en="Sandhi Puja (Transition worship)" data-bn="সন্ধি পূজা">Sandhi Puja</span><br/>
+                        <span class="event-name" data-en="Kumari Puja (Virgin worship)" data-bn="কুমারী পূজা">Kumari Puja</span><br/>
+                        <span class="event-name" data-en="Astami Puja" data-bn="অষ্টমী পূজা">Astami Puja</span>
+                    </td>
+                    <td><span class="event-time" data-en="4:30 AM to 12:00 PM" data-bn="ভোর ৪:৩০ থেকে দুপুর ১২:০০">4:30 AM to 12:00 PM</span></td>
+                </tr>
+                <tr class="nabami">
+                    <td data-en="🪔 Maha Nabami" data-bn="🪔 মহানবমী">🪔 Maha Nabami</td>
+                    <td data-en="(1 Oct)" data-bn="(১ অক্টোবর)">(1 Oct)</td>
+                    <td>
+                        <span class="event-name" data-en="Nabami Puja" data-bn="নবমী পূজা">Nabami Puja</span><br/>
+                        <span class="event-name" data-en="Bhog Offering" data-bn="ভোগ আরতি">Bhog Offering</span>
+                    </td>
+                    <td><span class="event-time" data-en="8:00 AM to 11:00 AM" data-bn="সকাল ৮:০০ থেকে সকাল ১১:০০">8:00 AM to 11:00 AM</span></td>
+                </tr>
+                <tr class="dashami">
+                    <td data-en="🌊 Maha Dashami" data-bn="🌊 মহাদশমী">🌊 Maha Dashami</td>
+                    <td data-en="(2 Oct)" data-bn="(২ অক্টোবর)">(2 Oct)</td>
+                    <td>
+                        <span class="event-name" data-en="Sindoor Khela (Vermilion game)" data-bn="সিঁদুর খেলা">Sindoor Khela</span><br/>
+                        <span class="event-name" data-en="Visarjan (Immersion of the idol)" data-bn="বিসর্জন">Visarjan</span>
+                    </td>
+                    <td><span class="event-time" data-en="10:00 AM to 4:00 PM" data-bn="সকাল ১০:০০ থেকে বিকেল ৪:০০">10:00 AM to 4:00 PM</span></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+  </div> <!-- Added closing div for nirghantaContent -->
+</section>
+
+    <!-- Footer - Injected by layout.js -->
+    <div id="footer-placeholder"></div>
+
+</main>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+    const toggleBtns = document.querySelectorAll('.toggle-btn');
+    
+    toggleBtns.forEach(button => {
+        // Skip if button already has its own handler (like Nirghanta)
+        if (!button.hasAttribute('onclick')) {
+            button.addEventListener('click', function () {
+                const content = this.parentElement.nextElementSibling;
+                const label = this.getAttribute('data-label') || 'Section';
+
+                if (content.style.display === 'block') {
+                    content.style.display = 'none';
+                    this.textContent = `+ Show ${label}`;
+                } else {
+                    content.style.display = 'block';
+                    this.textContent = `- Hide ${label}`;
+                }
+            });
+        }
+    });
+
+    // Initialize layout (header, footer, sidebar, breadcrumb)
+    if (typeof initializeLayout === "function") {
+        initializeLayout();
+    }
+});
+
+function toggleNirghantaDetails(button) {
+  const label = button.getAttribute('data-label') || 'Nirghanta';
+  const contentWrapper = document.getElementById('nirghantaContent');
+  const isHidden = window.getComputedStyle(contentWrapper).display === 'none';
+
+  if (isHidden) {
+    contentWrapper.style.display = 'block';
+    button.textContent = `- Hide ${label}`;
+
+    // 🔥 Badge can now be found — run update!
+    updateCountdownText(currentLang);
+  } else {
+    contentWrapper.style.display = 'none';
+    button.textContent = `+ Show ${label}`;
+  }
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  const langToggleBtn = document.getElementById("langToggleBtn");
+  const nextLangLabel = document.getElementById("nextLangLabel");
+  let currentLang = "en";
+
+  const countdownTranslations = {
+    en: {
+      daysLeft: "days left",
+      today: "Today!",
+      passed: "Passed"
+    },
+    bn: {
+      daysLeft: "দিন বাকি",
+      today: "আজ!",
+      passed: "শেষ হয়েছে"
+    }
+  };
+
+  const disclaimerTranslations = {
+    en: "**Disclaimer:** The timings shown below are indicative only. Please check with the priest to know the current timings",
+    bn: "**দ্রষ্টব্য:** নিচে প্রদর্শিত সময়সমূহ আনুমানিক। সঠিক সময় জানার জন্য অনুগ্রহ করে পুরোহিতের সাথে যোগাযোগ করুন।"
+  };
+
+  function toBengaliDigits(numberStr) {
+  const enToBnDigits = { '0': '০', '1': '১', '2': '২', '3': '৩', '4': '৪', '5': '৫', '6': '৬', '7': '৭', '8': '৮', '9': '৯' };
+  return numberStr.replace(/\d/g, d => enToBnDigits[d]);
+}
+
+function toEnglishDigits(numberStr) {
+  const bnToEnDigits = { '০': '0', '১': '1', '২': '2', '৩': '3', '৪': '4', '৫': '5', '৬': '6', '৭': '7', '৮': '8', '৯': '9' };
+  return numberStr.replace(/[০-৯]/g, d => bnToEnDigits[d]);
+}
+
+function updateCountdownText(lang) {
+  const badge = document.getElementById("countdownBadge");
+  if (!badge) return; // skip if badge not yet rendered
+
+  const disclaimer = document.getElementById("disclaimer");
+  const mahaShasthiDate = new Date("2025-09-28T00:00:00");
+  const today = new Date();
+  const timeDiff = mahaShasthiDate - today;
+  const daysRemaining = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
+
+  badge.style.backgroundColor = "#b30000";
+
+  if (daysRemaining > 0) {
+    badge.style.display = "inline";
+    let daysText = ` (${daysRemaining} ${countdownTranslations[lang].daysLeft})`;
+
+    // Convert digits based on language
+    if (lang === 'bn') {
+      daysText = toBengaliDigits(daysText);
+    } else {
+      daysText = toEnglishDigits(daysText);
+    }
+
+    badge.textContent = daysText;
+    badge.style.color = "#fff8dc";
+    badge.style.fontWeight = "bold";
+    badge.classList.add("countdown-badge", "countdown-glow-pulse");
+  } else if (daysRemaining === 0) {
+    badge.style.display = "inline";
+
+    let todayText = ` (${countdownTranslations[lang].today})`;
+    // For 'today', just convert digits if any (usually none, but safe)
+    if (lang === 'bn') {
+      todayText = toBengaliDigits(todayText);
+    } else {
+      todayText = toEnglishDigits(todayText);
+    }
+
+    badge.textContent = todayText;
+    badge.style.color = "#ffcc00";
+    badge.style.fontWeight = "bold";
+    badge.classList.add("countdown-badge");
+    badge.classList.remove("countdown-glow-pulse");
+  } else {
+    badge.textContent = "";
+    badge.style.display = "none";
+  }
+
+  if (disclaimer) {
+    disclaimer.innerHTML = disclaimerTranslations[lang];
+  }
+}
+
+function toggleLanguage() {
+  currentLang = currentLang === "en" ? "bn" : "en";
+  const targetAttr = `data-${currentLang}`;
+
+  const elements = document.querySelectorAll("[data-en][data-bn]");
+  elements.forEach(el => {
+    if (el.id === "countdownBadge") return; // skip badge itself
+
+    // Allow toggle on elements with text only (skip those with child nodes except #mahaShasthiCell)
+    if (el.children.length > 0 && el.id !== "mahaShasthiCell") return;
+
+    const newText = el.getAttribute(targetAttr);
+    if (newText) {
+      // Special handling for mahaShasthiCell to update only event-name span, keep badge intact
+      if (el.id === "mahaShasthiCell") {
+        const eventNameSpan = el.querySelector(".event-name");
+        if (eventNameSpan) {
+          eventNameSpan.textContent = newText;
+        }
+      } else {
+        el.textContent = newText;
+      }
+    }
+  });
+
+  nextLangLabel.textContent = currentLang === "en" ? "বাংলা" : "English";
+
+  updateCountdownText(currentLang);
+}
+
+
+  // Initialize disclaimer and countdown on page load
+  updateCountdownText(currentLang);
+
+  // Expose toggle function globally for your toggle button
+  window.toggleNirghantaDetails = function (button) {
+    const label = button.getAttribute('data-label') || 'Nirghanta';
+    const contentWrapper = document.getElementById('nirghantaContent');
+    const isHidden = window.getComputedStyle(contentWrapper).display === 'none';
+
+    if (isHidden) {
+      contentWrapper.style.display = 'block';
+      button.textContent = `- Hide ${label}`;
+      updateCountdownText(currentLang);
+    } else {
+      contentWrapper.style.display = 'none';
+      button.textContent = `+ Show ${label}`;
+    }
+  };
+
+  langToggleBtn.addEventListener("click", toggleLanguage);
+});
+
+
+// Global variables
+let eventModal, modalTitle, modalDesc, closeModalBtn;
+let currentYear, currentMonth;
+
+const eventColors = {
+  religious: '#d1b3e0',
+  meeting: '#27ae60',
+  national: '#e67e22',
+  other: '#3498db'
+};
+
+const eventIcons = {
+  religious: '🙏',
+  meeting: '📅',
+  national: '🎆',
+  other: '📌'
+};
+
+const eventsData = {
+  "2025-08-15": [{ type: "national", name: "Independence Day" }],
+  "2025-08-25": [{ type: "other", name: "Valve Repair" }],
+  "2025-08-27": [{ type: "religious", name: "Ganesh Chaturthi" }],
+  "2025-09-05": [{ type: "national", name: "Teacher's Day" }],
+  "2025-09-17": [{ type: "religious", name: "Biswakarma Puja" }],
+  "2025-09-21": [{ type: "religious", name: "Mahalaya" }],
+  "2025-09-29": [{ type: "religious", name: "Maha Saptami" }],
+  "2025-09-30": [{ type: "religious", name: "Maha Astami" }],
+  "2025-10-01": [{ type: "religious", name: "Maha Nabami" }],
+  "2025-10-02": [{ type: "religious", name: "Bijoya Dasami" }],
+  "2025-10-06": [{ type: "religious", name: "Lakshmi Puja" }],
+  "2025-10-20": [{ type: "religious", name: "Kali Puja" }],
+  "2025-10-23": [{ type: "religious", name: "Bhratri Dwitiya" }],
+  "2025-12-25": [{ type: "religious", name: "Christmas" }],
+};
+
+window.onload = () => {
+  eventModal = document.getElementById('eventModal');
+  modalTitle = document.getElementById('modalTitle');
+  modalDesc = document.getElementById('modalDesc');
+  closeModalBtn = document.getElementById('closeModalBtn');
+
+  closeModalBtn.onclick = hideModal;
+  document.getElementById('modalBackdrop').onclick = hideModal;
+  window.addEventListener('keydown', e => {
+    if (e.key === 'Escape') hideModal();
+  });
+
+  document.querySelectorAll('#eventTypeFilters input[type="checkbox"]').forEach(chk => {
+    chk.addEventListener('change', () => {
+      generateCalendar();
+      populateUpcomingEvents();
+    });
+  });
+
+  document.getElementById('todayBtn').addEventListener('click', () => {
+    const today = new Date();
+    currentYear = today.getFullYear();
+    currentMonth = today.getMonth();
+    generateCalendar();
+    highlightToday();
+    populateUpcomingEvents();
+  });
+
+  document.getElementById('prevMonthBtn').addEventListener('click', () => {
+    currentMonth--;
+    if (currentMonth < 0) {
+      currentMonth = 11;
+      currentYear--;
+    }
+    if (canNavigateTo(currentYear, currentMonth)) {
+      generateCalendar();
+      highlightToday();
+      populateUpcomingEvents();
+    }
+  });
+
+  document.getElementById('nextMonthBtn').addEventListener('click', () => {
+    currentMonth++;
+    if (currentMonth > 11) {
+      currentMonth = 0;
+      currentYear++;
+    }
+    if (canNavigateTo(currentYear, currentMonth)) {
+      generateCalendar();
+      highlightToday();
+      populateUpcomingEvents();
+    }
+  });
+
+  const today = new Date();
+  currentYear = today.getFullYear();
+  currentMonth = today.getMonth();
+  generateCalendar();
+  highlightToday();
+  populateUpcomingEvents();
+  styleEventFilter();
+};
+
+function canNavigateTo(year, month) {
+  const startYear = new Date().getFullYear();
+  const endYear = 2030;
+  return year >= startYear && year <= endYear;
+}
+
+function generateCalendar() {
+  const calendarGrid = document.getElementById('calendarGrid');
+  const calendarTitle = document.getElementById('calendarTitle');
+  calendarGrid.innerHTML = '';
+
+  const monthNames = [
+    "January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December"
+  ];
+  calendarTitle.textContent = `${monthNames[currentMonth]} ${currentYear}`;
+
+  // Stylish appearance for title
+  calendarTitle.style.fontSize = '1.3rem';
+  calendarTitle.style.fontWeight = '700';
+  calendarTitle.style.fontFamily = 'Poppins, sans-serif';
+  calendarTitle.style.marginLeft = '10px';
+  calendarTitle.style.letterSpacing = '1px';
+  calendarTitle.style.background = 'linear-gradient(to right, #007cf0, #00dfd8)';
+  calendarTitle.style.webkitBackgroundClip = 'text';
+  calendarTitle.style.webkitTextFillColor = 'transparent';
+  calendarTitle.style.display = 'inline-block';
+
+  const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  for (const dayName of dayNames) {
+    const dayHeader = document.createElement('div');
+    dayHeader.textContent = dayName;
+    dayHeader.style.fontWeight = 'bold';
+    dayHeader.style.textAlign = 'center';
+    dayHeader.setAttribute('role', 'columnheader');
+    calendarGrid.appendChild(dayHeader);
+  }
+
+  const firstDay = new Date(currentYear, currentMonth, 1).getDay();
+  const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+
+  for (let i = 0; i < firstDay; i++) {
+    const emptyCell = document.createElement('div');
+    emptyCell.className = 'day empty';
+    calendarGrid.appendChild(emptyCell);
+  }
+
+  const selectedTypes = Array.from(
+    document.querySelectorAll('#eventTypeFilters input[type="checkbox"]:checked')
+  ).map(cb => cb.value);
+
+  const latitude = 22.5726;
+  const longitude = 88.3639;
+
+  for (let day = 1; day <= daysInMonth; day++) {
+    const dayCell = document.createElement('div');
+    dayCell.className = 'day';
+    dayCell.tabIndex = 0;
+
+    // --- NEW: Flex column layout and border ---
+    dayCell.style.display = 'flex';
+    dayCell.style.flexDirection = 'column';
+    dayCell.style.alignItems = 'center';
+    dayCell.style.justifyContent = 'flex-start';
+    dayCell.style.textAlign = 'center';
+    dayCell.style.border = '1px solid #ccc';
+    dayCell.style.borderRadius = '6px';
+    dayCell.style.padding = '6px';
+    dayCell.style.minHeight = '110px';
+    dayCell.style.boxSizing = 'border-box';
+    dayCell.style.backgroundColor = '#fff';
+
+    // Day number
+    const dayNumber = document.createElement('div');
+    dayNumber.className = 'day-number';
+    dayNumber.textContent = day;
+    dayNumber.style.fontWeight = '700';
+    dayNumber.style.fontSize = '14px';
+    dayNumber.style.marginBottom = '4px';
+    dayCell.appendChild(dayNumber);
+
+    const dateKey = `${currentYear}-${String(currentMonth + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+    dayCell.setAttribute('data-date', dateKey);
+
+    // Sunrise & Sunset
+    const sunTimes = SunCalc.getTimes(new Date(currentYear, currentMonth, day), latitude, longitude);
+    const sunrise = formatTime(sunTimes.sunrise);
+    const sunset = formatTime(sunTimes.sunset);
+
+    const sunInfo = document.createElement('div');
+    sunInfo.style.display = 'flex';
+    sunInfo.style.justifyContent = 'center';
+    sunInfo.style.gap = '8px';
+    sunInfo.style.fontSize = '10px';
+    sunInfo.style.color = '#666';
+    sunInfo.style.marginTop = 'auto'; // Pushes to bottom
+    sunInfo.innerHTML = `
+      <span>🌅 <strong>${sunrise}</strong></span>
+      <span>🌇 <strong>${sunset}</strong></span>
+    `;
+    // We append sunInfo at the end (after events), so keep this for now.
+
+    if (eventsData[dateKey]) {
+      const filteredEvents = eventsData[dateKey].filter(ev => selectedTypes.includes(ev.type));
+      if (filteredEvents.length > 0) {
+        dayCell.classList.add('event-day');
+        dayCell.style.backgroundColor = eventColors[filteredEvents[0].type];
+
+        filteredEvents.slice(0, 2).forEach(ev => {
+          const icon = document.createElement('div');
+          icon.className = 'event-icon';
+          icon.title = ev.name;
+          icon.textContent = eventIcons[ev.type];
+          icon.style.color = eventColors[ev.type];
+          icon.style.fontSize = '16px';
+          icon.style.margin = '2px 0';
+          icon.style.textAlign = 'center';
+          dayCell.appendChild(icon);
+
+          // Event name element
+          const nameEl = document.createElement('div');
+          nameEl.className = 'event-name';
+          nameEl.textContent = ev.name;
+          nameEl.style.fontSize = '11px';
+          nameEl.style.fontWeight = '600';
+          nameEl.style.overflow = 'hidden';
+          nameEl.style.whiteSpace = 'nowrap';
+          nameEl.style.textOverflow = 'ellipsis';
+          nameEl.style.marginBottom = '4px';
+          nameEl.style.color = '#FFFFFF';  // Cyan color
+          nameEl.style.textAlign = 'center';
+          dayCell.appendChild(nameEl);
+        });
+
+        dayCell.addEventListener('click', () => showEventDetails(dateKey));
+        dayCell.addEventListener('keypress', e => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            showEventDetails(dateKey);
+          }
+        });
+      }
+    }
+
+    // Append sunrise/sunset last, so it stays at bottom
+    dayCell.appendChild(sunInfo);
+
+    calendarGrid.appendChild(dayCell);
+  }
+
+  highlightToday();
+  applyCompactCalendarStyles();
+}
+
+function formatTime(date) {
+  return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true });
+}
+
+function highlightToday() {
+  const today = new Date();
+  if (today.getFullYear() === currentYear && today.getMonth() === currentMonth) {
+    const dateKey = `${currentYear}-${String(currentMonth + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
+    const todayCell = document.querySelector(`[data-date='${dateKey}']`);
+    if (todayCell) todayCell.classList.add('today-highlight');
+  }
+}
+
+function showEventDetails(dateKey) {
+  modalTitle.textContent = dateKey;
+  const events = eventsData[dateKey] || [];
+  const selectedTypes = Array.from(
+    document.querySelectorAll('#eventTypeFilters input[type="checkbox"]:checked')
+  ).map(cb => cb.value);
+  const filtered = events.filter(ev => selectedTypes.includes(ev.type));
+
+  modalDesc.innerHTML = filtered.length > 0
+    ? filtered.map(ev => `<div style="color:${eventColors[ev.type]}">${ev.name} (${ev.type})</div>`).join('')
+    : 'No events for selected filters.';
+
+  eventModal.style.display = 'flex';
+  eventModal.classList.remove('hidden');
+  eventModal.focus();
+}
+
+function hideModal() {
+  eventModal.style.display = 'none';
+  eventModal.classList.add('hidden');
+}
+
+function populateUpcomingEvents() {
+  const container = document.getElementById('upcomingEventsList');
+  container.innerHTML = '';
+  container.classList.add('upcoming-events-container'); // Ensure layout styles apply
+
+  const selectedTypes = Array.from(
+    document.querySelectorAll('#eventTypeFilters input[type="checkbox"]:checked')
+  ).map(cb => cb.value);
+
+  const today = new Date();
+  const upcoming = [];
+
+  for (const dateKey in eventsData) {
+    const dateParts = dateKey.split('-');
+    const date = new Date(Number(dateParts[0]), Number(dateParts[1]) - 1, Number(dateParts[2]));
+    if (date >= today) {
+      eventsData[dateKey].forEach(ev => {
+        if (selectedTypes.includes(ev.type)) {
+          upcoming.push({ date, dateStr: dateKey, ...ev });
+        }
+      });
+    }
+  }
+
+  upcoming.sort((a, b) => a.date - b.date);
+
+  if (upcoming.length === 0) {
+    container.textContent = 'No upcoming events for selected filters.';
+    return;
+  }
+
+  // Detect if mobile screen for margin adjustment
+  const isMobile = window.innerWidth <= 600;
+
+  // Helper function for background color by event type
+  function getBackgroundColor(type) {
+    const colors = {
+      religious: '#E6A7EB',
+      meeting: '#FFF0E1',
+      national: '#FF7171',
+      other: '#f9e6ff'
+    };
+    return colors[type] || '#f9f9f9';
+  }
+
+  // Create wrapper with border around all events
+  const eventsWrapper = document.createElement('div');
+  eventsWrapper.style.border = '2px solid #0056A4'; // change color if you want
+  eventsWrapper.style.padding = '15px';
+  eventsWrapper.style.borderRadius = '10px';
+  eventsWrapper.style.display = 'flex';
+  eventsWrapper.style.flexWrap = 'wrap';
+  eventsWrapper.style.gap = '15px';
+  eventsWrapper.style.justifyContent = 'center';
+
+  upcoming.forEach(ev => {
+    const item = document.createElement('div');
+    item.className = 'event-item';
+
+    // Inline styles for layout and look
+    item.style.flex = '0 0 200px';
+    item.style.border = '1px solid #ccc';
+    item.style.borderLeft = `5px solid ${eventColors[ev.type] || '#000'}`;
+    item.style.padding = '10px';
+    item.style.margin = isMobile ? '5px 0' : '5px'; // smaller vertical margin on mobile
+    item.style.borderRadius = '8px';
+    item.style.backgroundColor = getBackgroundColor(ev.type);
+    item.style.fontSize = '12px';
+    item.style.boxSizing = 'border-box';
+
+    const type = document.createElement('div');
+    type.className = 'event-type';
+    type.textContent = ev.type.charAt(0).toUpperCase() + ev.type.slice(1);
+
+    const name = document.createElement('div');
+    name.className = 'event-name';
+    name.textContent = ev.name;
+
+    const date = document.createElement('div');
+    date.className = 'event-date';
+    date.textContent = ev.date.toLocaleDateString(undefined, {
+      weekday: 'short',
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric'
+    });
+
+    item.appendChild(type);
+    item.appendChild(name);
+    item.appendChild(date);
+
+    eventsWrapper.appendChild(item);
+  });
+
+  container.appendChild(eventsWrapper);
+}
+
+
+
+function applyCompactCalendarStyles() {
+  document.querySelectorAll('#calendarGrid .day').forEach(day => {
+    day.style.fontSize = '12px';
+    day.style.padding = '4px';
+    day.style.minHeight = '60px';
+  });
+
+  document.querySelectorAll('#calendarGrid .day .day-number').forEach(el => {
+    el.style.fontSize = '10px';
+    el.style.fontWeight = 'bold';
+    el.style.marginBottom = '2px';
+    el.style.lineHeight = '1';
+  });
+
+  document.querySelectorAll('#calendarGrid .day .sunrise-sunset').forEach(el => {
+    el.style.fontSize = '10px';
+    el.style.lineHeight = '1.1';
+    el.style.marginTop = 'auto';
+    el.style.color = '#666';
+  });
+
+  document.querySelectorAll('#calendarGrid .day .sunrise-icon, #calendarGrid .day .sunset-icon').forEach(el => {
+    el.style.fontSize = '12px';
+    el.style.marginRight = '2px';
+    el.style.verticalAlign = 'middle';
+  });
+
+  document.querySelectorAll('#calendarGrid .day.today-highlight').forEach(el => {
+    el.style.border = '2px solid #0056A4';
+    el.style.boxShadow = '0 0 8px #0056A4';
+  });
+}
+
+function styleCalendarButtons() {
+  const buttons = document.querySelectorAll('#calendarControls button');
+  buttons.forEach(btn => {
+    btn.style.backgroundColor = '#0056A4';
+    btn.style.color = 'white';
+    btn.style.border = 'none';
+    btn.style.padding = '8px 15px';
+    btn.style.margin = '0 5px';
+    btn.style.borderRadius = '5px';
+    btn.style.fontWeight = '600';
+    btn.style.cursor = 'pointer';
+    btn.style.boxShadow = '0 2px 5px rgba(0,0,0,0.15)';
+    btn.style.transition = 'background-color 0.3s ease, box-shadow 0.3s ease';
+
+    btn.addEventListener('mouseover', () => {
+      btn.style.backgroundColor = '#003f7d';
+      btn.style.boxShadow = '0 4px 10px rgba(0,0,0,0.3)';
+    });
+    btn.addEventListener('mouseout', () => {
+      btn.style.backgroundColor = '#0056A4';
+      btn.style.boxShadow = '0 2px 5px rgba(0,0,0,0.15)';
+    });
+    btn.addEventListener('focus', () => {
+      btn.style.outline = '2px solid #ffbf47';
+      btn.style.outlineOffset = '2px';
+    });
+    btn.addEventListener('blur', () => {
+      btn.style.outline = 'none';
+      btn.style.outlineOffset = '0';
+    });
+  });
+}
+
+// Call this once after your DOM is ready
+styleCalendarButtons();
+
+function styleEventFilter() {
+  const filterBox = document.getElementById('eventTypeFilters');
+  
+  filterBox.style.margin = '0 auto';
+filterBox.style.display = 'table';
+filterBox.style.border = '1px solid #ccc';
+filterBox.style.padding = '15px';
+filterBox.style.borderRadius = '8px';
+filterBox.style.backgroundColor = '#f0f4f8';
+filterBox.style.fontSize = '14px';
+filterBox.style.fontFamily = 'Poppins, sans-serif';
+
+
+  const legend = filterBox.querySelector('legend');
+  legend.style.fontSize = '16px';
+  legend.style.fontWeight = '600';
+  legend.style.color = '#0077cc';
+
+  const eventColors = {
+    religious: '#d1b3e0',
+    meeting: '#27ae60',
+    national: '#e67e22',
+    other: '#3498db'
+  };
+
+  const labels = filterBox.querySelectorAll('label');
+  labels.forEach(label => {
+    const input = label.querySelector('input');
+    const type = input?.value;
+
+    label.style.marginRight = '10px';
+    label.style.padding = '6px 10px';
+    label.style.borderRadius = '6px';
+    label.style.backgroundColor = '#ffffff';
+    label.style.border = `2px solid ${eventColors[type] || '#ccc'}`;
+    label.style.cursor = 'pointer';
+    label.style.display = 'inline-flex';
+    label.style.alignItems = 'center';
+    label.style.gap = '5px';
+    label.style.marginBottom = '6px';
+    label.style.transition = 'all 0.3s ease';
+    label.style.userSelect = 'none';
+
+    // Optional: hover effect
+    label.onmouseover = () => {
+      label.style.backgroundColor = eventColors[type] + '20'; // transparent tint
+    };
+    label.onmouseout = () => {
+      label.style.backgroundColor = '#ffffff';
+    };
+
+    // Style checkbox
+    if (input) {
+      input.style.width = '16px';
+      input.style.height = '16px';
+      input.style.accentColor = eventColors[type] || '#007bff';
+      input.style.cursor = 'pointer';
+    }
+  });
+}
+
+</script>
+</body>
+
+</html>
