@@ -41,7 +41,7 @@
 
 const headerHTML = `
   <header id="page-header" role="banner" aria-label="Site Header">
-    <button id="hamburger" type="button" class="hamburger" aria-label="Toggle menu" aria-expanded="false">
+    <button id="hamburger" type="button" class="hamburger" aria-label="Toggle menu" aria-expanded="false" title="Menu">
       <span></span>
       <span></span>
       <span></span>
@@ -93,10 +93,10 @@ const navHTML = `
         <i class="fas fa-caret-down"></i>
       </button>
       <ul id="submenu-association" class="submenu" aria-hidden="true">
-  <li><a href="about-us.html"><i class="fas fa-id-card-alt"></i> Who We Are</a></li>
-  <li><a href="vision-mission.html"><i class="fas fa-bullseye"></i> Vision & Mission</a></li>
-  <li><a href="governing-body.html"><i class="fas fa-users-cog"></i> Executive Committee</a></li>
-  <li><a href="our-members.html"><i class="fas fa-address-book"></i> Residents Directory</a></li>
+  <li><a href="about-us.html" title="Know about us"><i class="fas fa-id-card-alt"></i> Who We Are</a></li>
+  <li><a href="vision-mission.html" title="Discover our vision and mission"><i class="fas fa-bullseye"></i> Vision & Mission</a></li>
+  <li><a href="governing-body.html" title="Meet the Executive Committee"><i class="fas fa-users-cog"></i> Executive Committee</a></li>
+  <li><a href="our-members.html" title="View the Residents Directory"><i class="fas fa-address-book"></i> Residents Directory</a></li>
 </ul>
     </li>
 
@@ -109,15 +109,15 @@ const navHTML = `
     <i class="fas fa-caret-down"></i>
   </button>
   <ul id="submenu-resources" class="submenu" aria-hidden="true">
-    <li><a href="view-announcements.html"><i class="fas fa-bullhorn"></i> News & Buzz</a></li>
-    <li><a href="mom.html"><i class="fas fa-file-alt"></i> Meeting Minutes</a></li>
-    <li><a href="new-resident-guide.html"><i class="fas fa-compass"></i> New Resident Guideline</a></li>
-    <li><a href="events.html"><i class="fas fa-camera-retro"></i> Events & Shared Moments</a></li>
-    <li><a href="general-guidelines.html"><i class="fas fa-gavel"></i> Community Guidelines</a></li>
-    <li><a href="download-center.html"><i class="fas fa-download"></i> Download Center</a></li>
-    <li><a href="useful-links.html"><i class="fas fa-life-ring"></i> Support Hub</a></li>
-    <li><a href="projects.html"><i class="fas fa-tasks"></i> Project Status & Updates</a></li>
-    <li><a href="member-tools.html"><i class="fas fa-tasks"></i> Resident Utilities</a></li>
+    <li><a href="community-bulletin.html" title="Latest announcements and upcoming events"><i class="fas fa-bullhorn"></i> Community Bulletin</a></li>
+    <li><a href="mom.html" title="Minutes from past meetings"><i class="fas fa-file-alt"></i> Meeting Minutes</a></li>
+    <li><a href="new-resident-guide.html" title="Guide for new residents"><i class="fas fa-compass"></i> New Resident Guideline</a></li>
+    <li><a href="events.html" title="Events and shared moments"><i class="fas fa-camera-retro"></i> Events & Shared Moments</a></li>
+    <li><a href="general-guidelines.html" title="Association rules and policies"><i class="fas fa-gavel"></i> Community Guidelines</a></li>
+    <li><a href="download-center.html" title="Download important documents"><i class="fas fa-download"></i> Download Center</a></li>
+    <li><a href="useful-links.html" title="Helpful resources and support"><i class="fas fa-life-ring"></i> Support Hub</a></li>
+    <li><a href="projects.html" itle="View project status"><i class="fas fa-tasks"></i> Project Status & Updates</a></li>
+    <li><a href="member-tools.html" title="Utilities for residents"><i class="fas fa-tasks"></i> Resident Utilities</a></li>
   </ul>
 </li>
 
@@ -130,8 +130,8 @@ const navHTML = `
     <i class="fas fa-caret-down"></i>
   </button>
   <ul id="submenu-getinvolved" class="submenu" aria-hidden="true">
-    <li><a href="feedback.html"><i class="fas fa-comment-dots"></i> Give Feedback</a></li>
-    <li><a href="volunteer.html"><i class="fas fa-hands-helping"></i> Volunteer Opportunities</a></li>
+    <li><a href="feedback.html" title="Share your thoughts and suggestions"><i class="fas fa-comment-dots"></i> Give Feedback</a></li>
+    <li><a href="volunteer.html" title="Join community volunteer activities"><i class="fas fa-hands-helping"></i> Volunteer Opportunities</a></li>
   </ul>
 </li>
 
@@ -144,8 +144,7 @@ const navHTML = `
     <i class="fas fa-caret-down"></i>
   </button>
   <ul id="submenu-findexplore" class="submenu" aria-hidden="true">
-    <li><a href="search.html"><i class="fas fa-search-location"></i> Site Search</a></li>
-    <li><a href="event-calendar.html"><i class="fas fa-calendar-alt"></i> Event Calendar</a></li>
+    <li><a href="search.html" title="Search any site in a flash"><i class="fas fa-search-location"></i> Site Search</a></li>
   </ul>
 </li>
 
@@ -220,7 +219,7 @@ document.body.insertAdjacentHTML('beforeend', footerHTML);
       'vision-mission.html': ['Home', 'Association', 'Vision & Mission'],
       'governing-body.html': ['Home', 'Association', 'Executive Committee'],
       'our-members.html': ['Home', 'Association', 'Residents Directory'],
-      'view-announcements.html': ['Home', 'Resources', 'News & Buzz'],
+      'community-bulletin.html': ['Home', 'Resources', 'Community Bulletin'],
       'mom.html': ['Home', 'Resources', 'Meeting Minutes'],
       'new-resident-guide.html': ['Home', 'Resources', 'New Resident Guideline'],
       'events.html': ['Home', 'Resources', 'Events & Shared Moments'],
@@ -232,7 +231,6 @@ document.body.insertAdjacentHTML('beforeend', footerHTML);
       'feedback.html': ['Home', 'Get Involved','Give Feedback'],
       'volunteer.html': ['Home', 'Get Involved','Volunteer Opportunities'],
       'search.html': ['Home', 'Find & Explore','Site Search'],
-      'event-calendar.html': ['Home', 'Find & Explore','Event Calendar']
     };
   
     const pageLinks = {
@@ -243,7 +241,7 @@ document.body.insertAdjacentHTML('beforeend', footerHTML);
       'Executive Committee': 'governing-body.html',
       'Residents Directory': 'our-members.html',
       'Resources': '#',
-      'News & Buzz': 'view-announcements.html',
+      'Community Bulletin': 'community-bulletin.html',
       'Meeting Minutes': 'mom.html',
       'New Resident Guideline': 'new-resident-guide.html',
       'Event Calendar': 'events.html',
@@ -258,7 +256,6 @@ document.body.insertAdjacentHTML('beforeend', footerHTML);
       'Get in Touch': '#',
       'Find & Explore': '#',
       'Site Search': 'search.html',
-      'Event Calendar': 'event-calendar.html'
     };
   
     const fileName = window.location.pathname.split('/').pop();
@@ -642,9 +639,9 @@ li.locked .submenu,
     nav.breadcrumb {
       display: inline-block;          /* Shrinks to content */
       margin: 10px 20px 0 0;
-      padding: 8px 12px;
+      padding: 2px 12px;
       font-size: 0.7rem;
-      background-color: #78206E; /* Deep purple background */
+      background-color: #78206E; /* Blue background */
       color: #ffffff;
       user-select: none;
       border-radius: 4px;
@@ -1219,6 +1216,3 @@ toggleBtn.addEventListener('click', () => {
   document.addEventListener('copy', e => e.preventDefault());
   document.addEventListener('paste', e => e.preventDefault());
 })();
-
-
-
