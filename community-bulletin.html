@@ -414,102 +414,6 @@
   background-color: #f0f8ff;
 }
 
-
-/* Base (desktop-first) layout */
-#upcomingEvents {
-  width: 100%;
-  max-width: 100%;
-}
-
-/* 🖥️ Desktop: horizontal layout */
-.upcoming-events-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 15px;
-  justify-content: center;
-  width: 100%;
-  align-items: stretch;
-  padding: 10px 0;
-}
-
-.upcoming-events-container .event-item {
-  flex: 0 0 200px;  /* Fixed width, no grow/shrink */
-  width: 200px;
-  margin: 5px;
-  border: 1px solid #ccc;
-  border-left: 5px solid;
-  padding: 10px;
-  border-radius: 5px;
-  background: #f9f9f9;
-  box-sizing: border-box;
-}
-
-.upcoming-events-container .event-item:hover {
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-}
-
-/* Event type colors */
-.event-religious {
-  border-left-color: #4a90e2;   /* blue */
-  background-color: #e8f0fe;
-}
-
-.event-meeting {
-  border-left-color: #f5a623;   /* orange */
-  background-color: #fff4e5;
-}
-
-.event-national {
-  border-left-color: #7ed321;   /* green */
-  background-color: #ecf9ec;
-}
-
-.event-other {
-  border-left-color: #bd10e0;   /* purple */
-  background-color: #f5e6fb;
-}
-.event-type {
-  font-weight: 700;
-  margin-bottom: 5px;
-  text-transform: uppercase;
-  font-size: 12px;
-  color: #666;
-}
-
-.event-name {
-  font-weight: 600;
-  font-size: 15px;
-  margin-bottom: 6px;
-  color: #222;
-}
-
-.event-date {
-  font-size: 13px;
-  color: #555;
-}
-
-@media (max-width: 600px) {
-  .upcoming-events-container {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .upcoming-events-container .event-item {
-    flex: 1 1 auto;
-    width: 100%;
-    max-width: 100%;
-  }
-}
-
-#eventTypeFilters {
-  font-size: 12px;
-}
-
-#eventTypeFilters legend {
-  font-size: 13px;
-  font-weight: bold;
-}
-
 #calendarControls button {
   background-color: #0056A4;      /* Nice blue */
   color: white;                   /* Text color */
@@ -574,7 +478,7 @@
   background-clip: text;
   color: transparent;
   cursor: default;
-">Association Announcements & Upcoming Events</h2>
+">Association Announcements</h2>
 
     <div class="container">
         <!-- Association Announcements Section -->
@@ -636,15 +540,7 @@
          style="display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px;">
     </div>
 
-    <!-- Upcoming Events -->
-    <div id="upcomingEvents" tabindex="0" aria-label="Upcoming Events" style="margin-top: 30px;">
-      <h2 style="font-size: 18px; color: #0056A4;">Upcoming Events</h2>
-      <div id="upcomingEventsList" role="list" aria-live="polite" 
-     class="upcoming-events-container" 
-     style="display: flex; flex-wrap: wrap; gap: 15px; justify-content: center;">
-</div>
-
-    </div>
+  </div>
   </div>
 </section>
 
@@ -1027,7 +923,6 @@ window.onload = () => {
   document.querySelectorAll('#eventTypeFilters input[type="checkbox"]').forEach(chk => {
     chk.addEventListener('change', () => {
       generateCalendar();
-      populateUpcomingEvents();
     });
   });
 
@@ -1037,7 +932,6 @@ window.onload = () => {
     currentMonth = today.getMonth();
     generateCalendar();
     highlightToday();
-    populateUpcomingEvents();
   });
 
   document.getElementById('prevMonthBtn').addEventListener('click', () => {
@@ -1049,7 +943,6 @@ window.onload = () => {
     if (canNavigateTo(currentYear, currentMonth)) {
       generateCalendar();
       highlightToday();
-      populateUpcomingEvents();
     }
   });
 
@@ -1062,7 +955,6 @@ window.onload = () => {
     if (canNavigateTo(currentYear, currentMonth)) {
       generateCalendar();
       highlightToday();
-      populateUpcomingEvents();
     }
   });
 
@@ -1071,7 +963,6 @@ window.onload = () => {
   currentMonth = today.getMonth();
   generateCalendar();
   highlightToday();
-  populateUpcomingEvents();
   styleEventFilter();
 };
 
@@ -1182,7 +1073,7 @@ function generateCalendar() {
       if (filteredEvents.length > 0) {
         dayCell.classList.add('event-day');
         dayCell.style.backgroundColor = eventColors[filteredEvents[0].type];
-
+	dayCell.style.cursor = 'pointer';
         filteredEvents.slice(0, 2).forEach(ev => {
           const icon = document.createElement('div');
           icon.className = 'event-icon';
@@ -1263,105 +1154,6 @@ function hideModal() {
   eventModal.style.display = 'none';
   eventModal.classList.add('hidden');
 }
-
-function populateUpcomingEvents() {
-  const container = document.getElementById('upcomingEventsList');
-  container.innerHTML = '';
-  container.classList.add('upcoming-events-container'); // Ensure layout styles apply
-
-  const selectedTypes = Array.from(
-    document.querySelectorAll('#eventTypeFilters input[type="checkbox"]:checked')
-  ).map(cb => cb.value);
-
-  const today = new Date();
-  const upcoming = [];
-
-  for (const dateKey in eventsData) {
-    const dateParts = dateKey.split('-');
-    const date = new Date(Number(dateParts[0]), Number(dateParts[1]) - 1, Number(dateParts[2]));
-    if (date >= today) {
-      eventsData[dateKey].forEach(ev => {
-        if (selectedTypes.includes(ev.type)) {
-          upcoming.push({ date, dateStr: dateKey, ...ev });
-        }
-      });
-    }
-  }
-
-  upcoming.sort((a, b) => a.date - b.date);
-
-  if (upcoming.length === 0) {
-    container.textContent = 'No upcoming events for selected filters.';
-    return;
-  }
-
-  // Detect if mobile screen for margin adjustment
-  const isMobile = window.innerWidth <= 600;
-
-  // Helper function for background color by event type
-  function getBackgroundColor(type) {
-    const colors = {
-      religious: '#E6A7EB',
-      meeting: '#FFF0E1',
-      national: '#FF7171',
-      other: '#f9e6ff'
-    };
-    return colors[type] || '#f9f9f9';
-  }
-
-  // Create wrapper with border around all events
-  const eventsWrapper = document.createElement('div');
-  eventsWrapper.style.border = '2px solid #0056A4'; // change color if you want
-  eventsWrapper.style.padding = '15px';
-  eventsWrapper.style.borderRadius = '10px';
-  eventsWrapper.style.display = 'flex';
-  eventsWrapper.style.flexWrap = 'wrap';
-  eventsWrapper.style.gap = '15px';
-  eventsWrapper.style.justifyContent = 'center';
-
-  upcoming.forEach(ev => {
-    const item = document.createElement('div');
-    item.className = 'event-item';
-
-    // Inline styles for layout and look
-    item.style.flex = '0 0 200px';
-    item.style.border = '1px solid #ccc';
-    item.style.borderLeft = `5px solid ${eventColors[ev.type] || '#000'}`;
-    item.style.padding = '10px';
-    item.style.margin = isMobile ? '5px 0' : '5px'; // smaller vertical margin on mobile
-    item.style.borderRadius = '8px';
-    item.style.backgroundColor = getBackgroundColor(ev.type);
-    item.style.fontSize = '12px';
-    item.style.boxSizing = 'border-box';
-
-    const type = document.createElement('div');
-    type.className = 'event-type';
-    type.textContent = ev.type.charAt(0).toUpperCase() + ev.type.slice(1);
-
-    const name = document.createElement('div');
-    name.className = 'event-name';
-    name.textContent = ev.name;
-
-    const date = document.createElement('div');
-    date.className = 'event-date';
-    date.textContent = ev.date.toLocaleDateString(undefined, {
-      weekday: 'short',
-      year: 'numeric',
-      month: 'short',
-      day: 'numeric'
-    });
-
-    item.appendChild(type);
-    item.appendChild(name);
-    item.appendChild(date);
-
-    eventsWrapper.appendChild(item);
-  });
-
-  container.appendChild(eventsWrapper);
-}
-
-
 
 function applyCompactCalendarStyles() {
   document.querySelectorAll('#calendarGrid .day').forEach(day => {
