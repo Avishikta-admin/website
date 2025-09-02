@@ -31,6 +31,10 @@
     --bg-color: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(9, 9, 121, 1) 24%, rgba(17, 145, 209, 1) 100%, rgba(1, 186, 238, 1) 100%, rgba(0, 212, 255, 1) 100%);
     --text-color: #fff;
   }
+:root.dark {
+  --bg-color: #121212;    /* solid dark background for dark mode */
+  --text-color: #e0e0e0;  /* lighter text */
+}
   body {
     font-family: 'Open Sans', sans-serif;
     background: var(--bg-color);
@@ -70,6 +74,29 @@ html, body {
       padding: 0;
       box-sizing: border-box;
     }
+
+  body.dark {
+    --bg-color: #121212;
+    --text-color: #e0e0e0;
+  }
+
+  #darkModeToggle {
+    padding: 10px 10px;
+    background: #0072ff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    position: sticky;
+    top: 10px;
+    right: 20px;
+    z-index: 1000;
+}
+
+  #darkModeToggle:hover {
+    background: #005bb5;
+  }
 
   #layout-root { }
 
@@ -171,40 +198,28 @@ html, body {
 }
 
     .card-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 1.5rem;
-  margin-top: 2rem;
-  padding: 0 2rem 3rem;
-}
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+      padding: 0 2rem 3rem;
+    }
 
-.card {
-  background: linear-gradient(145deg, #2c3e50, #4ca1af); /* Stunning gradient */
-  padding: 1rem;
-  border-radius: 12px;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.2);
-  transition: 
-    transform 0.3s ease, 
-    box-shadow 0.3s ease, 
-    background-color 0.3s ease,
-    opacity 0.4s ease;
-  text-align: center;
-  position: relative;
-  overflow: hidden;
-  cursor: default;
-  width: 100%; /* Ensures the card takes the full available space */
-  max-width: 350px; /* Keeps card width under control */
-  margin: 0 auto; /* Centers the card */
-
-  /* Initial animation state */
-  opacity: 0;
-  transform: translateY(20px);
-}
-.card.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
+    .card {
+      background: linear-gradient(145deg, #2c3e50, #4ca1af); /* Stunning gradient */
+      padding: 1rem;
+      border-radius: 12px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+      transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      cursor: default;
+      width: 100%; /* Ensures the card takes the full available space */
+      max-width: 350px; /* Keeps card width under control */
+      margin: 0 auto; /* Centers the card */
+      transform: translateY(20px);
+    }
     .card::after {
       content: "";
       position: absolute;
@@ -350,6 +365,7 @@ html, body {
   }
 }
 
+
   .hero {
     min-height: 180px;
   }
@@ -358,6 +374,7 @@ html, body {
     object-fit: contain;
   }
 }
+
 
   .full-width-hero {
   width: 100vw;
@@ -823,6 +840,13 @@ header.hero .hero-image {
   </div>
 
   <div class="card-grid">
+    <div class="card" tabindex="0" role="article" aria-label="Durga Puja Festival 2025">
+      <i class="fas fa-gem" aria-hidden="true"></i>
+      <h3>Durga Puja 2025</h3>
+      <p>Celebrate the grand festival! Check schedules, events & more.</p>
+      <a href="community-bulletin.html" class="card-link" aria-label="View Durga Puja event details">View Details →</a>
+    </div>
+
     <div class="card" tabindex="0" role="article" aria-label="Smart and Secure Living">
       <i class="fas fa-shield-alt" aria-hidden="true"></i>
       <h3>Smart & Secure Living</h3>
@@ -846,11 +870,13 @@ header.hero .hero-image {
       <h3>Resident Support</h3>
       <p>From maintenance to questions — we’re ready to assist.</p>
     </div>
+    
   </div>
 
 </main>
-
 <button id="scrollToTop" title="Scroll to top">🔝</button>
+
+</body>
 
 <script>
 const content = {
@@ -865,14 +891,19 @@ const content = {
       "🌟 “From thoughtful landscaping to digital ease — Type - A raises the bar for community living.” – P. Das"
     ],
     cards: [
+      { title: "Durga Puja 2025", desc: "Celebrate the grand festival! Check schedules, events & more." },
       { title: "Smart & Secure Living", desc: "24/7 safety and smart tech at your fingertips." },
       { title: "Green Living", desc: "Live clean and green — for you and the planet." },
       { title: "Events & Updates", desc: "Stay in the loop with our community happenings." },
-      { title: "Resident Support", desc: "From maintenance to questions — we’re ready to assist." }
+      { title: "Resident Support", desc: "From maintenance to questions — we’re ready to assist." },  
     ],
     map: {
       show: "📍 Show Map",
       hide: "Hide Map"
+    },
+    darkMode: {
+      on: "Dark Mode Enabled",
+      off: "Switch to Dark Mode"
     },
     scrollTop: "Scroll to top",
     langToggle: {
@@ -893,23 +924,29 @@ const content = {
   },
   bn: {
     heroOverlay: "🖥️ অভিষিক্তা - ১ টাইপ - এ | ডিজিটাল হাব",
-    mainHeading: "🌱 প্রযুক্তির ছোঁয়ায় দীর্ঘস্থায়ী ও অ্যাসোসিয়েশন গড়ে তোলা",
+    mainHeading: "🌱 প্রযুক্তির ছোঁয়ায় দীর্ঘস্থায়ী অ্যাসোসিয়েশন গড়ে তোলা",
     testimonials: [
-      "🌟 “এটা শুধুই প্ল্যাটফর্ম নয় — এটা আমাদের ডিজিটাল পরিবার।” – আর. সেন",
+      "🌟 “আমাদের ডিজিটাল সংসার — যেখানে সবাইই পরিবারের মত।” – আর. সেন",
       "🌟 “টাইপ - এ অ্যাসোসিয়েশনের ডিজিটাল অগ্রগতি খুবই চিন্তাশীল এবং অনুপ্রেরণাদায়ক।” – এ. মুখার্জি",
       "🌟 “সবুজ এই পরিবেশ মনকে শান্ত করে, আর ভালো লাগায় ভরিয়ে দেয়।” – বি. মৈত্র",
       "🌟 “টাইপ - এ অ্যাসোসিয়েশন নিঃশব্দে অগ্রগতির সাথে শান্ত পরিবেশের এক অনন্য মেলবন্ধন।” – এন. সাহা",
       "🌟 “সু-পরিকল্পিত ল্যান্ডস্কেপিং থেকে ডিজিটাল সহজতায় — টাইপ - এ টাইপ - এ কমিউনিটি সত্যিকারের উদাহরণ।” – পি. দাস"
     ],
     cards: [
+      { title: "দুর্গা পূজা ২০২৫", desc: "সময়সূচি, অনুষ্ঠান সম্পর্কে বিশদে জানতে নিচের লিঙ্কে ক্লিক করুন!" },
       { title: "স্মার্ট ও সুরক্ষিত জীবনধারা", desc: "২৪/৭ নিরাপত্তা আর স্মার্ট প্রযুক্তির সঙ্গে থাকুন।" },
       { title: "সবুজ জীবন", desc: "নিজের জন্য আর পরিবেশের জন্য বেছে নিন সবুজ জীবনযাত্রা।" },
       { title: "ইভেন্ট ও আপডেট", desc: "আমাদের কমিউনিটির কার্যক্রম সম্পর্কে আপডেট থাকুন।" },
-      { title: "রেসিডেন্ট সাপোর্ট", desc: "রক্ষণাবেক্ষণ সহ যেকোনো বিষয়ে — সর্বদা পাশে আছি।" }
+      { title: "রেসিডেন্ট সাপোর্ট", desc: "রক্ষণাবেক্ষণ -> অনুসন্ধান — আমরা পাশে আছি সবসময়।" }
+
     ],
     map: {
       show: "📍 মানচিত্র প্রদর্শন করুন",
       hide: "মানচিত্র বন্ধ করুন"
+    },
+    darkMode: {
+      on: "ডার্ক মোড অন",
+      off: "ডার্ক মোড অফ্"
     },
     scrollTop: "টপ-এ যান",
     langToggle: {
@@ -919,10 +956,10 @@ const content = {
     },
     typingPhrases: [
       "অভিষিক্তা - ১ এর হৃদয়ে রয়েছে টাইপ - এ অ্যাসোসিয়েশন",
-      "হাসির ছোঁয়ায় গড়ে ওঠে মিলন, গল্পে রচিত হয় মুহূর্ত",
+      "মিলন ঘটে হাসিতে, বেড়ে যায় Stories-এ",
       "সবুজ মাঠ, শান্ত পরিবেশ",
-      "সৌহার্দ্যের সুরে গাঁথা থাকে প্রতিটি পরিবার,",
-      "মমতার স্পর্শেই জোড়া থাকে হৃদয়,",
+      "প্রতিটি বাড়িতে Harmony ও শান্তি",
+      "দয়ায় আমরা একসাথে বাঁধা",
       "বিশ্বাসের Bandhan-এ একত্রিত আমরা",
       "যেখানে প্রতিবেশী হয়ে ওঠে বন্ধু",
       "যত্নে মিশে, একসাথে বেড়ে উঠা"
@@ -1004,6 +1041,14 @@ document.addEventListener('DOMContentLoaded', () => {
         : content[currentLang].map.show;
     }
 
+    if (toggleBtn) {
+      const darkModeOn = document.body.classList.contains('dark');
+      const modeText = content[currentLang].darkMode[darkModeOn ? 'on' : 'off'];
+      toggleBtn.title = modeText;
+      toggleBtn.setAttribute('aria-label', modeText);
+      toggleBtn.textContent = modeText;  // optional, update button text if you want
+    }
+
     if (scrollBtn) {
       scrollBtn.title = content[currentLang].scrollTop;
       scrollBtn.setAttribute('aria-label', content[currentLang].scrollTop);
@@ -1027,7 +1072,13 @@ document.addEventListener('DOMContentLoaded', () => {
         if (p) p.textContent = card.desc;
       }
     });
-   }
+
+    if (langToggleBtn) {
+      langToggleBtn.textContent = content[currentLang].langToggle.buttonText;
+      langToggleBtn.title = content[currentLang].langToggle.title;
+      langToggleBtn.setAttribute('aria-label', content[currentLang].langToggle.label);
+    }
+  }
 
   function startTypingAnimation() {
     const phrases = content[currentLang].typingPhrases;
@@ -1064,6 +1115,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Bind click handlers
 
+  if (langToggleBtn) {
+    langToggleBtn.addEventListener('click', () => {
+      console.log('Lang toggle clicked!');
+      currentLang = currentLang === 'en' ? 'bn' : 'en';
+      localStorage.setItem('lang', currentLang);
+      updateTexts();
+      startTypingAnimation();
+    });
+  }
+
   if (scrollBtn) {
     scrollBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
     window.addEventListener('scroll', () => {
@@ -1083,6 +1144,18 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   }
+
+  // Dark mode toggle button
+if (toggleBtn) {
+  toggleBtn.addEventListener('click', () => {
+    document.documentElement.classList.toggle('dark');  // toggle on <html>
+    const darkModeOn = document.documentElement.classList.contains('dark');
+    const modeText = content[currentLang].darkMode[darkModeOn ? 'on' : 'off'];
+    toggleBtn.title = modeText;
+    toggleBtn.setAttribute('aria-label', modeText);
+    toggleBtn.textContent = modeText;
+  });
+}
 
 function rotateTestimonials() {
   let current = 0;
@@ -1107,15 +1180,7 @@ function rotateTestimonials() {
 
 <!-- Toast notification script with full features -->
 <script>
-
- (function() {
-
-   // === Dark Mode Detection ===
-    const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-    if (prefersDark) {
-      document.body.classList.add('dark-mode');
-    }
-
+  (function() {
     // === CONFIG ===
     const latestVersion = "2025-08-21"; // Update on every changelog update
     const localStorageSeenKey = "avishikta_changelog_seen_version";
@@ -1305,10 +1370,10 @@ function rotateTestimonials() {
         dontShow: "Don't show again",
       },
       bn: {
-        update: "🔔 সর্বশেষ আপডেট!",
-        message: "Browse করার পূর্বে নতুন পরিবর্তন সম্পর্কে জেনে নিন!",
+        update: "🔔 সাম্প্রতিক আপডেট!",
+        message: "Browse করার পূর্বে নতুন তথ্য জেনে নিন!",
         viewDetails: "বিস্তারিত দেখুন!",
-        dontShow: "পুনরায় প্রদর্শন বন্ধ করুন!",
+        dontShow: "পুনরায় দেখাবেন না!",
       }
     };
 
@@ -1389,16 +1454,6 @@ function rotateTestimonials() {
     });
 
   })();
-
-// Animate cards on page load with staggered fade-in
-window.addEventListener('DOMContentLoaded', () => {
-  const cards = document.querySelectorAll('.card');
-  cards.forEach((card, index) => {
-    setTimeout(() => {
-      card.classList.add('visible');
-    }, index * 400); // slower stagger: 400ms delay between cards
-  });
-});
 
 </script>
 
