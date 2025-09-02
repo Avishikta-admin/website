@@ -1,5 +1,18 @@
 [
   {
+    "date": "2025-09-02",
+    "items": [
+      {
+        "type": "🎉 new",
+        "desc": "Added Durga Puja countdown rotator with smooth fade transitions and vibrant gradient background on homepage."
+      },
+      {
+        "type": "✨ improved",
+        "desc": "Implemented animated moving border around the countdown container on homepage for enhanced festive look."
+      }
+    ]
+  },
+  {
     "date": "2025-09-01",
     "items": [
       {
