@@ -16,6 +16,7 @@
 
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Open+Sans&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&family=Baloo+Da+2&display=swap" rel="stylesheet">
 
   <!-- Font Awesome -->
   <link
@@ -634,7 +635,7 @@ header.hero .hero-image {
   background: linear-gradient(90deg, #f5e6c4, #d7c1a3);
   color: #003366;
   border: none;
-  padding: 8px 8px;
+  padding: 4px 4px;
   font-weight: bold;
   border-radius: 6px;
   cursor: pointer;
@@ -788,6 +789,46 @@ header.hero .hero-image {
   transform: scale(1.1);
 }
 
+#durga-puja-rotator {
+      background: linear-gradient(to right, #FFD54F, #FF6F00);
+      padding: 4px 6px;
+      text-align: center;
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: #311B92;
+      border-radius: 8px;
+      width: fit-content;
+      margin: 5px auto;
+      min-width: 320px;
+      transition: opacity 1s ease-in-out;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .blink {
+      animation: blink-animation 1.5s steps(2, start) infinite;
+    }
+
+    .days-highlight {
+      background-color: #311B92;
+      color: #fff;
+      border-radius: 4px;
+      font-weight: bold;
+      display: inline-block;
+    }
+
+    @keyframes blink-animation {
+      to {
+        visibility: hidden;
+      }
+    }
+
+    .fade-out {
+      opacity: 0;
+    }
+
+    .fade-in {
+      opacity: 1;
+    }
 </style>
 </head>
 
@@ -813,12 +854,18 @@ header.hero .hero-image {
   </div>
 </header>
 
+<!-- Countdown Rotator -->
+<div id="durga-puja-rotator" class="fade-in">
+  🕉️ দুর্গা পূজা আর <span id="days-left" class="blink days-highlight"></span> দিন বাকি!!!
+</div>
+
 <button id="map-toggle-btn">📍 Show Map</button>
 <div id="map-popup" style="display:none;">
   <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3685.896188561506!2d88.39841147507572!3d22.508077779537675!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a027157cc327c1b%3A0xfe9d5576fd4d1272!2sAvishikta%20Phase%201!5e0!3m2!1sen!2sin!4v1753114166780!5m2!1sen!2sin" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
 </div>
 
 <!-- Ticker BELOW header -->
+
 <main role="main" tabindex="-1">
   <h2 class="main-heading">
     <span class="emoji">🌱</span>
@@ -839,39 +886,40 @@ header.hero .hero-image {
     <span id="typing-text"></span>
   </div>
 
-  <div class="card-grid">
-    <div class="card" tabindex="0" role="article" aria-label="Durga Puja Festival 2025">
-      <i class="fas fa-gem" aria-hidden="true"></i>
-      <h3>Durga Puja 2025</h3>
-      <p>Celebrate the grand festival! Check schedules, events & more.</p>
-      <a href="community-bulletin.html" class="card-link" aria-label="View Durga Puja event details">View Details →</a>
-    </div>
+<div class="card-grid">
 
-    <div class="card" tabindex="0" role="article" aria-label="Smart and Secure Living">
-      <i class="fas fa-shield-alt" aria-hidden="true"></i>
-      <h3>Smart & Secure Living</h3>
-      <p>24/7 safety and smart tech at your fingertips.</p>
-    </div>
-
-    <div class="card" tabindex="0" role="article" aria-label="Sustainable Living">
-      <i class="fas fa-leaf" aria-hidden="true"></i>
-      <h3>Green Living</h3>
-      <p>Live clean and green — for you and the planet.</p>
-    </div>
-
-    <div class="card" tabindex="0" role="article" aria-label="Community Events and Bulletin">
-      <i class="fas fa-calendar-check" aria-hidden="true"></i>
-      <h3>Events & Updates</h3>
-      <p>Stay in the loop with our community happenings.</p>
-    </div>
-
-    <div class="card" tabindex="0" role="article" aria-label="Resident Services">
-      <i class="fas fa-headset" aria-hidden="true"></i>
-      <h3>Resident Support</h3>
-      <p>From maintenance to questions — we’re ready to assist.</p>
-    </div>
-    
+  <div class="card" tabindex="0" role="article" aria-label="Durga Puja Festival 2025">
+    <i class="fas fa-gem" aria-hidden="true"></i>
+    <h3>Durga Puja 2025</h3>
+    <p>Celebrate the grand festival! Check schedules, events & more.</p>
+    <a href="community-bulletin.html" class="card-link" aria-label="View Durga Puja event details">View Details →</a>
   </div>
+
+  <div class="card" tabindex="0" role="article" aria-label="Smart and Secure Living">
+    <i class="fas fa-shield-alt" aria-hidden="true"></i>
+    <h3>Smart & Secure Living</h3>
+    <p>24/7 safety and smart tech at your fingertips.</p>
+  </div>
+
+  <div class="card" tabindex="0" role="article" aria-label="Sustainable Living">
+    <i class="fas fa-leaf" aria-hidden="true"></i>
+    <h3>Green Living</h3>
+    <p>Live clean and green — for you and the planet.</p>
+  </div>
+
+  <div class="card" tabindex="0" role="article" aria-label="Community Events and Bulletin">
+    <i class="fas fa-calendar-check" aria-hidden="true"></i>
+    <h3>Events & Updates</h3>
+    <p>Stay in the loop with our community happenings.</p>
+  </div>
+
+  <div class="card" tabindex="0" role="article" aria-label="Resident Services">
+    <i class="fas fa-headset" aria-hidden="true"></i>
+    <h3>Resident Support</h3>
+    <p>From maintenance to questions — we’re ready to assist.</p>
+  </div>
+
+</div>
 
 </main>
 <button id="scrollToTop" title="Scroll to top">🔝</button>
@@ -891,7 +939,7 @@ const content = {
       "🌟 “From thoughtful landscaping to digital ease — Type - A raises the bar for community living.” – P. Das"
     ],
     cards: [
-      { title: "Durga Puja 2025", desc: "Celebrate the grand festival! Check schedules, events & more." },
+      { title: "🪔Durga Puja 2025", desc: "Celebrate the grand festival! Check schedules, events & more." },
       { title: "Smart & Secure Living", desc: "24/7 safety and smart tech at your fingertips." },
       { title: "Green Living", desc: "Live clean and green — for you and the planet." },
       { title: "Events & Updates", desc: "Stay in the loop with our community happenings." },
@@ -933,7 +981,7 @@ const content = {
       "🌟 “সু-পরিকল্পিত ল্যান্ডস্কেপিং থেকে ডিজিটাল সহজতায় — টাইপ - এ টাইপ - এ কমিউনিটি সত্যিকারের উদাহরণ।” – পি. দাস"
     ],
     cards: [
-      { title: "দুর্গা পূজা ২০২৫", desc: "সময়সূচি, অনুষ্ঠান সম্পর্কে বিশদে জানতে নিচের লিঙ্কে ক্লিক করুন!" },
+      { title: "🪔দুর্গা পূজা ২০২৫", desc: "সময়সূচি, অনুষ্ঠান সম্পর্কে বিশদে জানতে নিচের লিঙ্কে ক্লিক করুন!" },
       { title: "স্মার্ট ও সুরক্ষিত জীবনধারা", desc: "২৪/৭ নিরাপত্তা আর স্মার্ট প্রযুক্তির সঙ্গে থাকুন।" },
       { title: "সবুজ জীবন", desc: "নিজের জন্য আর পরিবেশের জন্য বেছে নিন সবুজ জীবনযাত্রা।" },
       { title: "ইভেন্ট ও আপডেট", desc: "আমাদের কমিউনিটির কার্যক্রম সম্পর্কে আপডেট থাকুন।" },
@@ -1455,6 +1503,84 @@ function rotateTestimonials() {
 
   })();
 
+function updateDurgaPujaCountdown() {
+  const countdownEl = document.getElementById('durga-puja-countdown');
+  const daysLeftEl = document.getElementById('days-left');
+  
+  const durgaPujaDate = new Date('2025-09-28'); // Adjust to actual Durga Puja start date
+  const today = new Date();
+  
+  // Calculate difference in milliseconds and convert to days
+  const diffTime = durgaPujaDate - today;
+  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+  
+  if (diffDays > 0) {
+    daysLeftEl.textContent = diffDays;
+  } else {
+    // Hide or remove the countdown after Durga Puja
+    countdownEl.style.display = 'none';
+  }
+}
+
+// Run on page load
+updateDurgaPujaCountdown();
+
+
+const countdownText = document.getElementById('countdown-text');
+  const festivalDayText = document.getElementById('festival-day-text');
+  const daysLeftSpan = document.getElementById('days-left');
+
+</script>
+
+<script>
+  const rotator = document.getElementById('durga-puja-rotator');
+  const pujaStart = new Date('2025-09-28');
+
+  const festivalDays = `
+    📅 Sep-28 Maha Sasthi | Sep-29 Maha Saptami | Sep-30 Maha Astami | Oct-1 Maha Nabami | Oct-2 Maha Dashami
+  `;
+
+  function getDaysLeft() {
+    const today = new Date();
+    const diff = pujaStart - today;
+    return Math.max(Math.ceil(diff / (1000 * 60 * 60 * 24)), 0);
+  }
+
+  function setCountdownText() {
+    const daysLeft = getDaysLeft();
+    rotator.innerHTML = `🕉️ দুর্গা পূজা আর <span class="blink days-highlight">${daysLeft}</span> দিন বাকি!!!`;
+  }
+
+  function setFestivalText() {
+    rotator.innerHTML = festivalDays;
+  }
+
+  let showingCountdown = true;
+
+  function rotateText() {
+    rotator.classList.remove('fade-in');
+    rotator.classList.add('fade-out');
+
+    setTimeout(() => {
+      if (showingCountdown) {
+        setFestivalText();
+      } else {
+        setCountdownText();
+      }
+
+      rotator.classList.remove('fade-out');
+      rotator.classList.add('fade-in');
+
+      showingCountdown = !showingCountdown;
+
+      setTimeout(rotateText, 6000);
+
+    }, 1000); // Fade out duration
+  }
+
+  // Init
+  setCountdownText();
+  setTimeout(rotateText, 6000);
 </script>
 
 </body>
