@@ -465,20 +465,20 @@
 
 <h2 style="
   font-family: 'Segoe UI', Arial, sans-serif; 
-  font-weight: 700; 
+  font-weight: 900; 
   font-size: 25px; 
   text-transform: uppercase; 
   letter-spacing: 1.5px; 
   text-align: center; 
   margin: 10px 0 20px; 
-  
-  background: linear-gradient(90deg, #007BFF, #28a745);
+
+  background: linear-gradient(90deg, #FF4C4C, #FF904A, #FFCC4A, #90FF4A, #4CFF90, #4CAAFF, #8F4CFF, #D04CFF);
   -webkit-background-clip: text; 
   -webkit-text-fill-color: transparent;
   background-clip: text;
   color: transparent;
   cursor: default;
-">Association Announcements</h2>
+">Association Spotlight</h2>
 
     <div class="container">
         <!-- Association Announcements Section -->
@@ -771,9 +771,10 @@ function updateCountdownText(lang) {
   if (!badge) return; // skip if badge not yet rendered
 
   const disclaimer = document.getElementById("disclaimer");
-  const mahaShasthiDate = new Date("2025-09-28T00:00:00");
   const today = new Date();
-  const timeDiff = mahaShasthiDate - today;
+  const todayMidnight = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+  const mahaShasthiDate = new Date("2025-09-28T00:00:00");
+  const timeDiff = mahaShasthiDate - todayMidnight;
   const daysRemaining = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
 
   badge.style.backgroundColor = "#b30000";
