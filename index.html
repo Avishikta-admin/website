@@ -824,10 +824,12 @@ header.hero .hero-image {
 
     .fade-out {
       opacity: 0;
+      transition: opacity 1s ease-out;
     }
 
     .fade-in {
       opacity: 1;
+      transition: opacity 1s ease-in;
     }
 </style>
 </head>
@@ -1534,7 +1536,7 @@ const countdownText = document.getElementById('countdown-text');
 
 <script>
   const rotator = document.getElementById('durga-puja-rotator');
-  const pujaStart = new Date('2025-09-28');
+  const pujaStart = new Date("2025-09-28T00:00:00");
 
   const festivalDays = `
     📅 মহাষষ্ঠী: রবিবার, ২৮ সেপ্টেম্বর | মহাসপ্তমী: সোমবার, ২৯ সেপ্টেম্বর | মহাঅষ্টমী: মঙ্গলবার, ৩০ সেপ্টেম্বর | মহানবমী: বুধবার, ১ অক্টোবর | বিজয়া দশমী: বৃহস্পতিবার, ২ অক্টোবর
@@ -1542,7 +1544,8 @@ const countdownText = document.getElementById('countdown-text');
 
   function getDaysLeft() {
     const today = new Date();
-    const diff = pujaStart - today;
+    const todayMidnight = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+    const diff = pujaStart - todayMidnight;
     return Math.max(Math.ceil(diff / (1000 * 60 * 60 * 24)), 0);
   }
 
@@ -1585,4 +1588,3 @@ const countdownText = document.getElementById('countdown-text');
 
 </body>
 </html>
-
