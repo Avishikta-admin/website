@@ -890,12 +890,27 @@ header.hero .hero-image {
 
 <div class="card-grid">
 
-  <div class="card" tabindex="0" role="article" aria-label="Durga Puja Festival 2025">
-    <i class="fas fa-gem" aria-hidden="true"></i>
-    <h3>Durga Puja 2025</h3>
-    <p>Celebrate the grand festival! Check schedules, events & more.</p>
-    <a href="community-bulletin.html" class="card-link" aria-label="View Durga Puja event details">View Details →</a>
-  </div>
+  <div class="card" tabindex="0" role="article" aria-label="Durga Puja Festival 2025" style="position: relative; overflow: hidden;">
+  <i class="fas fa-gem" aria-hidden="true"></i>
+  <h3>Durga Puja 2025</h3>
+  <p>Celebrate the grand festival! Check schedules, events & more.</p>
+  <a href="community-bulletin.html" class="card-link" aria-label="View Durga Puja event details" style="color: #FFFF00;">View Details →</a>
+
+  <!-- Background image div -->
+  <div style="
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 150px;
+    height: 150px;
+    background: url('maadurgaface.jpg') no-repeat center center;
+    background-size: contain;
+    opacity: 0.3;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    z-index: 0;
+  "></div>
+</div>
 
   <div class="card" tabindex="0" role="article" aria-label="Smart and Secure Living">
     <i class="fas fa-shield-alt" aria-hidden="true"></i>
