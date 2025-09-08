@@ -117,13 +117,6 @@ html, body {
   box-shadow: none;
 }
 
-    .hero::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: rgba(0,0,0,0.4);
-    }
-
     .hero-content {
       position: relative;
       text-align: center;
@@ -376,19 +369,6 @@ html, body {
   }
 }
 
-
-  .full-width-hero {
-  width: 100vw;
-  height: 280px;
-  position: relative;
-  overflow: hidden;
-  padding: 0;
-  margin: 0;
-  border-radius: 0;
-  background: none;
-  box-shadow: none;
-}
-
    .card-grid {
         display: grid;
   	grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* This will ensure cards are dynamically adjusted */
@@ -401,7 +381,7 @@ html, body {
     .image-text-hero {
       position: relative;
       max-width: 720px;
-      margin: 0 auto 2rem auto;
+      margin: 0;
       border-radius: 12px;
       overflow: hidden;
       box-shadow: 0 8px 24px rgba(0,0,0,0.4);
@@ -418,21 +398,28 @@ html, body {
   z-index: 0;
 }
 
+/* Main header wrapper */
 header.hero {
-  margin: 0;
-  padding: 0;
-  position: relative; /* ensures absolute child (.hero-image) is positioned correctly */
-  overflow: hidden; /* hide any overflow if image is absolute */
+  position: relative;
+  width: 100vw;
+  height: 280px;
+  overflow: hidden;
 }
 
-header.hero .hero-image {
+/* Image inside the header */
+.hero-image {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%; /* make sure it fills the header */
+  height: 100%;
   object-fit: cover;
   display: block;
+  border: 0;
+  margin: 0;
+  padding: 0;
+  filter: brightness(100%);
+  z-index: 0;
 }
 
     .image-text-hero:hover .hero-image {
@@ -449,18 +436,9 @@ header.hero .hero-image {
   background: rgba(0, 0, 0, 0.4);
   padding: 0.5rem 1rem;
   border-radius: 6px;
-  font-size: 2.0rem;
+  font-size: 1.5rem;
   text-align: center;
 }
-    .overlay h2 {
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 700;
-      font-size: 1.8rem;
-      color: #fffbea;
-      white-space: nowrap;
-      text-shadow: 1px 1px 6px rgba(0,0,0,0.6), 0 0 6px rgba(255,255,255,0.2);
-      text-align: center;
-    }
 
 .welcome-content {
   display: flex;
@@ -790,19 +768,19 @@ header.hero .hero-image {
 }
 
 #durga-puja-rotator {
-      background: linear-gradient(to right, #FFD54F, #FF6F00);
-      padding: 4px 6px;
-      text-align: center;
-      font-weight: 600;
-      font-size: 0.9rem;
-      color: #311B92;
-      border-radius: 8px;
-      width: fit-content;
-      margin: 5px auto;
-      min-width: 320px;
-      transition: opacity 1s ease-in-out;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    }
+  background: linear-gradient(to right, #FFD54F, #FF6F00);
+  padding: 4px 6px;
+  text-align: center;
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: #311B92;
+  border-radius: 8px;
+  width: fit-content;
+  margin: -20px auto 10px auto; /* Pulls it up by 20px */
+  min-width: 320px;
+  transition: opacity 1s ease-in-out;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
 
     .blink {
       animation: blink-animation 1.5s steps(2, start) infinite;
@@ -831,10 +809,11 @@ header.hero .hero-image {
       opacity: 1;
       transition: opacity 1s ease-in;
     }
+
 </style>
 </head>
 
-<body>
+<body style="margin: 0; padding: 35px;">
 
 <div id="layout-root">
 
@@ -946,7 +925,6 @@ header.hero .hero-image {
     </div>
   </div>
 </div>
-
 
   <div class="card" tabindex="0" role="article" aria-label="Smart and Secure Living">
     <i class="fas fa-shield-alt" aria-hidden="true"></i>
