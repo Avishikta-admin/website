@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <title>Durga Puja Celebration</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
   <!-- Fonts & Icons -->
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Bengali&display=swap" rel="stylesheet" />
   <style>
@@ -33,7 +34,6 @@ body::before {
   pointer-events: none;    /* so it doesn’t block clicks */
   z-index: -1;             /* behind all page content */
 }
-
 
     h1, h2 {
       text-align: center;
@@ -680,11 +680,48 @@ body::before {
     const flowerCountDisplay = document.getElementById("flowerCountDisplay");
     const offerFlowerBtn = document.getElementById("offerFlowerBtn");
 
-    function offerFlower() {
-      flowerCount++;
-      flowerCountDisplay.textContent = `🌸 আপনি ${flowerCount} টি পুষ্পাঞ্জলি দিলেন।`;
-      offerFlowerBtn.focus();
-    }
+
+  // Helper: create a canvas with emoji drawn on it, return as Image
+function createEmojiParticle(emoji) {
+  const size = 40;
+  const canvas = document.createElement('canvas');
+  canvas.width = size;
+  canvas.height = size;
+  const ctx = canvas.getContext('2d');
+
+  ctx.font = `${size}px "Segoe UI Emoji", "Apple Color Emoji", "Noto Color Emoji", sans-serif`;
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.fillText(emoji, size / 2, size / 2);
+
+  const img = new Image();
+  img.src = canvas.toDataURL();
+  return img;
+}
+
+function offerFlower() {
+  flowerCount++;
+  flowerCountDisplay.textContent = `🌸 আপনি ${flowerCount} টি পুষ্প প্রদান করলেন।`;
+  offerFlowerBtn.focus();
+
+  const emojis = ['🌸', '🌺', '🌼'];
+  const emojiImages = emojis.map(createEmojiParticle);
+
+  // Wait a short time for all images to load before firing confetti
+  setTimeout(() => {
+    emojiImages.forEach(img => {
+      confetti({
+        particleCount: 15,
+        spread: 70,
+        origin: { y: 0.6 },
+        gravity: 0.3,
+        scalar: 1.2,
+        shapes: ['image'],
+        shapeOptions: { image: img }
+      });
+    });
+  }, 300); // 100ms delay to let images load
+}
 
     // Theme Toggle
     let nightMode = false;
