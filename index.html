@@ -201,7 +201,7 @@ html, body {
 
     .card {
       background: linear-gradient(145deg, #2c3e50, #4ca1af); /* Stunning gradient */
-      padding: 1rem;
+      padding: 2px 3px;
       border-radius: 12px;
       box-shadow: 0 6px 18px rgba(0,0,0,0.2);
       transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
@@ -211,7 +211,7 @@ html, body {
       cursor: default;
       width: 100%; /* Ensures the card takes the full available space */
       max-width: 350px; /* Keeps card width under control */
-      margin: 0 auto; /* Centers the card */
+      margin: -20px auto 0; /* Centers the card */
       transform: translateY(20px);
     }
     .card::after {
@@ -810,6 +810,22 @@ header.hero {
       transition: opacity 1s ease-in;
     }
 
+.icon-circle span {
+  --distance: 50px; /* bigger radius for more space */
+  animation: rotate 15s linear infinite;
+  animation-delay: calc(var(--i) * -3s);
+  
+  /* rotate icons evenly spaced around circle */
+  transform: rotate(calc(var(--i) * 72deg)) translateX(var(--distance)) rotate(calc(var(--i) * -72deg)) translateY(var(--y-offset));
+  /* translateY adds a subtle vertical offset for less overlap */
+}
+
+@keyframes rotate {
+  100% {
+    transform: rotate(360deg) translateX(var(--distance)) rotate(-360deg);
+  }
+}
+
 </style>
 </head>
 
@@ -927,11 +943,20 @@ header.hero {
 </div>
 
 <div class="card" tabindex="0" role="article" aria-label="Virtual Durga Puja Darshan Experience" style="cursor: pointer; background: linear-gradient(135deg, #ff6f61, #ffcc80); color: #4b2e05;">
-  <h3>🌸 Virtual Darshan Walkthrough</h3>
+  <h3 style="font-size: 0.85rem;">🌸 Virtual Darshan Walkthrough</h3>
   <p>Take a vibrant scroll-through journey of Durga Puja rituals & festivities!</p>
   <a href="darshan.html" class="card-link" style="color: #994d00; font-weight: bold;">Start Virtual Darshan →</a>
-</div>
 
+  <!-- Circular Icon Carousel Start -->
+  <div class="icon-circle" aria-hidden="true" style="position: relative; width: 140px; height: 140px; margin: 12px auto;">
+  <span style="--i:0; font-size: 1.7rem; position: absolute; top: 30%; left: 50%; transform-origin: 0 0; --y-offset: 0;">🛕</span>
+  <span style="--i:1; font-size: 1.7rem; position: absolute; top: 30%; left: 50%; transform-origin: 0 0; --y-offset: 4px;">📹</span>
+  <span style="--i:2; font-size: 1.7rem; position: absolute; top: 30%; left: 50%; transform-origin: 0 0; --y-offset: -3px;">🖥️</span>
+  <span style="--i:3; font-size: 1.7rem; position: absolute; top: 30%; left: 50%; transform-origin: 0 0; --y-offset: 2px;">🪔</span>
+  <span style="--i:4; font-size: 1.7rem; position: absolute; top: 30%; left: 50%; transform-origin: 0 0; --y-offset: -2px;">🌐</span>
+</div>
+  <!-- Circular Icon Carousel End -->
+</div>
 
   <div class="card" tabindex="0" role="article" aria-label="Smart and Secure Living">
     <i class="fas fa-shield-alt" aria-hidden="true"></i>
