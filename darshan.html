@@ -8,14 +8,32 @@
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Bengali&display=swap" rel="stylesheet" />
   <style>
     body {
-      margin: 0;
-      font-family: 'Noto Serif Bengali', serif;
-      background: linear-gradient(to bottom, #fff3e6, #ffe6cc);
-      overflow-x: hidden;
-      transition: background 0.5s ease;
-      color: #333;
-      scroll-behavior: smooth;
-    }
+  margin: 0;
+  font-family: 'Noto Serif Bengali', serif;
+  background: linear-gradient(to bottom, #fff3e6, #ffe6cc);
+  overflow-x: hidden;
+  transition: background 0.5s ease;
+  color: #333;
+  scroll-behavior: smooth;
+  position: relative; /* Add this to enable ::before positioning */
+}
+
+/* Add the transparent silhouette overlay */
+body::before {
+  content: "";
+  position: fixed;       /* fixed so it stays on screen during scroll */
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('maadurgaimg.png'); /* your transparent PNG */
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: contain; /* or 'cover' if you want it bigger */
+  opacity: 0.05;           /* very subtle - adjust as needed */
+  pointer-events: none;    /* so it doesn’t block clicks */
+  z-index: -1;             /* behind all page content */
+}
+
 
     h1, h2 {
       text-align: center;
@@ -26,7 +44,7 @@
     #countdown {
       text-align: center;
       font-size: 1rem;
-      margin-top: 5px;
+      margin-top: 0;
       color: #cc3300;
       font-weight: 600;
       letter-spacing: 0.05em;
@@ -47,6 +65,7 @@
   gap: 5px;
   margin: 10px;
   text-align: center;
+  padding-top: 40px;
 }
 
 .flower-wrapper {
@@ -181,15 +200,27 @@
     /* Virtual Darshan Styles */
     /* --------------------- */
 
-    .darshan-section {
+.darshan-section {
   min-height: auto;
-  padding: 20px 10px;
-  margin: 0;
+  padding: 25px 20px;
+  margin: 20px auto;
+  max-width: 650px;
   display: block;
   text-align: center;
-  transition: all 0.5s ease;
+  transition: all 0.4s ease;
   opacity: 0;
   transform: translateY(30px);
+  border-radius: 16px;
+  box-shadow:
+    0 4px 15px rgba(0,0,0,0.1),
+    inset 0 0 20px rgba(255, 255, 255, 0.4);
+  position: relative;
+  background-repeat: no-repeat;
+  background-position: right 20px top 20px;
+  background-size: 80px 80px;
+  cursor: default;
+  /* Make sure background patterns don't interfere with text */
+  z-index: 0;
 }
 
 .darshan-section.visible {
@@ -197,30 +228,137 @@
   transform: translateY(0);
 }
 
-.darshan-section h2 {
-  font-size: 1.25rem;
-  margin: 10px 0 8px;
-  color: #cc0000;
-  text-shadow: 1px 1px 2px rgba(255, 204, 153, 0.7);
+/* Vibrant container style with enhanced gradient border and shadows */
+.vibrant {
+  padding: 25px 30px;
+  margin: 25px auto;
+  max-width: 650px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #fff7ec, #ffe4cc);
+  box-shadow:
+    0 6px 20px rgba(204, 51, 0, 0.2),
+    inset 0 0 15px rgba(255, 230, 200, 0.6);
+  border: 3px solid transparent;
+  background-origin: border-box;
+  background-clip: content-box, border-box;
+  transition: box-shadow 0.4s ease, transform 0.4s ease, border-image 0.4s ease;
+  outline-offset: 5px;
+  outline: none;
+  position: relative;
+  z-index: 10;
 }
 
+/* Shimmering gradient border on hover/focus */
+.vibrant:hover,
+.vibrant:focus {
+  border-image: linear-gradient(45deg, #ff6600, #cc3300, #ff9900, #ff6600) 1;
+  box-shadow:
+    0 8px 30px rgba(255, 102, 0, 0.7),
+    inset 0 0 25px rgba(255, 153, 51, 0.8);
+  transform: translateY(-8px);
+  cursor: pointer;
+}
+
+/* Headings */
+.darshan-section h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  letter-spacing: 0.06em;
+  animation: glowPulse 3s ease-in-out infinite;
+  /* Remove big blur shadows */
+  /* Instead of big blur shadows, small offset shadows only */
+  text-shadow:
+    0 0 0px #ff6600,
+    1px 1px 0px #ff9900,
+    2px 2px 0px #ffcc33;
+  user-select: none;
+}
+
+/* Paragraphs */
 .darshan-section p {
-  font-size: 0.95rem;
-  line-height: 1.4;
-  max-width: 500px;
+  font-size: 1.15rem;
+  line-height: 1.6;
+  max-width: 520px;
   margin: 0 auto;
   color: #663300;
+  font-style: italic;
+  text-shadow: 1px 1px 3px #ffe6cc;
 }
 
-    .section1 { background: #fff8e1; }
-    .section2 { background: #ffe0b2; }
-    .section3 { background: #ffccbc; }
-    .section4 { background: #f8bbd0; }
-    .section5 { background: #d1c4e9; }
+/* Glowing pulse animation for headings */
+@keyframes glowPulse {
+  0%, 100% {
+    text-shadow:
+      0 0 0px #ff6600,
+      1px 1px 0px #ff9900,
+      2px 2px 0px #ffcc33;
+  }
+  50% {
+    text-shadow:
+      0 0 0px #cc3300,
+      1px 1px 0px #ff6600,
+      2px 2px 0px #ffcc00;
+  }
+}
 
-    .night .darshan-section {
-      color: white;
-    }
+/* Unique background patterns (semi-transparent emojis or SVG data URI) */
+.section1 {
+  background-color: #fff8e1;
+  background-image: url("data:image/svg+xml,%3Csvg width='64' height='64' xmlns='http://www.w3.org/2000/svg'%3E%3Ctext x='10' y='50' font-size='48' opacity='0.1'%3E🌼%3C/text%3E%3C/svg%3E");
+}
+
+.section2 {
+  background-color: #ffe0b2;
+  background-image: url("data:image/svg+xml,%3Csvg width='64' height='64' xmlns='http://www.w3.org/2000/svg'%3E%3Ctext x='10' y='50' font-size='48' opacity='0.1'%3E🌸%3C/text%3E%3C/svg%3E");
+}
+
+.section3 {
+  background-color: #ffccbc;
+  background-image: url("data:image/svg+xml,%3Csvg width='64' height='64' xmlns='http://www.w3.org/2000/svg'%3E%3Ctext x='10' y='50' font-size='48' opacity='0.1'%3E🔥%3C/text%3E%3C/svg%3E");
+}
+
+.section4 {
+  background-color: #f8bbd0;
+  background-image: url("data:image/svg+xml,%3Csvg width='64' height='64' xmlns='http://www.w3.org/2000/svg'%3E%3Ctext x='10' y='50' font-size='48' opacity='0.1'%3E💄%3C/text%3E%3C/svg%3E");
+}
+
+.section5 {
+  background-color: #d1c4e9;
+  background-image: url("data:image/svg+xml,%3Csvg width='64' height='64' xmlns='http://www.w3.org/2000/svg'%3E%3Ctext x='10' y='50' font-size='48' opacity='0.1'%3E🌊%3C/text%3E%3C/svg%3E");
+}
+
+/* Heading colors per section for vibrancy */
+.section1 h2 { color: #d32f2f; }
+.section2 h2 { color: #c2185b; }
+.section3 h2 { color: #f57c00; }
+.section4 h2 { color: #8e24aa; }
+.section5 h2 { color: #1976d2; }
+
+/* Night mode */
+.night .darshan-section {
+  color: white;
+  background-color: #2a2a2a !important;
+  box-shadow: 0 0 20px rgba(255, 102, 0, 0.9);
+  border-color: #ff6600 !important;
+  background-image: none !important;
+}
+
+/* Glitter overlay */
+#glitterOverlay {
+  pointer-events: none;
+  position: fixed;
+  top: 0; left: 0; width: 100%; height: 100%;
+  z-index: 999;
+  background: radial-gradient(circle, rgba(255, 223, 0, 0.2) 1px, transparent 1px);
+  background-size: 20px 20px;
+  animation: glitterMove 10s linear infinite;
+}
+
+@keyframes glitterMove {
+  0% { background-position: 0 0; }
+  100% { background-position: 20px 20px; }
+}
 
     /* Scroll hint */
     #scrollHint {
@@ -261,8 +399,8 @@
     }
     #wishInput {
       font-family: 'Noto Serif Bengali', serif;
-      font-size: 1.1rem;
-      padding: 8px 12px;
+      font-size: 0.9rem;
+      padding: 5px 10px;
       width: 60%;
       max-width: 350px;
       border: 2px solid #cc9933;
@@ -274,8 +412,8 @@
       border-color: #b34d00;
     }
     #submitWish {
-      font-size: 1.1rem;
-      padding: 8px 18px;
+      font-size: 0.85rem;
+      padding: 6px 14px;
       margin-left: 8px;
       cursor: pointer;
       border-radius: 6px;
@@ -307,88 +445,96 @@
       width: 150px;
       vertical-align: middle;
     }
-/* Vibrant Virtual Darshan styles */
-.vibrant {
-  padding: 15px 20px;
-  margin: 15px auto;
-  max-width: 650px;
-  border: 2px solid #cc3300;
-  border-radius: 12px;
-  box-shadow: 0 0 10px 2px rgba(204, 51, 0, 0.2);
-  background: linear-gradient(135deg, #fff7ec, #ffe4cc);
+
+  /* Floating marigold petals */
+  .floating-petal {
+    position: fixed;
+    width: 20px;
+    height: 20px;
+    background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Marigold_flower_single_with_leaves.png/120px-Marigold_flower_single_with_leaves.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    opacity: 0.7;
+    animation-timing-function: linear;
+    pointer-events: none;
+    will-change: transform;
+    z-index: 998;
+  }
+#offerFlowerBtn {
+  position: relative;
+  overflow: hidden;
+  z-index: 0;
+  background-color: #cc3300;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 6px 12px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
-.vibrant:hover {
-  box-shadow: 0 0 30px 10px rgba(255, 102, 0, 0.7);
-  transform: translateY(-5px);
+#offerFlowerBtn:hover {
+  background-color: #e64a19;
+  box-shadow: 0 0 15px rgba(230, 74, 25, 0.7);
 }
 
-.vibrant h2 {
-  font-size: 2rem;
-  color: #b30000;
-  text-shadow: 2px 2px 4px #ffcc99;
-  margin-bottom: 15px;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  animation: glowPulse 3s ease-in-out infinite;
+/* Ripple container */
+#offerFlowerBtn::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  background: rgba(255, 255, 255, 0.3);
+  top: 50%;
+  left: 50%;
+  pointer-events: none;
+  transform: translate(-50%, -50%) scale(0);
+  opacity: 0;
+  transition: transform 0.6s ease, opacity 1.2s ease;
+  z-index: -1;
 }
 
-.vibrant p {
-  font-size: 1.15rem;
-  line-height: 1.6;
-  color: #663300;
-  font-style: italic;
-  text-shadow: 1px 1px 2px #ffe6cc;
+/* Animate ripple on click */
+#offerFlowerBtn:active::after {
+  transform: translate(-50%, -50%) scale(1);
+  opacity: 1;
+  transition: transform 0.3s ease, opacity 0.6s ease;
 }
 
-/* Subtle glowing animation for headings */
-@keyframes glowPulse {
+/* Subtle pulse animation - infinite */
+@keyframes pulseGlow {
   0%, 100% {
-    text-shadow: 0 0 8px #ff6600, 0 0 15px #ff9900, 0 0 25px #ffcc33;
+    box-shadow: 0 0 8px 0 rgba(255, 102, 0, 0.6);
   }
   50% {
-    text-shadow: 0 0 15px #cc3300, 0 0 30px #ff6600, 0 0 45px #ffcc00;
+    box-shadow: 0 0 18px 6px rgba(255, 102, 0, 0.9);
   }
 }
-.section1 h2 {
-  color: #d32f2f; /* deep red */
+
+#offerFlowerBtn {
+  animation: pulseGlow 3s infinite ease-in-out;
 }
 
-.section2 h2 {
-  color: #c2185b; /* magenta-pink */
-}
-
-.section3 h2 {
-  color: #f57c00; /* vibrant orange */
-}
-
-.section4 h2 {
-  color: #8e24aa; /* purple */
-}
-
-.section5 h2 {
-  color: #1976d2; /* deep blue */
-}
-#submitWish {
-  font-size: 0.8rem; /* or whatever size you prefer */
-}
   </style>
 </head>
 <body>
   <div id="tsparticles"></div>
 
-  <h1>🌺 শুভ দুর্গাপূজা 2025 🌺</h1>
-  <div id="countdown" aria-live="polite" aria-atomic="true"></div>
+  <div id="glitterOverlay" aria-hidden="true"></div>
 
-<!-- Durga Image with Zoom -->
-<div style="text-align:center; margin: 20px 0;">
+ <!-- Durga Image with Zoom -->
+<div style="text-align:center; margin: 10px 0; position: relative; z-index: 1;">
   <img src="maadurga2024.jpg" alt="Maa Durga 2024"
        id="durgaImage"
-       style="max-width: 200px; cursor: zoom-in; border-radius: 12px; border: 3px solid #cc3300; box-shadow: 0 0 12px rgba(255, 102, 0, 0.4);"
+       style="max-width: 125px; cursor: zoom-in; border-radius: 12px; border: 3px solid #cc3300; box-shadow: 0 0 12px rgba(255, 102, 0, 0.4);"
        onclick="openZoom()" 
   >
-  <p style="font-size: 0.9rem; color: #774400; margin-top: 6px;">আমাদের গত বছরের প্রতিমা</p>
+  <p style="font-size: 0.9rem; color: #774400; margin-top: 1px;">আমাদের গত বছরের প্রতিমা</p>
 </div>
+
+<h1>🌺 শুভ দুর্গাপূজা ২০২৫ <span id="countdown" aria-live="polite" aria-atomic="true" style="font-weight: 600; color: #b30000; font-size: 1rem;"></span></h1>
 
 <!-- Modal Zoom Viewer with Close Button -->
 <div id="zoomModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.85); justify-content:center; align-items:center; z-index:1000; flex-direction:column;">
@@ -536,7 +682,7 @@
 
     function offerFlower() {
       flowerCount++;
-      flowerCountDisplay.textContent = `🌸 আপনি ${flowerCount} টি পুষ্প প্রদান করলেন।`;
+      flowerCountDisplay.textContent = `🌸 আপনি ${flowerCount} টি পুষ্পাঞ্জলি দিলেন।`;
       offerFlowerBtn.focus();
     }
 
@@ -676,6 +822,6 @@ document.getElementById("closeZoomBtn").addEventListener("click", function () {
 });
 
 </script>
+
 </body>
 </html>
-
