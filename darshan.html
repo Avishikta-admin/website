@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+  <title>Durga Puja Celebration</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Fonts & Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Bengali&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Noto Serif Bengali', serif;
+      background: linear-gradient(to bottom, #fff3e6, #ffe6cc);
+      overflow-x: hidden;
+      transition: background 0.5s ease;
+      color: #333;
+      scroll-behavior: smooth;
+    }
+
+    h1, h2 {
+      text-align: center;
+      color: #b30000;
+      font-size: 1.2rem;
+    }
+
+    #countdown {
+      text-align: center;
+      font-size: 1rem;
+      margin-top: 5px;
+      color: #cc3300;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+    }
+
+    #tsparticles {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      user-select: none;
+    }
+
+  .controls {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin: 10px;
+  text-align: center;
+}
+
+.flower-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#flowerCountDisplay {
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 3px 6px;
+  border-radius: 15px;
+  box-shadow: 0 0 6px rgba(0,0,0,0.1);
+  font-size: 0.85rem;
+  color: #b34d00;
+  margin-bottom: 2px;
+}
+
+    button {
+      font-size: 0.85rem;
+      padding: 6px 12px;
+      margin: 5px;
+      cursor: pointer;
+      border-radius: 8px;
+      border: none;
+      background: #ffcc80;
+      transition: background 0.3s ease;
+      user-select: none;
+    }
+    button:hover, button:focus {
+      background: #ffb84d;
+      outline: none;
+    }
+
+    #wishesWall {
+      max-width: 600px;
+      margin: 30px auto;
+      padding: 20px;
+      background: #fffbe6;
+      border: 2px dashed #cc9933;
+      border-radius: 10px;
+      min-height: 150px;
+      overflow-y: auto;
+      max-height: 300px;
+    }
+
+    .wish {
+      margin: 4px 0;
+      font-style: italic;
+      color: #993300;
+      animation: fadeIn 1s ease forwards;
+      transition: transform 0.3s ease, color 0.3s ease;
+      cursor: default;
+    }
+    .wish:hover {
+      color: #b34d00;
+      transform: scale(1.05);
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .lights {
+      display: flex;
+      justify-content: center;
+      gap: 5px;
+      margin-top: 20px;
+      user-select: none;
+    }
+
+    .light {
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+      background: red;
+      animation: blink 1.2s infinite;
+    }
+
+    .light:nth-child(2) {
+      animation-delay: 0.2s;
+      background: orange;
+    }
+    .light:nth-child(3) {
+      animation-delay: 0.4s;
+      background: yellow;
+    }
+    .light:nth-child(4) {
+      animation-delay: 0.6s;
+      background: green;
+    }
+    .light:nth-child(5) {
+      animation-delay: 0.8s;
+      background: blue;
+    }
+
+    @keyframes blink {
+      0%, 100% {
+        opacity: 1;
+      }
+      50% {
+        opacity: 0.2;
+      }
+    }
+
+    .night {
+      background: radial-gradient(ellipse at top, #1a1a2e, #000);
+      color: white;
+    }
+
+    /* Night tweaks */
+    .night button {
+      background: #996633;
+      color: white;
+    }
+    .night button:hover {
+      background: #cc9900;
+    }
+
+    .night #countdown {
+      color: #ffcc00;
+    }
+
+    /* --------------------- */
+    /* Virtual Darshan Styles */
+    /* --------------------- */
+
+    .darshan-section {
+  min-height: auto;
+  padding: 20px 10px;
+  margin: 0;
+  display: block;
+  text-align: center;
+  transition: all 0.5s ease;
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+.darshan-section.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.darshan-section h2 {
+  font-size: 1.25rem;
+  margin: 10px 0 8px;
+  color: #cc0000;
+  text-shadow: 1px 1px 2px rgba(255, 204, 153, 0.7);
+}
+
+.darshan-section p {
+  font-size: 0.95rem;
+  line-height: 1.4;
+  max-width: 500px;
+  margin: 0 auto;
+  color: #663300;
+}
+
+    .section1 { background: #fff8e1; }
+    .section2 { background: #ffe0b2; }
+    .section3 { background: #ffccbc; }
+    .section4 { background: #f8bbd0; }
+    .section5 { background: #d1c4e9; }
+
+    .night .darshan-section {
+      color: white;
+    }
+
+    /* Scroll hint */
+    #scrollHint {
+      position: fixed;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 0.85rem;
+      color: #b30000;
+      animation: bounce 2s infinite;
+      user-select: none;
+      z-index: 10;
+      background: rgba(255 255 255 / 0.8);
+      padding: 3px 10px;
+      border-radius: 25px;
+      box-shadow: 0 2px 8px rgb(179 0 0 / 0.5);
+    }
+
+    .night #scrollHint {
+      background: rgba(0 0 0 / 0.6);
+      color: #ffcc00;
+      box-shadow: 0 2px 8px rgb(255 204 0 / 0.6);
+    }
+
+    @keyframes bounce {
+      0%, 100% {
+        transform: translate(-50%, 0);
+      }
+      50% {
+        transform: translate(-50%, -10px);
+      }
+    }
+
+    /* Wish input form */
+    #wishForm {
+      text-align: center;
+      margin: 20px 0 10px 0;
+    }
+    #wishInput {
+      font-family: 'Noto Serif Bengali', serif;
+      font-size: 1.1rem;
+      padding: 8px 12px;
+      width: 60%;
+      max-width: 350px;
+      border: 2px solid #cc9933;
+      border-radius: 6px;
+      outline-offset: 2px;
+      transition: border-color 0.3s ease;
+    }
+    #wishInput:focus {
+      border-color: #b34d00;
+    }
+    #submitWish {
+      font-size: 1.1rem;
+      padding: 8px 18px;
+      margin-left: 8px;
+      cursor: pointer;
+      border-radius: 6px;
+      border: none;
+      background: #ffcc80;
+      transition: background 0.3s ease;
+    }
+    #submitWish:hover, #submitWish:focus {
+      background: #ffb84d;
+      outline: none;
+    }
+
+    /* Flower offering display */
+    #flowerCountDisplay {
+      margin-top: 10px;
+      font-weight: 600;
+      color: #b34d00;
+      user-select: none;
+    }
+
+    /* Audio volume control */
+    #audioControls {
+      margin-top: 10px;
+      text-align: center;
+      user-select: none;
+      color: #cc3300;
+    }
+    #audioVolume {
+      width: 150px;
+      vertical-align: middle;
+    }
+/* Vibrant Virtual Darshan styles */
+.vibrant {
+  padding: 15px 20px;
+  margin: 15px auto;
+  max-width: 650px;
+  border: 2px solid #cc3300;
+  border-radius: 12px;
+  box-shadow: 0 0 10px 2px rgba(204, 51, 0, 0.2);
+  background: linear-gradient(135deg, #fff7ec, #ffe4cc);
+}
+
+.vibrant:hover {
+  box-shadow: 0 0 30px 10px rgba(255, 102, 0, 0.7);
+  transform: translateY(-5px);
+}
+
+.vibrant h2 {
+  font-size: 2rem;
+  color: #b30000;
+  text-shadow: 2px 2px 4px #ffcc99;
+  margin-bottom: 15px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  animation: glowPulse 3s ease-in-out infinite;
+}
+
+.vibrant p {
+  font-size: 1.15rem;
+  line-height: 1.6;
+  color: #663300;
+  font-style: italic;
+  text-shadow: 1px 1px 2px #ffe6cc;
+}
+
+/* Subtle glowing animation for headings */
+@keyframes glowPulse {
+  0%, 100% {
+    text-shadow: 0 0 8px #ff6600, 0 0 15px #ff9900, 0 0 25px #ffcc33;
+  }
+  50% {
+    text-shadow: 0 0 15px #cc3300, 0 0 30px #ff6600, 0 0 45px #ffcc00;
+  }
+}
+.section1 h2 {
+  color: #d32f2f; /* deep red */
+}
+
+.section2 h2 {
+  color: #c2185b; /* magenta-pink */
+}
+
+.section3 h2 {
+  color: #f57c00; /* vibrant orange */
+}
+
+.section4 h2 {
+  color: #8e24aa; /* purple */
+}
+
+.section5 h2 {
+  color: #1976d2; /* deep blue */
+}
+#submitWish {
+  font-size: 0.8rem; /* or whatever size you prefer */
+}
+  </style>
+</head>
+<body>
+  <div id="tsparticles"></div>
+
+  <h1>🌺 শুভ দুর্গাপূজা 2025 🌺</h1>
+  <div id="countdown" aria-live="polite" aria-atomic="true"></div>
+
+<!-- Durga Image with Zoom -->
+<div style="text-align:center; margin: 20px 0;">
+  <img src="maadurga2024.jpg" alt="Maa Durga 2024"
+       id="durgaImage"
+       style="max-width: 200px; cursor: zoom-in; border-radius: 12px; border: 3px solid #cc3300; box-shadow: 0 0 12px rgba(255, 102, 0, 0.4);"
+       onclick="openZoom()" 
+  >
+  <p style="font-size: 0.9rem; color: #774400; margin-top: 6px;">আমাদের গত বছরের প্রতিমা</p>
+</div>
+
+<!-- Modal Zoom Viewer with Close Button -->
+<div id="zoomModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.85); justify-content:center; align-items:center; z-index:1000; flex-direction:column;">
+  <button id="closeZoomBtn"
+          style="position: absolute; top: 20px; right: 25px; background: #cc3300; color: white; border: none; font-size: 1rem; padding: 8px 14px; border-radius: 6px; cursor: pointer; z-index: 1100;">
+    ✖ Close
+  </button>
+  <img src="maadurga2024.jpg" alt="Zoomed Maa Durga"
+       style="max-width: 90%; max-height: 90%; border-radius: 15px; box-shadow: 0 0 30px rgba(255, 255, 255, 0.6);">
+</div>
+
+  <div class="controls" role="region" aria-label="Audio and theme controls">
+  <button id="homeBtn" onclick="location.href='index.html'" aria-label="Go to Home Page">🏠 Home</button>
+  <button id="audioToggleBtn" onclick="toggleAudio()" aria-pressed="false" aria-label="Play or pause Dhak audio">🔊 Play Dhak</button>
+  
+  <!-- Wrap flower display + button -->
+  <div class="flower-wrapper">
+    <div id="flowerCountDisplay"
+         aria-live="polite" aria-atomic="true">
+      🌸 এখনও কেউ ফুল দেননি।
+    </div>
+    <button id="offerFlowerBtn" onclick="offerFlower()" aria-label="Offer a flower to Ma Durga">🌸 Offer a Flower</button>
+  </div>
+
+  <button id="themeToggleBtn" onclick="toggleTheme()" aria-pressed="false" aria-label="Toggle night mode">🌙 Night Mode</button>
+  <button id="resetWishesBtn" aria-label="Reset wishes to default">🔄 Reset Wishes</button>
+</div>
+
+  <div id="audioControls" aria-label="Audio volume control" hidden>
+    Volume: <input type="range" id="audioVolume" min="0" max="1" step="0.01" value="0.5" aria-valuemin="0" aria-valuemax="1" aria-valuenow="0.5" aria-label="Adjust Dhak audio volume">
+  </div>
+
+  <audio id="dhakAudio" loop preload="auto">
+    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mp3" />
+  </audio>
+
+  <h2>🙏 Devotee Wishes Wall 🙏</h2>
+
+  <form id="wishForm" aria-label="Add your wish">
+    <input
+      id="wishInput"
+      type="text"
+      placeholder="আপনার শুভকামনা লিখুন এখানে..."
+      maxlength="100"
+      aria-required="true"
+      required
+      autocomplete="off"
+      aria-describedby="wishHelp"
+    />
+    <button type="submit" id="submitWish">জমা দিন</button>
+  </form>
+  <small id="wishHelp" style="display:block; max-width:600px; margin: 0 auto 15px auto; text-align:center; color:#666;">আপনার শুভকামনা যুক্ত করুন এবং উৎসব ভাগ করুন।</small>
+
+  <div id="wishesWall" aria-live="polite" aria-relevant="additions"></div>
+
+  <div class="lights" id="pandalLights" aria-hidden="true">
+    <div class="light"></div>
+    <div class="light"></div>
+    <div class="light"></div>
+    <div class="light"></div>
+    <div class="light"></div>
+  </div>
+
+  <!-- Virtual Darshan Walkthrough -->
+<div class="darshan-section section1 vibrant" tabindex="0" role="region" aria-label="Welcome to the Pandal">
+  <h2>🛕 Welcome to the Pandal</h2>
+  <p>As you step in, the scent of incense fills the air. The dhak beats resonate in your soul. You bow before Maa Durga with folded hands.</p>
+</div>
+
+<div class="darshan-section section2 vibrant" tabindex="0" role="region" aria-label="Pushpanjali Offering">
+  <h2>🌸 Pushpanjali Offering</h2>
+  <p>You join the devotees in chanting mantras and offering flowers at Maa Durga’s feet, seeking her blessings for peace and strength.</p>
+</div>
+
+<div class="darshan-section section3 vibrant" tabindex="0" role="region" aria-label="Dhunuchi Naach">
+  <h2>🔥 Dhunuchi Naach</h2>
+  <p>Amid rhythmic beats, devotees sway with dhunuchi in hand. The smoke rises, dancing with the divine, uplifting the spirit of celebration.</p>
+</div>
+
+<div class="darshan-section section4 vibrant" tabindex="0" role="region" aria-label="Sindur Khela">
+  <h2>💄 Sindur Khela</h2>
+  <p>Women in red and white sarees smear sindur, celebrating the feminine power and bidding an emotional farewell to the goddess.</p>
+</div>
+
+<div class="darshan-section section5 vibrant" tabindex="0" role="region" aria-label="Bisarjan – Goodbye Ma">
+  <h2>🌊 Bisarjan – Goodbye Maa</h2>
+  <p>The idol is immersed with tearful eyes and hopeful hearts. “আসছে বছর আবার হবে!” – She will return again next year!</p>
+</div>
+
+  <div id="scrollHint">👇 Scroll to experience Durga Puja darshan 👇</div>
+
+  <script src="https://cdn.jsdelivr.net/npm/tsparticles@2/tsparticles.bundle.min.js"></script>
+  <script>
+    // Countdown Logic with hours/minutes/seconds
+    const countdown = document.getElementById("countdown");
+    const eventDate = new Date("2025-09-29T00:00:00");
+
+    function updateCountdown() {
+      const now = new Date();
+      const diff = eventDate - now;
+      if (diff <= 0) {
+        countdown.innerHTML = "🎉 শুভ মহাষষ্ঠী! পূজা শুরু হয়ে গেছে!";
+        return;
+      }
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((diff / (1000 * 60)) % 60);
+      const seconds = Math.floor((diff / 1000) % 60);
+
+      countdown.innerHTML = `⏳ পূজা শুরু হতে আর ${days} দিন ${hours} ঘন্টা ${minutes} মিনিট ${seconds} সেকেন্ড বাকি!`;
+    }
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+
+    // Dhak Audio
+    const audio = document.getElementById("dhakAudio");
+    const audioToggleBtn = document.getElementById("audioToggleBtn");
+    const audioControls = document.getElementById("audioControls");
+    const audioVolume = document.getElementById("audioVolume");
+
+    function toggleAudio() {
+      if (audio.paused) {
+        audio.play();
+        audioToggleBtn.textContent = "🔇 Pause Dhak";
+        audioToggleBtn.setAttribute("aria-pressed", "true");
+        audioControls.hidden = false;
+      } else {
+        audio.pause();
+        audioToggleBtn.textContent = "🔊 Play Dhak";
+        audioToggleBtn.setAttribute("aria-pressed", "false");
+        audioControls.hidden = true;
+      }
+    }
+
+    audioVolume.addEventListener("input", (e) => {
+      audio.volume = e.target.value;
+      audioVolume.setAttribute("aria-valuenow", e.target.value);
+    });
+    audio.volume = 0.5;
+
+    // Offer Flower with on-page count display
+    let flowerCount = 0;
+    const flowerCountDisplay = document.getElementById("flowerCountDisplay");
+    const offerFlowerBtn = document.getElementById("offerFlowerBtn");
+
+    function offerFlower() {
+      flowerCount++;
+      flowerCountDisplay.textContent = `🌸 আপনি ${flowerCount} টি পুষ্পাঞ্জলি দিলেন।`;
+      offerFlowerBtn.focus();
+    }
+
+    // Theme Toggle
+    let nightMode = false;
+    const themeToggleBtn = document.getElementById("themeToggleBtn");
+
+    function toggleTheme() {
+      document.body.classList.toggle("night");
+      nightMode = !nightMode;
+      if (nightMode) {
+        themeToggleBtn.textContent = "☀️ Light Mode";
+        themeToggleBtn.setAttribute("aria-pressed", "true");
+      } else {
+        themeToggleBtn.textContent = "🌙 Night Mode";
+        themeToggleBtn.setAttribute("aria-pressed", "false");
+      }
+    }
+
+    // Wishes Wall with dynamic user input and localStorage persistence
+    const wishesWall = document.getElementById("wishesWall");
+    const wishForm = document.getElementById("wishForm");
+    const wishInput = document.getElementById("wishInput");
+
+    // Load wishes from localStorage or default wishes
+    const defaultWishes = [
+  "🌸 শুভ মহাষষ্ঠী, আনে প্রাণে প্রীতি, অনন্যার থেকে Kolkata-র রীতি।",
+  "🌺 মা দুর্গা তুমি করো আশীর্বাদ রূপ, জীবন ভরে উঠুক স্নেহের গূপ্ত সুরে সুপ।",
+  "🪔 ঢাকের ছন্দে ফিরে আসুক পুরনো আনন্দের রাগিনী, মিতালির আশা বয়ে যাক হৃদয়ের বীণায় সুর মধুরিনি।",
+  "🎉 দুর্গাপূজার উৎসবে দীপ্তি জ্বলে মন, দৃষ্টির সুমধুর শুভেচ্ছায় ছড়াক আনন্দের জনমজন।",
+  "🙏 অর্ণবের প্রার্থনা, শক্তি, সাহস ও শান্তির স্রোতে ভরে উঠুক তোমার জীবনভর পথচলা।"
+];
+
+    function getStoredWishes() {
+      try {
+        const stored = localStorage.getItem("pujaWishes");
+        if (stored) return JSON.parse(stored);
+        return [...defaultWishes];
+      } catch {
+        return [...defaultWishes];
+      }
+    }
+
+    function saveWishes(wishes) {
+      localStorage.setItem("pujaWishes", JSON.stringify(wishes));
+    }
+
+    function renderWishes(wishes) {
+      wishesWall.innerHTML = "";
+      wishes.forEach((wish, i) => {
+        setTimeout(() => {
+          const p = document.createElement("p");
+          p.className = "wish";
+          p.textContent = wish;
+          wishesWall.appendChild(p);
+        }, i * 200);
+      });
+    }
+
+    let wishes = getStoredWishes();
+    renderWishes(wishes);
+
+    wishForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const newWish = wishInput.value.trim();
+      if (!newWish) return;
+      wishes.push(newWish);
+      saveWishes(wishes);
+      renderWishes(wishes);
+      wishInput.value = "";
+      wishInput.focus();
+    });
+
+    // Smooth reveal for virtual darshan sections on scroll
+    const darshanSections = document.querySelectorAll(".darshan-section");
+
+    function checkVisibleSections() {
+      const triggerBottom = window.innerHeight * 0.85;
+      darshanSections.forEach((section) => {
+        const rect = section.getBoundingClientRect();
+        if (rect.top < triggerBottom) {
+          section.classList.add("visible");
+        } else {
+          section.classList.remove("visible");
+        }
+      });
+    }
+
+    window.addEventListener("scroll", checkVisibleSections);
+    window.addEventListener("load", checkVisibleSections);
+
+    // tsParticles fireworks for Durga Puja
+    tsParticles.load("tsparticles", {
+      fpsLimit: 60,
+      background: { color: "transparent" },
+      particles: {
+        number: { value: 80, density: { enable: true, area: 800 } },
+        color: { value: ["#cc0000", "#ff6600", "#ffcc00", "#33cc33", "#3366ff"] },
+        shape: { type: "circle" },
+        opacity: { value: 0.8, random: true },
+        size: { value: 3, random: { enable: true, minimumValue: 1 } },
+        move: {
+          enable: true,
+          speed: 3,
+          direction: "bottom",
+          random: true,
+          outModes: "out"
+        }
+      },
+      interactivity: {
+        detectsOn: "canvas",
+        events: {
+          onClick: { enable: true, mode: "push" },
+          onHover: { enable: false }
+        },
+        modes: {
+          push: { quantity: 4 }
+        }
+      },
+      detectRetina: true
+    });
+
+document.getElementById('resetWishesBtn').addEventListener('click', () => {
+  localStorage.removeItem('pujaWishes');
+  wishes = [...defaultWishes];
+  saveWishes(wishes);
+  renderWishes(wishes);
+});
+
+// Zoom modal logic
+function openZoom() {
+  document.getElementById("zoomModal").style.display = "flex";
+}
+
+document.getElementById("closeZoomBtn").addEventListener("click", function () {
+  document.getElementById("zoomModal").style.display = "none";
+});
+
+</script>
+</body>
+</html>
