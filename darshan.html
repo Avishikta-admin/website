@@ -4,24 +4,37 @@
   <meta charset="UTF-8" />
   <title>Durga Puja Celebration</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="google" content="notranslate" />
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
   <!-- Fonts & Icons -->
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Bengali&display=swap" rel="stylesheet" />
-  
+
   <style>
   body {
-  margin: 0;
-  font-family: 'Noto Serif Bengali', serif;
-  background: linear-gradient(to bottom, #fff3e6, #ffe6cc);
-  overflow-x: hidden;
-  transition: background 0.5s ease;
-  color: #333;
-  scroll-behavior: smooth;
-  position: relative; /* Add this to enable ::before positioning */
-  translate: no;
-}
+      font-family: "Noto Sans Bengali", sans-serif;
+      background: linear-gradient(270deg, #ff3e3e, #ff9500, #ffd500, #ff3e8e, #6a00ff);
+      background-size: 1200% 1200%;
+      animation: backgroundShift 20s ease infinite;
+      margin: 0;
+      padding: 30px;
+      color: #fff;
+      text-shadow: 0 0 6px rgba(0,0,0,0.3);
+    }
 
+@keyframes backgroundShift {
+  0% { background-position: 0% 50%; }
+  25% { background-position: 50% 100%; }
+  50% { background-position: 100% 50%; }
+  75% { background-position: 50% 0%; }
+  100% { background-position: 0% 50%; }
+}
+@keyframes pulseGlow {
+  0%, 100% {
+    box-shadow: 0 0 30px 10px rgba(255, 80, 0, 0.7);
+  }
+  50% {
+    box-shadow: 0 0 60px 20px rgba(255, 165, 0, 1);
+  }
+}
 /* Add the transparent silhouette overlay */
 body::before {
   content: "";
@@ -519,13 +532,92 @@ body::before {
 #offerFlowerBtn {
   animation: pulseGlow 3s infinite ease-in-out;
 }
+#durgaImage {
+  transition: box-shadow 1.5s ease-in-out infinite;
+  animation: glowPulse 3s ease-in-out infinite;
+}
 
-  </style>
+@keyframes glowPulse {
+  0%, 100% {
+    box-shadow: 0 0 12px rgba(255, 102, 0, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(255, 102, 0, 0.8);
+  }
+}
+#floatingEmojis {
+  position: fixed;
+  top: 0; left: 0; width: 100%; height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 999;
+}
+
+.floating-emoji {
+  position: absolute;
+  font-size: 2.5rem;
+  animation-name: floatUp;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  opacity: 0.7;
+  user-select: none;
+}
+
+.floating-emoji:nth-child(1) {
+  left: 10%;
+  animation-duration: 12s;
+  animation-delay: 0s;
+}
+
+.floating-emoji:nth-child(2) {
+  left: 30%;
+  animation-duration: 15s;
+  animation-delay: 3s;
+}
+
+.floating-emoji:nth-child(3) {
+  left: 50%;
+  animation-duration: 10s;
+  animation-delay: 1s;
+}
+
+.floating-emoji:nth-child(4) {
+  left: 70%;
+  animation-duration: 18s;
+  animation-delay: 5s;
+}
+
+.floating-emoji:nth-child(5) {
+  left: 85%;
+  animation-duration: 14s;
+  animation-delay: 2s;
+}
+
+@keyframes floatUp {
+  0% {
+    transform: translateY(100vh) rotate(0deg);
+    opacity: 0.7;
+  }
+  100% {
+    transform: translateY(-10vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+</style>
 </head>
 <body>
   <div id="tsparticles"></div>
 
   <div id="glitterOverlay" aria-hidden="true"></div>
+
+<div id="floatingEmojis" aria-hidden="true">
+  <span class="floating-emoji">🌸</span>
+  <span class="floating-emoji">🪔</span>
+  <span class="floating-emoji">🌺</span>
+  <span class="floating-emoji">🪔</span>
+  <span class="floating-emoji">🌸</span>
+</div>
 
  <!-- Durga Image with Zoom -->
 <div style="text-align:center; margin: 10px 0; position: relative; z-index: 1;">
@@ -580,16 +672,14 @@ body::before {
     <input
       id="wishInput"
       type="text"
-      placeholder="আপনার শুভকামনা লিখুন এখানে..."
+      placeholder="আপনার শুভকামনা লিখুন এবং উৎসব ভাগ করুন..."
       maxlength="100"
       aria-required="true"
       required
       autocomplete="off"
-      aria-describedby="wishHelp"
     />
-    <button type="submit" id="submitWish">জমা দিন</button>
+    <button type="submit" id="submitWish">সাবমিট করুন</button>
   </form>
-  <small id="wishHelp" style="display:block; max-width:600px; margin: 0 auto 15px auto; text-align:center; color:#666;">আপনার শুভকামনা যুক্ত করুন এবং উৎসব ভাগ করুন।</small>
 
   <div id="wishesWall" aria-live="polite" aria-relevant="additions"></div>
 
@@ -685,23 +775,6 @@ body::before {
 
 
   // Helper: create a canvas with emoji drawn on it, return as Image
-function createEmojiParticle(emoji) {
-  const size = 40;
-  const canvas = document.createElement('canvas');
-  canvas.width = size;
-  canvas.height = size;
-  const ctx = canvas.getContext('2d');
-
-  ctx.font = `${size}px "Segoe UI Emoji", "Apple Color Emoji", "Noto Color Emoji", sans-serif`;
-  ctx.textAlign = 'center';
-  ctx.textBaseline = 'middle';
-  ctx.fillText(emoji, size / 2, size / 2);
-
-  const img = new Image();
-  img.src = canvas.toDataURL();
-  return img;
-}
-
 function offerFlower() {
   flowerCount++;
   flowerCountDisplay.textContent = `🌸 আপনি ${flowerCount} টি পুষ্প প্রদান করলেন।`;
@@ -748,8 +821,8 @@ function offerFlower() {
     const wishInput = document.getElementById("wishInput");
 
     // Load wishes from localStorage or default wishes
-    const defaultWishes = [
-  "🌸 শুভ মহাষষ্ঠী, আনে প্রাণে প্রীতি, অনন্যার থেকে Kolkata-র রীতি।",
+  const defaultWishes = [
+  "🌅 শুভ মহালয়া! মায়ের আগমনের শঙ্খধ্বনি তুলুক হৃদয়ে ভোরের প্রথম আলোয় আশার জ্যোতি।",
   "🌺 মা দুর্গা তুমি করো আশীর্বাদ রূপ, জীবন ভরে উঠুক স্নেহের গূপ্ত সুরে সুপ।",
   "🪔 ঢাকের ছন্দে ফিরে আসুক পুরনো আনন্দের রাগিনী, মিতালির আশা বয়ে যাক হৃদয়ের বীণায় সুর মধুরিনি।",
   "🎉 দুর্গাপূজার উৎসবে দীপ্তি জ্বলে মন, দৃষ্টির সুমধুর শুভেচ্ছায় ছড়াক আনন্দের জনমজন।",
@@ -865,4 +938,3 @@ document.getElementById("closeZoomBtn").addEventListener("click", function () {
 
 </body>
 </html>
-
