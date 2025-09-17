@@ -79,7 +79,7 @@
     #controls input[type="text"], 
     #controls select {
       padding: 8px 14px;
-      font-size: 1rem;
+      font-size: 0.85rem;
       border-radius: 6px;
       border: 1px solid #ccc;
       min-width: 180px;
@@ -329,9 +329,10 @@
       <input type="text" id="searchInput" placeholder="Search by text, date, or type" aria-label="Search Minutes of Meetings" />
       <select id="typeFilter" aria-label="Filter by meeting type">
         <option value="all">All Types</option>
-        <option value="agm">Annual General Meeting (AGM)</option>
-        <option value="gb">General Body Meeting (GB)</option>
-        <option value="ec">Executive Committee Meeting (EC)</option>
+        <option value="agm">Annual General Meeting</option>
+        <option value="gb">General Body Meeting</option>
+        <option value="ec">Executive Committee Meeting</option>
+        <option value="apex">Appex Committee Meeting</option>
       </select>
       <select id="yearFilter" aria-label="Filter by year">
         <option value="all">All Years</option>
@@ -558,4 +559,3 @@
 </script>
 </body>
 </html>
-
