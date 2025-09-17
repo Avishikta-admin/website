@@ -7,6 +7,13 @@
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
   <!-- Fonts & Icons -->
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Bengali&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/tsparticles@2/tsparticles.bundle.min.js"></script>
+  <meta name="description" content="দেশ বা বিদেশে যেখানেই থাকুন — মায়ের চরণে পুষ্প অর্পণ করুন এই ভার্চুয়াল পুষ্পাঞ্জলিতে।" />
+  <meta property="og:title" content="Virtual Pushpanjali | ভার্চুয়াল পুষ্পাঞ্জলি" />
+  <meta property="og:description" content="দেশ বা বিদেশে যেখানেই থাকুন — মায়ের চরণে পুষ্প অর্পণ করুন এই ভার্চুয়াল পুষ্পাঞ্জলিতে।" />
+  <meta property="og:image" content="maadurga2024.jpg" />
+  <meta property="og:type" content="website" />
+  <meta name="google" content="notranslate" />
 
   <style>
   body {
@@ -54,7 +61,7 @@ body::before {
     h1, h2 {
       text-align: center;
       color: #b30000;
-      font-size: 1.2rem;
+      font-size: 0.9rem;
     }
 
     #countdown {
@@ -78,7 +85,7 @@ body::before {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 5px;
+  gap: 3px;
   margin: 10px;
   text-align: center;
   padding-top: 40px;
@@ -95,9 +102,9 @@ body::before {
   padding: 3px 6px;
   border-radius: 15px;
   box-shadow: 0 0 6px rgba(0,0,0,0.1);
-  font-size: 0.85rem;
+  font-size: 0.75rem;
   color: #b34d00;
-  margin-bottom: 2px;
+  margin-bottom: 0.5rem;
 }
 
     button {
@@ -117,7 +124,7 @@ body::before {
     }
 
     #wishesWall {
-      max-width: 600px;
+      max-width: 550px;
       margin: 30px auto;
       padding: 20px;
       background: #fffbe6;
@@ -135,6 +142,7 @@ body::before {
       animation: fadeIn 1s ease forwards;
       transition: transform 0.3s ease, color 0.3s ease;
       cursor: default;
+	  font-size: 0.9rem;
     }
     .wish:hover {
       color: #b34d00;
@@ -223,7 +231,7 @@ body::before {
   max-width: 650px;
   display: block;
   text-align: center;
-  transition: all 0.4s ease;
+  transition: opacity 1s ease, transform 1s ease;
   opacity: 0;
   transform: translateY(30px);
   border-radius: 16px;
@@ -277,9 +285,9 @@ body::before {
 
 /* Headings */
 .darshan-section h2 {
-  font-size: 2rem;
+  font-size: 1.2rem;
   font-weight: 700;
-  margin-bottom: 20px;
+  margin-bottom: 0.3rem;
   letter-spacing: 0.06em;
   animation: glowPulse 3s ease-in-out infinite;
   /* Remove big blur shadows */
@@ -293,8 +301,8 @@ body::before {
 
 /* Paragraphs */
 .darshan-section p {
-  font-size: 1.15rem;
-  line-height: 1.6;
+  font-size: 1rem;
+  line-height: 1.3;
   max-width: 520px;
   margin: 0 auto;
   color: #663300;
@@ -415,7 +423,7 @@ body::before {
     }
     #wishInput {
       font-family: 'Noto Serif Bengali', serif;
-      font-size: 0.9rem;
+      font-size: 0.rem;
       padding: 5px 10px;
       width: 60%;
       max-width: 350px;
@@ -441,7 +449,7 @@ body::before {
       background: #ffb84d;
       outline: none;
     }
-
+	v
     /* Flower offering display */
     #flowerCountDisplay {
       margin-top: 10px;
@@ -603,123 +611,1054 @@ body::before {
     opacity: 0;
   }
 }
+/* Pushpanjali Container fixed top-right */
+#pushpanjaliContainer {
+  position: fixed;
+  top: 0.5rem;
+  right: 1rem;
+  width: 400px;
+  max-height: 100vh;
+  background: #fff5ee;
+  border: 2px solid #cc3300;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(204, 51, 0, 0.3);
+  font-family: 'Noto Serif Bengali', serif;
+  z-index: 1500;
+  display: flex;
+  flex-direction: column;
+  user-select: text;
+  opacity: 0;
+  animation: fadeIn 2.5s ease forwards;
+  overflow: hidden;
+}
+@keyframes fadeIn {
+  to { opacity: 1; }
+}
+#pushpanjaliContainer:hover {
+  box-shadow: 0 0 30px rgba(255, 85, 50, 0.4);
+}
+/* Header with title and toggle button */
+#pushpanjaliHeader {
+  background: #f0c0a0;
+  color: #a33;
+  font-weight: 700;
+  padding: 0.5rem 1rem;
+  border-radius: 12px 12px 0 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  font-size: 0.9rem;
+  box-shadow: inset 0 -2px 3px rgba(255, 255, 255, 0.4);
+}
+
+/* Toggle button in header */
+#togglePushpanjaliBtn {
+  font-size: 1.6rem;
+  background: none;
+  border: none;
+  color: #a33;
+  cursor: pointer;
+  line-height: 1;
+  transition: color 0.3s ease;
+}
+#togglePushpanjaliBtn:hover,
+#togglePushpanjaliBtn:focus {
+  color: #d22;
+  outline: none;
+}
+
+/* Content area */
+#pushpanjaliContent {
+  display: flex;
+  flex-direction: column;
+  max-height: 150px;
+  overflow: hidden; /* hide overflow, let mantra scroll */
+  transition: max-height 0.35s ease;
+}
+
+#pushpanjaliDays {
+  position: sticky;
+  top: 0;
+  padding: 0.5rem 0;
+  z-index: 10;
+  display: flex;
+  justify-content: space-around;
+  max-width: 400px;
+  margin: 0 auto 1rem;
+  gap: 5px;
+  font-family: 'Noto Serif Bengali', serif;
+  margin-top: -10px; /* Pulls it upward */
+  margin-bottom: 0; /* or even negative */
+}
+
+#pushpanjaliDays button {
+  flex-grow: 1;
+  padding: 10px 18px;
+  background: linear-gradient(145deg, #ff6f61, #d84315);
+  border: none;
+  border-radius: 30px;
+  color: #fff8e1;
+  font-weight: 600;
+  font-size: 0.75rem;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(216, 67, 21, 0.4);
+  transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+  user-select: none;
+  text-align: center;
+  margin-bottom: 0; /* or even negative */
+}
+
+#pushpanjaliDays button[data-day="saptami"] {
+  background: linear-gradient(145deg, #b71c1c, #880e4f);
+  box-shadow: 0 4px 10px rgba(136, 14, 79, 0.5);
+}
+
+#pushpanjaliDays button[data-day="ashtami"] {
+  background: linear-gradient(145deg, #ff6f00, #e65100);
+  box-shadow: 0 4px 10px rgba(230, 81, 0, 0.5);
+  color: #fff8e1;
+}
+
+#pushpanjaliDays button[data-day="nabami"] {
+  background: linear-gradient(145deg, #fbc02d, #f57f17);
+  box-shadow: 0 4px 10px rgba(245, 127, 23, 0.5);
+  color: #4e342e;
+  font-weight: 600;
+}
+
+#pushpanjaliDays button:hover,
+#pushpanjaliDays button:focus {
+  transform: scale(1.1);
+  box-shadow: 0 6px 15px rgba(255, 105, 60, 0.8);
+  outline: none;
+}
+
+#pushpanjaliDays button.active {
+  background: linear-gradient(145deg, #ffd54f, #ffb300);
+  color: #4e342e;
+  box-shadow: 0 0 15px 6px rgba(255, 181, 0, 0.8);
+  transform: scale(1.15);
+  font-weight: 600;
+  animation: glowPulse 0.8s ease infinite alternate;
+}
+
+@keyframes glowPulse {
+  0% { box-shadow: 0 0 10px 4px rgba(255, 181, 0, 0.6); }
+  100% { box-shadow: 0 0 25px 10px rgba(255, 181, 0, 0.9); }
+}
+
+
+/* Mantras text area */
+#pushpanjaliMantras {
+  font-size: 0.85rem;
+  line-height: 1.4;
+  color: #a33;
+  user-select: text;
+  flex-grow: 1;       /* take all remaining vertical space */
+  overflow-y: auto;   /* scroll if content too large */
+  min-height: 200px;  /* reasonable minimum height */
+}
+
+/* Responsive tweaks for smaller screens */
+@media (max-width: 400px) {
+  #pushpanjaliContainer {
+    width: 95vw;
+    right: 2.5vw;
+    top: 1rem;
+    max-height: 350px;
+  }
+  #pushpanjaliDays button {
+    font-size: 0.75em;
+    padding: 5px 6px;
+  }
+}
+/* Mobile-friendly spacing */
+@media (max-width: 768px) {
+  #pushpanjaliContainer {
+    width: 90%;
+    margin-top: 1.5rem;
+  }
+}
+.mantra-block {
+  background-color: #fff7f0; /* Soft warm background */
+  border-left: 4px solid #d84315; /* Accent color */
+  padding: 0.75rem 1rem;
+  margin-bottom: 1rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #a33;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+.mantra-title {
+  font-weight: bold;
+  color: #a33;
+  font-size: 0.85rem;
+  margin-bottom: 0.4rem;
+}
+#pushpanjaliDays button.active {
+    outline: 3px solid #ffd700;
+    box-shadow: 0 0 15px #ffd700;
+    animation: glowPulse 0.6s ease;
+  }
+
+  @keyframes glowPulse {
+    0% { box-shadow: 0 0 0px rgba(255, 85, 50, 0.8); }
+    50% { box-shadow: 0 0 15px rgba(255, 85, 50, 0.8); }
+    100% { box-shadow: 0 0 10px 4px rgba(255, 85, 50, 0.8); }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+#pushpanjaliContent {
+  max-height: 550px; /* default open height */
+  overflow-y: auto;
+  transition: max-height 0.35s ease;
+}
+
+/* When collapsed */
+#pushpanjaliContent.collapsed {
+  max-height: 0;
+  overflow: hidden;
+  padding: 0; /* remove padding so height is really zero */
+}
+
+/* Mobile adjustments */
+@media (max-width: 600px) {
+  #pushpanjaliContainer {
+    width: 90vw;
+    max-height: 85vh;            /* slightly increased for better scroll room */
+    border-radius: 12px;
+    right: 0.5rem;
+    top: 2rem;                   /* moved up slightly */
+  }
+
+  #pushpanjaliContent {
+    max-height: 85vh;           /* matches container for consistency */
+    overflow-y: auto;           /* allow internal scrolling if needed */
+    padding: 0.5rem 1rem;
+  }
+
+  #pushpanjaliMantras {
+    min-height: 350px;          /* enough height to show most of the content */
+    max-height: 70vh;           /* limit it within view */
+    overflow-y: auto;
+    font-size: 0.7rem !important;      /* smaller text for mobile */
+    line-height: 1.3 !important;      /* slightly better readability */
+    padding-bottom: 1rem;       /* extra breathing space */
+  }
+
+  #pushpanjaliDays {
+    margin-bottom: 0.25rem;     /* reduce gap before message */
+  }
+
+  #pushpanjaliDayMessage {
+    margin-top: -6px !important;  /* pull message up */
+    font-size: 0.75rem;
+  }
+}
+
+
+/* Nirghanta Table Styling (updated for container fit) */
+.nirghanta-container {
+  max-width: 700px;
+  margin-top: 40px !important;
+  padding: 15px 30px 25px;
+  padding-top: 30px;
+  background: #fff9f4;
+  border: 8px double #e75480;
+  border-radius: 20px;
+  box-shadow: 0 0 18px rgba(231, 84, 128, 0.35);
+  color: #4b2e3b;
+  position: relative;
+  overflow: visible;
+  box-sizing: border-box;
+}
+
+.nirghanta-container::before,
+.nirghanta-container::after {
+  content: "❀";
+  font-size: 20px;
+  color: #e75480;
+  position: absolute;
+}
+
+.nirghanta-container::before {
+  top: 10px;
+  left: 10px;
+}
+
+.nirghanta-container::after {
+  bottom: 10px;
+  right: 10px;
+}
+
+.nirghanta-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  border-bottom: 2px solid #e75480;
+  padding-bottom: 8px;
+}
+
+.nirghanta-header h3 {
+  margin: 0;
+  font-size: 0.8rem;
+}
+
+#langToggleBtn {
+  background: #e75480;
+  border: none;
+  border-radius: 25px;
+  color: white;
+  font-weight: 600;
+  padding: 6px 14px;
+  cursor: pointer;
+  box-shadow: 0 3px 6px rgba(231, 84, 128, 0.6);
+  transition: background 0.3s ease;
+}
+
+#langToggleBtn:hover {
+  background: #d1426e;
+}
+
+.nirghanta-note {
+  font-style: italic;
+  font-size: 0.75rem;
+  color: #b55376;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.nirghanta-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 25px;
+  box-shadow: 0 2px 6px rgba(231, 84, 128, 0.2);
+  border-radius: 12px;
+  overflow: hidden;
+  box-sizing: border-box; /* added for sizing */
+}
+
+.nirghanta-table thead tr {
+  background: #ffe7f0;
+  border-left: 6px solid #e75480;
+}
+
+.nirghanta-table th,
+.nirghanta-table td {
+  padding: 10px 15px;
+  border-bottom: 2px solid #e75480;
+  text-align: left;
+  color: #581c36;
+  font-weight: 600;
+  font-size: 0.75rem;
+  box-sizing: border-box; /* added */
+  word-break: break-word; /* added for better text wrap */
+}
+
+.nirghanta-table th {
+  color: #a31f4b;
+  font-size: 0.75rem;
+}
+
+.event-name {
+  font-weight: 600;
+  color: #4b2e3b;
+}
+
+.event-time {
+  font-style: italic;
+  color: #9c3655;
+  text-align: right;
+  white-space: nowrap;
+  font-weight: 500;
+}
+
+.nirghanta-table tbody tr {
+  background: #fff9f4;
+  transition: background 0.4s ease;
+}
+
+.nirghanta-table tbody tr:hover {
+  background: #ffd1df;
+}
+.nirghanta-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+@media (min-width: 600px) {
+  .nirghanta-controls {
+    flex-direction: row;
+    align-items: center;
+    gap: 0.75rem;
+  }
+}
+@media (max-width: 900px) {
+  #mainContainer {
+    flex-direction: column;
+  }
+  .feature {
+    max-width: 100%;
+  }
+}
+
+@keyframes smokeRise {
+    0% {
+      transform: translateX(-50%) translateY(0) scale(0.8);
+      opacity: 0.6;
+    }
+    50% {
+      transform: translateX(calc(-50% + 4px)) translateY(-20px) scale(1);
+      opacity: 0.4;
+    }
+    100% {
+      transform: translateX(-50%) translateY(-40px) scale(1.2);
+      opacity: 0;
+    }
+  }
+
+  @keyframes flameFlicker {
+    0% {
+      filter: drop-shadow(0 0 3px #ffbf00);
+      transform: translateX(-50%) scale(1);
+      opacity: 0.9;
+    }
+    100% {
+      filter: drop-shadow(0 0 6px #ffbf00);
+      transform: translateX(calc(-50% + 2px)) scale(1.05);
+      opacity: 1;
+    }
+  }
+
+#thaliContainer img {
+  box-shadow: 0 0 15px 5px rgba(255, 140, 0, 1.0);
+  border-radius: 50%;
+}
+
+#dhoopkathiContainer svg {
+  filter: drop-shadow(0 0 8px rgba(255, 180, 0, 0.7));
+}
+
+#zoomModal {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: none; /* hidden initially */
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 2000; /* higher than 1500 */
+}
+
+#closeZoomBtn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  font-size: 24px;
+  background: transparent;
+  border: none;
+  color: black; /* or white, depending on bg */
+  cursor: pointer;
+  z-index: 2100; /* higher than zoomModal and pushpanjali */
+}
 
 </style>
 </head>
 <body>
-  <div id="tsparticles"></div>
+  <div id="mainContainer" style="display: flex; gap: 1rem; align-items: flex-start;">
 
-  <div id="glitterOverlay" aria-hidden="true"></div>
+  <!-- Left Container -->
+  <div id="leftContainer" style="flex: 1; max-width: 50%; box-sizing: border-box;">
+    <div id="tsparticles"></div>
 
-<div id="floatingEmojis" aria-hidden="true">
-  <span class="floating-emoji">🌸</span>
-  <span class="floating-emoji">🪔</span>
-  <span class="floating-emoji">🌺</span>
-  <span class="floating-emoji">🪔</span>
-  <span class="floating-emoji">🌸</span>
-</div>
+    <div id="glitterOverlay" aria-hidden="true"></div>
 
- <!-- Durga Image with Zoom -->
-<div style="text-align:center; margin: 10px 0; position: relative; z-index: 1;">
-  <img src="maadurga2024.jpg" alt="Maa Durga 2024"
-       id="durgaImage"
-       style="max-width: 125px; cursor: zoom-in; border-radius: 12px; border: 3px solid #cc3300; box-shadow: 0 0 12px rgba(255, 102, 0, 0.4);"
-       onclick="openZoom()" 
-  >
-  <p style="font-size: 0.9rem; color: #774400; margin-top: 1px;">আমাদের গত বছরের প্রতিমা</p>
-</div>
-
-<h1>🌺 শুভ দুর্গাপূজা ২০২৫ <span id="countdown" aria-live="polite" aria-atomic="true" style="font-weight: 600; color: #b30000; font-size: 1rem;"></span></h1>
-
-<!-- Modal Zoom Viewer with Close Button -->
-<div id="zoomModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.85); justify-content:center; align-items:center; z-index:1000; flex-direction:column;">
-  <button id="closeZoomBtn"
-          style="position: absolute; top: 20px; right: 25px; background: #cc3300; color: white; border: none; font-size: 1rem; padding: 8px 14px; border-radius: 6px; cursor: pointer; z-index: 1100;">
-    ✖ Close
-  </button>
-  <img src="maadurga2024.jpg" alt="Zoomed Maa Durga"
-       style="max-width: 90%; max-height: 90%; border-radius: 15px; box-shadow: 0 0 30px rgba(255, 255, 255, 0.6);">
-</div>
-
-  <div class="controls" role="region" aria-label="Audio and theme controls">
-  <button id="homeBtn" onclick="location.href='index.html'" aria-label="Go to Home Page">🏠 Home</button>
-  <button id="audioToggleBtn" onclick="toggleAudio()" aria-pressed="false" aria-label="Play or pause Dhak audio">🔊 Play Dhak</button>
-  
-  <!-- Wrap flower display + button -->
-  <div class="flower-wrapper">
-    <div id="flowerCountDisplay"
-         aria-live="polite" aria-atomic="true">
-      🌸 এখনও কেউ ফুল দেননি।
+    <div id="floatingEmojis" aria-hidden="true">
+      <span class="floating-emoji">🌸</span>
+      <span class="floating-emoji">🪔</span>
+      <span class="floating-emoji">🌺</span>
+      <span class="floating-emoji">🪔</span>
+      <span class="floating-emoji">🌸</span>
     </div>
-    <button id="offerFlowerBtn" onclick="offerFlower()" aria-label="Offer a flower to Ma Durga">🌸 Offer a Flower</button>
+
+    <!-- Durga Image with Zoom -->
+    <div style="text-align:center; margin: 70px 0 10px; position: relative; z-index: 1;">
+      <img src="maadurga2024.jpg" alt="Maa Durga 2024"
+           id="durgaImage"
+           title="আমাদের গত বছরের প্রতিমা"
+           style="max-width: 125px; cursor: zoom-in; border-radius: 12px; border: 3px solid #cc3300; box-shadow: 0 0 12px rgba(255, 102, 0, 0.4);"
+           onclick="openZoom()" 
+      >
+    </div>
+
+    <h1>
+      🌺 শুভ দুর্গাপূজা ২০২৫
+      <button id="toggleCountdownBtn" aria-expanded="false" aria-controls="countdown" 
+              style="margin-left: 10px; font-size: 1rem; cursor: pointer; background: none; border: none; color: #b30000;">
+        ▶ Show Countdown
+      </button>
+    </h1>
+
+    <div id="countdown" aria-live="polite" aria-atomic="true" 
+         style="font-weight: 600; color: #b30000; font-size: 1rem; margin-bottom: 1rem; display: none;">
+      <!-- Countdown days text will appear here -->
+    </div>
+
+    <!-- Modal Zoom Viewer with Close Button -->
+    <div id="zoomModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.85); justify-content:center; align-items:center; z-index:1000; flex-direction:column;">
+      <button id="closeZoomBtn"
+              style="position: absolute; top: 2px; left: 2px; background: #cc3300; color: white; border: none; font-size: 0.75rem; padding: 8px 14px; border-radius: 6px; cursor: pointer; z-index: 1100;">
+        ✖
+      </button>
+      <img src="maadurga2024.jpg" alt="Zoomed Maa Durga"
+           style="max-width: 90%; max-height: 90%; border-radius: 15px; box-shadow: 0 0 30px rgba(255, 255, 255, 0.6);">
+    </div>
+
+    <div class="controls" role="region" aria-label="Audio and theme controls">
+      <button id="homeBtn" onclick="location.href='index.html'" aria-label="Go to Home Page">🏠 Home</button>
+      <button id="themeToggleBtn" onclick="toggleTheme()" aria-pressed="false" aria-label="Toggle night mode">🌙 Night Mode</button>
+      <button id="resetWishesBtn" aria-label="Reset wishes to default">🔄 Reset Wishes</button>
+    </div>
+
+    <div id="audioControls" aria-label="Audio volume control" hidden>
+      Volume: <input type="range" id="audioVolume" min="0" max="1" step="0.01" value="0.5" aria-valuemin="0" aria-valuemax="1" aria-valuenow="0.5" aria-label="Adjust Dhak audio volume">
+    </div>
+
+    <audio id="dhakAudio" loop preload="auto">
+      <source src="pujo_dhak.mp3" type="audio/mp3" />
+    </audio>
+
+    <h2>🙏 Devotee Wishes Wall 🙏</h2>
+
+    <form id="wishForm" aria-label="Add your wish">
+      <input
+        id="wishInput"
+        type="text"
+        placeholder="আপনার শুভকামনা লিখুন এবং উৎসব ভাগ করুন..."
+        maxlength="100"
+        aria-required="true"
+        required
+        autocomplete="off"
+      />
+      <button type="submit" id="submitWish">সাবমিট করুন</button>
+    </form>
+
+    <!-- Rotating Wishes -->
+    <div id="wishesWall" style="font-size: 0.75rem; color: #a33; text-align: justify; font-family: 'Noto Serif Bengali', serif; margin-top: 1rem; transition: opacity 1s ease;" aria-live="polite" aria-relevant="additions"></div>
+
+    <div class="lights" id="pandalLights" aria-hidden="true">
+      <div class="light"></div>
+      <div class="light"></div>
+      <div class="light"></div>
+      <div class="light"></div>
+      <div class="light"></div>
+    </div>
+
+    <!-- Virtual Darshan Walkthrough -->
+    <div class="darshan-section section1 vibrant" tabindex="0" role="region" aria-label="Welcome to the Pandal" style="padding-bottom:1rem;">
+      <h2>🛕 Welcome to the Pandal</h2>
+      <p>As you step in, the scent of incense fills the air. The dhak beats resonate in your soul. You bow before Maa Durga with folded hands.</p>
+    </div>
+
+    <div class="darshan-section section3 vibrant" tabindex="0" role="region" aria-label="Dhunuchi Naach" style="padding-bottom:1rem;">
+      <h2>🔥 Dhunuchi Naach</h2>
+      <p>Amid rhythmic beats, devotees sway with dhunuchi in hand. The smoke rises, dancing with the divine, uplifting the spirit of celebration.</p>
+    </div>
+
+    <div class="darshan-section section4 vibrant" tabindex="0" role="region" aria-label="Sindur Khela" style="padding-bottom:1rem;">
+      <h2>💄 Sindur Khela</h2>
+      <p>Women in red and white sarees smear sindur, celebrating the feminine power and bidding an emotional farewell to the goddess.</p>
+    </div>
+
+    <div class="darshan-section section5 vibrant" tabindex="0" role="region" aria-label="Bisarjan – Goodbye Ma" style="padding-bottom:1rem;">
+      <h2>🌊 Bisarjan – Goodbye Maa</h2>
+      <p>The idol is immersed with tearful eyes and hopeful hearts. “আসছে বছর আবার হবে!” – She will return again next year!</p>
+    </div>
+
+    <div id="scrollHint">👇 Scroll to experience Durga Puja darshan 👇</div>
   </div>
 
-  <button id="themeToggleBtn" onclick="toggleTheme()" aria-pressed="false" aria-label="Toggle night mode">🌙 Night Mode</button>
-  <button id="resetWishesBtn" aria-label="Reset wishes to default">🔄 Reset Wishes</button>
-</div>
-
-  <div id="audioControls" aria-label="Audio volume control" hidden>
-    Volume: <input type="range" id="audioVolume" min="0" max="1" step="0.01" value="0.5" aria-valuemin="0" aria-valuemax="1" aria-valuenow="0.5" aria-label="Adjust Dhak audio volume">
+<!-- Nirghanta Header + Toggle Controls -->
+<div style="margin-bottom: 1rem;">
+  <!-- Caption Text -->
+  <div id="nirghantaHeader"
+       data-en="🕉️ Durga Puja Nirghanta"
+       data-bn="🕉️ দুর্গা পূজা নির্ঘণ্ট"
+       style="font-size: 0.8rem; font-weight: 600; color: #FFD700; margin-top: 30px; margin-bottom: 0.5rem;">
+    🕉️ Durga Puja Nirghanta
   </div>
 
-  <audio id="dhakAudio" loop preload="auto">
-    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mp3" />
-  </audio>
+  <!-- Nirghanta Toggle Controls -->
+  <div id="nirghantaControls" class="nirghanta-controls">
+    <!-- Nirghanta Toggle Button -->
+    <button class="toggle-btn"
+            data-label="Nirghanta"
+            aria-expanded="false"
+            aria-controls="nirghantaContent"
+            title="The timings shown below are indicative only. Please check with the priest to know the current timings"
+            onclick="toggleNirghantaDetails(this)">
+      + Show Nirghanta
+    </button>
 
-  <h2>🙏 Devotee Wishes Wall 🙏</h2>
+    <!-- Language Toggle Button -->
+    <button id="langToggleBtn"
+            title="Toggle Language"
+            aria-label="Toggle Language"
+            style="display: none;"
+            onclick="handleLangToggle()">
+      🌐 Switch to <span id="nextLangLabel">বাংলা</span>
+    </button>
+  </div>
+</div>
 
-  <form id="wishForm" aria-label="Add your wish">
-    <input
-      id="wishInput"
-      type="text"
-      placeholder="আপনার শুভকামনা লিখুন এবং উৎসব ভাগ করুন..."
-      maxlength="100"
-      aria-required="true"
-      required
-      autocomplete="off"
-    />
-    <button type="submit" id="submitWish">সাবমিট করুন</button>
-  </form>
+    <!-- Nirghanta Content (hidden by default) -->
+    <div id="nirghantaContent" style="display: none; margin-top: 40px;">
+      <div id="nirghantaTimeline" class="nirghanta-timeline">
+        <table class="nirghanta-table" aria-label="Durga Puja Nirghanta Timeline">
+          <thead>
+            <tr>
+      <th colspan="4" style="font-size: 0.75rem; text-align: center; padding: 0.5rem 0;">
+        🔔 দেবীর গজে আগমন। ফল শস্য পূর্ণ বসুন্ধরা। | দেবীর দোলায় গমন। ফল মড়ক।
+      </th>
+    </tr>
+            <tr>
+              <th>দিন (Day)</th>
+              <th>তারিখ (Date)</th>
+              <th>অনুষ্ঠানের নাম (Event Name)</th>
+              <th>সময় (Timing)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="shasthi">
+              <td data-en="🌿 Maha Shasthi" data-bn="🌿 মহাষষ্ঠী">🌿 Maha Shasthi</td>
+              <td data-en="(28 Sept)" data-bn="(২৮ সেপ্টেম্বর ১১ই আশ্বিন)">(28 Sept)</td>
+              <td>
+                <span data-en="Bodhon (Invocation of Goddess)" data-bn="বোধন (মহাষষ্ঠী) পূর্বাহ্ন ৯:২৭ মধ্যে পূজান্তে পুষ্পাঞ্জলি">Bodhon (Invocation of Goddess)</span><br/>
+              </td>
+              <td data-en="Upto 10:40 AM" data-bn="সকাল ১০:৪০ পর্যন্ত">Upto 10:40 AM</td>
+            </tr>
+            <tr class="saptami">
+              <td data-en="🌅 Maha Saptami" data-bn="🌅 মহাসপ্তমী">🌅 Maha Saptami</td>
+              <td data-en="(29 Sept)" data-bn="(২৯ সেপ্টেম্বর ১২ই আশ্বিন)">(29 Sept)</td>
+              <td>
+                <span data-en="Nabapatrika Snan (Bathing the nine plants)" data-bn="নবপত্রিকা স্নান">Nabapatrika Snan</span><br/>
+                <span data-en="Morning worship" data-bn="পূজা পূর্বাহ্ন ৯:২৭ মধ্যে">Morning worship</span><br/>
+                <span data-en="Pushpanjali" data-bn="পূজান্তে পুষ্পাঞ্জলি">Pushpanjali</span>
+              </td>
+              <td data-en="Upto 12:28 PM" data-bn="দিবা ১২:২৮ পর্যন্ত">Upto 12:28 PM</td>
+            </tr>
+            <tr class="astami">
+              <td data-en="🔥 Maha Astami" data-bn="🔥 মহাঅষ্টমী">🔥 Maha Astami</td>
+              <td data-en="(30 Sept)" data-bn="(৩০ সেপ্টেম্বর ১৩ই আশ্বিন)">(30 Sept)</td>
+              <td>
+                <span data-en="Morning worship" data-bn="পূজা পূর্বাহ্ন ৯:২৭ মধ্যে">"Morning worship</span><br/>
+                <span data-en="Pushpanjali" data-bn="পূজান্তে পুষ্পাঞ্জলি">Pushpanjali</span>
+                <span data-en="Sandhi Puja" data-bn="দিবা ০১:২১ গতে পূজা আরম্ভ | দিবা ২:০৯ গতে পূজা সমাপন">Sandhi Puja</span><br/>
+                <span data-en="Sandhi Puja Pushpanjali & Arati" data-bn="পুষ্পাঞ্জলি ২:০০ ঘটিকায় | সন্ধ্যারাতি ৬ ঘটিকায়">Sandhi Puja Pushpanjali & Arati</span><br/>
+              </td>
+              <td data-en="Upto 1:45 PM" data-bn="দিবা ১২:২৮ পর্যন্ত">Upto 1:45 PM</td>
+            </tr>
+            <tr class="nabami">
+              <td data-en="🪔 Maha Nabami" data-bn="🪔 মহানবমী">🪔 Maha Nabami</td>
+              <td data-en="(1 Oct)" data-bn="(১ অক্টোবর ১৪ই আশ্বিন)">(1 Oct)</td>
+              <td>
+                <span data-en="Nabami Puja & Pushpanjali" data-bn="পূজা পূর্বাহ্ন ৯:২৭ মধ্যে | পূজান্তে পুষ্পাঞ্জলি">Nabami Puja</span><br/>
+                <span data-en="Evening Arati" data-bn="সন্ধ্যারাতি ৬ ঘটিকায়">Bhog Offering</span>
+              </td>
+              <td data-en="Upto 02:36 PM" data-bn="২:৩৬ পর্যন্ত">Upto 02:36 PM</td>
+            </tr>
+            <tr class="dashami">
+              <td data-en="🌊 Maha Dashami" data-bn="🌊 মহাদশমী">🌊 Maha Dashami</td>
+              <td data-en="(2 Oct)" data-bn="(২ অক্টোবর ১৫ই আশ্বিন)">(2 Oct)</td>
+              <td>
+                <span data-en="Dashami Puja" data-bn="পূজা পূর্বাহ্ন ৯:২৭ মধ্যে">Dashami Puja</span><br/>
+                <span data-en="Pushpanjali" data-bn="পূজান্তে পুষ্পাঞ্জলি ও অপরাজিতার পূজা">Pushpanjali</span>
+              </td>
+              <td data-en="Upto 02:36 PM" data-bn="২:৩৬ পর্যন্ত">Upto 02:36 PM</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
 
-  <div id="wishesWall" aria-live="polite" aria-relevant="additions"></div>
-
-  <div class="lights" id="pandalLights" aria-hidden="true">
-    <div class="light"></div>
-    <div class="light"></div>
-    <div class="light"></div>
-    <div class="light"></div>
-    <div class="light"></div>
   </div>
 
-  <!-- Virtual Darshan Walkthrough -->
-<div class="darshan-section section1 vibrant" tabindex="0" role="region" aria-label="Welcome to the Pandal">
-  <h2>🛕 Welcome to the Pandal</h2>
-  <p>As you step in, the scent of incense fills the air. The dhak beats resonate in your soul. You bow before Maa Durga with folded hands.</p>
+   <!-- ======== New Pushpanjali Offering fixed top-right ======== -->
+  <div id="pushpanjaliContainer" aria-label="Pushpanjali Offering" aria-live="polite" aria-atomic="true" role="region" style="max-width: 450px; margin: auto; border: 1px solid #ddd; border-radius: 12px; font-family: 'Noto Sans Bengali', sans-serif;">
+  <div id="pushpanjaliHeader" style="
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(90deg, #FF8C42, #0056D2);
+    padding: 0.05rem 0.75rem;
+    border-radius: 12px 12px 0 0;
+    font-weight: 600;
+    color: #fff;
+    font-size: 0.85rem;
+    letter-spacing: 0.3px;
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  ">
+    <span>🌸 পুষ্পাঞ্জলি &amp; মন্ত্র পাঠ</span>
+    <button id="togglePushpanjaliBtn" aria-expanded="false" aria-label="Expand or collapse Pushpanjali section" style="font-size:1.5rem; background:none; border:none; color:#fff; cursor:pointer;">+</button>
+  </div>
+
+  <div id="pushpanjaliContent" style="position: relative; max-height: 90vh; display: flex; flex-direction: column; background: #fff; display: none; padding: 1rem;">
+
+    <!-- Sticky Header: Thali + Controls + Day Buttons -->
+    <div id="pushpanjaliStickyHeader" style="
+      position: sticky;
+      top: 0;
+      background: #fff;
+      z-index: 10;
+      padding: 0.5rem 1rem 0.5rem 1rem;
+      border-bottom: 1px solid #ddd;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    ">
+
+      <!-- Controls -->
+      <div id="pushpanjaliControls" style="margin-bottom: 0.1rem; display: flex; align-items: center; gap: 0.5rem; margin-top: -15px;">
+
+        <button id="audioToggleBtn" onclick="toggleAudio()" aria-pressed="false" aria-label="Play or pause Dhak audio" style="font-size: 0.8rem; cursor: pointer;">
+          🔊 Play Dhak
+        </button>
+        <button id="offerFlowerBtn" onclick="offerFlower()" aria-label="Offer a flower to Ma Durga" style="font-size: 0.8rem; cursor: pointer;">
+          🌸 Offer Pushpanjali
+        </button>
+      </div>
+
+     <!-- Container for Thali and Dhoopkathi -->
+<div id="pujaContainer" style="display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 0.5rem;">
+
+  <!-- Thali container -->
+  <div id="thaliContainer" style="position: relative; text-align: center;">
+    <img src="pushpanjalithali.png" alt="পুষ্পাঞ্জলির থালি" style="max-width: 60px; opacity: 0.85; display: block; margin: 0 auto;" loading="lazy">
+
+    <div id="floatingFlower" style="
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%) translateY(0);
+      pointer-events: none;
+      font-size: 2rem;
+      opacity: 0;
+      transition: transform 1.5s ease-out, opacity 1.5s ease-out;
+      user-select: none;
+    ">
+      🌸
+    </div>
+  </div>
+
+  <!-- Dhoopkathi container -->
+  <div id="dhoopkathiContainer" style="position: relative; width: 40px; height: 80px; margin-top: -20px; /* push it up visually */">
+
+    <!-- Simple dhoopkathi stick -->
+    <div style="
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      width: 6px;
+      height: 30px;
+      background: linear-gradient(180deg, #6b4226, #3e2515);
+      border-radius: 3px;
+      transform: translateX(-50%);
+      box-shadow: 0 0 4px 1px #553311 inset;
+    "></div>
+
+    <!-- Flame at the top -->
+    <div style="
+      position: absolute;
+      bottom: 30px;
+      left: 50%;
+      width: 14px;
+      height: 22px;
+      background: radial-gradient(circle at center, #f9d976, #f39c12);
+      border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+      filter: drop-shadow(0 0 3px #ffbf00);
+      transform: translateX(-50%);
+      animation: flameFlicker 1.5s infinite alternate ease-in-out;
+      opacity: 0.9;
+    "></div>
+
+    <!-- Smoke -->
+    <div class="smoke" style="
+      position: absolute;
+      bottom: 87px;
+      left: 50%;
+      width: 12px;
+      height: 30px;
+      transform: translateX(-50%);
+      pointer-events: none;
+      filter: blur(2px);
+      opacity: 0.7;
+      animation: smokeRise 4s linear infinite;
+      background: radial-gradient(circle at 50% 0%, rgba(200,200,200,0.6), transparent 80%);
+      border-radius: 50% 50% 60% 60% / 40% 40% 60% 60%;
+      mix-blend-mode: screen;
+    "></div>
+
+  </div>
 </div>
 
-<div class="darshan-section section2 vibrant" tabindex="0" role="region" aria-label="Pushpanjali Offering">
-  <h2>🌸 Pushpanjali Offering</h2>
-  <p>You join the devotees in chanting mantras and offering flowers at Maa Durga’s feet, seeking her blessings for peace and strength.</p>
+<!-- Flower Count -->
+<div id="flowerCountDisplay" aria-live="polite" aria-atomic="true" style="font-size: 0.75rem; color: #a33; text-align: center; margin-bottom: 0.75rem;">
+  🌸 এখনও পুষ্পাঞ্জলি দেননি।
 </div>
 
-<div class="darshan-section section3 vibrant" tabindex="0" role="region" aria-label="Dhunuchi Naach">
-  <h2>🔥 Dhunuchi Naach</h2>
-  <p>Amid rhythmic beats, devotees sway with dhunuchi in hand. The smoke rises, dancing with the divine, uplifting the spirit of celebration.</p>
+<!-- Day Buttons -->
+<div id="pushpanjaliDays" role="tablist" aria-label="Pushpanjali Days">
+  <button role="tab" aria-selected="false" tabindex="-1" data-day="saptami">
+    সপ্তমী
+  </button>
+  <button role="tab" aria-selected="false" tabindex="-1" data-day="ashtami">
+    অষ্টমী
+  </button>
+  <button role="tab" aria-selected="false" tabindex="-1" data-day="nabami">
+    নবমী
+  </button>
+</div>
+	
+	<!-- Day Message -->
+<div id="pushpanjaliDayMessage" style="margin-top: 0.75rem; font-size: 0.8rem; color: #a33; text-align: center; font-weight: 500; font-family: 'Noto Serif Bengali', serif;"></div>
+
+    </div>
+
+    <!-- Scrollable Mantras Area -->
+    <div id="pushpanjaliMantras" role="tabpanel" tabindex="0" aria-live="polite" aria-atomic="true" style="font-size:0.75rem; line-height:1.3; color:#a33; overflow-y: auto; flex-grow: 1; padding-right: 1rem; padding-left: 1rem; padding-bottom: 1rem;">
+      <!-- Mantras for selected day will appear here -->
+   </div>	
+  </div>
+  <!-- Petal Magic Layer -->
+<div id="petalContainer" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none;"></div>
+
 </div>
 
-<div class="darshan-section section4 vibrant" tabindex="0" role="region" aria-label="Sindur Khela">
-  <h2>💄 Sindur Khela</h2>
-  <p>Women in red and white sarees smear sindur, celebrating the feminine power and bidding an emotional farewell to the goddess.</p>
 </div>
 
-<div class="darshan-section section5 vibrant" tabindex="0" role="region" aria-label="Bisarjan – Goodbye Ma">
-  <h2>🌊 Bisarjan – Goodbye Maa</h2>
-  <p>The idol is immersed with tearful eyes and hopeful hearts. “আসছে বছর আবার হবে!” – She will return again next year!</p>
-</div>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // Countdown toggle (existing)
+    const toggleCountdownBtn = document.getElementById('toggleCountdownBtn');
+    const countdown = document.getElementById('countdown');
 
-  <div id="scrollHint">👇 Scroll to experience Durga Puja darshan 👇</div>
+    toggleCountdownBtn?.addEventListener('click', () => {
+      const isExpanded = toggleCountdownBtn.getAttribute('aria-expanded') === 'true';
+      toggleCountdownBtn.setAttribute('aria-expanded', !isExpanded);
+      toggleCountdownBtn.textContent = isExpanded ? '▶ Show Countdown' : '▼ Hide Countdown';
+      countdown.style.display = isExpanded ? 'none' : 'block';
+    });
 
-  <script src="https://cdn.jsdelivr.net/npm/tsparticles@2/tsparticles.bundle.min.js"></script>
+    // Pushpanjali mantras data
+    const mantrasByDay = {
+      common: `
+        <div class="mantra-title">আচমন:</div>
+        <span style="font-size:0.85rem;">
+          বাঁ হাতে জল নিয়ে ডান হাতের সমস্ত আঙ্গুলের অগ্রভাগ বাঁ হাতের জলে ডুবিয়ে মুখে ৩ /১ বার ছিটাতে হয়।
+        </span><br><br>
+
+        <div class="mantra-title">বিষ্ণু স্মরণ মন্ত্র:</div>
+        <span style="font-size:0.85rem;">
+          নমঃ বিষ্ণুঃ নমঃ বিষ্ণ নমঃ বিষ্ণু
+          <br>
+          নমঃ অপবিত্রঃ পবিত্রো বা সর্বাবস্থাং গতো হপি বা<br>
+          যঃ স্মরে পুন্ডরীকাক্ষং সবাহ্যাভ্যন্তরঃ শুচিঃ<br>
+          নমঃ সর্বমঙ্গলমঙ্গল্যং বরেণ্যং বরদং শুভম্<br>
+          নারায়ণং নমস্কৃত্য সর্বকর্ম্মাণি কারয়েত্ ।।
+        </span><br>
+      `,
+
+      saptami: [
+        `<div class="mantra-title">মন্ত্র ১:</div>
+         <span style="font-size:0.85rem;">
+           নমঃ আয়ুর্দ্দেহি যশো দেহি ভাগ্যং ভগবতি দেহি মে<br>
+           পুত্রান্ দেহি ধনং দেহি সৰ্ববান্ কামাশ্চ দেহি মে ।।
+         </span>`,
+
+        `<div class="mantra-title">মন্ত্র ২:</div>
+         <span style="font-size:0.85rem;">
+           হর পাপং হর ক্লেশং হর শোকং হরাসুখম্<br>
+           হর রোগং হর ক্ষোভং হর মারীং হরপ্রিয়ে ।।<br><br>
+           এষ সচন্দন-পুষ্পবিল্বপত্রাঞ্জলিঃ<br>
+           নমঃ দক্ষযঞ্জ বিনাশিন্যে মহাঘোরায়ৈ যোগিনী<br>
+           কোটিপরিবৃতায়ৈ ভদ্রকাল্যৈ ভগবত্যৈ দুর্গায়ৈ নমঃ ।।
+         </span>`,
+
+        `<div class="mantra-title">মন্ত্র ৩:</div>
+         <span style="font-size:0.85rem;">
+           সংগ্রামে বিজয়ং দেহি ধনং দেহি সদা গৃহে<br>
+           ধৰ্ম্মার্থকামসম্পত্তিং দেহি দেবী নমোস্তু তে ।।<br><br>
+           এষ সচন্দন-পুষ্পবিল্বপত্রাঞ্জলিঃ<br>
+           নমঃ দক্ষযঞ্জ বিনাশিন্যে মহাঘোরায়ৈ যোগিনী<br>
+           কোটিপরিবৃতায়ৈ ভদ্রকাল্যৈ ভগবত্যৈ দুর্গায়ৈ নমঃ ।।
+         </span>`,
+
+        `<div class="mantra-title">প্রণাম মন্ত্র:</div>
+         <span style="font-size:0.85rem;">
+           সর্বমঙ্গল মঙ্গল্যে শিবে সর্বার্থসাধিকে<br>
+           শরণ্যে ত্র্যম্বকে গৌরি নারায়ণি নমোস্তুতে
+         </span>`
+      ],
+
+      ashtami: [
+        `<div class="mantra-title">মন্ত্র ১:</div>
+         <span style="font-size:0.85rem;">
+           নমঃ মহিষগ্নি মহামায়ে চামুন্ডে মুন্ডমালিনি<br>
+           আয়ুরারোগ্য বিজয়ং দেহি দেবী নমোস্তুতে।।
+         </span>`,
+
+        `<div class="mantra-title">মন্ত্র ২:</div>
+         <span style="font-size:0.85rem;">
+           নমঃ সৃষ্টিস্তিতিবিনাশানাং শক্তিভূতে সনাতনি<br>
+           গুণাশ্রয়ে গুণময়ে নারায়ণি নমোস্তু তে।।
+         </span>`,
+
+        `<div class="mantra-title">মন্ত্র ৩:</div>
+         <span style="font-size:0.85rem;">
+           নমঃ শরণাগতদীনার্ত পরিত্রাণপরায়ণে<br>
+           সর্বস্যাতিহরে দেবী নারায়ণি নমোস্তু তে ।।<br><br>
+           এষ সচন্দন-পুষ্পবিল্বপত্রাঞ্জলিঃ<br>
+           নমঃ দক্ষযঞ্জ বিনাশিন্যে মহাঘোরায়ৈ যোগিনী<br>
+           কোটিপরিবৃতায়ৈ ভদ্রকাল্যৈ ভগবত্যৈ দুর্গায়ৈ নমঃ ।।
+         </span>`,
+
+        `<div class="mantra-title">প্রণাম মন্ত্র:</div>
+         <span style="font-size:0.85rem;">
+           জয়ন্তী মঙ্গলা কালী ভদ্রকালী কপালিনী<br>
+           দুর্গা শিবা ক্ষমা ধাত্রী স্বাহা স্বধা নমোস্তুতে ।।
+         </span>`
+      ],
+
+      nabami: [
+        `<div class="mantra-title">মন্ত্র ১:</div>
+         <span style="font-size:0.85rem;">
+           কালি কালি মহাকালি কালিকে কালরাত্রিকে<br>
+           ধম্মকামপ্রদে দেবি নারায়ণি নমোস্তু তে ।।
+         </span>`,
+
+        `<div class="mantra-title">মন্ত্র ২:</div>
+         <span style="font-size:0.85rem;">
+           লক্ষ্মি লজ্জে মহাবিদ্যে শ্রদ্ধে পুষ্টি স্বধে ধ্রুবে<br>
+           মহারাত্রি মহামায়ে নারায়ণি নমোস্তু তে ।।
+         </span>`,
+
+        `<div class="mantra-title">মন্ত্র ৩:</div>
+         <span style="font-size:0.85rem;">
+           কলাকাষ্ঠাদিরূপেণ পরিণামপ্রদায়িনি<br>
+           বিশ্বস্যোপরতৌ শক্তে নারায়ণি নমোস্তু তে<br><br>
+           এষ সচন্দন-পুষ্পবিল্বপত্রাঞ্জলিঃ<br>
+           নমঃ দক্ষযঞ্জ বিনাশিন্যে মহাঘোরায়ৈ যোগিনী<br>
+           কোটিপরিবৃতায়ৈ ভদ্রকাল্যৈ ভগবত্যৈ দুর্গায়ৈ নমঃ
+         </span>`,
+
+        `<div class="mantra-title">প্রণাম মন্ত্র:</div>
+         <span style="font-size:0.85rem;">
+           সর্বস্বরূপে সর্বেশে সর্বশক্তিসমন্বি তে<br>
+           ভয়েভ্যস্ত্রাহি নো দেবি দুর্গে দেবি নমোস্তুতে
+         </span>`
+      ]
+    };
+
+    // DOM Elements
+    const pushpanjaliBtn = document.getElementById('togglePushpanjaliBtn');
+    const pushpanjaliContent = document.getElementById('pushpanjaliContent');
+    const pushpanjaliMantras = document.getElementById('pushpanjaliMantras');
+    const dayButtons = document.querySelectorAll('#pushpanjaliDays button');
+
+    // Toggle Pushpanjali visibility
+// Force collapsed state on page load
+pushpanjaliContent.style.display = 'none';
+pushpanjaliBtn.textContent = '+';
+pushpanjaliBtn.setAttribute('aria-expanded', 'false');
+
+pushpanjaliBtn.addEventListener('click', () => {
+  const isExpanded = pushpanjaliBtn.getAttribute('aria-expanded') === 'true';
+
+  if (isExpanded) {
+    // Collapse
+    pushpanjaliContent.style.display = 'none';
+    pushpanjaliBtn.textContent = '+';
+    pushpanjaliBtn.setAttribute('aria-expanded', 'false');
+  } else {
+    // Expand
+    pushpanjaliContent.style.display = 'flex';
+    pushpanjaliBtn.textContent = '−';
+    pushpanjaliBtn.setAttribute('aria-expanded', 'true');
+  }
+});
+
+    // Render common + daily mantras
+    function renderMantras(day) {
+      const common = mantrasByDay.common || '';
+      const dayMantras = mantrasByDay[day] || [];
+
+      let html = `<div class="mantra-block common-mantra">${common}</div>`;
+      dayMantras.forEach(m => {
+        html += `<div class="mantra-block">${m}</div>`;
+      });
+
+      pushpanjaliMantras.innerHTML = html;
+    }
+
+    // Default: select Saptami
+    const defaultDay = 'saptami';
+    renderMantras(defaultDay);
+
+    // Set default button active
+    const defaultButton = document.querySelector(`#pushpanjaliDays button[data-day="${defaultDay}"]`);
+    if (defaultButton) {
+      defaultButton.classList.add('active');
+      defaultButton.setAttribute('aria-selected', 'true');
+      defaultButton.setAttribute('tabindex', '0');
+    }
+
+    // Handle button clicks
+    dayButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const selectedDay = btn.getAttribute('data-day');
+
+        // Update button states
+        dayButtons.forEach(b => {
+          b.classList.remove('active');
+          b.setAttribute('aria-selected', 'false');
+          b.setAttribute('tabindex', '-1');
+        });
+
+        btn.classList.add('active');
+        btn.setAttribute('aria-selected', 'true');
+        btn.setAttribute('tabindex', '0');
+        btn.focus();
+
+        // Load mantras
+        renderMantras(selectedDay);
+      });
+
+      // Keyboard navigation
+      btn.addEventListener('keydown', e => {
+        if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
+          e.preventDefault();
+          let index = Array.from(dayButtons).indexOf(e.target);
+          if (e.key === 'ArrowRight') index = (index + 1) % dayButtons.length;
+          else index = (index - 1 + dayButtons.length) % dayButtons.length;
+          dayButtons[index].click();
+        }
+      });
+    });
+  });
+</script>
+
   <script>
     // Countdown Logic with hours/minutes/seconds
     const countdown = document.getElementById("countdown");
@@ -776,27 +1715,9 @@ body::before {
 
   // Helper: create a canvas with emoji drawn on it, return as Image
 function offerFlower() {
-  flowerCount++;
-  flowerCountDisplay.textContent = `🌸 আপনি ${flowerCount} টি পুষ্প প্রদান করলেন।`;
+  flowerCountDisplay.textContent = `🌸 আপনি পুষ্পাঞ্জলি প্রদান করলেন।`;
   offerFlowerBtn.focus();
-
-  const emojis = ['🌸', '🌺', '🌼'];
-  const emojiImages = emojis.map(createEmojiParticle);
-
-  // Wait a short time for all images to load before firing confetti
-  setTimeout(() => {
-    emojiImages.forEach(img => {
-      confetti({
-        particleCount: 15,
-        spread: 70,
-        origin: { y: 0.6 },
-        gravity: 0.3,
-        scalar: 1.2,
-        shapes: ['image'],
-        shapeOptions: { image: img }
-      });
-    });
-  }, 300); // 100ms delay to let images load
+  showFloatingFlower();
 }
 
     // Theme Toggle
@@ -872,20 +1793,16 @@ function offerFlower() {
     // Smooth reveal for virtual darshan sections on scroll
     const darshanSections = document.querySelectorAll(".darshan-section");
 
-    function checkVisibleSections() {
-      const triggerBottom = window.innerHeight * 0.85;
-      darshanSections.forEach((section) => {
-        const rect = section.getBoundingClientRect();
-        if (rect.top < triggerBottom) {
-          section.classList.add("visible");
-        } else {
-          section.classList.remove("visible");
-        }
-      });
-    }
+function checkVisibleSections() {
+  const triggerBottom = window.innerHeight * 0.85;
+  darshanSections.forEach((section) => {
+    const rect = section.getBoundingClientRect();
+    section.classList.toggle("visible", rect.top < triggerBottom);
+  });
+}
 
-    window.addEventListener("scroll", checkVisibleSections);
-    window.addEventListener("load", checkVisibleSections);
+window.addEventListener("scroll", checkVisibleSections);
+window.addEventListener("load", checkVisibleSections);
 
     // tsParticles fireworks for Durga Puja
     tsParticles.load("tsparticles", {
@@ -934,7 +1851,232 @@ document.getElementById("closeZoomBtn").addEventListener("click", function () {
   document.getElementById("zoomModal").style.display = "none";
 });
 
+function showFloatingFlower() {
+  const flower = document.getElementById('floatingFlower');
+
+  // Reset styles instantly to start from base position
+  flower.style.transition = 'none';
+  flower.style.opacity = '0';
+  flower.style.transform = 'translateX(-50%) translateY(0)';
+
+  // Force reflow to apply reset before animation
+  void flower.offsetWidth;
+
+  // Animate flower floating up and fading in/out
+  flower.style.transition = 'transform 1.5s ease-out, opacity 1.5s ease-out';
+  flower.style.opacity = '1';
+  flower.style.transform = 'translateX(-50%) translateY(-100px)';
+
+  // After animation, fade out flower
+  setTimeout(() => {
+    flower.style.opacity = '0';
+  }, 1500);
+}
+
+</script>
+<script>
+  const dayButtons = document.querySelectorAll('#pushpanjaliDays button');
+  const dayMessage = document.getElementById('pushpanjaliDayMessage');
+
+  const messages = {
+  saptami: "🌸 সপ্তমী – let devotion begin...",
+  ashtami: "🪔 অষ্টমী – offer with grace...",
+  nabami: "🔱 নবমী – chant with love..."
+};
+
+  dayButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      dayButtons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      const day = btn.getAttribute('data-day');
+      dayMessage.textContent = messages[day];
+      dayMessage.style.animation = 'fadeIn 0.5s ease';
+    });
+  });
+
+window.addEventListener('DOMContentLoaded', () => {
+  const activeBtn = document.querySelector('#pushpanjaliDays button.active');
+  if (activeBtn) {
+    const day = activeBtn.getAttribute('data-day');
+    dayMessage.textContent = messages[day];
+    dayMessage.style.animation = 'fadeIn 0.5s ease';
+  }
+});
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+    const toggleBtns = document.querySelectorAll('.toggle-btn');
+    
+    toggleBtns.forEach(button => {
+        // Skip if button already has its own handler (like Nirghanta)
+        if (!button.hasAttribute('onclick')) {
+            button.addEventListener('click', function () {
+                const content = this.parentElement.nextElementSibling;
+                const label = this.getAttribute('data-label') || 'Section';
+
+                if (content.style.display === 'block') {
+                    content.style.display = 'none';
+                    this.textContent = `+ Show ${label}`;
+                } else {
+                    content.style.display = 'block';
+                    this.textContent = `- Hide ${label}`;
+                }
+            });
+        }
+    });
+
+    // Initialize layout (header, footer, sidebar, breadcrumb)
+    if (typeof initializeLayout === "function") {
+        initializeLayout();
+    }
+});
+
+function toggleNirghantaDetails(button) {
+  const label = button.getAttribute('data-label') || 'Nirghanta';
+  const contentWrapper = document.getElementById('nirghantaContent');
+  const isHidden = window.getComputedStyle(contentWrapper).display === 'none';
+
+  if (isHidden) {
+    contentWrapper.style.display = 'block';
+    button.textContent = `- Hide ${label}`;
+
+    // 🔥 Badge can now be found — run update!
+    updateCountdownText(currentLang);
+  } else {
+    contentWrapper.style.display = 'none';
+    button.textContent = `+ Show ${label}`;
+  }
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  let currentLang = "en";
+
+  const langToggleBtn = document.getElementById("langToggleBtn");
+  const nextLangLabel = document.getElementById("nextLangLabel");
+
+  window.toggleNirghantaDetails = function (button) {
+    const label = button.getAttribute('data-label') || 'Nirghanta';
+    const contentWrapper = document.getElementById('nirghantaContent');
+    const isHidden = window.getComputedStyle(contentWrapper).display === 'none';
+
+    if (isHidden) {
+      contentWrapper.style.display = 'block';
+      button.textContent = `- Hide ${label}`;
+      if (langToggleBtn) langToggleBtn.style.display = 'inline-block';
+      updateCountdownText(currentLang);
+    } else {
+      contentWrapper.style.display = 'none';
+      button.textContent = `+ Show ${label}`;
+      if (langToggleBtn) langToggleBtn.style.display = 'none';
+    }
+  };
+
+  const countdownTranslations = {
+    en: {
+      daysLeft: "days left",
+      today: "Today!",
+      passed: "Passed"
+    },
+    bn: {
+      daysLeft: "দিন বাকি",
+      today: "আজ!",
+      passed: "শেষ হয়েছে"
+    }
+  };
+
+  const disclaimerTranslations = {
+    en: "**Disclaimer:** The timings shown below are indicative only. Please check with the priest to know the current timings",
+    bn: "**দ্রষ্টব্য:** নিচে প্রদর্শিত সময়সমূহ আনুমানিক। সঠিক সময় জানার জন্য অনুগ্রহ করে পুরোহিতের সাথে যোগাযোগ করুন।"
+  };
+
+  function toBengaliDigits(numberStr) {
+    const enToBnDigits = { '0': '০', '1': '১', '2': '২', '3': '৩', '4': '৪', '5': '৫', '6': '৬', '7': '৭', '8': '৮', '9': '৯' };
+    return numberStr.replace(/\d/g, d => enToBnDigits[d]);
+  }
+
+  function toEnglishDigits(numberStr) {
+    const bnToEnDigits = { '০': '0', '১': '1', '২': '2', '৩': '3', '৪': '4', '৫': '5', '৬': '6', '৭': '7', '৮': '8', '৯': '9' };
+    return numberStr.replace(/[০-৯]/g, d => bnToEnDigits[d]);
+  }
+
+  function updateCountdownText(lang) {
+    const badge = document.getElementById("countdownBadge");
+    const disclaimer = document.getElementById("disclaimer");
+
+    if (!badge) return;
+
+    const today = new Date();
+    const todayMidnight = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+    const mahaShasthiDate = new Date("2025-09-28T00:00:00");
+    const timeDiff = mahaShasthiDate - todayMidnight;
+    const daysRemaining = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
+
+    badge.style.backgroundColor = "#b30000";
+
+    if (daysRemaining > 0) {
+      badge.style.display = "inline";
+      let daysText = ` (${daysRemaining} ${countdownTranslations[lang].daysLeft})`;
+      daysText = (lang === 'bn') ? toBengaliDigits(daysText) : toEnglishDigits(daysText);
+      badge.textContent = daysText;
+      badge.style.color = "#fff8dc";
+      badge.style.fontWeight = "bold";
+      badge.classList.add("countdown-badge", "countdown-glow-pulse");
+    } else if (daysRemaining === 0) {
+      badge.style.display = "inline";
+      let todayText = ` (${countdownTranslations[lang].today})`;
+      todayText = (lang === 'bn') ? toBengaliDigits(todayText) : toEnglishDigits(todayText);
+      badge.textContent = todayText;
+      badge.style.color = "#ffcc00";
+      badge.style.fontWeight = "bold";
+      badge.classList.add("countdown-badge");
+      badge.classList.remove("countdown-glow-pulse");
+    } else {
+      badge.textContent = "";
+      badge.style.display = "none";
+    }
+
+    if (disclaimer) {
+      disclaimer.innerHTML = disclaimerTranslations[lang];
+    }
+  }
+
+  function toggleLanguage() {
+    currentLang = currentLang === "en" ? "bn" : "en";
+    const targetAttr = `data-${currentLang}`;
+
+    const elements = document.querySelectorAll("[data-en][data-bn]");
+    elements.forEach(el => {
+      if (el.id === "countdownBadge") return;
+      if (el.children.length > 0 && el.id !== "mahaShasthiCell") return;
+
+      const newText = el.getAttribute(targetAttr);
+      if (newText) {
+        if (el.id === "mahaShasthiCell") {
+          const eventNameSpan = el.querySelector(".event-name");
+          if (eventNameSpan) eventNameSpan.textContent = newText;
+        } else {
+          el.textContent = newText;
+        }
+      }
+    });
+
+    if (nextLangLabel) {
+      nextLangLabel.textContent = currentLang === "en" ? "বাংলা" : "English";
+    }
+
+    updateCountdownText(currentLang);
+  }
+
+  if (langToggleBtn) {
+    langToggleBtn.addEventListener("click", toggleLanguage);
+  }
+
+  updateCountdownText(currentLang);
+});
 </script>
 
 </body>
+
 </html>
