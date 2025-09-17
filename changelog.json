@@ -1,5 +1,22 @@
 [
   {
+    "date": "2025-09-17",
+    "items": [
+      {
+        "type": "✨ improved",
+        "desc": "Updated darshan.html page to include a dedicated Virtual Darshan section for an enhanced spiritual experience."
+      },
+      {
+        "type": "🆕 new",
+        "desc": "Added Durga Puja Nirghanta section, providing detailed and accessible event information."
+      },
+      {
+        "type": "🆕 new",
+        "desc": "Introduced Virtual Pushpanjali section to facilitate devotional offerings remotely with intuitive interaction."
+      }
+    ]
+  },
+  {
     "date": "2025-09-09",
     "items": [
       {
@@ -55,52 +72,6 @@
       {
         "type": "🛠️ fixed",
         "desc": "Corrected sunrise and sunset time styling to use bold font weight."
-      }
-    ]
-  },
-  {
-    "date": "2025-08-26",
-    "items": [
-      {
-        "type": "🆕 new",
-        "desc": "Added Durga Puja Nirghanta 2025 timeline with bilingual English/Bengali toggle."
-      },
-      {
-        "type": "🎨 improved",
-        "desc": "Integrated dynamic countdown badge for Durga Puja Nirghanta that updates and persists across language switches."
-      },
-      {
-        "type": "🎨 improved",
-        "desc": "Enhanced countdown badge styling for better readability and consistent festive theme colors."
-      }
-    ]
-  },
-  {
-    "date": "2025-08-25",
-    "items": [
-      {
-        "type": "🆕 new",
-        "desc": "Added smart search functionality to Glossary with real-time filtering by term or description."
-      },
-      {
-        "type": "🆕 new",
-        "desc": "Implemented 'Did You Mean' suggestions using Levenshtein distance for better user assistance."
-      },
-      {
-        "type": "🎨 improved",
-        "desc": "Glossary now includes toggleable A–Z / Z–A sorting and sticky alphabet filters with responsive layout."
-      },
-      {
-        "type": "🎨 improved",
-        "desc": "Enhanced Glossary UI with vibrant orange gradient background and subtle shadows for better aesthetics."
-      },
-      {
-        "type": "🎨 improved",
-        "desc": "Improved accessibility with ARIA live regions, focus management, and semantic markup."
-      },
-      {
-        "type": "🆕 new",
-        "desc": "Scroll-to-top button now floats above footer and auto-hides to avoid overlapping on small screens."
       }
     ]
   }
