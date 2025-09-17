@@ -62,6 +62,33 @@
       max-width: 650px;
       margin: 0 auto;
     }
+    .upcoming-events {
+      max-width: 650px;
+      margin: 0 auto 1.5rem;
+      background: linear-gradient(135deg, #2a72d8, #1d4ed8); /* Blue gradient */
+      padding: 1rem 1.5rem;
+      border-radius: 12px;
+      color: white;
+      box-shadow: 0 4px 12px rgb(42 114 216 / 0.35);
+    }
+    .upcoming-events h2 {
+      margin-top: 0;
+      font-weight: 700;
+      font-size: 1.6rem;
+      margin-bottom: 0.8rem;
+      text-shadow: 1px 1px 3px rgba(255, 255, 255, 0.5);
+    }
+    .upcoming-events ul {
+      padding-left: 1.2rem;
+      margin: 0;
+      list-style-type: disc;
+      font-weight: 600;
+      font-size: 1rem;
+    }
+    .upcoming-events li {
+      margin-bottom: 0.5rem;
+    }
+
     /* Masonry gallery */
   .gallery {
   display: flex;
@@ -448,15 +475,34 @@
   position: absolute;
 }
 
-</style>
+  </style>
 </head>
 <body>
   <main>
     <section class="events-header">
-      <h1>Events & Photo Gallery</h1>
-      <p>Enjoy the beautiful memories captured in our photo gallery.</p>
+      <h1 style="
+  background: linear-gradient(90deg, #1e3c72, #2a5298, #f12711, #f5af19);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 2em;
+  font-weight: bold;
+">
+  Events & Photo Gallery
+</h1>
+      <p style="
+  background: linear-gradient(90deg, #6a11cb, #2575fc);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 1em;
+  font-weight: 500;
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
+">
+  Enjoy the beautiful memories captured in our photo gallery
+</p>
     </section>
-    
+ 
     <!-- 🔍 Search bar for filtering images -->
 <section style="text-align: center; margin: 1rem 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
   <label for="event-filter" style="font-weight: 700; font-size: 1.1rem; display: block; margin-bottom: 0.5rem; color: #333;">
@@ -464,11 +510,9 @@
   </label>
   <select id="event-filter" multiple>
     <option value="AGM">AGM</option>
-    <option value="Khuti Puja">Khuti Puja</option>
     <option value="Independence Day">Independence Day</option>
     <option value="Biswakarma Puja">Biswakarma Puja</option>
     <option value="Durga Puja">Durga Puja</option>
-    <option value="Kali Puja">Kali Puja</option>
     <option value="Other">Other</option>
   </select>
 </section>
@@ -500,7 +544,8 @@
 
   <img src="" alt="Zoomed event" />
 </div>
-  
+
+
   <!-- Go to top button -->
   <button id="go-top-btn" aria-label="Go to top">&#8679;</button>
 
@@ -544,14 +589,12 @@ goTopBtn.style.display = 'none';
 
   // Sample image array — replace or extend as needed
   const imageArray = [
-  { path: 'indepen2025.jpg', name: 'Image-1.jpg', caption: '79th Independence Day | Avishikta - 1', event: 'Independence Day' },
-    { path: '19thagm-1.jpg', name: 'Image-2.jpg', caption: '19th AGM - View 1', event: 'AGM' },
-  { path: '19thagm-3.jpg', name: 'Image-3.jpg', caption: '19th AGM - View 2', event: 'AGM' },
+  { path: 'biswakarmapuja2025.jpg', name: 'Image-1.jpg', caption: 'Biswakarma Puja 2025 | Avishikta - 1', event: 'Biswakarma Puja' },
+  { path: 'indepen2025.jpg', name: 'Image-2.jpg', caption: '79th Independence Day | Avishikta - 1', event: 'Independence Day' },
   { path: '19thagm-6.jpg', name: 'Image-4.jpg', caption: '19th AGM - View 3', event: 'AGM' },
- { path: '19thagm-4.jpg', name: 'Image-5.jpg', caption: '19th AGM - View 4', event: 'AGM' },
+  { path: '19thagm-4.jpg', name: 'Image-5.jpg', caption: '19th AGM - View 4', event: 'AGM' },
   { path: '19thagm-5.jpg', name: 'Image-6.jpg', caption: '19th AGM - View 5', event: 'AGM' },
   { path: 'img-5.jpg', name: 'Image-7.jpg', caption: 'Type-A', event: 'Other' },
-  { path: 'khutipujo-1.jpg', name: 'Image-8.jpg', caption: 'Khuti Puja 2025', event: 'Khuti Puja' }
   ];
 
   // Initialize Choices.js for multi-select dropdown
@@ -589,7 +632,7 @@ goTopBtn.style.display = 'none';
         message.textContent = 'No images found for this search.';
         message.style.textAlign = 'center';
         message.style.color = '#888';
-        message.style.fontWeight = '600';
+        message.style.fontWeight = '500';
         gallery.appendChild(message);
         spinner.style.display = 'none';
         return;
@@ -801,6 +844,3 @@ goTopBtn.style.display = 'none';
 
 </body>
 </html>
-
-
-
