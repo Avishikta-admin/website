@@ -128,211 +128,6 @@
             }
         }
 
-/* Nirghanta Table Styling (updated for container fit) */
-.nirghanta-container {
-  max-width: 1200px;
-  margin: 0 auto 20px auto;
-  padding: 15px 30px 25px;
-  background: #fff9f4;
-  border: 8px double #e75480;
-  border-radius: 20px;
-  box-shadow: 0 0 18px rgba(231, 84, 128, 0.35);
-  color: #4b2e3b;
-  position: relative;
-  overflow: visible;
-  box-sizing: border-box;
-}
-
-.nirghanta-container::before,
-.nirghanta-container::after {
-  content: "❀";
-  font-size: 20px;
-  color: #e75480;
-  position: absolute;
-}
-
-.nirghanta-container::before {
-  top: 10px;
-  left: 10px;
-}
-
-.nirghanta-container::after {
-  bottom: 12px;
-  right: 12px;
-}
-
-.nirghanta-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 10px;
-  border-bottom: 2px solid #e75480;
-  padding-bottom: 8px;
-}
-
-.nirghanta-header h3 {
-  margin: 0;
-  font-size: 0.8rem;
-}
-
-#langToggleBtn {
-  background: #e75480;
-  border: none;
-  border-radius: 25px;
-  color: white;
-  font-weight: 600;
-  padding: 6px 14px;
-  cursor: pointer;
-  box-shadow: 0 3px 6px rgba(231, 84, 128, 0.6);
-  transition: background 0.3s ease;
-}
-
-#langToggleBtn:hover {
-  background: #d1426e;
-}
-
-.nirghanta-note {
-  font-style: italic;
-  font-size: 0.8rem;
-  color: #b55376;
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-.nirghanta-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-bottom: 25px;
-  box-shadow: 0 2px 6px rgba(231, 84, 128, 0.2);
-  border-radius: 12px;
-  overflow: hidden;
-  box-sizing: border-box; /* added for sizing */
-}
-
-.nirghanta-table thead tr {
-  background: #ffe7f0;
-  border-left: 6px solid #e75480;
-}
-
-.nirghanta-table th,
-.nirghanta-table td {
-  padding: 14px 18px;
-  border-bottom: 2px solid #e75480;
-  text-align: left;
-  color: #581c36;
-  font-weight: 600;
-  font-size: 0.8rem;
-  box-sizing: border-box; /* added */
-  word-break: break-word; /* added for better text wrap */
-}
-
-.nirghanta-table th {
-  color: #a31f4b;
-  font-size: 0.85rem;
-}
-
-.event-name {
-  font-weight: 600;
-  color: #4b2e3b;
-}
-
-.event-time {
-  font-style: italic;
-  color: #9c3655;
-  text-align: right;
-  white-space: nowrap;
-  font-weight: 500;
-}
-
-.nirghanta-table tbody tr {
-  background: #fff9f4;
-  transition: background 0.4s ease;
-}
-
-.nirghanta-table tbody tr:hover {
-  background: #ffd1df;
-}
-
-/* Responsive tweaks */
-@media (max-width: 480px) {
-  .nirghanta-container {
-    padding: 15px 20px;
-    border-width: 6px;
-  }
-
-  .nirghanta-header h3 {
-    font-size: 0.85rem;
-  }
-
-  .nirghanta-table th,
-  .nirghanta-table td {
-    display: block;
-    width: 100%;
-    text-align: left;
-    padding: 10px 5px;
-  }
-
-  .nirghanta-table thead {
-    display: none;
-  }
-
-  .nirghanta-table tbody tr {
-    margin-bottom: 20px;
-    display: block;
-    border: 2px solid #e75480;
-    border-radius: 12px;
-    padding: 15px;
-  }
-
-  .event-time {
-    text-align: left;
-    margin-top: 4px;
-    color: #b55376;
-  }
-
-  #langToggleBtn {
-    padding: 6px 10px;
-    font-size: 0.8r5em;
-  }
-  /* Base countdown badge (Durga Puja theme) */
-  .countdown-badge {
-  background-color: #b30000; /* Festive red */
-  color: #fff8dc;             /* Light golden */
-  font-weight: bold;
-  margin-left: 8px;
-  padding: 2px 8px;
-  border-radius: 12px;
-  font-size: 10px;
-  display: inline-block;
-}
-
-.countdown-glow-pulse {
-  animation: glowPulse 1.5s infinite ease-in-out;
-  text-shadow: 0 0 6px #ffcc00, 0 0 12px #ffcc00; /* soft golden glow */
-}
-
-@keyframes glowPulse {
-  0% { transform: scale(1); text-shadow: 0 0 6px #ffcc00; }
-  50% { transform: scale(1.1); text-shadow: 0 0 12px #ffcc00; }
-  100% { transform: scale(1); text-shadow: 0 0 6px #ffcc00; }
-}
-
-.overall-title h2{
-    font-family: 'Segoe UI', 'Arial', sans-serif;
-    font-size: 30px;
-    color: blue;
-    text-transform: uppercase;
-    font-weight: 700;
-    letter-spacing: 1.5px;
-    margin: 0;
-}
-
-/* Optional Hover Effect */
-.overall-title:hover {
-    color: #28a745; /* green tone on hover */
-    cursor: default;
-    text-decoration: underline;
-}
 
 /* Center calendar day text and make bold */
 /* Calendar grid days */
@@ -452,6 +247,11 @@
   50% { opacity: 0; }
 }
 
+.announcement-points .point {
+    font-size: 0.85em; /* or try 0.9em / 14px / smaller as needed */
+    line-height: 1.3;
+  }
+
 </style>
 </head>
 
@@ -489,6 +289,54 @@
     </div>
     <div class="section-content">
         <div class="announcement">
+    <h3>Apex Body Meeting - Held on 7th September, 2025</h3>
+<div class="announcement-points">
+    <div class="point">
+        <span class="icon">✔️</span> Gate repairing and painting work to be completed by Nov 30, 2025, with civil work included; Niloy to coordinate.
+    </div>
+    <div class="point">
+        <span class="icon">✔️</span> Common fund collections to be distributed on a pro-rata basis among Type A, Type B, and HIG; Niloy will coordinate.
+    </div>
+    <div class="point">
+        <span class="icon">✔️</span> Fire pump room repairs to start post-Puja; quotations to be validated by Siddhartha Roy and Abhijit Das.
+    </div>
+    <div class="point">
+        <span class="icon">✔️</span> STP area clearance request letter to be issued with local councillor in CC; Niloy to draft and seek approval.
+    </div>
+    <div class="point">
+        <span class="icon">✔️</span> Fire license renewal prioritized; Abhijit to coordinate with Fire Guard, Chiranjib to validate before online application.
+    </div>
+    <div class="point">
+        <span class="icon">✔️</span> Possession of shops developed by Bengal Peerless was approved; access via internal corridor to be created.
+    </div>
+    <div class="point">
+        <span class="icon">✔️</span> Legal consultation on Type-A extension to be initiated by Niloy.
+    </div>
+    <div class="point">
+        <span class="icon">✔️</span> Glass pane repair for Community Hall approved; Niloy to follow up on payment to the contractor.
+    </div>
+    <div class="point">
+        <span class="icon">✔️</span> Revised water charge of ₹500 per event effective Nov 1, 2025, to be paid to Type B Association.
+    </div>
+    <div class="point">
+        <span class="icon">✔️</span> Proposal to repair and repaint all discoloured statues was unanimously approved.
+    </div>
+    <div class="point">
+        <span class="icon">✔️</span> MyGate to replace NoBrokerHood as digital partner; Subhadeep to issue discontinuation notice.
+    </div>
+    <div class="point">
+        <span class="icon">✔️</span> Second gate to be made operational intermittently based on requirement and feasibility.
+    </div>
+    <div class="point">
+        <span class="icon">✔️</span> Urgent termite treatment required in Community Hall due to heavy infestation and potential structural damage.
+    </div>
+    <div class="point">
+        <span class="icon">✔️</span> Relocation of electrical poles obstructing parking access to be explored for improved vehicle movement.
+    </div>
+</div>
+<p style="color: #007BFF;">For more details, please refer to the <b>Meeting Minutes Submenu</b> under the <b>Resource Menu.</b></p>
+
+    <hr size="2">
     <h3>19th AGM - Held on 27th July, 2025</h3>
     <div class="announcement-points">
         <div class="point">
@@ -560,132 +408,6 @@
 <script src="https://cdn.jsdelivr.net/npm/suncalc@1.9.0/suncalc.js"></script>
 
 
-<!-- Durga Puja Nirghanta Section -->
-<!-- Durga Puja Nirghanta Section -->
-<section id="nirghanta" class="nirghanta">
-  <div class="section-header">
-  <h2>
-  Durga Puja Nirghanta
-  <span 
-    style="
-      color: white; 
-      background-color: #ff4d4d; 
-      font-weight: bold; 
-      margin-left: 8px; 
-      font-size: 0.8em; 
-      padding: 2px 6px; 
-      border-radius: 4px; 
-      font-family: Arial, sans-serif; 
-      display: inline-block;
-      animation-name: blink;
-      animation-duration: 1.2s;
-      animation-iteration-count: infinite;
-    "
-  >
-    New
-  </span>
-</h2>
-
-<!-- Add this style block once somewhere in your page: -->
-<style>
-@keyframes blink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0; }
-}
-</style>
-
-  <button class="toggle-btn" data-label="Nirghanta" onclick="toggleNirghantaDetails(this)">+ Show Nirghanta</button>
-</div>
-
-  <!-- This entire block will be toggled -->
-  <div id="nirghantaContent" style="display: none;">
-    <div class="section-content" style="display: block;">
-  <div style="display: flex; justify-content: space-between; align-items: center;">
-    <h3 style="font-size: 15px; margin: 0;">
-      🔔 দেবীর আগমন গজ বা হাতিতে | দেবীর গমন দোলা বা পালকিতে
-    </h3>
-    <button id="langToggleBtn" title="Toggle Language" aria-label="Toggle Language"
-            style="display: inline-block; padding: 5px 10px; font-size: 13px; cursor: pointer;">
-      🌐 Switch to <span id="nextLangLabel">বাংলা</span>
-    </button>
-  </div>
-
-  <p id="disclaimer" style="color: blue; font-weight: bold; font-size: 0.85rem;">
-    **Disclaimer:** The timings shown below are indicative only. Please check with the priest to know the current timings
-  </p>
-</div>
-
-    <!-- Nirghanta Timeline Table (Collapsible Section) -->
-    <div id="nirghantaTimeline" class="nirghanta-timeline">
-        <table class="nirghanta-table" aria-label="Durga Puja Nirghanta Timeline">
-            <thead>
-                <tr>
-                    <th>দিন (Day)</th>
-                    <th>তারিখ (Date)</th>
-                    <th>অনুষ্ঠানের নাম (Event Name)</th>
-                    <th>সময় (Timing)</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr class="shasthi">
-                   <td id="mahaShasthiCell" data-en="🌿 Maha Shasthi" data-bn="🌿 মহাষষ্ঠী">
-  			<span class="event-name">🌿 Maha Shasthi</span>
-  			<span class="countdown-badge" id="countdownBadge"></span>
-		   </td> 
-                    <td data-en="(28 Sept)" data-bn="(২৮ সেপ্টেম্বর)">(28 Sept)</td>
-                    <td>
-                        <span class="event-name" data-en="Bodhon (Invocation of Goddess)" data-bn="বোধন (মহাষষ্ঠী)">Bodhon (Invocation of Goddess)</span><br/>
-                        <span class="event-name" data-en="Sandhi Puja Preparation" data-bn="সন্ধি পূজার প্রস্তুতি">Sandhi Puja Preparation</span>
-                    </td>
-                    <td><span class="event-time" data-en="5:30 PM to 7:00 PM" data-bn="সন্ধ্যা ৫:৩০ থেকে সন্ধ্যা ৭:০০">5:30 PM to 7:00 PM</span></td>
-                </tr>
-                <tr class="saptami">
-                    <td data-en="🌅 Maha Saptami" data-bn="🌅 মহাসপ্তমী">🌅 Maha Saptami</td>
-                    <td data-en="(29 Sept)" data-bn="(২৯ সেপ্টেম্বর)">(29 Sept)</td>
-                    <td>
-                        <span class="event-name" data-en="Nabapatrika Snan (Bathing the nine plants)" data-bn="নবপত্রিকা স্নান">Nabapatrika Snan</span><br/>
-                        <span class="event-name" data-en="Pratah Puja (Morning worship)" data-bn="প্রাতঃ পূজা">Pratah Puja</span><br/>
-                        <span class="event-name" data-en="Pushpanjali (Offering of flowers)" data-bn="পুষ্পাঞ্জলি">Pushpanjali</span>
-                    </td>
-                    <td><span class="event-time" data-en="6:15 AM to 9:30 AM" data-bn="সকাল ৬:১৫ থেকে সকাল ৯:৩০">6:15 AM to 9:30 AM</span></td>
-                </tr>
-                <tr class="astami">
-                    <td data-en="🔥 Maha Astami" data-bn="🔥 মহাঅষ্টমী">🔥 Maha Astami</td>
-                    <td data-en="(30 Sept)" data-bn="(৩০ সেপ্টেম্বর)">(30 Sept)</td>
-                    <td>
-                        <span class="event-name" data-en="Sandhi Puja (Transition worship)" data-bn="সন্ধি পূজা">Sandhi Puja</span><br/>
-                        <span class="event-name" data-en="Kumari Puja (Virgin worship)" data-bn="কুমারী পূজা">Kumari Puja</span><br/>
-                        <span class="event-name" data-en="Astami Puja" data-bn="অষ্টমী পূজা">Astami Puja</span>
-                    </td>
-                    <td><span class="event-time" data-en="4:30 AM to 12:00 PM" data-bn="ভোর ৪:৩০ থেকে দুপুর ১২:০০">4:30 AM to 12:00 PM</span></td>
-                </tr>
-                <tr class="nabami">
-                    <td data-en="🪔 Maha Nabami" data-bn="🪔 মহানবমী">🪔 Maha Nabami</td>
-                    <td data-en="(1 Oct)" data-bn="(১ অক্টোবর)">(1 Oct)</td>
-                    <td>
-                        <span class="event-name" data-en="Nabami Puja" data-bn="নবমী পূজা">Nabami Puja</span><br/>
-                        <span class="event-name" data-en="Bhog Offering" data-bn="ভোগ আরতি">Bhog Offering</span>
-                    </td>
-                    <td><span class="event-time" data-en="8:00 AM to 11:00 AM" data-bn="সকাল ৮:০০ থেকে সকাল ১১:০০">8:00 AM to 11:00 AM</span></td>
-                </tr>
-                <tr class="dashami">
-                    <td data-en="🌊 Maha Dashami" data-bn="🌊 মহাদশমী">🌊 Maha Dashami</td>
-                    <td data-en="(2 Oct)" data-bn="(২ অক্টোবর)">(2 Oct)</td>
-                    <td>
-                        <span class="event-name" data-en="Sindoor Khela (Vermilion game)" data-bn="সিঁদুর খেলা">Sindoor Khela</span><br/>
-                        <span class="event-name" data-en="Visarjan (Immersion of the idol)" data-bn="বিসর্জন">Visarjan</span>
-                    </td>
-                    <td><span class="event-time" data-en="10:00 AM to 4:00 PM" data-bn="সকাল ১০:০০ থেকে বিকেল ৪:০০">10:00 AM to 4:00 PM</span></td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-  </div> <!-- Added closing div for nirghantaContent -->
-</section>
-
-    <!-- Footer - Injected by layout.js -->
-    <div id="footer-placeholder"></div>
-
 </main>
 
 <script>
@@ -714,163 +436,6 @@
     if (typeof initializeLayout === "function") {
         initializeLayout();
     }
-});
-
-function toggleNirghantaDetails(button) {
-  const label = button.getAttribute('data-label') || 'Nirghanta';
-  const contentWrapper = document.getElementById('nirghantaContent');
-  const isHidden = window.getComputedStyle(contentWrapper).display === 'none';
-
-  if (isHidden) {
-    contentWrapper.style.display = 'block';
-    button.textContent = `- Hide ${label}`;
-
-    // 🔥 Badge can now be found — run update!
-    updateCountdownText(currentLang);
-  } else {
-    contentWrapper.style.display = 'none';
-    button.textContent = `+ Show ${label}`;
-  }
-}
-
-document.addEventListener("DOMContentLoaded", () => {
-  const langToggleBtn = document.getElementById("langToggleBtn");
-  const nextLangLabel = document.getElementById("nextLangLabel");
-  let currentLang = "en";
-
-  const countdownTranslations = {
-    en: {
-      daysLeft: "days left",
-      today: "Today!",
-      passed: "Passed"
-    },
-    bn: {
-      daysLeft: "দিন বাকি",
-      today: "আজ!",
-      passed: "শেষ হয়েছে"
-    }
-  };
-
-  const disclaimerTranslations = {
-    en: "**Disclaimer:** The timings shown below are indicative only. Please check with the priest to know the current timings",
-    bn: "**দ্রষ্টব্য:** নিচে প্রদর্শিত সময়সমূহ আনুমানিক। সঠিক সময় জানার জন্য অনুগ্রহ করে পুরোহিতের সাথে যোগাযোগ করুন।"
-  };
-
-  function toBengaliDigits(numberStr) {
-  const enToBnDigits = { '0': '০', '1': '১', '2': '২', '3': '৩', '4': '৪', '5': '৫', '6': '৬', '7': '৭', '8': '৮', '9': '৯' };
-  return numberStr.replace(/\d/g, d => enToBnDigits[d]);
-}
-
-function toEnglishDigits(numberStr) {
-  const bnToEnDigits = { '০': '0', '১': '1', '২': '2', '৩': '3', '৪': '4', '৫': '5', '৬': '6', '৭': '7', '৮': '8', '৯': '9' };
-  return numberStr.replace(/[০-৯]/g, d => bnToEnDigits[d]);
-}
-
-function updateCountdownText(lang) {
-  const badge = document.getElementById("countdownBadge");
-  if (!badge) return; // skip if badge not yet rendered
-
-  const disclaimer = document.getElementById("disclaimer");
-  const today = new Date();
-  const todayMidnight = new Date(today.getFullYear(), today.getMonth(), today.getDate());
-  const mahaShasthiDate = new Date("2025-09-28T00:00:00");
-  const timeDiff = mahaShasthiDate - todayMidnight;
-  const daysRemaining = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
-
-  badge.style.backgroundColor = "#b30000";
-
-  if (daysRemaining > 0) {
-    badge.style.display = "inline";
-    let daysText = ` (${daysRemaining} ${countdownTranslations[lang].daysLeft})`;
-
-    // Convert digits based on language
-    if (lang === 'bn') {
-      daysText = toBengaliDigits(daysText);
-    } else {
-      daysText = toEnglishDigits(daysText);
-    }
-
-    badge.textContent = daysText;
-    badge.style.color = "#fff8dc";
-    badge.style.fontWeight = "bold";
-    badge.classList.add("countdown-badge", "countdown-glow-pulse");
-  } else if (daysRemaining === 0) {
-    badge.style.display = "inline";
-
-    let todayText = ` (${countdownTranslations[lang].today})`;
-    // For 'today', just convert digits if any (usually none, but safe)
-    if (lang === 'bn') {
-      todayText = toBengaliDigits(todayText);
-    } else {
-      todayText = toEnglishDigits(todayText);
-    }
-
-    badge.textContent = todayText;
-    badge.style.color = "#ffcc00";
-    badge.style.fontWeight = "bold";
-    badge.classList.add("countdown-badge");
-    badge.classList.remove("countdown-glow-pulse");
-  } else {
-    badge.textContent = "";
-    badge.style.display = "none";
-  }
-
-  if (disclaimer) {
-    disclaimer.innerHTML = disclaimerTranslations[lang];
-  }
-}
-
-function toggleLanguage() {
-  currentLang = currentLang === "en" ? "bn" : "en";
-  const targetAttr = `data-${currentLang}`;
-
-  const elements = document.querySelectorAll("[data-en][data-bn]");
-  elements.forEach(el => {
-    if (el.id === "countdownBadge") return; // skip badge itself
-
-    // Allow toggle on elements with text only (skip those with child nodes except #mahaShasthiCell)
-    if (el.children.length > 0 && el.id !== "mahaShasthiCell") return;
-
-    const newText = el.getAttribute(targetAttr);
-    if (newText) {
-      // Special handling for mahaShasthiCell to update only event-name span, keep badge intact
-      if (el.id === "mahaShasthiCell") {
-        const eventNameSpan = el.querySelector(".event-name");
-        if (eventNameSpan) {
-          eventNameSpan.textContent = newText;
-        }
-      } else {
-        el.textContent = newText;
-      }
-    }
-  });
-
-  nextLangLabel.textContent = currentLang === "en" ? "বাংলা" : "English";
-
-  updateCountdownText(currentLang);
-}
-
-
-  // Initialize disclaimer and countdown on page load
-  updateCountdownText(currentLang);
-
-  // Expose toggle function globally for your toggle button
-  window.toggleNirghantaDetails = function (button) {
-    const label = button.getAttribute('data-label') || 'Nirghanta';
-    const contentWrapper = document.getElementById('nirghantaContent');
-    const isHidden = window.getComputedStyle(contentWrapper).display === 'none';
-
-    if (isHidden) {
-      contentWrapper.style.display = 'block';
-      button.textContent = `- Hide ${label}`;
-      updateCountdownText(currentLang);
-    } else {
-      contentWrapper.style.display = 'none';
-      button.textContent = `+ Show ${label}`;
-    }
-  };
-
-  langToggleBtn.addEventListener("click", toggleLanguage);
 });
 
 
