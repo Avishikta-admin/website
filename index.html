@@ -81,24 +81,6 @@ html, body {
     --text-color: #e0e0e0;
   }
 
-  #darkModeToggle {
-    padding: 10px 10px;
-    background: #0072ff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    position: sticky;
-    top: 10px;
-    right: 20px;
-    z-index: 1000;
-}
-
-  #darkModeToggle:hover {
-    background: #005bb5;
-  }
-
   #layout-root { }
 
   .hero {
@@ -199,21 +181,22 @@ html, body {
       padding: 0 2rem 3rem;
     }
 
-    .card {
-      background: linear-gradient(145deg, #2c3e50, #4ca1af); /* Stunning gradient */
-      padding: 2px 3px;
-      border-radius: 12px;
-      box-shadow: 0 6px 18px rgba(0,0,0,0.2);
-      transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-      cursor: default;
-      width: 100%; /* Ensures the card takes the full available space */
-      max-width: 350px; /* Keeps card width under control */
-      margin: -20px auto 0; /* Centers the card */
-      transform: translateY(5px);
-    }
+  .card {
+  background: linear-gradient(145deg, #2c3e50, #4ca1af); /* Stunning gradient */
+  padding: 2px 3px;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  margin: -20px auto 0;
+  cursor: default;
+  width: 100%; /* Ensures the card takes the full available space */
+  max-width: 350px; /* Keeps card width under control */
+  transform: translateY(5px);
+}
+
     .card::after {
       content: "";
       position: absolute;
@@ -745,7 +728,6 @@ header.hero {
   font-size: 1.2em; /* optional: make it a bit larger if needed */
 }
 
-
 #scrollToTop {
   position: fixed;
   bottom: 50px;       /* move it above the footer */
@@ -772,7 +754,7 @@ header.hero {
   padding: 4px 6px;
   text-align: center;
   font-weight: 600;
-  font-size: 0.85rem;
+  font-size: 0.75rem;
   color: #311B92;
   border-radius: 8px;
   width: fit-content;
@@ -889,7 +871,6 @@ header.hero {
   <i class="fas fa-gem" aria-hidden="true"></i>
   <h3>Durga Puja 2025</h3>
   <p>Celebrate the grand festival! Check schedules, events & more.</p>
-  <a href="community-bulletin.html" class="card-link" aria-label="View Durga Puja event details" style="color: #FFFF00;">View Details →</a>
 
   <!-- Background image div -->
   <div style="
@@ -943,9 +924,7 @@ header.hero {
 </div>
 
 <div class="card" tabindex="0" role="article" aria-label="Virtual Durga Puja Darshan Experience" style="cursor: pointer; background: linear-gradient(135deg, #ff6f61, #ffcc80); color: #4b2e05;">
-  <h3 style="font-size: 0.85rem;">🌸 Virtual Darshan Walkthrough</h3>
-  <p>Take a vibrant scroll-through journey of Durga Puja rituals & festivities!</p>
-  <a href="darshan.html" class="card-link" style="color: #994d00; font-weight: bold;">Start Virtual Darshan →</a>
+  <h3 style="font-size: 0.75rem;"><a href="darshan.html" class="card-link" style="color: #994d00; font-weight: bold; font-size: 0.8rem;">Virtual Darshan & Durga Puja Nirghanta 2025 + Pushpanjali</a></h3>
 
   <!-- Circular Icon Carousel Start -->
   <div class="icon-circle" aria-hidden="true" style="position: relative; width: 140px; height: 140px; margin: 12px auto;">
@@ -1004,7 +983,7 @@ const content = {
     cards: [
       { title: "🪔Durga Puja 2025", desc: "Celebrate the grand festival! Check schedules, events & more." },
       { title: "🏗️ Pandal Inspiration for 2025", desc: "" },
-      { title: "🌸 Virtual Darshan Walkthrough", desc: "" },
+      { title: "🌸 Virtual Darshan & Durga Puja Nirghanta 2025 + Virtual Pushpanjali", desc: "" },
       { title: "Smart & Secure Living", desc: "24/7 safety and smart tech at your fingertips." },
       { title: "Green Living", desc: "Live clean and green — for you and the planet." },
       { title: "Events & Updates", desc: "Stay in the loop with our community happenings." },
@@ -1046,7 +1025,9 @@ const content = {
       "🌟 “সু-পরিকল্পিত ল্যান্ডস্কেপিং থেকে ডিজিটাল সহজতায় — টাইপ - এ টাইপ - এ কমিউনিটি সত্যিকারের উদাহরণ।” – পি. দাস"
     ],
     cards: [
-      { title: "🪔দুর্গা পূজা ২০২৫", desc: "সময়সূচি, অনুষ্ঠান সম্পর্কে বিশদে জানতে নিচের লিঙ্কে ক্লিক করুন!" },
+      { title: "🪔দুর্গা পূজা ২০২৫", desc: "" },
+      { title: "🛕২০২৫ সালের প্যান্ডেল অনুপ্রেরণার ভাবনা", desc: "" },
+      { title: "🪔ভার্চুয়াল দর্শন + দুর্গা পূজা নির্ঘণ্ট ২০২৫ + ভার্চুয়াল পুষ্পাঞ্জলি", desc: "" },
       { title: "স্মার্ট ও সুরক্ষিত জীবনধারা", desc: "২৪/৭ নিরাপত্তা আর স্মার্ট প্রযুক্তির সঙ্গে থাকুন।" },
       { title: "সবুজ জীবন", desc: "নিজের জন্য আর পরিবেশের জন্য বেছে নিন সবুজ জীবনযাত্রা।" },
       { title: "ইভেন্ট ও আপডেট", desc: "আমাদের কমিউনিটির কার্যক্রম সম্পর্কে আপডেট থাকুন।" },
@@ -1672,4 +1653,3 @@ function rotateTestimonials() {
 
 </body>
 </html>
-
