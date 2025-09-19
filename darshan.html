@@ -231,9 +231,9 @@ body::before {
   max-width: 650px;
   display: block;
   text-align: center;
-  transition: opacity 1s ease, transform 1s ease;
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
   opacity: 0;
-  transform: translateY(30px);
+  transform: translateY(20px);
   border-radius: 16px;
   box-shadow:
     0 4px 15px rgba(0,0,0,0.1),
@@ -1073,6 +1073,100 @@ body::before {
   z-index: 2100; /* higher than zoomModal and pushpanjali */
 }
 
+.darshan-container {
+  position: relative; /* base for sticky */
+  padding-top: 3.5rem; /* space for sticky bar so content doesn't jump */
+}
+
+.progress-indicator {
+  position: sticky;
+  top: 0;
+  background: #fff;
+  box-shadow: 0 2px 2px rgba(211, 47, 47, 0.3);
+  padding: 0.25rem 1rem;   /* Reduced vertical padding */
+  margin-bottom: 1rem;
+  z-index: 10;
+  font-size: 0.9rem;       /* Slightly smaller font */
+}
+
+.progress-indicator ol {
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  counter-reset: step;
+  padding: 0 0.5rem;       /* Reduced horizontal padding */
+  margin: 0;
+}
+
+.progress-indicator li {
+  position: relative;
+  text-align: center;
+  flex: 1;
+  color: #666;
+  font-weight: 500;
+  font-size: 0.85rem;       /* Smaller font size */
+  padding-bottom: 0.25rem; /* Less bottom padding */
+  cursor: default;
+}
+
+.progress-indicator li::before {
+  content: counter(step);
+  counter-increment: step;
+  width: 1.2rem;           /* Smaller circle */
+  height: 1.2rem;
+  line-height: 1.2rem;
+  border: 2px solid #666;
+  display: block;
+  text-align: center;
+  margin: 0 auto 0.15rem auto;  /* Reduced bottom margin */
+  border-radius: 50%;
+  background-color: white;
+  font-weight: bold;
+  color: #666;
+}
+
+
+.progress-indicator li.active,
+.progress-indicator li[aria-current="step"] {
+  color: #d32f2f; /* vibrant red for Durga Puja vibes */
+  font-weight: 700;
+}
+
+.progress-indicator li.active::before,
+.progress-indicator li[aria-current="step"]::before {
+  border-color: #d32f2f;
+  background-color: #d32f2f;
+  color: white;
+}
+
+.progress-indicator li:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  top: 0.65rem;
+  right: 0;
+  width: 100%;
+  height: 2px;
+  background-color: #ccc;
+  z-index: -1;
+}
+
+.progress-indicator li.active:not(:last-child)::after,
+.progress-indicator li[aria-current="step"]:not(:last-child)::after {
+  background-color: #d32f2f;
+}
+.progress-indicator li.active::before {
+  animation: pulseGlow 2.5s infinite;
+  box-shadow: 0 0 8px 2px rgba(211, 47, 47, 0.7);
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    box-shadow: 0 0 8px 2px rgba(211, 47, 47, 0.7);
+  }
+  50% {
+    box-shadow: 0 0 14px 5px rgba(211, 47, 47, 0.9);
+  }
+}
 </style>
 </head>
 <body>
@@ -1165,28 +1259,49 @@ body::before {
       <div class="light"></div>
     </div>
 
-    <!-- Virtual Darshan Walkthrough -->
-    <div class="darshan-section section1 vibrant" tabindex="0" role="region" aria-label="Welcome to the Pandal" style="padding-bottom:1rem;">
-      <h2>🛕 Welcome to the Pandal</h2>
-      <p>As you step in, the scent of incense fills the air. The dhak beats resonate in your soul. You bow before Maa Durga with folded hands.</p>
-    </div>
+<div class="darshan-container">
 
-    <div class="darshan-section section3 vibrant" tabindex="0" role="region" aria-label="Dhunuchi Naach" style="padding-bottom:1rem;">
-      <h2>🔥 Dhunuchi Naach</h2>
-      <p>Amid rhythmic beats, devotees sway with dhunuchi in hand. The smoke rises, dancing with the divine, uplifting the spirit of celebration.</p>
-    </div>
+  <!-- Progress Indicator -->
+  <nav aria-label="Durga Puja Virtual Darshan Progress" class="progress-indicator" id="progressIndicator">
+    <ol>
+      <li class="active" aria-current="step" data-target="section1">প্যান্ডেল স্বাগতম</li>
+      <li data-target="section3">ধুনুচি নাচ</li>
+      <li data-target="section4">সিঁদুর খেলা</li>
+      <li data-target="section5">বিসর্জন</li>
+    </ol>
+  </nav>
 
-    <div class="darshan-section section4 vibrant" tabindex="0" role="region" aria-label="Sindur Khela" style="padding-bottom:1rem;">
-      <h2>💄 Sindur Khela</h2>
-      <p>Women in red and white sarees smear sindur, celebrating the feminine power and bidding an emotional farewell to the goddess.</p>
-    </div>
+  <!-- Virtual Darshan Sections -->
+  <div class="darshan-section section1 vibrant" tabindex="0" role="region" aria-label="কাশ ফুলের সুবাসে প্যান্ডালে স্বাগতম" style="padding-bottom:1rem;">
+    <h2>🛕 প্যান্ডেল স্বাগতম</h2>
+    <p>কাশ ফুলের সুমিষ্ট সুবাস বাতাসে ভাসছে, যেন শীতল শরতের প্রথম স্পর্শ মেলাচ্ছে প্রকৃতির কোলে। দূরে কোথাও বাজছে ঢাকের গভীর, অনুনয়ী তাল—মা দুর্গার আগমনের অমোঘ বার্তা। প্যান্ডালের প্রবেশপথে পা রাখতেই মায়ের করুণা চোখে পরশ দিচ্ছে, মন ভরে ওঠে এক অমলিন ভক্তি আর অশেষ শান্তিতে।</p>
+  </div>
 
-    <div class="darshan-section section5 vibrant" tabindex="0" role="region" aria-label="Bisarjan – Goodbye Ma" style="padding-bottom:1rem;">
-      <h2>🌊 Bisarjan – Goodbye Maa</h2>
-      <p>The idol is immersed with tearful eyes and hopeful hearts. “আসছে বছর আবার হবে!” – She will return again next year!</p>
-    </div>
+  <div class="darshan-section section3 vibrant" tabindex="0" role="region" aria-label="Dhunuchi Naach" style="padding-bottom:1rem;">
+    <h2>🔥 ধুনুচি নাচ</h2>
+    <p>ঢাকের তাল ছুটে বেড়াচ্ছে শরীরের প্রতিটি কণায়, হৃদয়ের রিদমে মিলছে ভক্তির ছন্দ। dhunuchi এর ধোঁয়া ঊর্ধ্বমুখী, যেন আকাশে ছড়িয়ে পড়ছে হাজারো প্রার্থনা ও আশীর্বাদের বাণী। ভক্তরা ঝাঁপাচ্ছে, দোলাচ্ছে, এই মহোৎসবের সুরে নাচছে জীবন, মাতোয়ারা হয়ে উঠেছে শারদ-ঋতুর সঙ্গীত।</p>
+  </div>
 
-    <div id="scrollHint">👇 Scroll to experience Durga Puja darshan 👇</div>
+  <div class="darshan-section section4 vibrant" tabindex="0" role="region" aria-label="সিন্দুর খেলা" style="padding-bottom:1rem;">
+    <h2>💄 সিঁদুর খেলা</h2>
+    <p>লাল পার ও সাদা শাড়ি পরিহিত নারীরা, একে অপরের কপালে ভক্তির কোমল স্পর্শে সিঁদুরের রঙ মেখে দিচ্ছেন। যেন রক্তিম সূর্যের শেষ আলোর মতো মাখা প্রতিটি স্পর্শ। এটি শুধু রঙ নয়, এটি নারীর অমোঘ শক্তি, একে অপরের প্রতি অকুণ্ঠ ভালোবাসার প্রকাশ, আর মায়ের প্রতি শ্রদ্ধার অন্তিম রূপ। হাসি, কান্না আর আবেগের মেলবন্ধনে মিশে গেছে এক অনন্য সন্ধ্যা।</p>
+  </div>
+
+  <div class="darshan-section section5 vibrant" tabindex="0" role="region" aria-label="বিসর্জন – বিদায় মা" style="padding-bottom:1rem;">
+    <h2>🌊 বিসর্জন – বিদায় মা</h2>
+    <p>
+      প্রতিমা ধীরে ধীরে জলরাশিতে বিলীন হচ্ছে, চোখে অশ্রু আর হৃদয়ে শাপথের সুর।  
+      <strong style="font-size:1.3em; color:#d32f2f; font-weight:bold;">
+        আসছে বছর আবার হবে
+      </strong> —  
+      মায়ের করুণাময় আশীর্বাদ নিয়ে ফিরে আসার অমোঘ প্রতিজ্ঞা, ভোরের নতুন আলো আর জীবনের নবজীবনের বার্তা।  
+      বিদায়ের মুহূর্তে যেন সারা শরৎ ঋতু একসাথে কাঁদছে, প্রকৃতির কান্নার সঙ্গেই মিলিয়ে যাওয়ার গান গাইছে।
+    </p>
+  </div>
+
+  <div id="scrollHint">👇 স্ক্রল করুন, মায়ের আশীর্বাদ অনুভব করুন এবং দুর্গাপুজো মহোৎসব উপভোগ করুন 👇</div>
+
+</div>
   </div>
 
 <!-- Nirghanta Header + Toggle Controls -->
@@ -2074,6 +2189,107 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   updateCountdownText(currentLang);
+});
+</script>
+
+<!-- Your entire page content -->
+
+<!-- Place this before closing body tag -->
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const sections = document.querySelectorAll('.darshan-section');
+  const progressItems = document.querySelectorAll('.progress-indicator li');
+
+  const options = {
+    root: null,
+    rootMargin: '-70px 0px -70% 0px',
+    threshold: 0
+  };
+
+  function activateStep(index) {
+    progressItems.forEach((item, idx) => {
+      if (idx === index) {
+        item.classList.add('active');
+        item.setAttribute('aria-current', 'step');
+      } else {
+        item.classList.remove('active');
+        item.removeAttribute('aria-current');
+      }
+    });
+  }
+
+  const visibleSections = new Set();
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        visibleSections.add(entry.target);
+      } else {
+        visibleSections.delete(entry.target);
+      }
+    });
+
+    if (visibleSections.size === 0) return;
+
+    let minPositiveTop = Infinity;
+    let activeIndex = -1;
+
+    visibleSections.forEach(section => {
+      const rect = section.getBoundingClientRect();
+      if (rect.top >= 0 && rect.top < minPositiveTop) {
+        minPositiveTop = rect.top;
+        activeIndex = Array.from(sections).indexOf(section);
+      }
+    });
+
+    if (activeIndex === -1) {
+      let maxNegativeTop = -Infinity;
+      visibleSections.forEach(section => {
+        const rect = section.getBoundingClientRect();
+        if (rect.top < 0 && rect.top > maxNegativeTop) {
+          maxNegativeTop = rect.top;
+          activeIndex = Array.from(sections).indexOf(section);
+        }
+      });
+    }
+
+    if (activeIndex !== -1) {
+      activateStep(activeIndex);
+    }
+  }, options);
+
+  sections.forEach(section => observer.observe(section));
+
+  // --- New fade-in observer ---
+  const fadeInObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        // Uncomment next line if you want fade-in to happen only once
+        // fadeInObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  sections.forEach(section => fadeInObserver.observe(section));
+  // --- End fade-in observer ---
+
+  // Smooth scroll on clicking progress steps
+  progressItems.forEach(item => {
+    item.addEventListener('click', () => {
+      const targetClass = item.getAttribute('data-target');
+      const targetSection = document.querySelector(`.${targetClass}`);
+      if (targetSection) {
+        window.scrollTo({
+          top: targetSection.offsetTop - 70,
+          behavior: 'smooth'
+        });
+      }
+    });
+  });
+
+  // Initialize
+  activateStep(0);
 });
 </script>
 
