@@ -225,6 +225,7 @@ html, body {
     .card:focus {
   	outline: 3px solid #005580;
   	outline-offset: 2px;
+        box-shadow: 0 0 10px #ffd700aa;
     }
 
   .card i {
@@ -867,12 +868,19 @@ header.hero {
 
 <div class="card-grid">
 
-  <div class="card" tabindex="0" role="article" aria-label="Durga Puja Festival 2025" style="position: relative; overflow: hidden;">
+  <div class="card" tabindex="0" role="article" aria-label="Durga Puja Festival 2025" style="
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(to bottom right, blue, yellow, orange, blue);
+  color: #222222; /* Adjust text color as needed for contrast */
+  padding: 20px;
+  border-radius: 10px;
+">
   <i class="fas fa-gem" aria-hidden="true"></i>
-  <h3>Durga Puja 2025</h3>
-  <p>Celebrate the grand festival! Check schedules, events & more.</p>
+  <h3 style="color: #222222;">Durga Puja 2025</h3>
+<p style="color: #222222;">Celebrate the grand festival amidst the blooming kash flowers!</p>
 
-  <!-- Background image div -->
+  <!-- Decorative Maa Durga Face Overlay -->
   <div style="
     position: absolute;
     top: 50%;
@@ -887,6 +895,7 @@ header.hero {
     z-index: 0;
   "></div>
 </div>
+
 
 <!-- New Pandal Card -->
 <div class="card" tabindex="0" role="article" aria-label="Pandal 2025 Model Reference"
@@ -924,7 +933,7 @@ header.hero {
 </div>
 
 <a href="darshan.html" style="text-decoration: none;">
-  <div class="card" tabindex="0" role="article" aria-label="Virtual Durga Puja Darshan Experience" style="cursor: pointer; background: linear-gradient(135deg, #ff6f61, #ffcc80); color: #4b2e05;">
+  <div class="card" tabindex="0" role="article" aria-label="Virtual Durga Puja Darshan Experience" style="cursor: pointer; background: linear-gradient(135deg, #9e1b32, #ffd700); color: #4b2e05;">
     <h3 style="font-size: 0.75rem; margin: 0;">
       Virtual Darshan & Durga Puja Nirghanta 2025 + Pushpanjali
     </h3>
@@ -985,7 +994,7 @@ const content = {
       "🌟 “From thoughtful landscaping to digital ease — Type - A raises the bar for community living.” – P. Das"
     ],
     cards: [
-      { title: "🪔Durga Puja 2025", desc: "Celebrate the grand festival! Check schedules, events & more." },
+      { title: "🪔Durga Puja 2025", desc: "Celebrate the grand festival amidst the blooming kash flowers!" },
       { title: "🏗️ Pandal Inspiration for 2025", desc: "" },
       { title: "🌸 Virtual Darshan & Durga Puja Nirghanta 2025 + Virtual Pushpanjali", desc: "" },
       { title: "Smart & Secure Living", desc: "24/7 safety and smart tech at your fingertips." },
@@ -1029,7 +1038,7 @@ const content = {
       "🌟 “সু-পরিকল্পিত ল্যান্ডস্কেপিং থেকে ডিজিটাল সহজতায় — টাইপ - এ টাইপ - এ কমিউনিটি সত্যিকারের উদাহরণ।” – পি. দাস"
     ],
     cards: [
-      { title: "🪔দুর্গা পূজা ২০২৫", desc: "" },
+      { title: "🪔দুর্গা পূজা ২০২৫", desc: "কাশফুলের ছোঁয়ায় রাঙানো হাওয়ায়, উৎসবের আনন্দে মাতুন!" },
       { title: "🛕২০২৫ সালের প্যান্ডেল অনুপ্রেরণার ভাবনা", desc: "" },
       { title: "🪔ভার্চুয়াল দর্শন + দুর্গা পূজা নির্ঘণ্ট ২০২৫ + ভার্চুয়াল পুষ্পাঞ্জলি", desc: "" },
       { title: "স্মার্ট ও সুরক্ষিত জীবনধারা", desc: "২৪/৭ নিরাপত্তা আর স্মার্ট প্রযুক্তির সঙ্গে থাকুন।" },
