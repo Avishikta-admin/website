@@ -828,7 +828,7 @@ header.hero {
 
 <!-- Hero section with header -->
 <header class="hero full-width-hero" role="banner">
-  <img src="homepage1.jpg" alt="Community Image" class="hero-image" />
+  <img src="img-5.jpg" alt="Community Image" class="hero-image" />
   <div class="overlay">
       🖥️ Avishikta - 1 Type - A | Digital Hub
   </div>
@@ -995,7 +995,7 @@ const content = {
     ],
     cards: [
       { title: "🪔Durga Puja 2025", desc: "Celebrate the grand festival amidst the blooming kash flowers!" },
-      { title: "🏗️ Pandal Inspiration for 2025", desc: "" },
+      { title: "🏗️ Pandal 2025", desc: "" },
       { title: "🌸 Virtual Darshan & Durga Puja Nirghanta 2025 + Virtual Pushpanjali", desc: "" },
       { title: "Smart & Secure Living", desc: "24/7 safety and smart tech at your fingertips." },
       { title: "Green Living", desc: "Live clean and green — for you and the planet." },
@@ -1583,10 +1583,28 @@ function rotateTestimonials() {
     return Math.max(Math.ceil(diff / (1000 * 60 * 60 * 24)), 0);
   }
 
-  function setCountdownText() {
-    const daysLeft = getDaysLeft();
-    rotator.innerHTML = `🕉️ দুর্গা পূজা - প্রতীক্ষার আর <span class="blink days-highlight">${daysLeft}</span> দিন!!!`;
+  function setRotatorContent() {
+  const daysLeft = getDaysLeft();
+
+  if (daysLeft > 0) {
+    // Before Puja starts — show countdown + mantra + dates
+    rotator.innerHTML = `
+      🕉️ দুর্গা পূজা - প্রতীক্ষার আর <span class="blink days-highlight">${daysLeft}</span> দিন!!!<br/><br/>
+      ${durgaShloka}<br/>
+      ${festivalDays}
+    `;
+  } else {
+    // After Puja starts — no countdown, just shloka + message + dates
+    rotator.innerHTML = `
+      🕉️ শুভ দুর্গা পূজা শুরু!<br/>
+      ${durgaShloka}<br/>
+      ${festivalDays}
+    `;
   }
+}
+
+// Run on page load
+setRotatorContent();
 
   function setFestivalText() {
     rotator.innerHTML = festivalDays;
