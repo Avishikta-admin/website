@@ -11,7 +11,7 @@
   <meta name="description" content="দেশ বা বিদেশে যেখানেই থাকুন — মায়ের চরণে পুষ্প অর্পণ করুন এই ভার্চুয়াল পুষ্পাঞ্জলিতে।" />
   <meta property="og:title" content="Virtual Pushpanjali | ভার্চুয়াল পুষ্পাঞ্জলি" />
   <meta property="og:description" content="দেশ বা বিদেশে যেখানেই থাকুন — মায়ের চরণে পুষ্প অর্পণ করুন এই ভার্চুয়াল পুষ্পাঞ্জলিতে।" />
-  <meta property="og:image" content="maadurga2024.jpg" />
+  <meta property="og:image" content="maadurga2025.jpg" />
   <meta property="og:type" content="website" />
   <meta name="google" content="notranslate" />
 
@@ -63,6 +63,11 @@ body::before {
       color: #b30000;
       font-size: 0.9rem;
     }
+  
+    h1 {
+  margin-top: 0.5rem;    /* reduce top margin if needed */
+  margin-bottom: 0.5rem; /* reduce bottom margin */
+}
 
     #countdown {
       text-align: center;
@@ -88,7 +93,7 @@ body::before {
   gap: 3px;
   margin: 10px;
   text-align: center;
-  padding-top: 40px;
+  padding-top: 3px;
 }
 
 .flower-wrapper {
@@ -1188,9 +1193,9 @@ body::before {
 
     <!-- Durga Image with Zoom -->
     <div style="text-align:center; margin: 70px 0 10px; position: relative; z-index: 1;">
-      <img src="maadurga2024.jpg" alt="Maa Durga 2024"
+      <img src="maadurga2025.jpg" alt="Maa Durga 2025"
            id="durgaImage"
-           title="আমাদের গত বছরের প্রতিমা"
+           title="আমাদের এই বছরের প্রতিমা"
            style="max-width: 125px; cursor: zoom-in; border-radius: 12px; border: 3px solid #cc3300; box-shadow: 0 0 12px rgba(255, 102, 0, 0.4);"
            onclick="openZoom()" 
       >
@@ -1198,10 +1203,6 @@ body::before {
 
     <h1>
       🌺 শুভ দুর্গাপূজা ২০২৫
-      <button id="toggleCountdownBtn" aria-expanded="false" aria-controls="countdown" 
-              style="margin-left: 10px; font-size: 1rem; cursor: pointer; background: none; border: none; color: #b30000;">
-        ▶ Show Countdown
-      </button>
     </h1>
 
     <div id="countdown" aria-live="polite" aria-atomic="true" 
@@ -1215,7 +1216,7 @@ body::before {
               style="position: absolute; top: 2px; left: 2px; background: #cc3300; color: white; border: none; font-size: 0.75rem; padding: 8px 14px; border-radius: 6px; cursor: pointer; z-index: 1100;">
         ✖
       </button>
-      <img src="maadurga2024.jpg" alt="Zoomed Maa Durga"
+      <img src="maadurga2025.jpg" alt="Zoomed Maa Durga"
            style="max-width: 90%; max-height: 90%; border-radius: 15px; box-shadow: 0 0 30px rgba(255, 255, 255, 0.6);">
     </div>
 
@@ -1579,17 +1580,6 @@ body::before {
 
 <script>
   document.addEventListener('DOMContentLoaded', () => {
-    // Countdown toggle (existing)
-    const toggleCountdownBtn = document.getElementById('toggleCountdownBtn');
-    const countdown = document.getElementById('countdown');
-
-    toggleCountdownBtn?.addEventListener('click', () => {
-      const isExpanded = toggleCountdownBtn.getAttribute('aria-expanded') === 'true';
-      toggleCountdownBtn.setAttribute('aria-expanded', !isExpanded);
-      toggleCountdownBtn.textContent = isExpanded ? '▶ Show Countdown' : '▼ Hide Countdown';
-      countdown.style.display = isExpanded ? 'none' : 'block';
-    });
-
     // Pushpanjali mantras data
     const mantrasByDay = {
       common: `
