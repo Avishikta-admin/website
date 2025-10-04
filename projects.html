@@ -726,23 +726,35 @@ summary.section-title:focus-visible {
 
  projectSearch.addEventListener('input', () => {
   const query = projectSearch.value.toLowerCase();
-  allDetails.forEach(details => {
-    const projects = details.querySelectorAll('.project');
-    let anyVisible = false;
+  const allProjects = document.querySelectorAll('.project');
+  const allSections = document.querySelectorAll('details');
 
-    projects.forEach(project => {
-      const title = project.querySelector('.project-title').textContent.toLowerCase();
-      const status = project.querySelector('.project-status').textContent.toLowerCase();
+  // Track if any project matched in a section
+  const sectionMatches = new Map();
 
-      if (title.includes(query) || status.includes(query)) {
-        project.style.display = '';
-        anyVisible = true;
-      } else {
-        project.style.display = 'none';
+  allProjects.forEach(project => {
+    const title = project.querySelector('.project-title')?.textContent.toLowerCase() || '';
+    const status = project.querySelector('.status-label')?.textContent.toLowerCase() || '';
+
+    const matches = title.includes(query) || status.includes(query);
+    project.style.display = matches ? '' : 'none';
+
+    // If it's inside a <details>, mark that details as having a match
+    const parentDetails = project.closest('details');
+    if (parentDetails) {
+      if (!sectionMatches.has(parentDetails)) {
+        sectionMatches.set(parentDetails, false);
       }
-    });
+      if (matches) {
+        sectionMatches.set(parentDetails, true);
+      }
+    }
+  });
 
-    details.style.display = anyVisible ? '' : 'none';
+  // Hide/show details sections based on whether any project inside them matched
+  allSections.forEach(details => {
+    const matched = sectionMatches.get(details);
+    details.style.display = matched ? '' : 'none';
   });
 });
 
@@ -763,3 +775,4 @@ summary.section-title:focus-visible {
 <script src="layout.js" defer></script>
 </body>
 </html>
+
