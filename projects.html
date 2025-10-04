@@ -3,14 +3,6 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Official page of Avishikta - I Type - A RWA. Stay informed, get involved, and build a stronger association.">
-  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
-  <meta http-equiv="Pragma" content="no-cache" />
-  <meta http-equiv="Expires" content="0" />
-  <!-- Confetti script from CDN -->
-  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-  <script src="layout-loader.js"></script>
-
   <title>Projects & Upgrades | Avishikta - I Type - A RWA</title>
 
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet" />
@@ -152,7 +144,26 @@
       position: relative;
       z-index: 1;
       transition: box-shadow 0.3s ease;
+      animation: fadeInUp 0.5s ease forwards;
+             border-left: 6px solid #ccc; /* default */
+             position: relative;
     }
+    @keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.project.status-completed {
+  border-left-color: #2a9d8f; /* green */
+}
+.project.status-ongoing {
+  border-left-color: #e9c46a; /* yellow */
+}
+.project.status-planned {
+  border-left-color: #f4a261; /* orange */
+}
+       
     .project:hover {
       box-shadow: 0 8px 28px rgba(0,0,0,0.2);
     }
@@ -195,6 +206,28 @@
       color: #555;
       text-align: justify;
     }
+    .project::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 6px;
+  height: 100%;
+  background-color: #2a9d8f; /* default */
+  border-top-left-radius: 12px;
+  border-bottom-left-radius: 12px;
+}
+
+.project.status-ongoing::before {
+  background-color: #e9c46a;
+}
+.project.status-planned::before {
+  background-color: #f4a261;
+}
+.project.status-completed::before {
+  background-color: #2a9d8f;
+}
+
 
     /* Responsive */
     @media (max-width: 600px) {
@@ -354,9 +387,67 @@ summary.section-title:focus-visible {
   user-select: none;
   text-shadow: 0 1px 2px rgba(0,0,0,0.1);
 }
+/* Floating status tag inside each project card */
+.project .status-label {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 12px;
+  color: #fff;
+  text-transform: uppercase;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  letter-spacing: 0.5px;
+  pointer-events: none;
+}
 
+/* Color variants */
+.project.status-completed .status-label {
+  background-color: #2a9d8f;
+}
+.project.status-ongoing .status-label {
+  background-color: #e9c46a;
+  color: #333;
+}
+.project.status-planned .status-label {
+  background-color: #f4a261;
+  color: #333;
+}
+/* Project Progress Bar */
+.project-progress {
+  margin-top: 10px;
+  background: #e0e0e0;
+  height: 10px;
+  border-radius: 6px;
+  overflow: hidden;
+  position: relative;
+}
+.project-progress-bar {
+  height: 100%;
+  border-radius: 6px;
+  transition: width 0.4s ease;
+}
+.progress-label {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #555;
+  margin-top: 6px;
+  display: flex;
+  justify-content: space-between;
+}
+.status-ongoing .project-progress-bar {
+  background-color: #e9c46a;
+}
+.status-planned .project-progress-bar {
+  background-color: #f4a261;
+}
+.status-completed .project-progress-bar {
+  background-color: #2a9d8f;
+}
 
-  </style>
+</style>
 </head>
 <body>
   <main class="page-container" aria-label="Projects and Upgrades">
@@ -375,103 +466,218 @@ summary.section-title:focus-visible {
       placeholder="Search projects..."
       autocomplete="off"
     />
- 
     </div>
 
-    <details open>
-      <summary class="section-title" tabindex="0" role="button" aria-expanded="true" aria-controls="ongoing-content">
-        <i class="fa-solid fa-spinner fa-spin" style="margin-right: 6px;"></i> Ongoing Projects
-      </summary>
-      <div id="ongoing-content" class="accordion-content">
-        <article class="project">
-          <img src="Electrical_Pole_Reno.jpg" alt="Utility Pole Maintenance" loading="lazy"/>
-          <div class="project-content">
-            <h2 class="project-title">Electrical Pole Maintenance & Painting</h2>
-            <div class="project-status status-ongoing">
-              <i class="fa-solid fa-spinner fa-spin"></i> Work in Progress
-            </div>
-            <p class="project-description">
-              Repainting and structural reinforcement of all community electrical poles is currently in progress.
-              This initiative is aimed at improving both resident safety and the overall visual appeal of our premises.
-              Estimated completion: July 2025.
-            </p>
-          </div>
-        </article>
+<article class="project status-ongoing">
+  <span class="status-label">Ongoing</span>
+  <img src="Boundary_Wall_Coloring.jpg" alt="Colouring of Boundary Wall behind Type A Towers" loading="lazy" />
+  <div class="project-content">
+    <h2 class="project-title">Colouring of Boundary Wall behind Type - A Towers</h2>
+
+    <!-- Progress bar -->
+    <div class="project-progress">
+      <div class="project-progress-bar" style="width: 60%;"></div>
+    </div>
+    <div class="progress-label">
+      <span>Progress</span>
+      <span>60%</span>
+    </div>
+
+    <p class="project-description">
+      The boundary wall behind Type - A Towers is being painted to refresh its appearance and protect against weathering.
+      This work will help maintain the aesthetics and structural integrity of the wall.
+      Estimated completion: September 2025.
+    </p>
+  </div>
+</article>
+
+<details>
+  <summary class="section-title" tabindex="0" role="button" aria-expanded="false" aria-controls="planned-content">
+    <i class="fa-solid fa-hourglass-half" style="margin-right: 6px;"></i> Planned / Upcoming Projects
+  </summary>
+  <div id="planned-content" class="accordion-content">
+    
+    <article class="project status-planned">
+      <span class="status-label">Planned</span>
+      <img src="Pump_room_renovation.jpg" alt="Pump Room Renovation" loading="lazy"/>
+      <div class="project-content">
+        <h2 class="project-title">Renovation and Painting of Pump Room</h2>
+        
+        <!-- Progress bar -->
+        <div class="project-progress">
+          <div class="project-progress-bar" style="width: 0%;"></div>
+        </div>
+        <div class="progress-label">
+          <span>Status</span>
+          <span>Planning Stage</span>
+        </div>
+
+        <p class="project-description">
+          Scheduled renovation and fresh painting of the pump room to improve durability and aesthetics.
+          This project aims to enhance operational reliability and maintain hygiene standards.
+          Expected start: After Durga Puja.
+        </p>
       </div>
-    </details>
+    </article>
 
-    <details>
-      <summary class="section-title" tabindex="0" role="button" aria-expanded="false" aria-controls="planned-content">
-        <i class="fa-solid fa-hourglass-half" style="margin-right: 6px;"></i> Planned / Upcoming Projects
-      </summary>
-      <div id="planned-content" class="accordion-content">
-        <article class="project">
-          <img src="Pump_room_renovation.jpg" alt="Pump Room Renovation" loading="lazy"/>
-          <div class="project-content">
-            <h2 class="project-title">Renovation and Painting of Pump Room</h2>
-            <div class="project-status status-planned">
-              <i class="fa-solid fa-hourglass-half"></i> Planned
-            </div>
-            <p class="project-description">
-              Scheduled renovation and fresh painting of the pump room to improve durability and aesthetics.
-              This project aims to enhance operational reliability and maintain hygiene standards.
-              Expected start: After Durga Puja.
-            </p>
-          </div>
-        </article>
+    <article class="project status-planned">
+      <span class="status-label">Planned</span>
+      <img src="Pump_room_renovation.jpg" alt="Pump Room Renovation" loading="lazy"/>
+      <div class="project-content">
+        <h2 class="project-title">Repairing and Painting of Main & Back Gate</h2>
+        
+        <!-- Progress bar -->
+        <div class="project-progress">
+          <div class="project-progress-bar" style="width: 0%;"></div>
+        </div>
+        <div class="progress-label">
+          <span>Status</span>
+          <span>Planning Stage</span>
+        </div>
+
+        <p class="project-description">
+          This project involves comprehensive repairs and repainting of the main and back gates to restore structural integrity and improve curb appeal. 
+          It is intended to extend the lifespan of the gates and enhance security for residents. 
+          Work is scheduled to commence around the Durga Puja celebrations, either shortly before or immediately after.
+        </p>
       </div>
-    </details>
+    </article>
 
-    <details>
-      <summary class="section-title" tabindex="0" role="button" aria-expanded="false" aria-controls="completed-content">
-        <i class="fa-solid fa-check-circle" style="margin-right: 6px;"></i> Completed Projects
-      </summary>
-      <div id="completed-content" class="accordion-content">
-        <article class="project">
-          <img src="notice_board.jpg" alt="Installation of new notice boards" loading="lazy"/>
-          <div class="project-content">
-            <h2 class="project-title">Fresh Look! New Notice Boards for Type-A Towers</h2>
-            <div class="project-status status-completed"><i class="fa-solid fa-check-circle"></i> Completed</div>
-            <p class="project-description">
-              Newly installed notice boards aim to make it visually appealing and to create an engaging space for announcements and information sharing for residents in Type-A Towers.
-            </p>
-          </div>
-        </article>
+  </div>
+</details>
 
-        <article class="project">
-          <img src="working-drain-cleaning.jpg" alt="Drainage System Improvement" loading="lazy"/>
-          <div class="project-content">
-            <h2 class="project-title">Sewer & Underground Drainage Cleaning</h2>
-            <div class="project-status status-completed"><i class="fa-solid fa-check-circle"></i> Completed</div>
-            <p class="project-description">
-              The comprehensive cleaning and maintenance of all stormwater and rainwater pipelines were successfully completed last month, significantly improving drainage efficiency and preventing potential flooding.
-            </p>
-          </div>
-        </article>
+<details>
+  <summary class="section-title" tabindex="0" role="button" aria-expanded="false" aria-controls="completed-content">
+    <i class="fa-solid fa-check-circle" style="margin-right: 6px;"></i> Completed Projects
+  </summary>
+  <div id="completed-content" class="accordion-content">
 
-        <article class="project">
-          <img src="https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=600&q=80" alt="New CC Camera Installation" loading="lazy"/>
-          <div class="project-content">
-            <h2 class="project-title">Additional CCTV Installation</h2>
-            <div class="project-status status-completed"><i class="fa-solid fa-check-circle"></i> Completed</div>
-            <p class="project-description">
-              Installation of three(3) new CCTV cameras at key locations is completed to enhance security across the premises.
-            </p>
-          </div>
-        </article>
+    <article class="project status-completed">
+      <span class="status-label">Completed</span>
+      <img src="notice_board.jpg" alt="Installation of new notice boards" loading="lazy"/>
+      <div class="project-content">
+        <h2 class="project-title">Fresh Look! New Notice Boards for Type-A Towers</h2>
+        
+        <!-- Progress bar -->
+        <div class="project-progress">
+          <div class="project-progress-bar" style="width: 100%;"></div>
+        </div>
+        <div class="progress-label">
+          <span>Progress</span>
+          <span>100%</span>
+        </div>
 
-        <article class="project">
-          <img src="stp-maintenance-service.jpg" alt="STP Repairing and Electro-Mechanical Works" loading="lazy"/>
-          <div class="project-content">
-            <h2 class="project-title">STP Civil Infrastructure and Electro-Mechanical System Optimization</h2>
-            <div class="project-status status-completed"><i class="fa-solid fa-check-circle"></i> Completed</div>
-            <p class="project-description">
-              The comprehensive renovation of the Sewage Treatment Plant (STP), including extensive electro-mechanical refurbishment, has been completed to boost operational efficiency and compliance.
-            </p>
-          </div>
-        </article>
+        <p class="project-description">
+          Newly installed notice boards aim to make it visually appealing and to create an engaging space for announcements and information sharing for residents in Type-A Towers.
+        </p>
       </div>
-    </details>
+    </article>
+
+    <article class="project status-completed">
+      <span class="status-label">Completed</span>
+      <img src="lighting_rear_typeA.jpg" alt="Lighting Restored in Rear Side of Type-A Towers" loading="lazy"/>
+      <div class="project-content">
+        <h2 class="project-title">Enhanced Safety: Lighting Restored Behind Type-A Towers</h2>
+
+        <div class="project-progress">
+          <div class="project-progress-bar" style="width: 100%;"></div>
+        </div>
+        <div class="progress-label">
+          <span>Progress</span>
+          <span>100%</span>
+        </div>
+
+        <p class="project-description">
+          Improved illumination has been successfully restored in the rear areas of Type-A Towers, enhancing safety and visibility for residents during evening hours. This upgrade contributes to a more secure and welcoming environment.
+        </p>
+      </div>
+    </article>
+
+    <article class="project status-completed">
+      <span class="status-label">Completed</span>
+      <img src="working-drain-cleaning.jpg" alt="Drainage System Improvement" loading="lazy"/>
+      <div class="project-content">
+        <h2 class="project-title">Sewer & Underground Drainage Cleaning</h2>
+
+        <div class="project-progress">
+          <div class="project-progress-bar" style="width: 100%;"></div>
+        </div>
+        <div class="progress-label">
+          <span>Progress</span>
+          <span>100%</span>
+        </div>
+
+        <p class="project-description">
+          The comprehensive cleaning and maintenance of all stormwater and rainwater pipelines were successfully completed last month, significantly improving drainage efficiency and preventing potential flooding.
+        </p>
+      </div>
+    </article>
+
+    <article class="project status-completed">
+      <span class="status-label">Completed</span>
+      <img src="https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=600&q=80" alt="New CC Camera Installation" loading="lazy"/>
+      <div class="project-content">
+        <h2 class="project-title">Additional CCTV Installation</h2>
+
+        <div class="project-progress">
+          <div class="project-progress-bar" style="width: 100%;"></div>
+        </div>
+        <div class="progress-label">
+          <span>Progress</span>
+          <span>100%</span>
+        </div>
+
+        <p class="project-description">
+          Installation of three(3) new CCTV cameras at key locations is completed to enhance security across the premises.
+        </p>
+      </div>
+    </article>
+
+    <article class="project status-completed">
+      <span class="status-label">Completed</span>
+      <img src="stp-maintenance-service.jpg" alt="STP Repairing and Electro-Mechanical Works" loading="lazy"/>
+      <div class="project-content">
+        <h2 class="project-title">STP Civil Infrastructure and Electro-Mechanical System Optimization</h2>
+
+        <div class="project-progress">
+          <div class="project-progress-bar" style="width: 100%;"></div>
+        </div>
+        <div class="progress-label">
+          <span>Progress</span>
+          <span>100%</span>
+        </div>
+
+        <p class="project-description">
+          The comprehensive renovation of the Sewage Treatment Plant (STP), including extensive electro-mechanical refurbishment, has been completed to boost operational efficiency and compliance.
+        </p>
+      </div>
+    </article>
+
+  <article class="project status-completed">
+  <span class="status-label">Completed</span>
+  <img src="electricpolepainting.jpg" alt="Utility Pole Maintenance" loading="lazy" />
+  <div class="project-content">
+    <h2 class="project-title">Electrical Pole Maintenance & Painting</h2>
+
+    <!-- Progress bar -->
+    <div class="project-progress">
+      <div class="project-progress-bar" style="width: 100%;"></div>
+    </div>
+    <div class="progress-label">
+      <span>Progress</span>
+      <span>100%</span>
+    </div>
+
+    <p class="project-description">
+      The repainting and structural reinforcement of all electrical poles has been completed, enhancing resident safety and improving the overall visual appeal of our premises.
+    </p>
+  </div>
+</article>
+
+
+  </div>
+</details>
+
 
   </main>
 
@@ -553,30 +759,7 @@ summary.section-title:focus-visible {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   </script>
-
-<script>
-  const isGitHub = location.hostname.includes('github.io');
-  const base = isGitHub ? '/website' : '';
-
-  const manifest = document.createElement('link');
-  manifest.rel = 'manifest';
-  manifest.href = base + '/manifest.json';
-
-  const themeMeta = document.createElement('meta');
-  themeMeta.name = 'theme-color';
-  themeMeta.content = '#000000';
-
-  document.head.appendChild(manifest);
-  document.head.appendChild(themeMeta);
-
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register(base + '/service-worker.js', { scope: base + '/' })
-      .then(() => console.log('✅ Service Worker registered'))
-      .catch(err => console.error('❌ Service Worker failed', err));
-  }
-</script>
-  
+<!-- ✅ This should be last -->
+<script src="layout.js" defer></script>
 </body>
 </html>
-
-
