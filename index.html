@@ -750,22 +750,7 @@ header.hero {
   transform: scale(1.1);
 }
 
-#durga-puja-rotator {
-  background: linear-gradient(to right, #FFD54F, #FF6F00);
-  padding: 4px 6px;
-  text-align: center;
-  font-weight: 600;
-  font-size: 0.75rem;
-  color: #311B92;
-  border-radius: 8px;
-  width: fit-content;
-  margin: -20px auto 10px auto; /* Pulls it up by 20px */
-  min-width: 320px;
-  transition: opacity 1s ease-in-out;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-    .blink {
+   .blink {
       animation: blink-animation 1.5s steps(2, start) infinite;
     }
 
@@ -834,11 +819,6 @@ header.hero {
   </div>
 </header>
 
-<!-- Countdown Rotator -->
-<div id="durga-puja-rotator" class="fade-in">
-  🕉️ দুর্গা পূজা আর <span id="days-left" class="blink days-highlight"></span> দিন বাকি!!!
-</div>
-
 <button id="map-toggle-btn">📍 Show Map</button>
 <div id="map-popup" style="display:none;">
   <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3685.896188561506!2d88.39841147507572!3d22.508077779537675!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a027157cc327c1b%3A0xfe9d5576fd4d1272!2sAvishikta%20Phase%201!5e0!3m2!1sen!2sin!4v1753114166780!5m2!1sen!2sin" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
@@ -867,88 +847,6 @@ header.hero {
   </div>
 
 <div class="card-grid">
-
-  <div class="card" tabindex="0" role="article" aria-label="Durga Puja Festival 2025" style="
-  position: relative;
-  overflow: hidden;
-  background: linear-gradient(to bottom right, blue, yellow, orange, blue);
-  color: #222222; /* Adjust text color as needed for contrast */
-  padding: 20px;
-  border-radius: 10px;
-">
-  <i class="fas fa-gem" aria-hidden="true"></i>
-  <h3 style="color: #222222;">Durga Puja 2025</h3>
-<p style="color: #222222;">Celebrate the grand festival amidst the blooming kash flowers!</p>
-
-  <!-- Decorative Maa Durga Face Overlay -->
-  <div style="
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 150px;
-    height: 150px;
-    background: url('maadurgaface.jpg') no-repeat center center;
-    background-size: contain;
-    opacity: 0.3;
-    transform: translate(-50%, -50%);
-    pointer-events: none;
-    z-index: 0;
-  "></div>
-</div>
-
-
-<!-- New Pandal Card -->
-<div class="card" tabindex="0" role="article" aria-label="Pandal 2025 Model Reference"
-     style="text-align: center; cursor: pointer; 
-            background: linear-gradient(135deg, #9e1b32, #ffd700); 
-            color: #fff; border-radius: 10px; 
-            box-shadow: 0 0 10px rgba(0,0,0,0.2); 
-            padding: 12px; min-height: 100px; display: flex; flex-direction: column; justify-content: flex-start;">
-
-  <h3 style="margin: 6px 0 4px; font-size: 0.8rem;">
-    🛕 Pandal Design – 2025
-  </h3>
-
-  <img 
-    id="pandal-thumb" 
-    src="pandal2025.jpg" 
-    alt="Pandal 2025 Model"
-    title="Click to zoom the image"
-    style="width: 100%; max-width: 100px; border-radius: 8px; 
-           margin: 6px auto; box-shadow: 0 0 5px rgba(0,0,0,0.3);" 
-    tabindex="0"
-  />
-
-</div>
-
-<!-- Modal for zoomed pandal -->
-<div id="pandal-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="pandalTitle" tabindex="-1" style="display:none;">
-  <div id="modal-overlay" style="position: fixed; inset: 0; background: linear-gradient(135deg, #9e1b32, #ffd700);
- display: flex; align-items: center; justify-content: center; z-index: 1000; overflow: auto; padding: 20px;">
-    <div id="modal-content" tabindex="0" style="position: relative; max-width: 70vw; max-height: 70vh; outline: none; overflow: auto; border-radius: 8px; background: #222;">
-      <button id="modal-close-btn" aria-label="Close zoomed pandal" style="position: absolute; top: 10px; right: 10px; background: #fff; border: none; border-radius: 50%; width: 32px; height: 32px; cursor: pointer; font-weight: bold; font-size: 24px; line-height: 32px; text-align: center; color: #333; transition: background-color 0.3s ease; z-index: 9999; box-shadow: 0 0 5px rgba(0,0,0,0.3);">×</button>
-      <img src="pandal2025.jpg" alt="Zoomed Pandal 2025" style="max-width: 100%; max-height: 100%; border-radius: 8px; box-shadow: 0 0 20px rgba(255,255,255,0.5); display: block; margin-top: 40px;" />
-    </div>
-  </div>
-</div>
-
-<a href="darshan.html" style="text-decoration: none;">
-  <div class="card" tabindex="0" role="article" aria-label="Virtual Durga Puja Darshan Experience" style="cursor: pointer; background: linear-gradient(135deg, #9e1b32, #ffd700); color: #4b2e05;">
-    <h3 style="font-size: 0.75rem; margin: 0;">
-      Virtual Darshan & Durga Puja Nirghanta 2025 + Pushpanjali
-    </h3>
-
-    <!-- Circular Icon Carousel Start -->
-    <div class="icon-circle" aria-hidden="true" style="position: relative; width: 140px; height: 140px; margin: 12px auto;">
-      <span style="--i:0; font-size: 1.5rem; position: absolute; top: 30%; left: 50%; transform-origin: 0 0; --y-offset: 0;">🛕</span>
-      <span style="--i:1; font-size: 1.5rem; position: absolute; top: 30%; left: 50%; transform-origin: 0 0; --y-offset: 4px;">📹</span>
-      <span style="--i:2; font-size: 1.5rem; position: absolute; top: 30%; left: 50%; transform-origin: 0 0; --y-offset: -3px;">🖥️</span>
-      <span style="--i:3; font-size: 1.5rem; position: absolute; top: 30%; left: 50%; transform-origin: 0 0; --y-offset: 2px;">🪔</span>
-      <span style="--i:4; font-size: 1.5rem; position: absolute; top: 30%; left: 50%; transform-origin: 0 0; --y-offset: -2px;">🌐</span>
-    </div>
-    <!-- Circular Icon Carousel End -->
-  </div>
-</a>
 
   <div class="card" tabindex="0" role="article" aria-label="Smart and Secure Living">
     <i class="fas fa-shield-alt" aria-hidden="true"></i>
@@ -994,9 +892,6 @@ const content = {
       "🌟 “From thoughtful landscaping to digital ease — Type - A raises the bar for community living.” – P. Das"
     ],
     cards: [
-      { title: "🪔Durga Puja 2025", desc: "Celebrate the grand festival amidst the blooming kash flowers!" },
-      { title: "🏗️ Pandal 2025", desc: "" },
-      { title: "🌸 Virtual Darshan & Durga Puja Nirghanta 2025 + Virtual Pushpanjali", desc: "" },
       { title: "Smart & Secure Living", desc: "24/7 safety and smart tech at your fingertips." },
       { title: "Green Living", desc: "Live clean and green — for you and the planet." },
       { title: "Events & Updates", desc: "Stay in the loop with our community happenings." },
@@ -1038,9 +933,6 @@ const content = {
       "🌟 “সু-পরিকল্পিত ল্যান্ডস্কেপিং থেকে ডিজিটাল সহজতায় — টাইপ - এ টাইপ - এ কমিউনিটি সত্যিকারের উদাহরণ।” – পি. দাস"
     ],
     cards: [
-      { title: "🪔দুর্গা পূজা ২০২৫", desc: "কাশফুলের ছোঁয়ায় রাঙানো হাওয়ায়, উৎসবের আনন্দে মাতুন!" },
-      { title: "🛕২০২৫ সালের প্যান্ডেল অনুপ্রেরণার ভাবনা", desc: "" },
-      { title: "🪔ভার্চুয়াল দর্শন + দুর্গা পূজা নির্ঘণ্ট ২০২৫ + ভার্চুয়াল পুষ্পাঞ্জলি", desc: "" },
       { title: "স্মার্ট ও সুরক্ষিত জীবনধারা", desc: "২৪/৭ নিরাপত্তা আর স্মার্ট প্রযুক্তির সঙ্গে থাকুন।" },
       { title: "সবুজ জীবন", desc: "নিজের জন্য আর পরিবেশের জন্য বেছে নিন সবুজ জীবনযাত্রা।" },
       { title: "ইভেন্ট ও আপডেট", desc: "আমাদের কমিউনিটির কার্যক্রম সম্পর্কে আপডেট থাকুন।" },
@@ -1563,85 +1455,6 @@ function rotateTestimonials() {
   })();
 
 </script>
-
-<script>
-  const rotator = document.getElementById('durga-puja-rotator');
-  const pujaStart = new Date("2025-09-28T00:00:00");
-
-  const festivalDays = `
-    📅 মহাষষ্ঠী: রবিবার, ২৮ সেপ্টেম্বর | মহাসপ্তমী: সোমবার, ২৯ সেপ্টেম্বর | মহাঅষ্টমী: মঙ্গলবার, ৩০ সেপ্টেম্বর | মহানবমী: বুধবার, ১ অক্টোবর | বিজয়া দশমী: বৃহস্পতিবার, ২ অক্টোবর
-  `;
-
-  const durgaShloka = `
-    🕉️ या देवी सर्वभूतेषु मातृरूपेण संस्थिता नमस्तस्यै नमस्तस्यै नमस्तस्यै नमो नमः॥
-  `;
-
-  function getDaysLeft() {
-    const today = new Date();
-    const todayMidnight = new Date(today.getFullYear(), today.getMonth(), today.getDate());
-    const diff = pujaStart - todayMidnight;
-    return Math.max(Math.ceil(diff / (1000 * 60 * 60 * 24)), 0);
-  }
-
-  function setRotatorContent() {
-  const daysLeft = getDaysLeft();
-
-  if (daysLeft > 0) {
-    // Before Puja starts — show countdown + mantra + dates
-    rotator.innerHTML = `
-      🕉️ দুর্গা পূজা - প্রতীক্ষার আর <span class="blink days-highlight">${daysLeft}</span> দিন!!!<br/><br/>
-      ${durgaShloka}<br/>
-      ${festivalDays}
-    `;
-  } else {
-    // After Puja starts — no countdown, just shloka + message + dates
-    rotator.innerHTML = `
-      🕉️ শুভ দুর্গা পূজা শুরু!<br/>
-      ${durgaShloka}<br/>
-      ${festivalDays}
-    `;
-  }
-}
-
-// Run on page load
-setRotatorContent();
-
-  function setFestivalText() {
-    rotator.innerHTML = festivalDays;
-  }
-
-  function setShlokaText() {
-    rotator.innerHTML = durgaShloka;
-  }
-
-  const contentRotations = [setCountdownText, setFestivalText, setShlokaText];
-  
-  // Start rotation from second item since countdown shown initially
-  let currentIndex = 1;
-
-  function rotateText() {
-    rotator.classList.remove('fade-in');
-    rotator.classList.add('fade-out');
-
-    setTimeout(() => {
-      // Call the next function in rotation
-      contentRotations[currentIndex]();
-
-      rotator.classList.remove('fade-out');
-      rotator.classList.add('fade-in');
-
-      // Move to next, or loop back
-      currentIndex = (currentIndex + 1) % contentRotations.length;
-
-      setTimeout(rotateText, 6000); // Wait before next rotation
-    }, 1000); // Fade out duration
-  }
-
-  // Initialize rotation by showing countdown first
-  setCountdownText();
-  setTimeout(rotateText, 6000);
-</script>
-
 
 <script>
   const pandalThumb = document.getElementById('pandal-thumb');
