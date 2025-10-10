@@ -1,5 +1,22 @@
 [
   {
+    "date": "2025-10-10",
+    "items": [
+      {
+        "type": "🆕 new",
+        "desc": "Countdown to Kali Puja is added on the home page (index.html) to help visitors track the upcoming festival."
+      },
+      {
+        "type": "🆕 new",
+        "desc": "diwali.html page is added and will be invoked automatically on 20th Oct 2025 to celebrate Diwali."
+      },
+      {
+        "type": "✨ improved",
+        "desc": "Governing body page has been updated to reflect the selected EC members during AGM held on 27th July 2025."
+      }
+    ]
+  },
+  {
     "date": "2025-10-04",
     "items": [
       {
