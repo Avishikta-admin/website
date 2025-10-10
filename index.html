@@ -794,12 +794,62 @@ header.hero {
   }
 }
 
+.petal {
+  width: 14px;
+  height: 14px;
+  background: radial-gradient(circle, #ffcc00, #ff0080);
+  border-radius: 50%;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  animation: appear 0.3s forwards;
+}
+
+@keyframes appear {
+  from { transform: scale(0.5) translate(-50%, -50%); opacity: 0; }
+  to   { transform: scale(1) translate(-50%, -50%); opacity: 1; }
+}
+
+#countdownMessage {
+  max-width: 90vw;
+  padding: 0.5em 1.1em;
+  background: linear-gradient(135deg, #ff6f00, #ffcc00);
+  color: #5d2b00;
+  font-family: 'Noto Serif Bengali', serif;
+  font-size: clamp(0.9rem, 2vw, 0.8rem);
+  font-weight: 700;
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(255, 140, 0, 0.6);
+  text-align: center;
+  user-select: none;
+  letter-spacing: 1.5px;
+  text-shadow: 1px 1px 2px #b35900;
+  transition: background 0.3s ease;
+}
+
+#countdownMessage:hover {
+  background: linear-gradient(135deg, #ffcc00, #ff6f00);
+  cursor: default;
+}
+
+.highlight {
+  background-color: #ffeb3b; /* Yellow background */
+  color: #000;               /* Black text for contrast */
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-weight: bold;
+}
+
+
 </style>
 </head>
 
 <body style="margin: 0; padding: 35px;">
 
 <div id="layout-root">
+
+<!-- Put this somewhere in your index.html body -->
+<div id="petalLoader" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 9999;"></div>
 
 <!-- GREETINGS MODAL -->
 <div id="greetingModal" role="dialog" aria-modal="true" aria-labelledby="greetingTitle" aria-describedby="greetingMessage">
@@ -818,6 +868,8 @@ header.hero {
       🖥️ Avishikta - 1 Type - A | Digital Hub
   </div>
 </header>
+
+<div id="countdownMessage" aria-live="polite" role="status"></div>
 
 <button id="map-toggle-btn">📍 Show Map</button>
 <div id="map-popup" style="display:none;">
@@ -1010,9 +1062,24 @@ document.addEventListener('DOMContentLoaded', () => {
   const langToggleBtn = document.getElementById('langToggle');
   const heroOverlay = document.querySelector('.overlay');
   const mainHeading = document.querySelector('.main-heading');
-  const testimonialEls = document.querySelectorAll('.testimonial');
+  const testimonialEls = document.querySelectorAll('.testimonial'); 
   const cardEls = document.querySelectorAll('.card');
   const typingText = document.getElementById('typing-text');
+
+const countdownEl = document.getElementById('countdownMessage');
+const today = new Date();
+const diwaliDate = new Date(today.getFullYear(), 9, 20); // Oct is month 9 in JS (0-based)
+
+if (today < diwaliDate) {
+  const diffTime = diwaliDate - today;
+  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+  countdownEl.innerHTML = `✨ শুভ দীপাবলির আর মাত্র <span class="highlight">${diffDays}</span> দিন বাকি!✨`;
+} else if (today.toDateString() === diwaliDate.toDateString()) {
+  countdownEl.textContent = `🎉 আজকের জন্য TEAM EC-র পক্ষ থেকে বিশেষ শুভেচ্ছা-বার্তা গ্রহণ করুন। 🎉`;
+} else {
+  countdownEl.style.display = 'none'; // Hide after the event
+}
 
   function updateTexts() {
     const hour = new Date().getHours();
@@ -1493,6 +1560,50 @@ function rotateTestimonials() {
       closeModal();
     }
   });
+</script>
+
+<script>
+  const today = new Date();
+  const isDiwaliDay = today.getDate() === 20 && today.getMonth() === 9; // October is 9
+
+  const redirected = sessionStorage.getItem('diwaliRedirected');
+
+  if (isDiwaliDay && !redirected) {
+    sessionStorage.setItem('diwaliRedirected', 'true');
+
+    const petalContainer = document.getElementById('petalLoader');
+    petalContainer.style.display = 'block';
+
+    const totalPetals = 12; // Total number of petals in full circle
+    let current = 0;
+
+    function addPetal() {
+      const angle = (360 / totalPetals) * current;
+      const radius = 40;
+      const x = Math.cos(angle * Math.PI / 180) * radius;
+      const y = Math.sin(angle * Math.PI / 180) * radius;
+
+      const petal = document.createElement('div');
+      petal.className = 'petal';
+      petal.style.left = 50 + x + 'px';
+      petal.style.top = 50 + y + 'px';
+      petal.style.background = `hsl(${angle}, 100%, 60%)`;
+
+      petalContainer.appendChild(petal);
+      current++;
+
+      if (current < totalPetals) {
+        setTimeout(addPetal, 200); // Delay between petals
+      } else {
+        setTimeout(() => {
+          window.location.href = "diwali.html";
+        }, 1000); // Wait a moment after full flower
+      }
+    }
+
+    addPetal();
+  }
+
 </script>
 
 </body>
