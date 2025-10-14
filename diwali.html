@@ -26,7 +26,7 @@ body {
 }
 
     h1 {
-      font-size: clamp(1.5em, 5vw, 2.5em);
+      font-size: clamp(1.2em, 5vw, 2.5em);
       margin-top: 0.1em; /* Pushes h1 up */
       margin-bottom: 0.5em;
       color: #ffd700;
@@ -38,7 +38,7 @@ body {
     .message {
       font-size: clamp(1em, 3vw, 1.2em);
       max-width: 600px;
-      margin: 1.5em auto;
+      margin: 1.2em auto;
       padding: 1em;
       background: rgba(0, 0, 0, 0.6);
       border-radius: 10px;
@@ -94,7 +94,7 @@ body {
     }
 
     .btn-home {
-      margin: 3em auto 1em;
+      margin: 1em auto 1em;
       display: inline-block;
       background: #ff6f00;
       color: white;
@@ -128,8 +128,8 @@ body {
 
     #diwaliText {
       position: relative;
-      margin: 1em auto 0;
-      font-size: clamp(1.8em, 5vw, 2.5em);
+      margin: 0.2em auto 0;
+      font-size: clamp(1.8em, 5vw, 1.5em);
       color: #00FFFF;
       text-align: center;
       text-shadow: 0 0 20px #ff6f00, 0 0 40px #ff9800;
@@ -177,7 +177,21 @@ body {
         margin: 1em 1em;
       }
     }
-  </style>
+
+.highlight-message {
+  font-size: clamp(0.9em, 2.5vw, 1.2em);
+  color: #ffeeba; /* soft golden/orange */
+  font-weight: 600;
+  line-height: 1.4;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  background: rgba(255, 179, 71, 0.1);
+  padding: 0.7em 1em;
+  border-radius: 8px;
+}
+
+</style>
 </head>
 <body>
   <canvas id="fireworksCanvas"></canvas>
@@ -199,6 +213,10 @@ body {
     </section>
 
     <a href="index.html" class="btn-home" aria-label="Back to Home">🏠 Back to Home</a>
+
+    <p class="highlight-message">
+      Festivals shine brightest not through lights and decorations, but through the moments of connections we share with those we love.
+    </p>
 
     <div id="diwaliText" aria-hidden="true">🎆 শুভ দীপাবলি 🎆</div>
 
