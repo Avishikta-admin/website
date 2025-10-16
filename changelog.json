@@ -1,5 +1,22 @@
 [
   {
+    "date": "2025-10-17",
+    "items": [
+      {
+        "type": "🆕 new",
+        "desc": "Added Quarterly Expense Report page with interactive charts, budget gauge, and table view for Q2 2025."
+      },
+      {
+        "type": "✨ improved",
+        "desc": "Enhanced the page with light gradient background and responsive layout for better readability and mobile experience."
+      },
+      {
+        "type": "🆕 new",
+        "desc": "Included contextual note highlighting increased costs due to special festivals and urgent maintenance, displayed only for relevant quarters."
+      }
+    ]
+  },
+  {
     "date": "2025-10-10",
     "items": [
       {
@@ -17,15 +34,6 @@
     ]
   },
   {
-    "date": "2025-10-04",
-    "items": [
-      {
-        "type": "🗑️ removed",
-        "desc": "Removed 'Nirghanta Section', 'Virtual Pushpanjali', and Durga Puja-related content from darshan.html now that the festival has concluded gracefully."
-      }
-    ]
-  },
-  {
     "date": "2025-09-17",
     "items": [
       {
@@ -35,69 +43,6 @@
       {
         "type": "🆕 new",
         "desc": "Added Durga Puja Nirghanta section, providing detailed and accessible event information."
-      },
-      {
-        "type": "🆕 new",
-        "desc": "Introduced Virtual Pushpanjali section to facilitate devotional offerings remotely with intuitive interaction."
-      }
-    ]
-  },
-  {
-    "date": "2025-09-09",
-    "items": [
-      {
-        "type": "🆕 new",
-        "desc": "Added image of Maa Durga with zoomable modal popup and close button for immersive visual darshan experience."
-      },
-      {
-        "type": "✨ improved",
-        "desc": "Replaced 'Ager' with Bengali term 'আমাদের' for better linguistic accuracy in past Durga Puja reference."
-      },
-      {
-        "type": "🎨 improved",
-        "desc": "Made '🌸 Offer a Flower' flower counter display float above the button and always remain visible."
-      },
-      {
-        "type": "🎨 improved",
-        "desc": "Repositioned flower counter to appear just above 'Offer a Flower' button without stacking other controls."
-      },
-      {
-        "type": "🎨 improved",
-        "desc": "Reduced font size of the 'জমা দিন' submit button for better visual harmony."
-      },
-      {
-        "type": "🎨 improved",
-        "desc": "Made Darshan walkthrough sections compact by tightening spacing and font sizing for a more efficient layout."
-      }
-    ]
-  },
-  {
-    "date": "2025-09-02",
-    "items": [
-      {
-        "type": "🎉 new",
-        "desc": "Added Durga Puja countdown rotator with smooth fade transitions and vibrant gradient background on homepage."
-      },
-      {
-        "type": "✨ improved",
-        "desc": "Implemented animated moving border around the countdown container on homepage for enhanced festive look."
-      }
-    ]
-  },
-  {
-    "date": "2025-09-01",
-    "items": [
-      {
-        "type": "🎨 improved",
-        "desc": "Updated combined News & Event Calendar page with new layout and bright cyan text highlights."
-      },
-      {
-        "type": "🆕 new",
-        "desc": "Added tooltip support for menu items for better user guidance."
-      },
-      {
-        "type": "🛠️ fixed",
-        "desc": "Corrected sunrise and sunset time styling to use bold font weight."
       }
     ]
   }
