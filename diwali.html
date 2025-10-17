@@ -26,7 +26,7 @@ body {
 }
 
     h1 {
-      font-size: clamp(1.2em, 5vw, 2.5em);
+      font-size: clamp(1.2em, 5vw, 1.5em);
       margin-top: 0.1em; /* Pushes h1 up */
       margin-bottom: 0.5em;
       color: #ffd700;
@@ -36,13 +36,13 @@ body {
     }
 
     .message {
-      font-size: clamp(1em, 3vw, 1.2em);
+      font-size: clamp(1em, 3vw, 1.1em);
       max-width: 600px;
       margin: 1.2em auto;
       padding: 1em;
       background: rgba(0, 0, 0, 0.6);
       border-radius: 10px;
-      line-height: 1.6;
+      line-height: 1.4;
       color: #ffeeba;
       box-shadow: 0 0 10px rgba(255, 204, 0, 0.3);
       z-index: 2;
@@ -129,7 +129,7 @@ body {
     #diwaliText {
       position: relative;
       margin: 0.2em auto 0;
-      font-size: clamp(1.8em, 5vw, 1.5em);
+      font-size: clamp(1.5em, 5vw, 1em);
       color: #00FFFF;
       text-align: center;
       text-shadow: 0 0 20px #ff6f00, 0 0 40px #ff9800;
@@ -168,15 +168,20 @@ body {
       }
 
       .btn-home {
-        padding: 1em 1.5em;
-        font-size: 1em;
+        padding: 1em 1.3em;
+        font-size: 0.85em;
         margin: 2em auto 1em;
       }
 
       .message {
         margin: 1em 1em;
+        font-size: clamp(1em, 3vw, 0.9em);
       }
+
+      .highlight-message {
+      font-size: clamp(0.8em, 2.5vw, 0.85em);
     }
+}
 
 .highlight-message {
   font-size: clamp(0.9em, 2.5vw, 1.2em);
@@ -197,11 +202,12 @@ body {
   <canvas id="fireworksCanvas"></canvas>
 
   <main>
-    <h1>✨ Happy Kali Puja & Diwali ✨</h1>
+    <div id="diwaliText" aria-hidden="true">🎆 শুভ দীপাবলি 🎆</div>
     <section class="message" aria-live="polite">
-      <p>May the Festival of Lights fill your life with boundless joy, serene peace, and the sacred blessings of Maa Kali.
-      <br/>Wishing you prosperity, safety, and a luminous celebration!</p>
+      <p>Dear All!<br/>May the Festival of Lights fill your life with boundless joy, serene peace, and the sacred blessings of Maa Kali.
+      <br/>Wishing you, your family and your loved ones a very Sparkling Deepawali & Luminous Celebration!</p>
       <p class="bengali" lang="bn">✨ সকল আবাসিকবৃন্দকে জানাই শুভ দীপাবলির আন্তরিক প্রীতি ও শুভেচ্ছা! আপনাদের প্রত্যেকের জীবন আলোয় ভরে উঠুক। ✨</p>
+      <p>Team EC</p>
     </section>
 
     <section class="diyas-row" aria-label="Decorative diyas">
@@ -217,8 +223,6 @@ body {
     <p class="highlight-message">
       Festivals shine brightest not through lights and decorations, but through the moments of connections we share with those we love.
     </p>
-
-    <div id="diwaliText" aria-hidden="true">🎆 শুভ দীপাবলি 🎆</div>
 
   <script>
     const canvas = document.getElementById('fireworksCanvas');
