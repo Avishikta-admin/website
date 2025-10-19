@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Association Quarterly Expense Snapshot – 2025</title>
+  <title>Quarterly Income-Expense 2025 Overview</title>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
   <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet" />
@@ -78,31 +78,31 @@
     .chart-section {
       display: flex;
       flex-wrap: wrap;
-      justify-content: space-between;
-      gap: 10px;
-      max-width: 900px;
+      justify-content: center;
+      gap: 50px;
+      max-width: 1000px;
       margin: 0 auto 15px;
     }
     .chart-container,
-    .category-controls,
-    .gauge-container {
+    .category-controls
+    {
       background: #fff;
       padding: 10px;
       border-radius: 6px;
       box-shadow: 0 2px 10px rgba(0,0,0,.04);
-      flex: 1 1 20%;
+      flex: 1 20%;
       max-width: 240px;
       min-width: 200px;
-      font-size: .85rem;
+      font-size: .8rem;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       text-align: center;
     }
-    .chart-container canvas,
-    .gauge-container canvas {
+    .chart-container canvas
+    {
       max-width: 100%;
-      height: 100px !important;
+      height: 200px !important;
     }
     .category-controls {
       display: flex;
@@ -120,38 +120,22 @@
       padding: 5px 12px;
       border-radius: 5px;
       font-weight: bold;
-      font-size: .8rem;
+      font-size: .75rem;
     }
-    .budget-progress {
-      width: 100%;
-      height: 8px;
-      background: #e0e0e0;
-      border-radius: 5px;
-      margin-top: 8px;
-      overflow: hidden;
-    }
-    .budget-bar {
-      height: 100%;
-      background: linear-gradient(90deg, #2ecc71, #27ae60);
-      transition: width .6s ease;
-    }
-    .budget-percentage {
-      margin-top: 5px;
-      font-size: .8rem;
-      color: var(--primary);
-    }
+    
     #legend {
       display: flex;
-      flex-wrap: wrap;
+      flex-wrap: nowrap;
       justify-content: center;
       margin-top: 8px;
-      gap: 6px;
-      font-size: .75rem;
+      gap: 10px;
+      font-size: .7rem;
     }
     .legend-item {
       display: flex;
       align-items: center;
       gap: 4px;
+	  flex-shrink: 0;
     }
     .legend-color {
       width: 12px;
@@ -202,8 +186,8 @@
         align-items: center;
       }
       .chart-container,
-      .category-controls,
-      .gauge-container {
+      .category-controls
+      {
         max-width: 90vw;
         width: 100%;
       }
@@ -239,7 +223,7 @@
 </head>
 <body>
   <main>
-    <h1 id="pageTitle">Expense Snapshot – Q2 2025</h1>
+    <h1 id="pageTitle"></h1>
 
     <div class="quarter-select">
       <label for="quarterSelect"><strong>Select Quarter:</strong></label>
@@ -256,8 +240,8 @@
         <thead>
           <tr>
             <th>Category</th>
-            <th>Planned Budget (₹)</th>
-            <th>Actual Expense (₹)</th>
+            <th>Income (₹)</th>
+            <th>Expenditure (₹)</th>
             <th>Variance (₹)</th>
             <th>Status</th>
           </tr>
@@ -293,17 +277,6 @@
         <label><input type="checkbox" class="category-toggle" data-index="4" checked> Events</label>
         <button class="reset-btn">Reset All</button>
       </div>
-      <div class="gauge-container" id="budgetGaugeContainer">
-        <h3 style="font-size: 0.9rem;">Budget Usage</h3>
-        <canvas id="budgetGauge"></canvas>
-        <div class="budget-progress">
-          <div class="budget-bar" style="width: 0%"></div>
-        </div>
-        <p class="budget-percentage">
-          <strong id="budgetPercentageText">0%</strong> of budget used
-        </p>
-      </div>
-    </div>
 
     <button id="scrollTopBtn" aria-label="Scroll to top">↑</button>
   </main>
@@ -328,7 +301,7 @@
         { name: "Maintenance", amount: 104911, subitems: ["Maintenance & Contingency Fund", "Security Services", "AMC – DG Set", "AMC – Fire", "Pest Control", "AMC – CC Tv", "Gardening"] },
         { name: "Events", amount: 3500, subitems: ["Biswakarma Puja", "Republic Day", "Independence Day", "Rabindra Jayanti"] }
       ],
-      budgetTotal: 208740,
+      budgetTotal: 132680,
       status: "Closed"
     },
     "Q3-2025": { message: "Quarter - 3 data is not yet available as the quarter is still in progress." },
@@ -372,31 +345,26 @@
   const messageContainer = document.getElementById("messageContainer");
   const pageTitle = document.getElementById("pageTitle");
 
-  pageTitle.textContent = `Expense Snapshot – ${q.replace("-", " ")}`;
+  pageTitle.textContent = "Quarterly Income - Expenditure 2025 Snapshot";
 
-  if (data.message) {
+  if (!data.categories) {
     expenseSection.style.display = "none";
     chartSection.style.display = "none";
     messageContainer.style.display = "block";
-    messageContainer.textContent = data.message;
+    messageContainer.textContent = data.message || "No data available.";
     note.style.display = "none";
-    return;
+    return; // prevent rendering chart/table for non-data quarters
   }
 
   note.style.display = (q === "Q2-2025") ? "block" : "none";
-
-  // New compact note text
- note.innerHTML = '<strong>Note:</strong> Actual expense increased by approximately <strong>25.45%</strong> compared to the planned budget due to festivals and urgent maintenance.This page is part of our transparent reporting commitment. Sincere thanks for your unwavering support.';
+  note.innerHTML = "<strong>Note:</strong> A transparent summary of the association's finances. This quarter experienced a significant shortfall of <strong>97.37%</strong> due to AMC renewal, festivals, and urgent maintenance jobs. Sincere thanks for your unwavering support.";
 
   expenseSection.style.display = "block";
   chartSection.style.display = "flex";
   messageContainer.style.display = "none";
 
-  document.querySelectorAll(".category-toggle").forEach(c => c.checked = true);
-
-  populateTable(data);
-  renderChart(data);
-  updateBudgetGauge(data);
+  // Don't auto-reset checkboxes; retain user selection
+  updateChart(); // render based on current toggle states
 }
 
   function populateTable(data) {
@@ -426,6 +394,7 @@
     `;
 
     tbody.appendChild(tr);
+	
 
     // Subcategory rows (hidden initially)
     cat.subitems.forEach(subName => {
@@ -439,6 +408,15 @@
       tbody.appendChild(subTr);
     });
   });
+  
+  // Insert info row before total
+    const infoRow = document.createElement("tr");
+    infoRow.innerHTML = `
+      <td colspan="5" style="text-align:center; font-style:italic; background:#f9f9f9;">
+        This quarter’s income includes <strong>₹35,000</strong> as new memberships and <strong>₹5,000</strong> as development fund.
+      </td>
+    `;
+    tbody.appendChild(infoRow);
 
   // Calculate variance
   const variance = data.budgetTotal - totalActual;
@@ -486,7 +464,7 @@
       labels: filtered.map(c => c.name),
       datasets: [{
         data: filtered.map(c => c.amount),
-        backgroundColor: filtered.map((_, i) => categoryColors[i]),
+        backgroundColor: filtered.map((_, i) => categoryColors[i % categoryColors.length]),
         borderColor: "#fff",
         borderWidth: 3
       }]
@@ -496,7 +474,7 @@
         datalabels: {
           color: "#000",
           formatter: (val) => val > 0 ? "₹" + val.toLocaleString() : "",
-          font: { weight: "bold", size: 14 },
+          font: { weight: "bold", size: 12 },
           anchor: 'center',
           clamp: true,
           display: true
@@ -504,7 +482,7 @@
         legend: {
           display: false,
           position: "bottom",
-          labels: { font: { size: 14 } }
+          labels: { font: { size: 12 } }
         },
         tooltip: {
           callbacks: {
@@ -539,62 +517,22 @@
   }
 
   function updateChart() {
-    const data = dataByQuarter[currentQuarter];
-    if (!data.categories) return;
-    populateTable(data);
-    renderChart(data);
-    updateBudgetGauge(data);
-  }
+  const data = dataByQuarter[currentQuarter];
+  if (!data || !data.categories) return;
 
-  function updateBudgetGauge(data) {
-    const toggles = document.querySelectorAll(".category-toggle");
-    let totalActual = 0;
-    data.categories.forEach((cat, i) => {
-      if (toggles[i].checked) totalActual += cat.amount;
-    });
+  const toggles = Array.from(document.querySelectorAll(".category-toggle"));
+  const filteredCategories = data.categories.filter((_, i) => toggles[i].checked);
 
-    const usagePercent = (totalActual / data.budgetTotal) * 100;
-    const capped = Math.min(usagePercent, 100);
-    const bar = document.querySelector(".budget-bar");
-    bar.style.width = capped + "%";
+  // Only pass filtered categories
+  populateTable({ ...data, categories: filteredCategories });
+  renderChart({ ...data, categories: filteredCategories });
+}
 
-    document.getElementById("budgetPercentageText").textContent = capped.toFixed(2) + "%";
 
-    const ctxGauge = document.getElementById("budgetGauge").getContext("2d");
-    if (budgetGaugeChart) {
-      budgetGaugeChart.data.datasets[0].data = [capped, 100 - capped];
-      budgetGaugeChart.update();
-    } else {
-      budgetGaugeChart = new Chart(ctxGauge, {
-        type: "doughnut",
-        data: {
-          labels: ["Used", "Remaining"],
-          datasets: [{
-            data: [capped, 100 - capped],
-            backgroundColor: ["#27ae60", "#e0e0e0"],
-            borderWidth: 0
-          }]
-        },
-        options: {
-          cutout: "70%",
-          rotation: -90,
-          circumference: 180,
-          plugins: {
-            legend: { display: false },
-            tooltip: { enabled: false }
-          },
-          responsive: true,
-          maintainAspectRatio: false
-        }
-      });
-    }
-  }
-
-  window.onload = init;
+   window.onload = init;
   AOS.init({ once: true });
 </script>
 
 
 </body>
 </html>
-
