@@ -4,7 +4,7 @@
     "items": [
       {
         "type": "🆕 new",
-        "desc": "Added Quarterly Expense Report page with interactive charts, budget gauge, and table view for Q2 2025."
+        "desc": "Added Quarterly Income-Expense Report page with interactive chart and table view for Q2 2025."
       },
       {
         "type": "✨ improved",
@@ -47,3 +47,4 @@
     ]
   }
 ]
+
