@@ -1,538 +1,391 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Quarterly Income-Expense 2025 Overview</title>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
-  <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet" />
-  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
-  <script src="layout-loader.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quarterly Financial Snapshot – 2025</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+<link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+<script src="layout-loader.js"></script>
 
-  <style>
-    /* Your original styles, unchanged for brevity */
-    :root {
-      --primary: #2c3e50;
-      --accent: #3498db;
-      --bg: #f5f7fa;
-    }
-    body {
-      font-family: "Inter", "Segoe UI", "Roboto", sans-serif;
-      background: linear-gradient(135deg, #d0e7f9, #f0f6ff, #d9f0fc);
-      margin: 0;
-      padding: 20px;
-      color: var(--primary);
-    }
-    h1 {
-      text-align: center;
-      margin-top: -60px;
-      font-size: 1.1rem;
-      margin-bottom: 10px;
-      background: linear-gradient(90deg, #3498db, #8e44ad, #e74c3c, #f1c40f);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-    .quarter-select {
-      max-width: 500px;
-      margin: 10px auto 20px;
-      text-align: center;
-      font-size: .8rem;
-    }
-    select {
-      font-size: .75rem;
-      padding: 6px 10px;
-      border-radius: 5px;
-      border: 1px solid var(--accent);
-      cursor: pointer;
-      min-width: 160px;
-    }
-    .expense-table {
-      max-width: 700px;
-      margin: 0 auto 15px;
-      width: 100%;
-    }
-    .expense-table table {
-      width: 100%;
-      border-collapse: collapse;
-      background: #fff;
-      border-radius: 8px;
-      overflow: hidden;
-    }
-    th, td {
-      padding: 6px 8px;
-      text-align: left;
-      border-bottom: 1px solid #eee;
-      font-size: 13px;
-    }
-    th {
-      background: var(--accent);
-      color: white;
-      font-weight: normal;
-    }
-    tr.total td {
-      background: #f0f6ff;
-      font-weight: bold;
-    }
+<style>
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f5f7fa;
+    margin: 0;
+    padding: 20px;
+    color: #2c3e50;
+  }
 
-    .chart-section {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 50px;
-      max-width: 1000px;
-      margin: 0 auto 15px;
-    }
-    .chart-container,
-    .category-controls
-    {
-      background: #fff;
-      padding: 10px;
-      border-radius: 6px;
-      box-shadow: 0 2px 10px rgba(0,0,0,.04);
-      flex: 1 20%;
-      max-width: 240px;
-      min-width: 200px;
-      font-size: .8rem;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-    }
-    .chart-container canvas
-    {
-      max-width: 100%;
-      height: 200px !important;
-    }
-    .category-controls {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      font-size: 0.8em;
-    }
-    .category-controls .reset-btn {
-      margin-top: 8px;
-      align-self: center;
-      cursor: pointer;
-      background: var(--accent);
-      color: white;
-      border: none;
-      padding: 5px 12px;
-      border-radius: 5px;
-      font-weight: bold;
-      font-size: .75rem;
-    }
-    
-    #legend {
-      display: flex;
-      flex-wrap: nowrap;
-      justify-content: center;
-      margin-top: 8px;
-      gap: 10px;
-      font-size: .7rem;
-    }
-    .legend-item {
-      display: flex;
-      align-items: center;
-      gap: 4px;
-	  flex-shrink: 0;
-    }
-    .legend-color {
-      width: 12px;
-      height: 12px;
-      border-radius: 3px;
-    }
-    .note {
-      max-width: 100%;
-      margin: 10px auto;
-      text-align: center;
-      font-size: .8rem;
-      color: #2c3e50;
-      background: #eaf4fc;
-      padding: 8px;
-      border-left: 4px solid var(--accent);
-      font-style: italic;
-    }
-    #scrollTopBtn {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background: var(--accent);
-      color: white;
-      border: none;
-      padding: 10px 12px;
-      border-radius: 50%;
-      font-size: 18px;
-      display: none;
-      cursor: pointer;
-      box-shadow: 0 2px 8px rgba(0,0,0,.3);
-      transition: background-color .3s ease;
-      z-index: 100;
-    }
-    #scrollTopBtn:hover {
-      background: #2980b9;
-    }
-    #messageContainer {
-      display: none;
-      text-align: center;
-      font-style: italic;
-      padding: 1em;
-      margin-top: 1em;
-      color: #555;
-    }
-    @media (max-width: 768px) {
-      .chart-section {
-        flex-direction: column;
-        align-items: center;
-      }
-      .chart-container,
-      .category-controls
-      {
-        max-width: 90vw;
-        width: 100%;
-      }
-      .expense-table {
-        max-width: 90vw;
-      }
-      h1 {
-        text-align: center;
-        font-size: 1rem;
-      }
-    }
+  h2 {
+    text-align: center;
+    background: linear-gradient(90deg, #3498db 0%, #3498db 40%, #FF8181 50%, #3498db 60%, #3498db 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-top: -60px;
+    margin-bottom: 10px;
+    font-size: 20px;
+  }
+
+  .quarter-select {
+    text-align: center;
+    margin-bottom: 15px;
+    font-size: 12px;
+  }
+
+  select {
+    padding: 6px 10px;
+    font-size: 12px;
+    border-radius: 5px;
+    border: 1px solid #3498db;
+    outline: none;
+    transition: all 0.3s ease;
+  }
+  select:hover { border-color: #2c3e50; }
+
+  .financial-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 25px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .financial-section, .chart-section {
+    flex: 1;
+    min-width: 320px;
+  }
 
   .note {
-  background-color: #CCFFFF; /* very light gray */
-  padding: 5px 10px;
-  border-radius: 6px;
-  border-left: 4px solid var(--accent); /* keeps your accent color border */
-  font-style: italic;
-  max-width: 800px;
-  margin: 10px auto;
-  color: #0070C0;
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 10px;
+    background: #eaf4fc;
+    border-left: 4px solid #3498db;
+    font-style: italic;
+    font-size: 11px;
+    border-radius: 5px;
+    text-align: center;
+    position: sticky;
+    top: 10px;
+    z-index: 10;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 6px rgba(0,0,0,.08);
+    transition: transform 0.2s;
+  }
+
+  table:hover { transform: translateY(-2px); }
+  th, td { padding: 10px; text-align: left; border-bottom: 1px solid #eee; font-size: 12px; }
+  th { background: #3498db; color: #fff; font-weight: 600; }
+  tr.total td { font-weight: bold; background: #f0f6ff; }
+  tr.category-row { cursor: pointer; background: #f0f6ff; font-weight: bold; transition: background 0.3s; }
+  tr.category-row:hover { background: #e0f0ff; }
+  tr.sub-row { display: none; transition: all 0.3s ease; }
+
+  /* Alternating row colors - stronger contrast */
+tbody tr:nth-child(odd) {
+  background-color: #e0eaff; /* stronger light blue */
 }
-.negative-variance {
-  color: red;
-  font-weight: bold;
-}
-.positive-variance {
-  color: green;
-  font-weight: bold;
+tbody tr:nth-child(even) {
+  background-color: #ffffff; /* white */
 }
 
-  </style>
+/* Hover highlight */
+tbody tr:hover {
+  background-color: #b0d4ff; /* slightly darker blue for hover */
+  transition: background-color 0.2s ease;
+}
+
+  .chart-container {
+    background: #fff;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0,0,0,.1);
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  canvas { width: 100% !important; height: 250px !important; }
+
+  #messageContainer { text-align: center; font-style: italic; color: #555; margin-top: 15px; display: none; }
+
+  @media(max-width:768px){ 
+    .financial-wrapper { flex-direction: column; align-items: center; }
+  }
+
+  .category-row td:first-child::before { content: "►"; display: inline-block; margin-right: 8px; transition: transform 0.3s; }
+  .category-row.expanded td:first-child::before { transform: rotate(90deg); }
+
+  #scrollTopBtn {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    display: none;
+    background: #3498db;
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    font-size: 15px;
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(0,0,0,.2);
+    transition: background 0.3s;
+  }
+  #scrollTopBtn:hover { background: #2c80b4; }
+
+  /* Cute checkbox filters */
+  .filters { display:flex; justify-content:center; flex-wrap:wrap; gap:10px; margin-bottom:15px; }
+  .filter-item { display:flex; align-items:center; gap:5px; background:#fff; padding:5px 10px; border-radius:20px; box-shadow:0 1px 4px rgba(0,0,0,.1); font-size:12px; cursor:pointer; transition:all 0.2s; }
+  .filter-item input { cursor:pointer; }
+  .filter-item:hover { transform:scale(1.05); box-shadow:0 2px 6px rgba(0,0,0,.2); }
+
+  /* Income filter pills */
+#incomeFilters .filter-item {
+  background-color: #83CBEB;
+  color: #fff; /* optional: makes text readable */
+}
+
+/* Expenditure filter pills */
+#expenseFilters .filter-item {
+  background-color: #FFA3A3;
+  color: #fff; /* optional */
+}
+
+
+</style>
 </head>
 <body>
-  <main>
-    <h1 id="pageTitle"></h1>
+<main>
 
-    <div class="quarter-select">
-      <label for="quarterSelect"><strong>Select Quarter:</strong></label>
-      <select id="quarterSelect" aria-label="Select Quarter">
-        <option value="Q1-2025">Q1 2025 (Apr - Jun)</option>
-        <option value="Q2-2025" selected> Q2 2025 (Jul - Sep)</option>
-        <option value="Q3-2025">Q3 2025 (Oct - Dec)</option>
-        <option value="Q4-2025">Q4 2025 (Jan2026 - Mar2026)</option>
-      </select>
+<h2>Financial Highlights – Q1 to Q4 2025</h2>
+
+<div class="quarter-select">
+  <label for="quarterSelect"><strong>Select Quarter:</strong></label>
+  <select id="quarterSelect">
+    <option value="Q1-2025">Q1 2025 (Apr–Jun)</option>
+    <option value="Q2-2025" selected>Q2 2025 (Jul–Sep)</option>
+    <option value="Q3-2025">Q3 2025 (Oct–Dec)</option>
+    <option value="Q4-2025">Q4 2025 (Jan–Mar)</option>
+  </select>
+</div>
+
+<div class="filters" id="incomeFilters"></div>
+<div class="filters" id="expenseFilters"></div>
+
+<div class="financial-wrapper">
+  <div class="financial-section" id="financialSection">
+    <p class="note" id="quarterNote"></p>
+    <table>
+      <thead>
+        <tr><th>Category</th><th>Amount (₹)</th></tr>
+      </thead>
+      <tbody id="mainTableBody"></tbody>
+    </table>
+  </div>
+
+  <div class="chart-section">
+    <div class="chart-container">
+      <canvas id="incomeChart"></canvas>
     </div>
-
-    <div id="expenseSection" class="expense-table" aria-live="polite">
-      <table aria-label="Expense Summary Table">
-        <thead>
-          <tr>
-            <th>Category</th>
-            <th>Income (₹)</th>
-            <th>Expenditure (₹)</th>
-            <th>Variance (₹)</th>
-            <th>Status</th>
-          </tr>
-        </thead>
-        <tbody id="expenseTableBody"></tbody>
-        <tfoot>
-          <tr class="total">
-            <td><strong>Total</strong></td>
-            <td id="totalPlanned">–</td>
-            <td id="totalActual">–</td>
-            <td id="totalVariance">–</td>
-            <td id="overallStatus">–</td>
-          </tr>
-        </tfoot>
-      </table>
+    <div class="chart-container">
+      <canvas id="expenseChart"></canvas>
     </div>
+  </div>
+</div>
 
-    <p class="note"><b>Note:</b> Some costs increased this quarter due to special festivals and urgent maintenance.</p>
+<div id="messageContainer"></div>
+<button id="scrollTopBtn" title="Go to top">&#8679;</button>
 
-    <div id="messageContainer"></div>
+<script>
+Chart.register(ChartDataLabels);
 
-    <div class="chart-section" id="chartSection">
-      <div class="chart-container" id="chartContainer">
-        <canvas id="expenseChart"></canvas>
-        <div id="legend"></div>
-      </div>
-      <div class="category-controls" id="categoryControls">
-        <strong>Show/Hide Categories:</strong>
-        <label><input type="checkbox" class="category-toggle" data-index="0" checked> Admin</label>
-        <label><input type="checkbox" class="category-toggle" data-index="1" checked> Salaries</label>
-        <label><input type="checkbox" class="category-toggle" data-index="2" checked> Utilities</label>
-        <label><input type="checkbox" class="category-toggle" data-index="3" checked> Maintenance</label>
-        <label><input type="checkbox" class="category-toggle" data-index="4" checked> Events</label>
-        <button class="reset-btn">Reset All</button>
-      </div>
-
-    <button id="scrollTopBtn" aria-label="Scroll to top">↑</button>
-  </main>
-
-  <script>
-
-  const categoryIcons = {
-  "Admin": "🧾",
-  "Salaries": "👷",
-  "Utilities": "💡",
-  "Maintenance": "🛠",
-  "Events": "🎉"
+const data2025 = {
+  "Q1-2025": { message: "Qtr - 1 is archived." },
+  "Q2-2025": {
+    note: "Actual expense increased by ~97.4% vs planned due to festivals & maintenance.",
+    income: [
+      { name: "Monthly Maintenance Charge", short: "MMC", amount: 77680 },
+      { name: "New Membership Fees", short: "New Membership", amount: 50000 },
+      { name: "Development Fees", short: "Dev Fees", amount: 5000 }
+    ],
+    expenditure: [
+      { category: "🧾Admin", sub:[{name:"Auditor Fees",amount:9000},{name:"Printing & Stationeries",amount:1121},{name:"Meeting Expense",amount:2815},{name:"Office + Conveyance",amount:995}], subtotal:13931 },
+      { category: "👷Salaries", sub:[{name:"Salaries and Wages",amount:54569},{name:"Puja Bonus",amount:18085}], subtotal:72654 },
+      { category: "💡Utilities", sub:[{name:"CESC (Electricity)",amount:9710},{name:"KMC Water Tax",amount:29659},{name:"Cleaning & Swipping",amount:9600},{name:"STP",amount:17907}], subtotal:66876 },
+      { category: "🛠Maintenance", sub:[{name:"Maintenance & Contingency Fund",amount:36798},{name:"Security Services",amount:41546},{name:"AMC – DG Set",amount:13629},{name:"AMC – Fire",amount:3675},{name:"Pest Control",amount:3270},{name:"AMC – CCTV",amount:1293},{name:"Gardening",amount:4700}], subtotal:104911 },
+      { category: "🎉Events", sub:[{name:"Biswakarma Puja",amount:3500}], subtotal:3500 }
+    ]
+  },
+  "Q3-2025": { message: "Quarter - 3 data is not yet available." },
+  "Q4-2025": { message: "Quarter - 4 is yet to begin." }
 };
 
-  const dataByQuarter = {
-    "Q1-2025": { message: "Quarter - 1 is archived." },
-    "Q2-2025": {
-      categories: [
-        { name: "Admin", amount: 13931, subitems: ["Auditor Fees", "Printing & Stationeries", "Meeting Exp", "Office & Conveyance Exp"] },
-        { name: "Salaries", amount: 72654, subitems: ["Salaries and Wages", "Puja Bonus"] },
-        { name: "Utilities", amount: 66876, subitems: ["CESC", "KMC Water Tax", "Cleaning&Swipping", "STP", "Electricity – Borewell Pump", "Electricity – Community Hall"] },
-        { name: "Maintenance", amount: 104911, subitems: ["Maintenance & Contingency Fund", "Security Services", "AMC – DG Set", "AMC – Fire", "Pest Control", "AMC – CC Tv", "Gardening"] },
-        { name: "Events", amount: 3500, subitems: ["Biswakarma Puja", "Republic Day", "Independence Day", "Rabindra Jayanti"] }
-      ],
-      budgetTotal: 132680,
-      status: "Closed"
-    },
-    "Q3-2025": { message: "Quarter - 3 data is not yet available as the quarter is still in progress." },
-    "Q4-2025": { message: "Quarter - 4 is yet to begin." }
-  };
+const quarterSelect = document.getElementById("quarterSelect");
+const mainTableBody = document.getElementById("mainTableBody");
+const quarterNote = document.getElementById("quarterNote");
+const messageContainer = document.getElementById("messageContainer");
+const scrollTopBtn = document.getElementById("scrollTopBtn");
+const incomeFilters = document.getElementById("incomeFilters");
+const expenseFilters = document.getElementById("expenseFilters");
 
-  const categoryColors = ["#3498db", "#2ecc71", "#f1c40f", "#e67e22", "#9b59b6"];
-  let expenseChart, budgetGaugeChart;
-  let currentQuarter = "Q2-2025";
+let incomeChart, expenseChart;
+let selectedIncome = new Set();
+let selectedExpense = new Set();
 
-  function init() {
-    updateUI(currentQuarter);
+function createFilters(qData){
+  incomeFilters.innerHTML = "";
+  expenseFilters.innerHTML = "";
+  selectedIncome.clear();
+  selectedExpense.clear();
 
-    document.getElementById("quarterSelect").addEventListener("change", (e) => {
-      currentQuarter = e.target.value;
-      updateUI(currentQuarter);
+  qData.income.forEach(i=>{
+    const div = document.createElement("label");
+    div.classList.add("filter-item");
+    div.innerHTML = `<input type="checkbox" checked data-name="${i.short}"> ${i.short}`;
+    incomeFilters.appendChild(div);
+    selectedIncome.add(i.short);
+    div.querySelector("input").addEventListener("change",(e)=>{
+      if(e.target.checked) selectedIncome.add(i.short);
+      else selectedIncome.delete(i.short);
+      updateUI();
     });
+  });
 
-    document.querySelector(".reset-btn").addEventListener("click", () => {
-      document.querySelectorAll(".category-toggle").forEach(c => c.checked = true);
-      updateChart();
+  qData.expenditure.forEach(c=>{
+    const div = document.createElement("label");
+    div.classList.add("filter-item");
+    div.innerHTML = `<input type="checkbox" checked data-cat="${c.category}"> ${c.category}`;
+    expenseFilters.appendChild(div);
+    selectedExpense.add(c.category);
+    div.querySelector("input").addEventListener("change",(e)=>{
+      if(e.target.checked) selectedExpense.add(c.category);
+      else selectedExpense.delete(c.category);
+      updateUI();
     });
+  });
+}
 
-    document.querySelectorAll(".category-toggle").forEach(toggle => {
-      toggle.addEventListener("change", () => updateChart());
-    });
+function updateUI(){
+  const quarter = quarterSelect.value;
+  const qData = data2025[quarter];
 
-    window.addEventListener("scroll", () => {
-      document.getElementById("scrollTopBtn").style.display = window.scrollY > 200 ? "block" : "none";
-    });
-    document.getElementById("scrollTopBtn").addEventListener("click", () => {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    });
-  }
-
-  function updateUI(q) {
-  const data = dataByQuarter[q];
-  const note = document.querySelector(".note");
-  const expenseSection = document.getElementById("expenseSection");
-  const chartSection = document.getElementById("chartSection");
-  const messageContainer = document.getElementById("messageContainer");
-  const pageTitle = document.getElementById("pageTitle");
-
-  pageTitle.textContent = "Quarterly Income - Expenditure 2025 Snapshot";
-
-  if (!data.categories) {
-    expenseSection.style.display = "none";
-    chartSection.style.display = "none";
+  if(!qData?.income){
     messageContainer.style.display = "block";
-    messageContainer.textContent = data.message || "No data available.";
-    note.style.display = "none";
-    return; // prevent rendering chart/table for non-data quarters
+    messageContainer.textContent = qData?.message || qData?.note || "Data not available.";
+    document.getElementById("financialSection").style.display = "none";
+    document.querySelectorAll(".chart-container").forEach(el=>el.style.display="none");
+    incomeFilters.style.display = "none";
+    expenseFilters.style.display = "none";
+    return;
   }
 
-  note.style.display = (q === "Q2-2025") ? "block" : "none";
-  note.innerHTML = "<strong>Note:</strong> A transparent summary of the association's finances. This quarter experienced a significant shortfall of <strong>97.37%</strong> due to AMC renewal, festivals, and urgent maintenance jobs. Sincere thanks for your unwavering support.";
+  messageContainer.style.display="none";
+  document.getElementById("financialSection").style.display="block";
+  document.querySelectorAll(".chart-container").forEach(el=>el.style.display="block");
+  incomeFilters.style.display = "flex";
+  expenseFilters.style.display = "flex";
 
-  expenseSection.style.display = "block";
-  chartSection.style.display = "flex";
-  messageContainer.style.display = "none";
+  quarterNote.style.display=qData.note?"block":"none";
+  quarterNote.innerHTML = `<strong>${qData.note || ""}</strong>`;
 
-  // Don't auto-reset checkboxes; retain user selection
-  updateChart(); // render based on current toggle states
-}
+  if(selectedIncome.size===0 && selectedExpense.size===0) createFilters(qData);
 
-  function populateTable(data) {
-  const tbody = document.getElementById("expenseTableBody");
-  tbody.innerHTML = "";
+  mainTableBody.innerHTML="";
+  let totalIncome=0,totalExpense=0;
 
-  const toggles = document.querySelectorAll(".category-toggle");
-  let totalActual = 0;
-
-  data.categories.forEach((cat, i) => {
-    if (!toggles[i].checked) return;
-
-    totalActual += cat.amount;
-
-    const tr = document.createElement("tr");
-    tr.classList.add("category-row");
-    tr.setAttribute("data-index", i);
-    tr.style.cursor = "pointer";
-
-    // Actual expense shown only for categories, not subcategories
-    tr.innerHTML = `
-      <td><span class="expand-sign">[+]</span> <strong>${categoryIcons[cat.name] || ""} ${cat.name}</strong></td>
-      <td></td>
-      <td>₹${cat.amount.toLocaleString()}</td>
-      <td></td>
-      <td>${data.status}</td>
-    `;
-
-    tbody.appendChild(tr);
-	
-
-    // Subcategory rows (hidden initially)
-    cat.subitems.forEach(subName => {
-      const subTr = document.createElement("tr");
-      subTr.classList.add("subcategory-row", `parent-${i}`);
-      subTr.style.display = "none";
-      subTr.innerHTML = `
-        <td style="padding-left: 20px;">↳ ${subName}</td>
-        <td colspan="4"></td>
-      `;
-      tbody.appendChild(subTr);
-    });
+  // Income
+  mainTableBody.innerHTML += `<tr style="background-color:#C1E5F5;"><td><strong>Income:</strong></td><td></td></tr>`;
+  qData.income.forEach(i=>{
+    if(selectedIncome.has(i.short)){
+      mainTableBody.innerHTML += `<tr class="income-row" data-name="${i.short}"><td>${i.name}</td><td>${i.amount.toLocaleString()}</td></tr>`;
+      totalIncome+=i.amount;
+    }
   });
-  
-  // Insert info row before total
-    const infoRow = document.createElement("tr");
-    infoRow.innerHTML = `
-      <td colspan="5" style="text-align:center; font-style:italic; background:#f9f9f9;">
-        This quarter’s income includes <strong>₹35,000</strong> as new memberships and <strong>₹5,000</strong> as development fund.
-      </td>
-    `;
-    tbody.appendChild(infoRow);
+  mainTableBody.innerHTML += `<tr class="total"><td>Total Income</td><td>${totalIncome.toLocaleString()}</td></tr>`;
 
-  // Calculate variance
-  const variance = data.budgetTotal - totalActual;
-  const varianceClass = variance < 0 ? "negative-variance" : "positive-variance";
-  const varianceText = variance < 0 ? `-₹${Math.abs(variance).toLocaleString()}` : `₹${variance.toLocaleString()}`;
+  // Expenditure
+  mainTableBody.innerHTML += `<tr style="background-color:#FF9393;"><td><strong>Expenditure:</strong></td><td></td></tr>`;
+  qData.expenditure.forEach(c=>{
+    if(selectedExpense.has(c.category)){
+      const catRow = document.createElement("tr");
+      catRow.classList.add("category-row");
+      catRow.dataset.category = c.category;
+      catRow.innerHTML = `<td>${c.category}</td><td>${c.subtotal.toLocaleString()}</td>`;
+      mainTableBody.appendChild(catRow);
 
-  // Update footer total row values directly
-  document.getElementById("totalPlanned").textContent = `₹${data.budgetTotal.toLocaleString()}`;
-  document.getElementById("totalActual").textContent = `₹${totalActual.toLocaleString()}`;
-
-  const totalVarianceCell = document.getElementById("totalVariance");
-  totalVarianceCell.textContent = varianceText;
-  totalVarianceCell.className = varianceClass;
-
-  document.getElementById("overallStatus").textContent = data.status;
-
-  // Expand/collapse functionality
-  document.querySelectorAll(".category-row").forEach(row => {
-    row.onclick = () => {
-      const idx = row.getAttribute("data-index");
-      const subRows = document.querySelectorAll(`.subcategory-row.parent-${idx}`);
-      const signSpan = row.querySelector(".expand-sign");
-      const isHidden = subRows[0]?.style.display === "none";
-
-      subRows.forEach(sr => {
-        sr.style.display = isHidden ? "table-row" : "none";
+      c.sub.forEach(s=>{
+        const subRow = document.createElement("tr");
+        subRow.classList.add("sub-row", c.category);
+        subRow.innerHTML = `<td>${s.name}</td><td>${s.amount.toLocaleString()}</td>`;
+        mainTableBody.appendChild(subRow);
       });
-
-      signSpan.textContent = isHidden ? "[-]" : "[+]";
-    };
+      totalExpense+=c.subtotal;
+    }
   });
-}
+  mainTableBody.innerHTML += `<tr class="total"><td>Total Expenditure</td><td>${totalExpense.toLocaleString()}</td></tr>`;
 
- function renderChart(data) {
-  const canvas = document.getElementById("expenseChart");
-  const ctx = canvas.getContext("2d");
-  const toggles = document.querySelectorAll(".category-toggle");
-  const filtered = data.categories.filter((_, i) => toggles[i].checked);
+  const surplus = totalIncome - totalExpense;
+  const surplusPerc = ((surplus/totalIncome)*100).toFixed(1);
+  const surplusColor = surplus >= 0 ? "green" : "red";
+  mainTableBody.innerHTML += `<tr class="total"><td>Surplus / Deficit</td><td style="color:${surplusColor};">${surplus.toLocaleString()} (${surplusPerc}%)</td></tr>`;
 
-  if (expenseChart) expenseChart.destroy();
-
-  expenseChart = new Chart(ctx, {
-    type: "doughnut",
-    data: {
-      labels: filtered.map(c => c.name),
-      datasets: [{
-        data: filtered.map(c => c.amount),
-        backgroundColor: filtered.map((_, i) => categoryColors[i % categoryColors.length]),
-        borderColor: "#fff",
-        borderWidth: 3
-      }]
-    },
-    options: {
-      plugins: {
-        datalabels: {
-          color: "#000",
-          formatter: (val) => val > 0 ? "₹" + val.toLocaleString() : "",
-          font: { weight: "bold", size: 12 },
-          anchor: 'center',
-          clamp: true,
-          display: true
-        },
-        legend: {
-          display: false,
-          position: "bottom",
-          labels: { font: { size: 12 } }
-        },
-        tooltip: {
-          callbacks: {
-            label: ctx => {
-              const label = ctx.label || "";
-              const val = ctx.raw || 0;
-              return `${label}: ₹${val.toLocaleString()}`;
-            }
-          }
-        }
-      },
-      cutout: "60%",
-      responsive: true,
-      maintainAspectRatio: false
-    },
-    plugins: [ChartDataLabels]
-  });
-
-  updateLegend(filtered);
-}
-
-
-  function updateLegend(categories) {
-    const legendContainer = document.getElementById("legend");
-    legendContainer.innerHTML = "";
-    categories.forEach((cat, i) => {
-      const div = document.createElement("div");
-      div.className = "legend-item";
-      div.innerHTML = `<span class="legend-color" style="background:${categoryColors[i]}"></span>${cat.name}`;
-      legendContainer.appendChild(div);
+  document.querySelectorAll(".category-row").forEach(catRow=>{
+    catRow.addEventListener("click", ()=>{
+      const category = catRow.dataset.category;
+      const subRows = document.querySelectorAll(`.sub-row.${category}`);
+      const expanded = catRow.classList.toggle("expanded");
+      subRows.forEach(r=>r.style.display=expanded?"table-row":"none");
     });
-  }
+  });
 
-  function updateChart() {
-  const data = dataByQuarter[currentQuarter];
-  if (!data || !data.categories) return;
-
-  const toggles = Array.from(document.querySelectorAll(".category-toggle"));
-  const filteredCategories = data.categories.filter((_, i) => toggles[i].checked);
-
-  // Only pass filtered categories
-  populateTable({ ...data, categories: filteredCategories });
-  renderChart({ ...data, categories: filteredCategories });
+  renderCharts(qData);
 }
 
+function renderCharts(qData){
+  const incomeLabels = qData.income.filter(i=>selectedIncome.has(i.short)).map(i=>i.short);
+  const incomeData = qData.income.filter(i=>selectedIncome.has(i.short)).map(i=>i.amount);
+  const expenseLabels = qData.expenditure.filter(c=>selectedExpense.has(c.category)).map(c=>c.category);
+  const expenseData = qData.expenditure.filter(c=>selectedExpense.has(c.category)).map(c=>c.subtotal);
 
-   window.onload = init;
-  AOS.init({ once: true });
+  if(incomeChart) incomeChart.destroy();
+  if(expenseChart) expenseChart.destroy();
+
+  incomeChart = new Chart(document.getElementById("incomeChart"), {
+    type:"bar",
+    data:{ labels: incomeLabels, datasets:[{label:"Income (₹)", data:incomeData, backgroundColor:"#3498db"}]},
+    options:{plugins:{datalabels:{anchor:'end',align:'top'}}}
+  });
+
+  expenseChart = new Chart(document.getElementById("expenseChart"), {
+    type:"bar",
+    data:{ labels: expenseLabels, datasets:[{label:"Expenditure (₹)", data:expenseData, backgroundColor:"#e74c3c"}]},
+    options:{plugins:{datalabels:{anchor:'end',align:'top'}}}
+  });
+}
+
+quarterSelect.addEventListener("change", ()=>{
+  selectedIncome.clear();
+  selectedExpense.clear();
+  updateUI();
+});
+updateUI();
+
+window.onscroll = ()=> scrollTopBtn.style.display = (document.body.scrollTop>200 || document.documentElement.scrollTop>200) ? "block" : "none";
+scrollTopBtn.addEventListener("click", ()=> window.scrollTo({top:0, behavior:"smooth"}));
+
+AOS.init({duration:600, once:true});
 </script>
 
-
+</main>
 </body>
 </html>
