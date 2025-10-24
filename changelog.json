@@ -1,10 +1,27 @@
 [
   {
+    "date": "2025-10-25",
+    "items": [
+      {
+        "type": "✨ improved",
+        "desc": "Added alternating row colors and hover highlights to the Quarterly Expense Report table for better readability and visual clarity."
+      },
+      {
+        "type": "🆕 new",
+        "desc": "Introduced subtle but slightly stronger alternate row shading to enhance table legibility without being distracting."
+      },
+      {
+        "type": "🆕 new",
+        "desc": "Income and Expenditure filter checkboxes added above the table; selecting/deselecting them dynamically updates the table and corresponding charts."
+      }
+    ]
+  },
+  {
     "date": "2025-10-17",
     "items": [
       {
         "type": "🆕 new",
-        "desc": "Added Quarterly Income-Expense Report page with interactive chart and table view for Q2 2025."
+        "desc": "Added Quarterly Expense Report page with interactive charts, budget gauge, and table view for Q2 2025."
       },
       {
         "type": "✨ improved",
@@ -47,4 +64,3 @@
     ]
   }
 ]
-
