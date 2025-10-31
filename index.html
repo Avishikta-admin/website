@@ -194,8 +194,8 @@ html, body {
   overflow: hidden;
   cursor: default;
   width: 100%;       /* fills the grid cell */
-  max-width: none;   /* remove unnecessary restriction */
-  margin: 0;         /* remove negative margin to avoid shrinking issues */
+  max-width: 220px;   /* remove unnecessary restriction */
+  margin: 0 auto;         /* remove negative margin to avoid shrinking issues */
   transform: translateY(5px);
 }
     .card:hover {
@@ -255,10 +255,18 @@ html, body {
   background: linear-gradient(145deg, #654ea3, #eaafc8);
 }
 
+/* Responsive tweaks */
+@media (max-width: 1024px) {
+  .card-grid {
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  }
+}
+
 @media (max-width: 768px) {
   .card-grid {
-    grid-template-columns: 1fr;
-    padding: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 1rem;
+    padding: 0 1rem 2rem;
   }
 
   .card {
@@ -1547,5 +1555,6 @@ function rotateTestimonials() {
 
 </body>
 </html>
+
 
 
