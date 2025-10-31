@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="description" content="Official page of Avishikta - I Type - A RWA. Stay informed, get involved, and build a stronger association.">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
   <meta http-equiv="Pragma" content="no-cache" />
@@ -172,20 +172,17 @@ html, body {
     background-position: 0% 50%;
   }
 }
- /* Grid container */
-.card-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 0.1rem; /* small gap between cards */
-  margin-top: 2rem;
-  padding: 0 2rem 3rem;
-  justify-items: center; /* centers cards inside their grid cell */
-  box-sizing: border-box;
-}
 
-/* Card design */
-.card {
-  background: linear-gradient(145deg, #2c3e50, #4ca1af);
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+      padding: 0 2rem 3rem;
+    }
+
+  .card {
+  background: linear-gradient(145deg, #2c3e50, #4ca1af); /* Stunning gradient */
   padding: 2px 3px;
   border-radius: 12px;
   box-shadow: 0 6px 18px rgba(0,0,0,0.2);
@@ -193,12 +190,25 @@ html, body {
   text-align: center;
   position: relative;
   overflow: hidden;
+  margin: -20px auto 0;
   cursor: default;
-  width: 100%;       /* fills the grid cell */
-  max-width: 300px;   /* remove unnecessary restriction */
-  margin: 0;         /* remove negative margin to avoid shrinking issues */
+  width: 100%; /* Ensures the card takes the full available space */
+  max-width: 350px; /* Keeps card width under control */
   transform: translateY(5px);
 }
+
+    .card::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      bottom: 0;
+      width: 0%;
+      height: 4px;
+      background: #00e5ff;
+      transition: width 0.3s ease, left 0.3s ease;
+      border-radius: 2px;
+    }
+
     .card:hover {
       transform: translateY(-12px); /* Slightly larger elevation */
       background: linear-gradient(145deg, #35566b, #5ab3c2); /* Slightly darker to emphasize hover */
@@ -232,7 +242,7 @@ html, body {
 }
 
     .card h3 {
-      font-size: 0.85rem;
+      font-size: 0.95rem;
       margin-bottom: 0.3rem;
       color: #fff;
       pointer-events: none;
@@ -240,7 +250,7 @@ html, body {
     }
 
     .card p {
-      font-size: 0.8rem;
+      font-size: 0.85rem;
       color: #e0f7fa;
       line-height: 1.;
       pointer-events: none;
@@ -256,18 +266,10 @@ html, body {
   background: linear-gradient(145deg, #654ea3, #eaafc8);
 }
 
-/* Responsive tweaks */
-@media (max-width: 1024px) {
-  .card-grid {
-    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-  }
-}
-
 @media (max-width: 768px) {
   .card-grid {
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-    gap: 1rem;
-    padding: 0 1rem 2rem;
+    grid-template-columns: 1fr;
+    padding: 1rem;
   }
 
   .card {
@@ -340,6 +342,8 @@ html, body {
     padding: 0.8rem 1rem;
   }
 }
+
+
   .hero {
     min-height: 180px;
   }
@@ -1556,14 +1560,3 @@ function rotateTestimonials() {
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
