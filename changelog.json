@@ -1,6 +1,21 @@
 [
   {
+    "date": "2025-11-01",
+    "summary": "🆕 1 new feature, ✨ 1 improvement, 🐞 0 fixes",
+    "items": [
+      {
+        "type": "🆕 new",
+        "desc": "Enhanced the Home page (index.html) with a 'Quick Stats' section highlighting the number of towers, flats, occupied units, and annual events for better visitor insights."
+      },
+      {
+        "type": "✨ improved",
+        "desc": "Updated governing-body.html with a colorful, visually appealing layout and added an email link to the Secretary portfolio for quick queries."
+      }
+    ]
+  },
+  {
     "date": "2025-10-25",
+    "summary": "🆕 2 new features, ✨ 1 improvement, 🐞 0 fixes",
     "items": [
       {
         "type": "✨ improved",
@@ -8,16 +23,17 @@
       },
       {
         "type": "🆕 new",
-        "desc": "Introduced subtle but slightly stronger alternate row shading to enhance table legibility without being distracting."
+        "desc": "Introduced slightly stronger alternate row shading to improve table legibility without being distracting."
       },
       {
         "type": "🆕 new",
-        "desc": "Income and Expenditure filter checkboxes added above the table; selecting/deselecting them dynamically updates the table and corresponding charts."
+        "desc": "Added Income and Expenditure filter checkboxes above the table; selecting/deselecting them dynamically updates the table and corresponding charts."
       }
     ]
   },
   {
     "date": "2025-10-17",
+    "summary": "🆕 2 new features, ✨ 1 improvement, 🐞 0 fixes",
     "items": [
       {
         "type": "🆕 new",
@@ -25,7 +41,7 @@
       },
       {
         "type": "✨ improved",
-        "desc": "Enhanced the page with light gradient background and responsive layout for better readability and mobile experience."
+        "desc": "Enhanced the page with a light gradient background and responsive layout for better readability and mobile experience."
       },
       {
         "type": "🆕 new",
@@ -35,31 +51,33 @@
   },
   {
     "date": "2025-10-10",
+    "summary": "🆕 2 new features, ✨ 1 improvement, 🐞 0 fixes",
     "items": [
       {
         "type": "🆕 new",
-        "desc": "Countdown to Kali Puja is added on the home page (index.html) to help visitors track the upcoming festival."
+        "desc": "Added countdown to Kali Puja on the Home page (index.html) to help visitors track the upcoming festival."
       },
       {
         "type": "🆕 new",
-        "desc": "diwali.html page is added and will be invoked automatically on 20th Oct 2025 to celebrate Diwali."
+        "desc": "Introduced diwali.html page, which will be automatically displayed on 20th Oct 2025 to celebrate Diwali."
       },
       {
         "type": "✨ improved",
-        "desc": "Governing body page has been updated to reflect the selected EC members during AGM held on 27th July 2025."
+        "desc": "Updated governing-body.html to reflect selected EC members during the AGM held on 27th July 2025."
       }
     ]
   },
   {
     "date": "2025-09-17",
+    "summary": "🆕 1 new feature, ✨ 1 improvement, 🐞 0 fixes",
     "items": [
       {
         "type": "✨ improved",
-        "desc": "Updated darshan.html page to include a dedicated Virtual Darshan section for an enhanced spiritual experience."
+        "desc": "Added a dedicated Virtual Darshan section on darshan.html for an enhanced spiritual experience."
       },
       {
         "type": "🆕 new",
-        "desc": "Added Durga Puja Nirghanta section, providing detailed and accessible event information."
+        "desc": "Introduced Durga Puja Nirghanta section, providing detailed and accessible event information."
       }
     ]
   }
