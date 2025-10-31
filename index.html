@@ -172,13 +172,13 @@ html, body {
     background-position: 0% 50%;
   }
 }
-
     .card-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      grid-template-columns: repeat(4, 1fr); /* fixed 4 columns on desktop */
       gap: 1.5rem;
       margin-top: 2rem;
-      padding: 0 2rem 3rem;
+      padding: 0 1rem 2rem;
+	  justify-items: center;
     }
 
   .card {
@@ -193,7 +193,7 @@ html, body {
   margin: -20px auto 0;
   cursor: default;
   width: 100%; /* Ensures the card takes the full available space */
-  max-width: 350px; /* Keeps card width under control */
+  max-width: 300px; /* Keeps card width under control */
   transform: translateY(5px);
 }
 
@@ -1560,3 +1560,4 @@ function rotateTestimonials() {
 
 </body>
 </html>
+
