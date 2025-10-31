@@ -176,10 +176,11 @@ html, body {
 .card-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); /* min 180px per card, auto-expand */
-  gap: 1.5rem; /* space between cards */
+  gap: 0.5rem; /* space between cards */
   margin-top: 2rem;
-  padding: 0 1rem 3rem; /* smaller padding for better fit */
+  padding: 0 2rem 3rem; /* smaller padding for better fit */
   box-sizing: border-box; /* ensures padding doesn't break layout */
+  justify-content: center; /* center cards if not filling full width */
 }
 
 /* Card design */
@@ -1555,6 +1556,7 @@ function rotateTestimonials() {
 
 </body>
 </html>
+
 
 
 
