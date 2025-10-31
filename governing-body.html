@@ -35,6 +35,7 @@
 
     main {
       flex-grow: 1;
+      width: 60%;
       max-width: 900px;
       margin: -20px auto 20px auto;
       background: rgba(255, 0, 0, 0.1);
@@ -67,13 +68,14 @@
       margin: 0 0 1rem 0;
       font-weight: 900;
       letter-spacing: 0.08em;
-      font-size: 1.5rem;
+      font-size: 1.3rem;
       text-shadow: 0 0 8px #ffeaa7aa;
+      margin-top: -10px;
     }
 
     .subtitle {
       text-align: center;
-      font-size: 0.9rem;
+      font-size: 0.8rem;
       font-style: italic;
       color: #fff8dc;
       text-shadow: 0 0 6px #00000033;
@@ -83,8 +85,8 @@
     details {
       background: rgba(0,0,0,0.15);
       border-radius: 12px;
-      padding: 15px 20px;
-      margin-top: 0.5rem;
+      padding: 10px 15px;
+      margin-top: -0.2rem;
       color: #fff;
       font-weight: 600;
       transition: background-color 0.3s ease;
@@ -95,7 +97,7 @@
     }
 
     summary {
-      font-size: 1rem;
+      font-size: 0.9rem;
       font-weight: 700;
       cursor: pointer;
       color: #ffeaa7;
@@ -162,38 +164,49 @@
     }
 
     tbody tr:hover {
-      background-color: rgba(255, 193, 7, 0.3);
-      color: #222;
+      background-color: #FCECE4;
+      color: #0070C0;
       font-weight: 700;
     }
 
-    .footer-note {
-      text-align: center;
-      margin-top: 20px;
-      font-size: 0.85rem;
-      color: #ffeaa7cc;
-      font-style: italic;
-      text-shadow: 0 0 5px #00000055;
-    }
-
     @media (max-width: 600px) {
-      main {
-        padding: 1rem;
-        max-width: 95%;
-      }
+  main {
+    padding: 1rem;
+    width: 90%;
+    max-width: 900px;
+  }
 
-      th, td {
-        padding: 12px 10px;
-      }
+  th, td {
+    padding: 4px 6px;
+    font-size: 0.65rem;
+  }
 
-      summary {
-        font-size: 1rem;
-      }
+  summary {
+    font-size: 0.65rem;
+  }
 
-      h1 {
-        font-size: 1.2rem;
-      }
-    }
+  h1 {
+    font-size: 0.8rem;
+    margin-top: -40px;
+  }
+
+  .subtitle {
+    text-align: center;
+    font-size: 0.7rem;
+  }
+
+  /* Mobile-specific adjustments for email icon in table cells */
+td a i.fas.fa-envelope {
+    font-size: 0.7em;       /* smaller icon */
+    margin-left: 3px;       /* tighter spacing */
+    vertical-align: middle; /* aligns with text nicely */
+}
+
+  /* Optional: if the text “Secretary” is too long, we can wrap it */
+  td {
+    word-break: break-word;
+  }
+}
 
     td.highlight-cell {
       position: relative;
@@ -236,37 +249,34 @@
 
   <main>
     <h1>Current Board of Governance</h1>
-    <p class="subtitle">Meet the selected members serving our association with dedication and integrity.</p>
+    <p class="subtitle">Meet the selected members serving our association with dedication and integrity, as unanimously chosen during the AGM held on <strong>July 27, 2025</strong>.</p>
 
     <details open>
       <summary>Executive Committee Members</summary>
       <table>
         <thead>
           <tr>
-            <th>S#</th>
-            <th>Name</th>
-            <th>Portfolio</th>
-            <th>Tower</th>
+            <th scope="col" style="text-align:center;">S#</th>
+	    <th scope="col">Name</th>
+	    <th scope="col">Portfolio</th>
+	     <th scope="col" style="text-align:center;">Tower</th>
           </tr>
         </thead>
         <tbody>
-          <tr><td>1</td><td>Mr. Pulak Mukhopadhyay</td><td><i class="fas fa-user-tie"></i> President</td><td>3A</td></tr>
-          <tr><td>2</td><td>Mr. Bivas Chatterjee</td><td><i class="fas fa-user"></i> Vice – President</td><td>2A</td></tr>
-          <tr><td>3</td><td>Mr. Niloy Pandit</td><td><i class="fas fa-envelope-open-text"></i> Secretary</td><td>2A</td></tr>
-          <tr><td>4</td><td>Mr. Joy Krishna Das</td><td><i class="fas fa-piggy-bank"></i> Treasurer</td><td>3A</td></tr>
-          <tr><td>5</td><td>Mr. Anurag Singh</td><td><i class="fas fa-users-cog"></i> EC Member</td><td>3A</td></tr>
-          <tr><td>6</td><td>Mr. Asis Majumder</td><td><i class="fas fa-users-cog"></i> EC Member</td><td>1A</td></tr>
-          <tr><td>7</td><td>Mr. Prasanta Ghosh</td><td><i class="fas fa-users-cog"></i> EC Member</td><td>4A</td></tr>
-	  <tr><td>7</td><td>Mrs. Malini Saha</td><td><i class="fas fa-users-cog"></i> EC Member</td><td>1A</td></tr>
-	  <tr><td>7</td><td>Mr. Ganesh Tewari</td><td><i class="fas fa-users-cog"></i> EC Member</td><td>4A</td></tr>
+          <tr><td style="text-align:center;">1</td><td>Mr. Pulak Mukhopadhyay</td><td><i class="fas fa-user-tie" style="color:#ff6b6b;"></i> President</td><td style="text-align:center;">3A</td></tr>
+          <tr><td style="text-align:center;">2</td><td>Mr. Bivas Chatterjee</td><td><i class="fas fa-user" style="color:#1dd1a1;"></i> Vice – President</td><td style="text-align:center;">2A</td></tr>
+          <tr><td style="text-align:center;">3</td><td>Mr. Niloy Pandit</td><td><i class="fas fa-envelope-open-text" style="color:#54a0ff;"></i> Secretary<a href="mailto:neel.niloy@gmail.com" style="margin-left:6px; text-decoration:none;" title="Send Email"><i class="fas fa-envelope" style="color:#ffdd59; font-size:0.9em;"></i></a></td><td style="text-align:center;">2A</td></tr>
+          <tr><td style="text-align:center;">4</td><td>Mr. Joy Krishna Das</td><td><i class="fas fa-piggy-bank" style="color:#f368e0;"></i> Treasurer</td><td style="text-align:center;">3A</td></tr>
+          <tr><td style="text-align:center;">5</td><td>Mr. Anurag Singh</td><td><i class="fas fa-users-cog" style="color:#ff9f43;"></i> EC Member</td><td style="text-align:center;">3A</td></tr>
+          <tr><td style="text-align:center;">6</td><td>Mr. Asis Majumder</td><td><i class="fas fa-users-cog" style="color:#00d2d3;"></i> EC Member</td><td style="text-align:center;">1A</td></tr>
+          <tr><td style="text-align:center;">7</td><td>Mr. Prasanta Ghosh</td><td><i class="fas fa-users-cog" style="color:#feca57;"></i> EC Member</td><td style="text-align:center;">4A</td></tr>
+	  <tr><td style="text-align:center;">8</td><td>Mrs. Malini Saha</td><td><i class="fas fa-users-cog" style="color:#9b59b6;"></i> EC Member</td><td style="text-align:center;">1A</td></tr>
+	  <tr><td style="text-align:center;">9</td><td>Mr. Ganesh Tewari</td><td><i class="fas fa-users-cog" style="color:#e67e22;"></i> EC Member</td><td style="text-align:center;">4A</td></tr>
         </tbody>
       </table>
     </details>
 
-    <div class="footer-note">
-      ✨ United in purpose. This Governing Body was selected during the AGM held on <strong>27th July 2025</strong>.✨
-    </div>
-  </main>
+</main>
 
   <!-- Footer and side nav injected -->
   <div id="footer"></div>
