@@ -1,308 +1,888 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:title" content="Durga Puja 2025 - Virtual Darshan & Events">
+    <meta property="og:description" content="Join our community online to experience the magic of festivities 2025, view meeting highlights, events, and more.">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <meta name="description" content="Official page of Avishikta - I Type - A RWA. Stay informed, get involved, and build a stronger association.">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
   <meta http-equiv="Pragma" content="no-cache" />
   <meta http-equiv="Expires" content="0" />
-  <!-- Confetti script from CDN -->
-  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.8.162/pdf.min.js"></script>
   <script src="layout-loader.js"></script>
+    <title>Association announcements and upcoming events</title>
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-  <title>Governing Body | Avishikta - 1 Type - A RWA</title>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            padding: 20px;
+        }
 
-  <!-- Font Awesome for icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
 
-  <!-- Responsive fix stylesheet -->
-  <link rel="stylesheet" href="css/responsive-fix.css" />
+        /* Section Styles */
+        section {
+            background-color: white;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
 
-  <style>
-    /* Global Styles */
-    html, body {
-      margin: 0;
-      padding: 0;
-      font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(135deg, #0a174e, #2c3e6c);
-      color: #fff;
-      height: 100%;
-      overflow-x: hidden;
-      display: flex;
-      flex-direction: column;
-    }
+        .section-header {
+            padding: 10px;
+            background-color: #0066cc;
+            color: white;
+            border-radius: 8px 8px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
 
-    main {
-      flex-grow: 1;
-      width: 60%;
-      max-width: 900px;
-      margin: -20px auto 20px auto;
-      background: rgba(255, 0, 0, 0.1);
-      border-radius: 20px;
-      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.3);
-      padding: 1rem 2rem 0.5rem 2rem;
-      backdrop-filter: blur(12px);
-      user-select: none;
-      display: flex;
-      flex-direction: column;
-      max-height: calc(100vh - 80px);
-      animation: fadeInUp 0.6s ease-out both;
-    }
+        .section-header h2 {
+            font-size: 0.9rem;
+        }
 
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
+        .toggle-btn {
+            background-color: #11B0FF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 6px 12px;
+            font-size: 0.85rem;
+            cursor: pointer;
+        }
 
-    h1 {
-      font-family: 'Georgia', serif;
-      text-align: center;
-      color: #ffeaa7;
-      margin: 0 0 1rem 0;
-      font-weight: 900;
-      letter-spacing: 0.08em;
-      font-size: 1.3rem;
-      text-shadow: 0 0 8px #ffeaa7aa;
-      margin-top: -10px;
-    }
+        .toggle-btn:hover {
+            background-color: #ff4d40;
+        }
 
-    .subtitle {
-      text-align: center;
+        /* Content Styling */
+        .section-content {
+            padding: 15px;
+            display: none;
+            transition: all 0.3s ease;
+        }
+
+        .announcement {
+            margin-bottom: 15px;
+        }
+
+        .announcement h3 {
+            font-size: 0.85rem;
+            color: #1e90ff;
+        }
+
+        .announcement-date {
+            display: block;
+            font-size: 0.9rem;
+            color: #888;
+            margin-top: 5px;
+        }
+
+        /* Responsive Styling */
+        @media (max-width: 768px) {
+            .calendar {
+                grid-template-columns: repeat(7, 1fr);
+            }
+
+            .section-header h2 {
+                font-size: 0.9rem;
+            }
+
+            .toggle-btn {
+                font-size: 0.8rem;
+            }
+        }
+
+
+/* Center calendar day text and make bold */
+/* Calendar grid days */
+#calendarGrid .day {
+  font-weight: bold; /* Bold all text inside the day cell */
+  font-size: 11px;   /* Base font size */
+  display: flex;
+  flex-direction: column;
+  align-items: center;    /* Center horizontally */
+  justify-content: flex-start;
+  padding: 4px;
+  min-height: 60px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  background-color: #fff;
+  box-sizing: border-box;
+  text-align: center; /* Center text */
+  cursor: pointer;    /* pointer cursor on day cells */
+  user-select: none;  /* prevent text selection on clicks */
+  transition: background-color 0.2s ease;
+}
+
+/* Empty cells (before first day and after last day) */
+#calendarGrid .day.empty {
+  border: none;
+  background-color: transparent;
+  cursor: default;
+  user-select: none;
+}
+
+/* Day number inside each day */
+#calendarGrid .day .day-number {
+  font-weight: bold;
+  font-size: 10px;
+  margin-bottom: 2px;
+}
+
+/* Sunrise/Sunset times container */
+#calendarGrid .day .sunrise-sunset {
+  font-size: 8px;   /* smaller than base */
+  line-height: 1.1;
+  user-select: none;
+  margin-top: auto;  /* push to bottom */
+  color: #555;
+}
+
+/* Sunrise and Sunset emojis */
+#calendarGrid .day .sunrise-icon,
+#calendarGrid .day .sunset-icon {
+  font-size: 14px;  /* smaller emojis */
+  vertical-align: middle;
+  margin-right: 2px;
+}
+
+/* Desktop view only */
+@media (min-width: 769px) {
+  #calendarGrid .day .day-number {
+    font-size: 10px !important;
+  }
+
+  #calendarGrid .day .sunrise-sunset {
+    font-size: 8px !important;
+  }
+
+  #calendarGrid .day .sunrise-icon,
+  #calendarGrid .day .sunset-icon {
+    font-size: 10px !important;
+  }
+}
+
+/* Highlight today */
+#calendarGrid .day.today-highlight {
+  border: 2px solid #0056A4;
+  box-shadow: 0 0 8px #0056A4;
+}
+
+/* Hover effect for event days */
+#calendarGrid .day.event-day:hover {
+  background-color: #f0f8ff;
+}
+
+#calendarControls button {
+  background-color: #0056A4;      /* Nice blue */
+  color: white;                   /* Text color */
+  border: none;                   /* Remove default border */
+  padding: 8px 15px;              /* Comfortable padding */
+  margin: 0 5px;                  /* Space between buttons */
+  border-radius: 5px;             /* Rounded corners */
+  font-weight: 600;
+  cursor: pointer;                /* Pointer on hover */
+  box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+#calendarControls button:hover {
+  background-color: #003f7d;      /* Darker blue on hover */
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+#calendarControls button:focus {
+  outline: 2px solid #ffbf47;    /* Visible focus outline */
+  outline-offset: 2px;
+}
+.new-label {
+  color: #ffffff;         /* Bright red color */
+  font-weight: bold;
+  margin-left: 8px;       /* Space between heading and label */
+  font-size: 0.75em;
+  animation: blink 1.2s infinite;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: Arial, sans-serif;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.announcement-points .point {
+    font-size: 0.85em; /* or try 0.9em / 14px / smaller as needed */
+    line-height: 1.3;
+  }
+
+#backToTopBtn {
+      position: fixed;
+      bottom: 2rem;
+      right: 1.5rem;
+      z-index: 100;
+      background-color: #C62828; /* Festive red */
+      color: white;
+      border: none;
+      outline: none;
+      padding: 0.3rem 0.4rem;
+      border-radius: 50%;
       font-size: 0.8rem;
-      font-style: italic;
-      color: #fff8dc;
-      text-shadow: 0 0 6px #00000033;
-      margin: -0.4rem 0 1rem 0;
-    }
-
-    details {
-      background: rgba(0,0,0,0.15);
-      border-radius: 12px;
-      padding: 10px 15px;
-      margin-top: -0.2rem;
-      color: #fff;
-      font-weight: 600;
-      transition: background-color 0.3s ease;
-    }
-
-    details:hover {
-      background: rgba(0,0,0,0.3);
-    }
-
-    summary {
-      font-size: 0.9rem;
-      font-weight: 700;
       cursor: pointer;
-      color: #ffeaa7;
-      list-style: none;
-      padding: 6px 0;
-      text-shadow: 0 0 6px #ffc107aa;
-      transition: color 0.3s ease;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      display: none; /* Hidden initially */
+      transition: opacity 0.3s, transform 0.3s;
+      animation: float 2.5s infinite ease-in-out;
     }
 
-    summary::-webkit-details-marker {
-      display: none;
+    #backToTopBtn:hover {
+      background-color: #b71c1c;
+      transform: scale(1.1);
     }
 
-    summary:before {
-      content: "▶ ";
-      display: inline-block;
-      transform: rotate(0deg);
-      transition: transform 0.3s ease;
-      font-weight: 900;
-      margin-right: 8px;
-      color: #ffeaa7;
+    @keyframes float {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-4px); }
+      100% { transform: translateY(0); }
     }
+#backToTopBtn:focus {
+  outline: 2px solid #ffffff;
+  outline-offset: 2px;
+}
 
-    details[open] summary:before {
-      transform: rotate(90deg);
-    }
-
-    details summary::after {
-      content: "";
-      display: block;
-      height: 1px;
-      background: linear-gradient(to right, transparent, #ffc107aa, transparent);
-      margin-top: 6px;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 0.6rem;
-      font-size: 0.85rem;
-      color: #fff;
-    }
-
-    th, td {
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      padding: 6px 10px;
-      text-align: left;
-    }
-
-    td i {
-      margin-right: 6px;
-      color: #ffd54f;
-    }
-
-    thead {
-      background: #ffc107;
-      color: #222;
-      font-weight: 700;
-      letter-spacing: 0.05em;
-    }
-
-    tbody tr:nth-child(even) {
-      background-color: rgba(255, 255, 255, 0.1);
-    }
-
-    tbody tr:hover {
-      background-color: rgba(255, 193, 7, 0.3);
-      color: #222;
-      font-weight: 700;
-    }
-
-    @media (max-width: 600px) {
-      main {
-        padding: 1rem;
-        width: 90%;
-        max-width: 900px;
-      }
-
-      th, td {
-        padding: 4px 6px;
-        font-size: 0.65rem;
-      }
-
-      summary {
-        font-size: 0.65rem;
-      }
-
-      h1 {
-        font-size: 0.8rem;
-        margin-top: -40px;
-      }
-      .subtitle {
-      text-align: center;
-      font-size: 0.7rem;
-    }
-   }
-
-    td.highlight-cell {
-      position: relative;
-      cursor: help;
-      color: #fff9c4;
-      max-width: 100px;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    td.highlight-cell:hover::after {
-      content: attr(data-highlight);
-      position: absolute;
-      left: 0;
-      bottom: 120%;
-      background: rgba(44, 20, 82, 0.9);
-      color: #fff;
-      padding: 6px 10px;
-      border-radius: 6px;
-      max-width: 250px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.4);
-      z-index: 10;
-      opacity: 1;
-      transition: opacity 0.3s ease;
-      pointer-events: none;
-    }
-
-    td.highlight-cell::after {
-      opacity: 0;
-      content: '';
-      pointer-events: none;
-    }
-
-	#eventTypeFilters {
+#eventTypeFilters {
   margin-bottom: 15px;
   text-align: center;
-  font-size: 0.7rem;
+  font-size: 0.75rem;
 }
 
 #eventTypeFilters label,
 #eventTypeFilters legend {
-  font-size: 0.7rem;
+  font-size: 0.75rem;
 }
 
-  </style>
+</style>
 </head>
 
 <body>
-  <!-- Dynamic header and navigation injected via layout.js -->
-  <div id="header"></div>
-  <div id="nav"></div>
+    <!-- Header, Sidebar, and Breadcrumb - Injected by layout.js -->
+    <div id="header-placeholder"></div>
+    <div id="sidebar-placeholder"></div>
+    <div id="breadcrumb-placeholder"></div>
 
-  <main>
-    <h1>Current Board of Governance</h1>
-    <p class="subtitle">Meet the selected members serving our association with dedication and integrity, as unanimously chosen during the AGM held on <strong>July 27, 2025</strong>.</p>
+<main>
 
-    <details open>
-      <summary>Executive Committee Members</summary>
-      <table>
-        <thead>
-          <tr>
-            <th>S#</th>
-            <th>Name</th>
-            <th>Portfolio</th>
-            <th>Tower</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr><td>1</td><td>Mr. Pulak Mukhopadhyay</td><td><i class="fas fa-user-tie"></i> President</td><td>3A</td></tr>
-          <tr><td>2</td><td>Mr. Bivas Chatterjee</td><td><i class="fas fa-user"></i> Vice – President</td><td>2A</td></tr>
-          <tr><td>3</td><td>Mr. Niloy Pandit</td><td><i class="fas fa-envelope-open-text"></i> Secretary</td><td>2A</td></tr>
-          <tr><td>4</td><td>Mr. Joy Krishna Das</td><td><i class="fas fa-piggy-bank"></i> Treasurer</td><td>3A</td></tr>
-          <tr><td>5</td><td>Mr. Anurag Singh</td><td><i class="fas fa-users-cog"></i> EC Member</td><td>3A</td></tr>
-          <tr><td>6</td><td>Mr. Asis Majumder</td><td><i class="fas fa-users-cog"></i> EC Member</td><td>1A</td></tr>
-          <tr><td>7</td><td>Mr. Prasanta Ghosh</td><td><i class="fas fa-users-cog"></i> EC Member</td><td>4A</td></tr>
-	  <tr><td>7</td><td>Mrs. Malini Saha</td><td><i class="fas fa-users-cog"></i> EC Member</td><td>1A</td></tr>
-	  <tr><td>7</td><td>Mr. Ganesh Tewari</td><td><i class="fas fa-users-cog"></i> EC Member</td><td>4A</td></tr>
-        </tbody>
-      </table>
-    </details>
+<h2 style="
+  font-family: 'Segoe UI', Arial, sans-serif; 
+  font-weight: 900; 
+  font-size: 25px; 
+  text-transform: uppercase; 
+  letter-spacing: 1.5px; 
+  text-align: center; 
+  margin: 10px 0 20px; 
+  margin-top: -55px;
+  background: linear-gradient(90deg, #FF4C4C, #FF904A, #FFCC4A, #90FF4A, #4CFF90, #4CAAFF, #8F4CFF, #D04CFF);
+  -webkit-background-clip: text; 
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+  cursor: default;
+">Association Spotlight</h2>
+
+    <div class="container">
+        <!-- Association Announcements Section -->
+        <section id="association-announcements">
+    <div class="section-header">
+        <h2>Association Announcements</h2>
+        <button class="toggle-btn" data-label="Announcement">+ Show Announcement</button>
+    </div>
+    <div class="section-content">
+        <div class="announcement">
+    <div style="font-size: 0.75em; line-height: 1.4;">
+
+  <h3 style="margin-top: 0.1rem;
+  background: linear-gradient(90deg, #C62828, #FF6F00);
+  -webkit-background-clip: text;
+  color: transparent;">
+	🔥Durga Puja and Kali Puja 2025 celebrations have come to a joyful close! Heartfelt thanks to all participants and devotees for making the events truly memorable!<br/>
+</h3>
+
+<hr size="2" style="margin: 1.5rem 0; border-color: #ccc;">
+  <h3 style="margin-top: 0.1rem;">📌 Apex Body Meeting – 7th September, 2025</h3>
+
+  <p style="font-size: 1.1em; color: #A42C96;">
+    Key updates from the latest Apex Body meeting reflect forward momentum across infrastructure, safety, and digital operations.
+  </p>
+
+  <ul style="padding-left: 1.2rem; margin-top: 0.1rem;font-size: 0.95em;">
+    <li>🛠️ <strong>Gate Repair & Painting</strong> – Work to complete by Nov 30; coordination by Niloy.</li>
+    <li>💰 <strong>Common Fund Distribution</strong> – To be divided among Type A, B, and HIG on pro-rata basis.</li>
+    <li>🔥 <strong>Fire Pump Room</strong> – Repair begins post-Puja. Quotes to be validated by S. Roy & A. Das.</li>
+    <li>🧾 <strong>STP Clearance Letter</strong> – Draft by Niloy, to be issued with councillor in CC.</li>
+    <li>📄 <strong>Fire License Renewal</strong> – Abhijit Das to coordinate; Chiranjib Roy Chowdhury to review before applying online.</li>
+    <li>🏪 <strong>Shop Possession</strong> – Approved; access via internal corridor to be created.</li>
+    <li>⚖️ <strong>Legal Advice</strong> – Niloy to initiate consultation on Type-A extension.</li>
+    <li>🔧 <strong>Community Hall Glass Repair</strong> – Approved; Niloy to follow up with contractor.</li>
+    <li>🚿 <strong>Water Charges</strong> – ₹500/event effective from Nov 1; payable to Type B Association.</li>
+    <li>🎨 <strong>Statue Repainting</strong> – All faded statues to be repaired and repainted.</li>
+    <li>📲 <strong>Digital Partner Change</strong> – MyGate will replace NoBrokerHood; Subhadeep to issue notice.</li>
+    <li>🚪 <strong>Second Gate Use</strong> – To open intermittently based on requirement and feasibility.</li>
+    <li>🐜 <strong>Termite Treatment</strong> – Urgently needed in Community Hall due to severe infestation.</li>
+    <li>🚗 <strong>Parking Access</strong> – Explore relocation of electrical poles blocking access.</li>
+  </ul>
+
+  <hr size="2" style="margin: 1.5rem 0; border-color: #ccc;">
+
+  <h3>📋 19th Annual General Meeting – 27th July, 2025</h3>
+
+  <p style="font-size: 1.1em; color: #A42C96;">
+    The 19th AGM saw enthusiastic participation, key resolutions, and a moment of pride for the entire community.
+  </p>
+
+  <ul style="padding-left: 1.2rem; margin-top: 0.5rem;font-size: 0.95em;">
+    <li>🗳️ All proposed resolutions were discussed and unanimously adopted.</li>
+    <li>📅 Updates shared on future community plans, events, and financials.</li>
+    <li>🌐 The official association website was proudly launched by Mr. S. K. Roy, applauded by all. A heartfelt thanks was extended to <strong>Niloy Pandit</strong>, the visionary Secretary and developer of the site.</li>
+    <li>⚠️ A policy was passed: members with maintenance dues for 3+ months will temporarily lose service access. Defaulter names will be listed on official channels.</li>
+  </ul>
+
+  <p style="color: #007BFF; margin-top: 0.5rem;">
+    📎 For full details, visit the <a href="mom.html"><strong>Meeting Minutes</strong></a> page.
+  </p>
+
+</div>
+
+</section>
+
+<!-- Event Calendar Section -->
+<section id="event-calendar">
+  <div class="section-header">
+    <h2>Event Calendar</h2>
+    <button class="toggle-btn" data-label="Calendar">+ Show Calendar</button>
+  </div>
+
+  <div class="section-content">
+    <!-- Controls -->
+    <div id="calendarControls" style="margin-bottom: 10px; text-align: center;">
+      <button id="prevMonthBtn" aria-label="Previous month">&lt;</button>
+      <button id="todayBtn" aria-label="Go to today">Today</button>
+      <button id="nextMonthBtn" aria-label="Next month">&gt;</button>
+      <span id="calendarTitle" aria-live="polite" style="margin-left: 10px; font-weight: bold;"></span>
+    </div>
+
+    <!-- Filters -->
+    <fieldset id="eventTypeFilters" aria-label="Filter events by type" style="margin-bottom: 15px; text-align: center;">
+      <legend>Filter Events</legend>
+      <label><input type="checkbox" value="religious" checked> Religious</label>
+      <label><input type="checkbox" value="meeting" checked> Meeting</label>
+      <label><input type="checkbox" value="national" checked> National</label>
+      <label><input type="checkbox" value="other" checked> Other</label>
+    </fieldset>
+
+    <!-- Calendar Grid -->
+    <div id="calendarGrid" role="grid" aria-label="Calendar"
+         style="display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px;">
+    </div>
+
+  </div>
+  </div>
+</section>
+
+<!-- Event Details Modal -->
+<div id="eventModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" aria-describedby="modalDesc"
+     tabindex="-1" class="hidden" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+     justify-content: center; align-items: center; background: rgba(0,0,0,0.5); display: none;">
+  <div id="modalBackdrop" style="position:absolute; width:100%; height:100%;"></div>
+  <div id="modalContent" style="background: white; padding: 20px; border-radius: 8px; z-index: 10; max-width: 400px; width: 90%;">
+    <h2 id="modalTitle"></h2>
+    <div id="modalDesc" style="margin: 15px 0;"></div>
+    <button id="closeModalBtn" aria-label="Close modal">Close</button>
+  </div>
+</div>
+
+<!-- Include SunCalc -->
+<script src="https://cdn.jsdelivr.net/npm/suncalc@1.9.0/suncalc.js"></script>
 
 </main>
 
-  <!-- Footer and side nav injected -->
-  <div id="footer"></div>
-
-  <!-- layout.js must be loaded last -->
-
 <script>
-  const isGitHub = location.hostname.includes('github.io');
-  const base = isGitHub ? '/website' : '';
+    document.addEventListener('DOMContentLoaded', function () {
+    const toggleBtns = document.querySelectorAll('.toggle-btn');
+    
+    toggleBtns.forEach(button => {
+        // Skip if button already has its own handler (like Nirghanta)
+        if (!button.hasAttribute('onclick')) {
+            button.addEventListener('click', function () {
+                const content = this.parentElement.nextElementSibling;
+                const label = this.getAttribute('data-label') || 'Section';
 
-  const manifest = document.createElement('link');
-  manifest.rel = 'manifest';
-  manifest.href = base + '/manifest.json';
+                if (content.style.display === 'block') {
+                    content.style.display = 'none';
+                    this.textContent = `+ Show ${label}`;
+                } else {
+                    content.style.display = 'block';
+                    this.textContent = `- Hide ${label}`;
+                }
+            });
+        }
+    });
 
-  const themeMeta = document.createElement('meta');
-  themeMeta.name = 'theme-color';
-  themeMeta.content = '#000000';
+    // Initialize layout (header, footer, sidebar, breadcrumb)
+    if (typeof initializeLayout === "function") {
+        initializeLayout();
+    }
+});
 
-  document.head.appendChild(manifest);
-  document.head.appendChild(themeMeta);
 
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register(base + '/service-worker.js', { scope: base + '/' })
-      .then(() => console.log('✅ Service Worker registered'))
-      .catch(err => console.error('❌ Service Worker failed', err));
+// Global variables
+let eventModal, modalTitle, modalDesc, closeModalBtn;
+let currentYear, currentMonth;
+
+const eventColors = {
+  religious: '#d1b3e0',
+  meeting: '#27ae60',
+  national: '#e67e22',
+  other: '#3498db'
+};
+
+const eventIcons = {
+  religious: '🙏',
+  meeting: '📅',
+  national: '🎆',
+  other: '📌'
+};
+
+const eventsData = {
+  "2025-08-15": [{ type: "national", name: "Independence Day" }],
+  "2025-08-25": [{ type: "other", name: "Valve Repair" }],
+  "2025-08-27": [{ type: "religious", name: "Ganesh Chaturthi" }],
+  "2025-09-05": [{ type: "national", name: "Teacher's Day" }],
+  "2025-09-17": [{ type: "religious", name: "Biswakarma Puja" }],
+  "2025-09-21": [{ type: "religious", name: "Mahalaya" }],
+  "2025-09-29": [{ type: "religious", name: "Maha Saptami" }],
+  "2025-09-30": [{ type: "religious", name: "Maha Astami" }],
+  "2025-10-01": [{ type: "religious", name: "Maha Nabami" }],
+  "2025-10-02": [{ type: "religious", name: "Bijoya Dasami" }],
+  "2025-10-06": [{ type: "religious", name: "Lakshmi Puja" }],
+  "2025-10-20": [{ type: "religious", name: "Kali Puja" }],
+  "2025-10-23": [{ type: "religious", name: "Bhratri Dwitiya" }],
+  "2025-12-25": [{ type: "religious", name: "Christmas" }],
+};
+
+window.onload = () => {
+  eventModal = document.getElementById('eventModal');
+  modalTitle = document.getElementById('modalTitle');
+  modalDesc = document.getElementById('modalDesc');
+  closeModalBtn = document.getElementById('closeModalBtn');
+
+  closeModalBtn.onclick = hideModal;
+  document.getElementById('modalBackdrop').onclick = hideModal;
+  window.addEventListener('keydown', e => {
+    if (e.key === 'Escape') hideModal();
+  });
+
+  document.querySelectorAll('#eventTypeFilters input[type="checkbox"]').forEach(chk => {
+    chk.addEventListener('change', () => {
+      generateCalendar();
+    });
+  });
+
+  document.getElementById('todayBtn').addEventListener('click', () => {
+    const today = new Date();
+    currentYear = today.getFullYear();
+    currentMonth = today.getMonth();
+    generateCalendar();
+    highlightToday();
+  });
+
+  document.getElementById('prevMonthBtn').addEventListener('click', () => {
+    currentMonth--;
+    if (currentMonth < 0) {
+      currentMonth = 11;
+      currentYear--;
+    }
+    if (canNavigateTo(currentYear, currentMonth)) {
+      generateCalendar();
+      highlightToday();
+    }
+  });
+
+  document.getElementById('nextMonthBtn').addEventListener('click', () => {
+    currentMonth++;
+    if (currentMonth > 11) {
+      currentMonth = 0;
+      currentYear++;
+    }
+    if (canNavigateTo(currentYear, currentMonth)) {
+      generateCalendar();
+      highlightToday();
+    }
+  });
+
+  const today = new Date();
+  currentYear = today.getFullYear();
+  currentMonth = today.getMonth();
+  generateCalendar();
+  highlightToday();
+  styleEventFilter();
+};
+
+function canNavigateTo(year, month) {
+  const startYear = new Date().getFullYear();
+  const endYear = 2030;
+  return year >= startYear && year <= endYear;
+}
+
+function generateCalendar() {
+  const calendarGrid = document.getElementById('calendarGrid');
+  const calendarTitle = document.getElementById('calendarTitle');
+  calendarGrid.innerHTML = '';
+
+  const monthNames = [
+    "January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December"
+  ];
+  calendarTitle.textContent = `${monthNames[currentMonth]} ${currentYear}`;
+
+  // Stylish appearance for title
+  calendarTitle.style.fontSize = '1.3rem';
+  calendarTitle.style.fontWeight = '700';
+  calendarTitle.style.fontFamily = 'Poppins, sans-serif';
+  calendarTitle.style.marginLeft = '10px';
+  calendarTitle.style.letterSpacing = '1px';
+  calendarTitle.style.background = 'linear-gradient(to right, #007cf0, #00dfd8)';
+  calendarTitle.style.webkitBackgroundClip = 'text';
+  calendarTitle.style.webkitTextFillColor = 'transparent';
+  calendarTitle.style.display = 'inline-block';
+
+  const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  for (const dayName of dayNames) {
+    const dayHeader = document.createElement('div');
+    dayHeader.textContent = dayName;
+    dayHeader.style.fontWeight = 'bold';
+    dayHeader.style.textAlign = 'center';
+    dayHeader.setAttribute('role', 'columnheader');
+    calendarGrid.appendChild(dayHeader);
   }
-</script>
-</body>
-</html>
 
+  const firstDay = new Date(currentYear, currentMonth, 1).getDay();
+  const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+
+  for (let i = 0; i < firstDay; i++) {
+    const emptyCell = document.createElement('div');
+    emptyCell.className = 'day empty';
+    calendarGrid.appendChild(emptyCell);
+  }
+
+  const selectedTypes = Array.from(
+    document.querySelectorAll('#eventTypeFilters input[type="checkbox"]:checked')
+  ).map(cb => cb.value);
+
+  const latitude = 22.5726;
+  const longitude = 88.3639;
+
+  for (let day = 1; day <= daysInMonth; day++) {
+    const dayCell = document.createElement('div');
+    dayCell.className = 'day';
+    dayCell.tabIndex = 0;
+
+    // --- NEW: Flex column layout and border ---
+    dayCell.style.display = 'flex';
+    dayCell.style.flexDirection = 'column';
+    dayCell.style.alignItems = 'center';
+    dayCell.style.justifyContent = 'flex-start';
+    dayCell.style.textAlign = 'center';
+    dayCell.style.border = '1px solid #ccc';
+    dayCell.style.borderRadius = '6px';
+    dayCell.style.padding = '6px';
+    dayCell.style.minHeight = '110px';
+    dayCell.style.boxSizing = 'border-box';
+    dayCell.style.backgroundColor = '#fff';
+
+    // Day number
+    const dayNumber = document.createElement('div');
+    dayNumber.className = 'day-number';
+    dayNumber.textContent = day;
+    dayNumber.style.fontWeight = '700';
+    dayNumber.style.fontSize = '14px';
+    dayNumber.style.marginBottom = '4px';
+    dayCell.appendChild(dayNumber);
+
+    const dateKey = `${currentYear}-${String(currentMonth + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+    dayCell.setAttribute('data-date', dateKey);
+
+    // Sunrise & Sunset
+    const sunTimes = SunCalc.getTimes(new Date(currentYear, currentMonth, day), latitude, longitude);
+    const sunrise = formatTime(sunTimes.sunrise);
+    const sunset = formatTime(sunTimes.sunset);
+
+    const sunInfo = document.createElement('div');
+    sunInfo.style.display = 'flex';
+    sunInfo.style.justifyContent = 'center';
+    sunInfo.style.gap = '8px';
+    sunInfo.style.fontSize = '10px';
+    sunInfo.style.color = '#666';
+    sunInfo.style.marginTop = 'auto'; // Pushes to bottom
+    sunInfo.innerHTML = `
+      <span>🌅 <strong>${sunrise}</strong></span>
+      <span>🌇 <strong>${sunset}</strong></span>
+    `;
+    // We append sunInfo at the end (after events), so keep this for now.
+
+    if (eventsData[dateKey]) {
+      const filteredEvents = eventsData[dateKey].filter(ev => selectedTypes.includes(ev.type));
+      if (filteredEvents.length > 0) {
+        dayCell.classList.add('event-day');
+        dayCell.style.backgroundColor = eventColors[filteredEvents[0].type];
+	dayCell.style.cursor = 'pointer';
+        filteredEvents.slice(0, 2).forEach(ev => {
+          const icon = document.createElement('div');
+          icon.className = 'event-icon';
+          icon.title = ev.name;
+          icon.textContent = eventIcons[ev.type];
+          icon.style.color = eventColors[ev.type];
+          icon.style.fontSize = '16px';
+          icon.style.margin = '2px 0';
+          icon.style.textAlign = 'center';
+          dayCell.appendChild(icon);
+
+          // Event name element
+          const nameEl = document.createElement('div');
+          nameEl.className = 'event-name';
+          nameEl.textContent = ev.name;
+          nameEl.style.fontSize = '11px';
+          nameEl.style.fontWeight = '600';
+          nameEl.style.overflow = 'hidden';
+          nameEl.style.whiteSpace = 'nowrap';
+          nameEl.style.textOverflow = 'ellipsis';
+          nameEl.style.marginBottom = '4px';
+          nameEl.style.color = '#FFFFFF';  // Cyan color
+          nameEl.style.textAlign = 'center';
+          dayCell.appendChild(nameEl);
+        });
+
+        dayCell.addEventListener('click', () => showEventDetails(dateKey));
+        dayCell.addEventListener('keypress', e => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            showEventDetails(dateKey);
+          }
+        });
+      }
+    }
+
+    // Append sunrise/sunset last, so it stays at bottom
+    dayCell.appendChild(sunInfo);
+
+    calendarGrid.appendChild(dayCell);
+  }
+
+  highlightToday();
+  applyCompactCalendarStyles();
+}
+
+function formatTime(date) {
+  return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true });
+}
+
+function highlightToday() {
+  const today = new Date();
+  if (today.getFullYear() === currentYear && today.getMonth() === currentMonth) {
+    const dateKey = `${currentYear}-${String(currentMonth + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
+    const todayCell = document.querySelector(`[data-date='${dateKey}']`);
+    if (todayCell) todayCell.classList.add('today-highlight');
+  }
+}
+
+function showEventDetails(dateKey) {
+  modalTitle.textContent = dateKey;
+  const events = eventsData[dateKey] || [];
+  const selectedTypes = Array.from(
+    document.querySelectorAll('#eventTypeFilters input[type="checkbox"]:checked')
+  ).map(cb => cb.value);
+  const filtered = events.filter(ev => selectedTypes.includes(ev.type));
+
+  modalDesc.innerHTML = filtered.length > 0
+    ? filtered.map(ev => `<div style="color:${eventColors[ev.type]}">${ev.name} (${ev.type})</div>`).join('')
+    : 'No events for selected filters.';
+
+  eventModal.style.display = 'flex';
+  eventModal.classList.remove('hidden');
+  eventModal.focus();
+}
+
+function hideModal() {
+  eventModal.style.display = 'none';
+  eventModal.classList.add('hidden');
+}
+
+function applyCompactCalendarStyles() {
+  document.querySelectorAll('#calendarGrid .day').forEach(day => {
+    day.style.fontSize = '12px';
+    day.style.padding = '4px';
+    day.style.minHeight = '60px';
+  });
+
+  document.querySelectorAll('#calendarGrid .day .day-number').forEach(el => {
+    el.style.fontSize = '10px';
+    el.style.fontWeight = 'bold';
+    el.style.marginBottom = '2px';
+    el.style.lineHeight = '1';
+  });
+
+  document.querySelectorAll('#calendarGrid .day .sunrise-sunset').forEach(el => {
+    el.style.fontSize = '10px';
+    el.style.lineHeight = '1.1';
+    el.style.marginTop = 'auto';
+    el.style.color = '#666';
+  });
+
+  document.querySelectorAll('#calendarGrid .day .sunrise-icon, #calendarGrid .day .sunset-icon').forEach(el => {
+    el.style.fontSize = '12px';
+    el.style.marginRight = '2px';
+    el.style.verticalAlign = 'middle';
+  });
+
+  document.querySelectorAll('#calendarGrid .day.today-highlight').forEach(el => {
+    el.style.border = '2px solid #0056A4';
+    el.style.boxShadow = '0 0 8px #0056A4';
+  });
+}
+
+function styleCalendarButtons() {
+  const buttons = document.querySelectorAll('#calendarControls button');
+  buttons.forEach(btn => {
+    btn.style.backgroundColor = '#0056A4';
+    btn.style.color = 'white';
+    btn.style.border = 'none';
+    btn.style.padding = '8px 15px';
+    btn.style.margin = '0 5px';
+    btn.style.borderRadius = '5px';
+    btn.style.fontWeight = '600';
+    btn.style.cursor = 'pointer';
+    btn.style.boxShadow = '0 2px 5px rgba(0,0,0,0.15)';
+    btn.style.transition = 'background-color 0.3s ease, box-shadow 0.3s ease';
+
+    btn.addEventListener('mouseover', () => {
+      btn.style.backgroundColor = '#003f7d';
+      btn.style.boxShadow = '0 4px 10px rgba(0,0,0,0.3)';
+    });
+    btn.addEventListener('mouseout', () => {
+      btn.style.backgroundColor = '#0056A4';
+      btn.style.boxShadow = '0 2px 5px rgba(0,0,0,0.15)';
+    });
+    btn.addEventListener('focus', () => {
+      btn.style.outline = '2px solid #ffbf47';
+      btn.style.outlineOffset = '2px';
+    });
+    btn.addEventListener('blur', () => {
+      btn.style.outline = 'none';
+      btn.style.outlineOffset = '0';
+    });
+  });
+}
+
+// Call this once after your DOM is ready
+styleCalendarButtons();
+
+function styleEventFilter() {
+  const filterBox = document.getElementById('eventTypeFilters');
+  
+  filterBox.style.margin = '0 auto';
+filterBox.style.display = 'table';
+filterBox.style.border = '1px solid #ccc';
+filterBox.style.padding = '15px';
+filterBox.style.borderRadius = '8px';
+filterBox.style.backgroundColor = '#f0f4f8';
+filterBox.style.fontSize = '14px';
+filterBox.style.fontFamily = 'Poppins, sans-serif';
+
+
+  const legend = filterBox.querySelector('legend');
+  legend.style.fontSize = '16px';
+  legend.style.fontWeight = '600';
+  legend.style.color = '#0077cc';
+
+  const eventColors = {
+    religious: '#d1b3e0',
+    meeting: '#27ae60',
+    national: '#e67e22',
+    other: '#3498db'
+  };
+
+  const labels = filterBox.querySelectorAll('label');
+  labels.forEach(label => {
+    const input = label.querySelector('input');
+    const type = input?.value;
+
+    label.style.marginRight = '10px';
+    label.style.padding = '6px 10px';
+    label.style.borderRadius = '6px';
+    label.style.backgroundColor = '#ffffff';
+    label.style.border = `2px solid ${eventColors[type] || '#ccc'}`;
+    label.style.cursor = 'pointer';
+    label.style.display = 'inline-flex';
+    label.style.alignItems = 'center';
+    label.style.gap = '5px';
+    label.style.marginBottom = '6px';
+    label.style.transition = 'all 0.3s ease';
+    label.style.userSelect = 'none';
+
+    // Optional: hover effect
+    label.onmouseover = () => {
+      label.style.backgroundColor = eventColors[type] + '20'; // transparent tint
+    };
+    label.onmouseout = () => {
+      label.style.backgroundColor = '#ffffff';
+    };
+
+    // Style checkbox
+    if (input) {
+      input.style.width = '16px';
+      input.style.height = '16px';
+      input.style.accentColor = eventColors[type] || '#007bff';
+      input.style.cursor = 'pointer';
+    }
+  });
+}
+
+</script>
+<button id="backToTopBtn" aria-label="Back to top" title="Back to Top">🔼</button>
+<script>
+    const backToTopBtn = document.getElementById("backToTopBtn");
+
+    window.onscroll = function () {
+      if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+        backToTopBtn.style.display = "block";
+      } else {
+        backToTopBtn.style.display = "none";
+      }
+    };
+
+    backToTopBtn.addEventListener("click", () => {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+    });
+  </script>
+</body>
+
+</html>
