@@ -175,7 +175,7 @@ html, body {
  /* Grid container */
 .card-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, max-content)); /* fixed width cards */
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 0.5rem; /* small gap between cards */
   margin-top: 2rem;
   padding: 0 2rem 3rem;
@@ -195,7 +195,7 @@ html, body {
   overflow: hidden;
   cursor: default;
   width: 100%;       /* fills the grid cell */
-  max-width: 220px;   /* remove unnecessary restriction */
+  max-width: 250px;   /* remove unnecessary restriction */
   margin: 0;         /* remove negative margin to avoid shrinking issues */
   transform: translateY(5px);
 }
@@ -1556,6 +1556,7 @@ function rotateTestimonials() {
 
 </body>
 </html>
+
 
 
 
