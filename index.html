@@ -175,7 +175,7 @@ html, body {
  /* Grid container */
 .card-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr); /* exactly 4 columns */
+  grid-template-columns: repeat(auto-fit, minmax(150px, max-content)); /* fixed width cards */
   gap: 0.5rem; /* small gap between cards */
   margin-top: 2rem;
   padding: 0 2rem 3rem;
@@ -1556,6 +1556,7 @@ function rotateTestimonials() {
 
 </body>
 </html>
+
 
 
 
