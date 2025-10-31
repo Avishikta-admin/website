@@ -175,12 +175,12 @@ html, body {
  /* Grid container */
 .card-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); /* min 180px per card, auto-expand */
-  gap: 0.5rem; /* space between cards */
+  grid-template-columns: repeat(4, 1fr); /* exactly 4 columns */
+  gap: 0.5rem; /* small gap between cards */
   margin-top: 2rem;
-  padding: 0 2rem 3rem; /* smaller padding for better fit */
-  box-sizing: border-box; /* ensures padding doesn't break layout */
-  justify-content: center; /* center cards if not filling full width */
+  padding: 0 2rem 3rem;
+  justify-items: center; /* centers cards inside their grid cell */
+  box-sizing: border-box;
 }
 
 /* Card design */
@@ -195,8 +195,8 @@ html, body {
   overflow: hidden;
   cursor: default;
   width: 100%;       /* fills the grid cell */
-  max-width: 220px;   /* remove unnecessary restriction */
-  margin: 0 auto;         /* remove negative margin to avoid shrinking issues */
+  max-width: 1800px;   /* remove unnecessary restriction */
+  margin: 0;         /* remove negative margin to avoid shrinking issues */
   transform: translateY(5px);
 }
     .card:hover {
@@ -1556,6 +1556,7 @@ function rotateTestimonials() {
 
 </body>
 </html>
+
 
 
 
