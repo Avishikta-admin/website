@@ -1,5 +1,19 @@
 [
   {
+    "date": "2025-11-05",
+    "summary": "✨ 2 improvements, 🆕 0 new, 🐞 0 fixes",
+    "items": [
+      {
+        "type": "✨ improved",
+        "desc": "Refined the Quarterly Expense Report menu naming: updated terminology to 'Q-Fin Ledger' for a modern, concise, and clear representation of both income and expenditure."
+      },
+      {
+        "type": "✨ improved",
+        "desc": "Added a feedback button at the bottom-right corner of the Home page (index.html) for quick and easy visitor access."
+      }
+    ]
+  },
+  {
     "date": "2025-11-01",
     "summary": "🆕 1 new feature, ✨ 1 improvement, 🐞 0 fixes",
     "items": [
