@@ -97,7 +97,7 @@ const navHTML = `
   	<li><a href="vision-mission.html" title="Discover our vision and mission"><i class="fas fa-bullseye"></i> Vision & Mission</a></li>
   	<li><a href="governing-body.html" title="Meet the Executive Committee"><i class="fas fa-users-cog"></i> Executive Committee</a></li>
   	<li><a href="our-members.html" title="View the Residents Directory"><i class="fas fa-address-book"></i> Residents Directory</a></li>
-        <li><a href="qtrwise_exp.html" title="Quartely Expense Report"><i class="fas fa-file-invoice"></i> Quarterly Inc-Exp Report</a></li>
+        <li><a href="qtrwise_exp.html" title="Q-Fin Snapshot"><i class="fas fa-file-invoice"></i> Q-Fin Ledger</a></li>
      </ul>
     </li>
 
@@ -220,7 +220,7 @@ document.body.insertAdjacentHTML('beforeend', footerHTML);
       'vision-mission.html': ['Home', 'Association', 'Vision & Mission'],
       'governing-body.html': ['Home', 'Association', 'Executive Committee'],
       'our-members.html': ['Home', 'Association', 'Residents Directory'],
-      'qtrwise_exp.html': ['Home', 'Association', 'Quarterly Inc-Exp Report'],
+      'qtrwise_exp.html': ['Home', 'Association', 'Q-Fin Snapshot'],
       'community-bulletin.html': ['Home', 'Resources', 'Community Bulletin'],
       'mom.html': ['Home', 'Resources', 'Meeting Minutes'],
       'new-resident-guide.html': ['Home', 'Resources', 'New Resident Guideline'],
@@ -242,7 +242,7 @@ document.body.insertAdjacentHTML('beforeend', footerHTML);
       'Vision & Mission': 'vision-mission.html',
       'Executive Committee': 'governing-body.html',
       'Residents Directory': 'our-members.html',
-      'Quarterly Inc-Exp Report': 'qtrwise_exp.html',
+      'Quarterly Q-Fin Snapshot': 'qtrwise_exp.html',
       'Resources': '#',
       'Community Bulletin': 'community-bulletin.html',
       'Meeting Minutes': 'mom.html',
