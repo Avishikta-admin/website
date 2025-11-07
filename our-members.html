@@ -10,9 +10,7 @@
   <meta http-equiv="Expires" content="0" />
   <!-- Confetti script from CDN -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-  <script src="layout-loader.js"></script>
-
-<title>Avishikta - I Type - A RWA | Members Directory</title>
+<title>Avishikta - I Type - A | Members Directory</title>
 
 <style>
 /* Body background styling */
@@ -32,16 +30,16 @@
 }
 
   .subtitle {
-  background: linear-gradient(90deg, #1e3a8a, #3b82f6); /* Deep blue to lighter blue gradient */
-      color: white;
-      padding: 12px 30px;
-      font-size: 1.4rem;
-      font-weight: 700;
-      text-align: center;
-      border-radius: 30px;
-      margin-bottom: 20px;
-      margin-top: -10px; /* Adjust this value as needed to push up */
-      text-shadow: 0px 4px 8px rgba(0,0,0,0.3);
+  background: linear-gradient(90deg, #1e3a8a, #3b82f6);
+    color: white;
+    padding: 8px 17px;
+    font-size: 1rem;
+    font-weight: 700;
+    text-align: center;
+    border-radius: 30px;
+    margin: -10px auto 20px auto; /* top, horizontal auto, bottom */
+    text-shadow: 0px 4px 8px rgba(0,0,0,0.3);
+    max-width: 400px; /* adjust width as needed */
 }
 
 .subtitle:hover {
@@ -226,51 +224,111 @@
   #closeModalBtn:hover {
     color: #0b3d91;
   }
-  @media (max-width: 600px) {
-    header h1 {
-      font-size: 1rem;
-    }
-    .members-table {
-      max-width: 100%;
-    }
-    #searchInput {
-      width: 60%;
-    }
-  }
 
 /* Banner Styling */
-  #noticeBanner {
+#noticeBanner {
     position: fixed;
-    top: 10px;
-    left: 50%; /* Changed from 75% to center better on all screens */
+    top: 30px;
+    left: 50%; /* center horizontally */
     transform: translateX(-50%);
-    background-color: rgba(255, 248, 220, 0.7); /* Cornsilk/Light Gold */
-    color: #333333; /* Dark text for contrast */
+    background-color: rgba(255, 248, 220, 0.9); /* light gold */
+    color: #333333;
     font-weight: 600;
-    padding: 8px 14px;
-    border-radius: 15px;
+    padding: 3px 7px;
+    border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    display: none; /* Hidden by default */
-    animation: fadeIn 1s ease-out forwards;
+    display: flex;
+    flex-direction: row; /* row on desktop */
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: nowrap; /* allow wrapping */
     z-index: 9999;
-    font-size: 0.9rem;
-    max-width: 90%;
+    font-size: 0.7rem;
+    max-width: 100%;
     width: auto;
-    text-align: justify;
+    line-height: 1;
     word-break: break-word;
-    line-height: 1.4;
+    text-align: justify;
+    animation: fadeIn 1s ease-out forwards;
 }
 
-/* Responsive adjustment for very small screens */
-@media (max-width: 480px) {
+/* Text span styling */
+#noticeBanner span {
+    flex: 1 1 auto; /* take remaining space */
+    margin-right: 10px; /* space for close button */
+    display: inline-block; /* ensure wrapping */
+}
+
+/* Close button styling */
+#closeBannerBtn {
+    flex-shrink: 0;
+    background: transparent;
+    border: none;
+    font-size: 0.7rem;
+    font-color: black;
+    cursor: pointer;
+    line-height: 1;
+    color: #0b3d91; /* deep blue */
+}
+
+  #closeBannerBtn:hover {
+    color: #3f51b5;
+  }
+
+/* Mobile adjustments (up to 600px) */
+@media (max-width: 600px) {
     #noticeBanner {
-        font-size: 0.8rem;
-        padding: 10px;
-        border-radius: 10px;
-        max-width: 95%;
+        flex-direction: column; /* stack text and button */
+        align-items: flex-start;
+        padding: 6px 8px;
+        font-size: 0.65rem;
+        left: 50%; /* ensure still centered */
+        transform: translateX(-50%);
+    }
+
+    #noticeBanner span {
+        margin-right: 0;
+        margin-bottom: 5px; /* spacing for button */
+        flex: 1 1 100%; /* full width */
+    }
+
+    #closeBannerBtn {
+        align-self: flex-end; /* stay at right below text */
+    }
+    .subtitle{
+       font-size: 0.7rem;
+       max-width: 275px; /* adjust width as needed */
+    }
+    #searchInput {
+    padding: 6px 8px;
+    font-size: 0.7rem;
+  }
+  #clearSearchBtn {
+    padding: 6px 8px;
+    margin-left: 8px;
+    font-size: 0.7rem;
+  }
+  #membersContainer p {
+        font-size: 0.75rem; /* smaller font for mobile */
+    }
+    .tower-button {
+      font-weight: 400;
+      padding: 8px 15px;
+      margin: 5px;
+      font-size:0.6rem
+    }
+    .members-table th,
+    .members-table td {
+        font-size: 0.75rem; /* smaller font for mobile */
+        padding: 6px 8px;   /* reduce padding to fit smaller screens */
+    }
+
+    /* Optional: make tooltip text smaller */
+    .flat-link::after {
+        font-size: 0.7rem;
+        padding: 3px 6px;
     }
 }
-
 
   /* Animation for fading in the banner */
   @keyframes fadeIn {
@@ -282,23 +340,6 @@
       opacity: 1;
       transform: translateY(0);
     }
-  }
-
-  /* Close button on the banner */
-  #closeBannerBtn {
-    background: none;
-    border: none;
-    color: white;
-    font-size: 1.5rem;
-    cursor: pointer;
-    position: absolute;
-    top: 8px;
-    right: 10px;
-    transition: color 0.3s ease;
-  }
-
-  #closeBannerBtn:hover {
-    color: #f0f0f0;
   }
 
 .image-carousel {
@@ -327,7 +368,6 @@
   z-index: 2;
 }
 
-
 #scrollToTop {
   position: fixed;
   bottom: 50px; /* Reduced space from bottom */
@@ -335,14 +375,14 @@
   background-color: #ff6347;
   color: white;
   border-radius: 50%;
-  padding: 10px; /* Reduced padding */
-  font-size: 1rem; /* Smaller font size */
+  padding: 8px; /* Reduced padding */
+  font-size: 0.8rem; /* Smaller font size */
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   border: none;
   cursor: pointer;
   z-index: 10000;
   transition: background-color 0.3s ease;
-  display: flex;
+  display: none;
   justify-content: center;
   align-items: center;
 }
@@ -442,8 +482,8 @@
   background-color: red;  /* Red background color */
   color: white;
   border-radius: 5px;
-  padding: 10px 15px;  /* Adjust padding for smaller toast */
-  font-size: 14px;  /* Smaller text */
+  padding: 6px 8px;  /* Adjust padding for smaller toast */
+  font-size: 0.75rem;  /* Smaller text */
   opacity: 0;
   visibility: hidden;
   z-index: 9999;
@@ -480,8 +520,6 @@
   }
 }
 
-
-
 </style>
 </head>
 
@@ -489,7 +527,7 @@
 <main>
 <button id="scrollToTop" onclick="window.scrollTo(0, 0);" title="Go to the top">⬆️</button>
 
-<p class="subtitle">Members Directory – Planned for Release (Pending Setup & Approval)</p>
+<p class="subtitle">Members Directory – Pending Release</p>
 
 <div class="image-carousel">
   <img class="carousel-img active" src="img-1.jpg" alt="Community Image 1" />
@@ -502,7 +540,7 @@
 
 <!-- Beautiful Dummy Data Banner -->
   <div id="noticeBanner">
-    <span>"Kindly Note: The directory will go live after database integration and members’ consent for displaying personal information."</span>
+    <span>"Kindly Note: The directory will go live after database integration and members’ consent."</span>
     <button id="closeBannerBtn" onclick="closeNotice()">×</button>
 </div>
 
@@ -971,7 +1009,18 @@ setInterval(() => {
   current = next;
 }, 2000); // Change image every 2 seconds
 
+const scrollBtn = document.getElementById("scrollToTop");
+
+  window.onscroll = function() {
+    if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+      scrollBtn.style.display = "block";
+    } else {
+      scrollBtn.style.display = "none";
+    }
+  };
+
 </script>
+<script src="layout-loader.js"></script>
 </main>
 
 <!-- Password Modal -->
@@ -988,29 +1037,5 @@ setInterval(() => {
   <p id="toastMessage">Incorrect password!</p>
 </div>
 
-<script>
-  const isGitHub = location.hostname.includes('github.io');
-  const base = isGitHub ? '/website' : '';
-
-  const manifest = document.createElement('link');
-  manifest.rel = 'manifest';
-  manifest.href = base + '/manifest.json';
-
-  const themeMeta = document.createElement('meta');
-  themeMeta.name = 'theme-color';
-  themeMeta.content = '#000000';
-
-  document.head.appendChild(manifest);
-  document.head.appendChild(themeMeta);
-
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register(base + '/service-worker.js', { scope: base + '/' })
-      .then(() => console.log('✅ Service Worker registered'))
-      .catch(err => console.error('❌ Service Worker failed', err));
-  }
-</script>
-  
 </body>
 </html>
-
-
