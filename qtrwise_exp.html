@@ -9,164 +9,65 @@
 <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet" />
 <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
 <script src="layout-loader.js"></script>
-
 <style>
-  body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: #f5f7fa;
-    margin: 0;
-    padding: 20px;
-    color: #2c3e50;
-  }
-
-  h2 {
-    text-align: center;
-    background: linear-gradient(90deg, #3498db 0%, #3498db 40%, #FF8181 50%, #3498db 60%, #3498db 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    margin-top: -60px;
-    margin-bottom: 10px;
-    font-size: 20px;
-  }
-
-  .quarter-select {
-    text-align: center;
-    margin-bottom: 15px;
-    font-size: 12px;
-  }
-
-  select {
-    padding: 6px 10px;
-    font-size: 12px;
-    border-radius: 5px;
-    border: 1px solid #3498db;
-    outline: none;
-    transition: all 0.3s ease;
-  }
-  select:hover { border-color: #2c3e50; }
-
-  .financial-wrapper {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 25px;
-    max-width: 1200px;
-    margin: 0 auto;
-  }
-
-  .financial-section, .chart-section {
-    flex: 1;
-    min-width: 320px;
-  }
-
-  .note {
-    width: 100%;
-    margin-bottom: 10px;
-    padding: 10px;
-    background: #eaf4fc;
-    border-left: 4px solid #3498db;
-    font-style: italic;
-    font-size: 11px;
-    border-radius: 5px;
-    text-align: center;
-    position: sticky;
-    top: 10px;
-    z-index: 10;
-  }
-
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    background: #fff;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 2px 6px rgba(0,0,0,.08);
-    transition: transform 0.2s;
-  }
-
-  table:hover { transform: translateY(-2px); }
-  th, td { padding: 10px; text-align: left; border-bottom: 1px solid #eee; font-size: 12px; }
-  th { background: #3498db; color: #fff; font-weight: 600; }
-  tr.total td { font-weight: bold; background: #f0f6ff; }
-  tr.category-row { cursor: pointer; background: #f0f6ff; font-weight: bold; transition: background 0.3s; }
-  tr.category-row:hover { background: #e0f0ff; }
-  tr.sub-row { display: none; transition: all 0.3s ease; }
-
-  /* Alternating row colors - stronger contrast */
-tbody tr:nth-child(odd) {
-  background-color: #e0eaff; /* stronger light blue */
-}
-tbody tr:nth-child(even) {
-  background-color: #ffffff; /* white */
-}
-
-/* Hover highlight */
-tbody tr:hover {
-  background-color: #b0d4ff; /* slightly darker blue for hover */
-  transition: background-color 0.2s ease;
-}
-
-  .chart-container {
-    background: #fff;
-    padding: 15px;
-    border-radius: 8px;
-    box-shadow: 0 2px 6px rgba(0,0,0,.1);
-    text-align: center;
-    margin-bottom: 20px;
-  }
-  canvas { width: 100% !important; height: 250px !important; }
-
-  #messageContainer { text-align: center; font-style: italic; color: #555; margin-top: 15px; display: none; }
-
-  @media(max-width:768px){ 
-    .financial-wrapper { flex-direction: column; align-items: center; }
-  }
-
-  .category-row td:first-child::before { content: "►"; display: inline-block; margin-right: 8px; transition: transform 0.3s; }
-  .category-row.expanded td:first-child::before { transform: rotate(90deg); }
-
-  #scrollTopBtn {
-    position: fixed;
-    bottom: 25px;
-    right: 25px;
-    display: none;
-    background: #3498db;
-    color: #fff;
-    border: none;
-    border-radius: 50%;
-    width: 45px;
-    height: 45px;
-    font-size: 15px;
-    cursor: pointer;
-    box-shadow: 0 2px 6px rgba(0,0,0,.2);
-    transition: background 0.3s;
-  }
-  #scrollTopBtn:hover { background: #2c80b4; }
-
-  /* Cute checkbox filters */
-  .filters { display:flex; justify-content:center; flex-wrap:wrap; gap:10px; margin-bottom:15px; }
-  .filter-item { display:flex; align-items:center; gap:5px; background:#fff; padding:5px 10px; border-radius:20px; box-shadow:0 1px 4px rgba(0,0,0,.1); font-size:12px; cursor:pointer; transition:all 0.2s; }
-  .filter-item input { cursor:pointer; }
-  .filter-item:hover { transform:scale(1.05); box-shadow:0 2px 6px rgba(0,0,0,.2); }
-
-  /* Income filter pills */
-#incomeFilters .filter-item {
-  background-color: #83CBEB;
-  color: #fff; /* optional: makes text readable */
-}
-
-/* Expenditure filter pills */
-#expenseFilters .filter-item {
-  background-color: #FFA3A3;
-  color: #fff; /* optional */
-}
-
-
+  body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin:0; padding:0px; background:#f5f7fa; color:#2c3e50; transition: background 0.3s, color 0.3s;}
+  body.dark { background:#1e1e1e; color:#ccc;}
+  h2 { text-align:center; background: linear-gradient(90deg,#3498db 0%,#3498db 40%,#FF8181 50%,#3498db 60%,#3498db 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin: -60px 0 5px 0; font-size:20px;}
+  .quarter-select { text-align:center; margin-bottom:15px; font-size:11px;}
+  select { padding:6px 10px; font-size:10px; border-radius:5px; border:1px solid #3498db; outline:none; transition:all 0.3s ease;}
+  select:hover { border-color:#2c3e50;}
+  .note { width:100%; margin-bottom:10px; padding:10px; background:#eaf4fc; border-left:4px solid #3498db; font-style:italic; font-size:9px; border-radius:5px; text-align:center; position:sticky; top:10px; z-index:10;}
+  body.dark .note { background:#333; border-left:4px solid #3498db; color:#ccc;}
+  table { width:100%; border-collapse:collapse; background:#fff; border-radius:8px; overflow:hidden; box-shadow:0 2px 6px rgba(0,0,0,.08); transition: transform 0.2s;}
+  body.dark table { background:#2b2b2b; color:#ccc;}
+  table:hover { transform:translateY(-2px);}
+  th, td { padding:10px; text-align:left; border-bottom:1px solid #eee; font-size:10px;}
+  body.dark th, body.dark td { border-color:#444;}
+  th { background:#3498db; color:#fff; font-weight:600;}
+  tr.total td { font-weight:bold; background:#f0f6ff;}
+  body.dark tr.total td { background:#3a3a3a;}
+  tr.category-row { cursor:pointer; background:#f0f6ff; font-weight:bold; transition:background 0.3s;}
+  body.dark tr.category-row { background:#3a3a3a;}
+  tr.category-row:hover { background:#e0f0ff;}
+  body.dark tr.category-row:hover { background:#444;}
+  tr.sub-row { display:none; transition: all 0.3s ease;}
+  tbody tr:nth-child(odd) { background-color:#e0eaff;}
+  tbody tr:nth-child(even) { background-color:#ffffff;}
+  body.dark tbody tr:nth-child(odd){background:#2a2a2a;}
+  body.dark tbody tr:nth-child(even){background:#1f1f1f;}
+  tbody tr:hover { background-color:#b0d4ff; transition: background-color 0.2s ease;}
+  body.dark tbody tr:hover { background-color:#444;}
+   body.dark .chart-container { background:#2b2b2b; color:#ccc; box-shadow:0 2px 6px rgba(0,0,0,.5);}
+  canvas { width:100% !important; height:250px !important;}
+  #messageContainer { text-align:center; font-style:italic; color:#555; margin-top:15px; display:none;}
+  body.dark #messageContainer { color:#ccc;}
+  .category-row td:first-child::before { content:"►"; display:inline-block; margin-right:8px; transition: transform 0.3s;}
+  .category-row.expanded td:first-child::before { transform:rotate(90deg);}
+  #scrollTopBtn { position:fixed; bottom:25px; right:25px; display:none; background:#3498db; color:#fff; border:none; border-radius:50%; width:45px; height:45px; font-size:15px; cursor:pointer; box-shadow:0 2px 6px rgba(0,0,0,.2); transition: background 0.3s;}
+  #scrollTopBtn:hover { background:#2c80b4;}
+  .filters { display:flex; justify-content:center; flex-wrap:wrap; gap:10px; margin-bottom:15px;}
+  .filter-item { display:flex; align-items:center; gap:5px; background:#fff; padding:5px 10px; border-radius:20px; box-shadow:0 1px 4px rgba(0,0,0,.1); font-size:10px; cursor:pointer; transition:all 0.2s;}
+  .filter-item input { cursor:pointer;}
+  .filter-item:hover { transform:scale(1.05); box-shadow:0 2px 6px rgba(0,0,0,.2);}
+  #incomeFilters .filter-item { background-color:#83CBEB; color:#fff;} color: #3498db;
+  #expenseFilters .filter-item { background-color:#FFA3A3; color:#fff;}
+  #toggleDark {font-size: 11px; background-color: #fff; color: #3498db;}
+  #toggleDark:hover {background-color: #3498db;color: #fff;}
+  button {font-size: 10px; border: 1px solid #3498db;background-color: #fff;color: #3498db;transition: all 0.3s;}
+  button:hover {background-color: #3498db;color: #fff;}
+  #quarterSelect{font-size: 10px;}
+  .financial-wrapper { display:flex; flex-wrap:wrap; justify-content:center; gap:20px; max-width:1200px; margin:0 auto;}
+.financial-section { flex:1; min-width:320px;}
+.chart-section { flex:2; display:flex; flex-direction:column; gap:20px;}
+.bar-charts { display:flex; gap:20px;}
+.chart-container { background:#fff; padding:15px; border-radius:8px; box-shadow:0 2px 6px rgba(0,0,0,.1); text-align:center; margin-bottom:20px; flex:1;}
+.donut-chart { width:100%;}
+@media(max-width:768px){.financial-wrapper { flex-direction:column; gap:15px; } .bar-charts { flex-direction:column; } table th, table td { font-size:9px; } h2 { font-size:14px; } button, #quarterSelect { font-size:10px; } .filter-item, .note, #messageContainer { font-size:9px; } canvas { width:100% !important; max-width:100%; }}
+.chart-container.donut-chart { margin-top:-30px; }
 </style>
 </head>
 <body>
 <main>
-
 <h2>Financial Highlights – Q1 to Q4 2025</h2>
 
 <div class="quarter-select">
@@ -175,8 +76,9 @@ tbody tr:hover {
     <option value="Q1-2025">Q1 2025 (Apr–Jun)</option>
     <option value="Q2-2025" selected>Q2 2025 (Jul–Sep)</option>
     <option value="Q3-2025">Q3 2025 (Oct–Dec)</option>
-    <option value="Q4-2025">Q4 2025 (Jan–Mar)</option>
+    <option value="Q4-2025">Q4 2025 (Jan–Mar2026)</option>
   </select>
+  <button id="toggleDark">Toggle Dark Mode</button>
 </div>
 
 <div class="filters" id="incomeFilters"></div>
@@ -186,19 +88,23 @@ tbody tr:hover {
   <div class="financial-section" id="financialSection">
     <p class="note" id="quarterNote"></p>
     <table>
-      <thead>
-        <tr><th>Category</th><th>Amount (₹)</th></tr>
-      </thead>
+      <thead><tr><th>Category</th><th>Amount (₹)</th></tr></thead>
       <tbody id="mainTableBody"></tbody>
     </table>
   </div>
-
   <div class="chart-section">
-    <div class="chart-container">
-      <canvas id="incomeChart"></canvas>
+    <div class="bar-charts">
+      <div class="chart-container">
+        <button onclick="toggleChart('income')">Toggle Income Chart Type</button>
+        <canvas id="incomeChart"></canvas>
+      </div>
+      <div class="chart-container">
+        <button onclick="toggleChart('expense')">Toggle Expense Chart Type</button>
+        <canvas id="expenseChart"></canvas>
+      </div>
     </div>
-    <div class="chart-container">
-      <canvas id="expenseChart"></canvas>
+    <div class="chart-container donut-chart">
+      <canvas id="summaryChart"></canvas>
     </div>
   </div>
 </div>
@@ -210,182 +116,230 @@ tbody tr:hover {
 Chart.register(ChartDataLabels);
 
 const data2025 = {
-  "Q1-2025": { message: "Qtr - 1 is archived." },
+  "Q1-2025": { message:"Qtr - 1 is archived." },
   "Q2-2025": {
-    note: "Actual expense increased by ~97.4% vs planned due to festivals & maintenance.",
-    income: [
-      { name: "Monthly Maintenance Charge", short: "MMC", amount: 77680 },
-      { name: "New Membership Fees", short: "New Membership", amount: 50000 },
-      { name: "Development Fees", short: "Dev Fees", amount: 5000 }
-    ],
-    expenditure: [
-      { category: "🧾Admin", sub:[{name:"Auditor Fees",amount:9000},{name:"Printing & Stationeries",amount:1121},{name:"Meeting Expense",amount:2815},{name:"Office + Conveyance",amount:995}], subtotal:13931 },
-      { category: "👷Salaries", sub:[{name:"Salaries and Wages",amount:54569},{name:"Puja Bonus",amount:18085}], subtotal:72654 },
-      { category: "💡Utilities", sub:[{name:"CESC (Electricity)",amount:9710},{name:"KMC Water Tax",amount:29659},{name:"Cleaning & Swipping",amount:9600},{name:"STP",amount:17907}], subtotal:66876 },
-      { category: "🛠Maintenance", sub:[{name:"Maintenance & Contingency Fund",amount:36798},{name:"Security Services",amount:41546},{name:"AMC – DG Set",amount:13629},{name:"AMC – Fire",amount:3675},{name:"Pest Control",amount:3270},{name:"AMC – CCTV",amount:1293},{name:"Gardening",amount:4700}], subtotal:104911 },
-      { category: "🎉Events", sub:[{name:"Biswakarma Puja",amount:3500}], subtotal:3500 }
+    note:"Actual expense increased by ~97.4% vs planned due to festivals & maintenance.",
+    income:[{name:"Monthly Maintenance Charge", short:"MMC", amount:77680},{name:"New Membership Fees", short:"New Membership", amount:50000},{name:"Development Fees", short:"Dev Fees", amount:5000}],
+    expenditure:[
+      {category:"🧾Admin", sub:[{name:"Auditor Fees",amount:9000},{name:"Printing & Stationeries",amount:1121},{name:"Meeting Expense",amount:2815},{name:"Office + Conveyance",amount:995}], subtotal:13931},
+      {category:"👷Salaries", sub:[{name:"Salaries and Wages",amount:54569},{name:"Puja Bonus",amount:18085}], subtotal:72654},
+      {category:"💡Utilities", sub:[{name:"CESC (Electricity)",amount:9710},{name:"KMC Water Tax",amount:29659},{name:"Cleaning & Swipping",amount:9600},{name:"STP",amount:17907}], subtotal:66876},
+      {category:"🛠Maintenance", sub:[{name:"Maintenance & Contingency Fund",amount:36798},{name:"Security Services",amount:41546},{name:"AMC – DG Set",amount:13629},{name:"AMC – Fire",amount:3675},{name:"Pest Control",amount:3270},{name:"AMC – CCTV",amount:1293},{name:"Gardening",amount:4700}], subtotal:104911},
+      {category:"🎉Events", sub:[{name:"Biswakarma Puja",amount:3500}], subtotal:3500}
     ]
   },
-  "Q3-2025": { message: "Quarter - 3 data is not yet available." },
-  "Q4-2025": { message: "Quarter - 4 is yet to begin." }
+  "Q3-2025": { message:"Quarter - 3 data is not yet available." },
+  "Q4-2025": { message:"Quarter - 4 is yet to begin." }
 };
 
-const quarterSelect = document.getElementById("quarterSelect");
-const mainTableBody = document.getElementById("mainTableBody");
-const quarterNote = document.getElementById("quarterNote");
-const messageContainer = document.getElementById("messageContainer");
-const scrollTopBtn = document.getElementById("scrollTopBtn");
-const incomeFilters = document.getElementById("incomeFilters");
-const expenseFilters = document.getElementById("expenseFilters");
+const quarterSelect=document.getElementById("quarterSelect");
+const mainTableBody=document.getElementById("mainTableBody");
+const quarterNote=document.getElementById("quarterNote");
+const messageContainer=document.getElementById("messageContainer");
+const scrollTopBtn=document.getElementById("scrollTopBtn");
+const incomeFilters=document.getElementById("incomeFilters");
+const expenseFilters=document.getElementById("expenseFilters");
+const toggleDarkBtn = document.getElementById("toggleDark");
 
-let incomeChart, expenseChart;
-let selectedIncome = new Set();
-let selectedExpense = new Set();
+let incomeChart, expenseChart, summaryChart;
+let selectedIncome = new Set(), selectedExpense = new Set();
+let chartTypes = {income:'bar', expense:'bar'};
 
 function createFilters(qData){
-  incomeFilters.innerHTML = "";
-  expenseFilters.innerHTML = "";
+  incomeFilters.innerHTML="";
+  expenseFilters.innerHTML="";
   selectedIncome.clear();
   selectedExpense.clear();
-
   qData.income.forEach(i=>{
-    const div = document.createElement("label");
+    const div=document.createElement("label");
     div.classList.add("filter-item");
-    div.innerHTML = `<input type="checkbox" checked data-name="${i.short}"> ${i.short}`;
+    div.innerHTML=`<input type="checkbox" checked data-name="${i.short}"> ${i.short}`;
     incomeFilters.appendChild(div);
     selectedIncome.add(i.short);
-    div.querySelector("input").addEventListener("change",(e)=>{
-      if(e.target.checked) selectedIncome.add(i.short);
-      else selectedIncome.delete(i.short);
-      updateUI();
-    });
+    div.querySelector("input").addEventListener("change",(e)=>{e.target.checked?selectedIncome.add(i.short):selectedIncome.delete(i.short);updateUI();});
   });
-
   qData.expenditure.forEach(c=>{
-    const div = document.createElement("label");
+    const div=document.createElement("label");
     div.classList.add("filter-item");
-    div.innerHTML = `<input type="checkbox" checked data-cat="${c.category}"> ${c.category}`;
+    div.innerHTML=`<input type="checkbox" checked data-cat="${c.category}"> ${c.category}`;
     expenseFilters.appendChild(div);
     selectedExpense.add(c.category);
-    div.querySelector("input").addEventListener("change",(e)=>{
-      if(e.target.checked) selectedExpense.add(c.category);
-      else selectedExpense.delete(c.category);
-      updateUI();
-    });
+    div.querySelector("input").addEventListener("change",(e)=>{e.target.checked?selectedExpense.add(c.category):selectedExpense.delete(c.category);updateUI();});
   });
 }
 
-function updateUI(){
+function updateUI() {
   const quarter = quarterSelect.value;
   const qData = data2025[quarter];
 
-  if(!qData?.income){
+  if (!qData?.income) {
     messageContainer.style.display = "block";
     messageContainer.textContent = qData?.message || qData?.note || "Data not available.";
     document.getElementById("financialSection").style.display = "none";
-    document.querySelectorAll(".chart-container").forEach(el=>el.style.display="none");
+    document.querySelectorAll(".chart-container").forEach(el => el.style.display = "none");
     incomeFilters.style.display = "none";
     expenseFilters.style.display = "none";
     return;
   }
 
-  messageContainer.style.display="none";
-  document.getElementById("financialSection").style.display="block";
-  document.querySelectorAll(".chart-container").forEach(el=>el.style.display="block");
+  messageContainer.style.display = "none";
+  document.getElementById("financialSection").style.display = "block";
+  document.querySelectorAll(".chart-container").forEach(el => el.style.display = "block");
   incomeFilters.style.display = "flex";
   expenseFilters.style.display = "flex";
-
-  quarterNote.style.display=qData.note?"block":"none";
+  quarterNote.style.display = qData.note ? "block" : "none";
   quarterNote.innerHTML = `<strong>${qData.note || ""}</strong>`;
 
-  if(selectedIncome.size===0 && selectedExpense.size===0) createFilters(qData);
+  if (selectedIncome.size === 0 && selectedExpense.size === 0) createFilters(qData);
 
-  mainTableBody.innerHTML="";
-  let totalIncome=0,totalExpense=0;
+  mainTableBody.innerHTML = "";
+  let totalIncome = 0, totalExpense = 0;
 
-  // Income
-  mainTableBody.innerHTML += `<tr style="background-color:#C1E5F5;"><td><strong>Income:</strong></td><td></td></tr>`;
-  qData.income.forEach(i=>{
-    if(selectedIncome.has(i.short)){
+  // Calculate totals
+  qData.income.forEach(i => { if (selectedIncome.has(i.short)) totalIncome += i.amount; });
+  qData.expenditure.forEach(c => { if (selectedExpense.has(c.category)) totalExpense += c.subtotal; });
+
+  // Income Section
+  mainTableBody.innerHTML += `<tr style="background-color:#C1E5F5;"><td><strong>Income:</strong></td><td><strong>${totalIncome.toLocaleString()}</strong></td></tr>`;
+  qData.income.forEach(i => {
+    if (selectedIncome.has(i.short)) {
       mainTableBody.innerHTML += `<tr class="income-row" data-name="${i.short}"><td>${i.name}</td><td>${i.amount.toLocaleString()}</td></tr>`;
-      totalIncome+=i.amount;
     }
   });
-  mainTableBody.innerHTML += `<tr class="total"><td>Total Income</td><td>${totalIncome.toLocaleString()}</td></tr>`;
 
-  // Expenditure
-  mainTableBody.innerHTML += `<tr style="background-color:#FF9393;"><td><strong>Expenditure:</strong></td><td></td></tr>`;
-  qData.expenditure.forEach(c=>{
-    if(selectedExpense.has(c.category)){
+  // Expenditure Section
+  mainTableBody.innerHTML += `<tr style="background-color:#FF9393;"><td><strong>Expenditure:</strong></td><td><strong>${totalExpense.toLocaleString()}</strong></td></tr>`;
+
+  // Expenditure categories and sub-items
+  qData.expenditure.forEach(c => {
+    if (selectedExpense.has(c.category)) {
       const catRow = document.createElement("tr");
       catRow.classList.add("category-row");
       catRow.dataset.category = c.category;
       catRow.innerHTML = `<td>${c.category}</td><td>${c.subtotal.toLocaleString()}</td>`;
       mainTableBody.appendChild(catRow);
 
-      c.sub.forEach(s=>{
+      c.sub.forEach(s => {
         const subRow = document.createElement("tr");
         subRow.classList.add("sub-row", c.category);
+        subRow.style.display = "none"; // collapsed by default
         subRow.innerHTML = `<td>${s.name}</td><td>${s.amount.toLocaleString()}</td>`;
         mainTableBody.appendChild(subRow);
       });
-      totalExpense+=c.subtotal;
     }
   });
-  mainTableBody.innerHTML += `<tr class="total"><td>Total Expenditure</td><td>${totalExpense.toLocaleString()}</td></tr>`;
 
+  // Surplus / Deficit
   const surplus = totalIncome - totalExpense;
-  const surplusPerc = ((surplus/totalIncome)*100).toFixed(1);
+  const surplusPerc = ((surplus / totalIncome) * 100).toFixed(1);
   const surplusColor = surplus >= 0 ? "green" : "red";
   mainTableBody.innerHTML += `<tr class="total"><td>Surplus / Deficit</td><td style="color:${surplusColor};">${surplus.toLocaleString()} (${surplusPerc}%)</td></tr>`;
 
-  document.querySelectorAll(".category-row").forEach(catRow=>{
-    catRow.addEventListener("click", ()=>{
+  // Category toggle
+  document.querySelectorAll(".category-row").forEach(catRow => {
+    catRow.addEventListener("click", () => {
       const category = catRow.dataset.category;
       const subRows = document.querySelectorAll(`.sub-row.${category}`);
       const expanded = catRow.classList.toggle("expanded");
-      subRows.forEach(r=>r.style.display=expanded?"table-row":"none");
+      subRows.forEach(r => r.style.display = expanded ? "table-row" : "none");
     });
   });
 
   renderCharts(qData);
 }
 
+
+
+
+
 function renderCharts(qData){
-  const incomeLabels = qData.income.filter(i=>selectedIncome.has(i.short)).map(i=>i.short);
-  const incomeData = qData.income.filter(i=>selectedIncome.has(i.short)).map(i=>i.amount);
-  const expenseLabels = qData.expenditure.filter(c=>selectedExpense.has(c.category)).map(c=>c.category);
-  const expenseData = qData.expenditure.filter(c=>selectedExpense.has(c.category)).map(c=>c.subtotal);
+  const incomeLabels = qData.income.filter(i => selectedIncome.has(i.short)).map(i => i.short);
+  const incomeData = qData.income.filter(i => selectedIncome.has(i.short)).map(i => i.amount);
+  const expenseLabels = qData.expenditure.filter(c => selectedExpense.has(c.category)).map(c => c.category);
+  const expenseData = qData.expenditure.filter(c => selectedExpense.has(c.category)).map(c => c.subtotal);
+  const totalIncome = incomeData.reduce((a,b) => a + b, 0);
+  const totalExpense = expenseData.reduce((a,b) => a + b, 0);
+  const summaryData = [totalIncome, totalExpense];
+
+  // Set font size based on screen width
+  const fontSize = window.innerWidth <= 768 ? 8 : 8;
 
   if(incomeChart) incomeChart.destroy();
   if(expenseChart) expenseChart.destroy();
+  if(summaryChart) summaryChart.destroy();
+
+  const baseOptions = {
+    plugins: {
+      datalabels: { anchor:'end', align:'top', font:{ size:fontSize } },
+      legend: { labels:{ font:{ size:fontSize } } }
+    },
+    scales: {
+      x: { ticks:{ font:{ size:fontSize } } },
+      y: { ticks:{ font:{ size:fontSize } } }
+    }
+  };
 
   incomeChart = new Chart(document.getElementById("incomeChart"), {
-    type:"bar",
-    data:{ labels: incomeLabels, datasets:[{label:"Income (₹)", data:incomeData, backgroundColor:"#3498db"}]},
-    options:{plugins:{datalabels:{anchor:'end',align:'top'}}}
+    type: chartTypes.income,
+    data: { labels: incomeLabels, datasets: [{ label:"Income (₹)", data: incomeData, backgroundColor:"#3498db" }] },
+    options: baseOptions
   });
 
   expenseChart = new Chart(document.getElementById("expenseChart"), {
-    type:"bar",
-    data:{ labels: expenseLabels, datasets:[{label:"Expenditure (₹)", data:expenseData, backgroundColor:"#e74c3c"}]},
-    options:{plugins:{datalabels:{anchor:'end',align:'top'}}}
+    type: chartTypes.expense,
+    data: { labels: expenseLabels, datasets: [{ label:"Expenditure (₹)", data: expenseData, backgroundColor:"#e74c3c" }] },
+    options: baseOptions
   });
+
+  summaryChart = new Chart(document.getElementById("summaryChart"), {
+  type: 'doughnut',
+  data: {
+    labels: ["Income", "Expenditure"],
+    datasets: [{ data: summaryData, backgroundColor: ["#3498db","#e74c3c"], cutout: '60%' }] // smaller donut
+  },
+  options: {
+    maintainAspectRatio: false,
+    responsive: true,
+    plugins: {
+      legend: { 
+        position: 'bottom', 
+        labels: { font: { size: fontSize }, color: '#0D3B66' } // <-- legend text set to blue
+      },
+      datalabels: { 
+        color: '#ffffff',       // value inside chart
+        font: { size: fontSize },
+        formatter: value => value.toLocaleString()
+      },
+      tooltip: {
+        callbacks: {
+          label: function(context) {
+            let label = context.label || '';
+            let value = context.raw || 0;
+            return label + ': ₹' + value.toLocaleString();
+          }
+        },
+        titleColor: '#ffffff',
+        bodyColor: '#ffffff',
+        bodyFont: { size: fontSize }
+      }
+    }
+  }
+});
+
 }
 
-quarterSelect.addEventListener("change", ()=>{
-  selectedIncome.clear();
-  selectedExpense.clear();
-  updateUI();
-});
+// Optional: re-render charts on window resize to update mobile/desktop font sizes
+window.addEventListener('resize', () => renderCharts(qData));
+
+function toggleChart(type){chartTypes[type]=chartTypes[type]==='bar'?'line':'bar';updateUI();}
+
+quarterSelect.addEventListener("change",()=>{selectedIncome.clear(); selectedExpense.clear(); updateUI();});
+toggleDarkBtn.addEventListener("click",()=>{document.body.classList.toggle("dark");});
+window.onscroll=function(){scrollTopBtn.style.display=document.body.scrollTop>200||document.documentElement.scrollTop>200?"block":"none";};
+scrollTopBtn.addEventListener("click",()=>{document.documentElement.scrollTo({top:0,behavior:'smooth'});});
+AOS.init({duration:500});
 updateUI();
-
-window.onscroll = ()=> scrollTopBtn.style.display = (document.body.scrollTop>200 || document.documentElement.scrollTop>200) ? "block" : "none";
-scrollTopBtn.addEventListener("click", ()=> window.scrollTo({top:0, behavior:"smooth"}));
-
-AOS.init({duration:600, once:true});
 </script>
-
 </main>
 </body>
 </html>
