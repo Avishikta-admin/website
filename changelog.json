@@ -1,5 +1,15 @@
 [
   {
+    "date": "2025-11-11",
+    "summary": "✨ 1 improvement",
+    "items": [
+      {
+        "type": "✨ improved",
+        "desc": "Redesigned the search suggestions dropdown with a translucent frosted glass background, subtle soft-pink hover/active highlights, and reduced padding on input fields and items for a modern, compact, and visually responsive UI."
+      }
+    ]
+  },
+  {
     "date": "2025-11-05",
     "summary": "✨ 2 improvements, 🆕 0 new, 🐞 0 fixes",
     "items": [
@@ -78,20 +88,6 @@
       {
         "type": "✨ improved",
         "desc": "Updated governing-body.html to reflect selected EC members during the AGM held on 27th July 2025."
-      }
-    ]
-  },
-  {
-    "date": "2025-09-17",
-    "summary": "🆕 1 new feature, ✨ 1 improvement, 🐞 0 fixes",
-    "items": [
-      {
-        "type": "✨ improved",
-        "desc": "Added a dedicated Virtual Darshan section on darshan.html for an enhanced spiritual experience."
-      },
-      {
-        "type": "🆕 new",
-        "desc": "Introduced Durga Puja Nirghanta section, providing detailed and accessible event information."
       }
     ]
   }
