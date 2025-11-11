@@ -56,7 +56,7 @@
     .quick-nav {
       text-align: center;
       margin-bottom: 20px;
-      font-size: 0.95rem;
+      font-size: 0.9rem;
       color: #ccc;
     }
     .quick-nav a {
@@ -75,19 +75,7 @@
   text-decoration: underline;
 }
 
-    /* Sticky toggle button on mobile */
-    @media (max-width: 600px) {
-      #toggleAllBtn {
-        position: sticky;
-        top: 10px;
-        z-index: 999;
-        width: calc(100% - 40px);
-        margin: 10px auto 20px auto;
-        display: block;
-      }
-    }
-
-    .highlighted {
+.highlighted {
   background-color: orange;  /* highlight color */
   color: black;              /* text color to contrast */
   transition: background-color 2s ease;
@@ -100,8 +88,7 @@
  
     body {
       font-family: 'Poppins', sans-serif;
-      background: linear-gradient(135deg, #6b8ce3, #2a3f55);
-      color: #eee;
+      background: linear-gradient(135deg, #a3c4f3 0%, #7aa7d9 50%, #5c8acb 100%);
       margin: 0;
       padding-left: 0;
       padding-right: 0;
@@ -113,14 +100,15 @@
     }
 
     main {
-      background-color: #1f2c44; /* deeper navy */
+      background: linear-gradient(135deg, #1f2c44 0%, #3e4b6c 50%, #fbe88f 100%);
+      background-size: cover;
       max-width: 100%;
       width: 100%;
       margin: 30px auto 50px;
       border-radius: 16px;
       padding: 20px 25px;
       box-shadow: 0 12px 35px rgba(0, 0, 0, 0.4);
-      color: #e6ebf1;
+      color: #FBE7DD;
       position: relative;
       overflow: visible;
       transition: outline-color 0.3s ease;
@@ -176,7 +164,7 @@
 
     h2 {
       font-weight: 600;
-      font-size: 1rem;
+      font-size: 0.9rem;
       color: #c4a7e7;
       margin-top: 1.8rem;
       margin-bottom: 1rem;
@@ -198,8 +186,8 @@
     }
 
     /* Collapse icon on right */
-    h2 .toggle-icon {
-      font-size: 1.2rem;
+    h2.toggle-icon {
+      font-size: 1rem;
       color: #b39ddb;
       transition: transform 0.3s ease;
       margin-left: 10px;
@@ -209,9 +197,21 @@
       transform: rotate(-90deg);
     }
 
+  h1#new-resident-title {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  font-size: 1.5rem;
+  text-align: center;
+  background: linear-gradient(135deg, #ffe97d, #ffd36b, #ffb347);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin: 20px auto;
+  line-height: 1.2;
+}
+
     p {
-      line-height: 1.5;
-      font-size: 1rem;
+      line-height: 1.3;
+      font-size: 0.85rem;
       margin-bottom: 1.3rem;
       color: #e0dffb;
       text-align: justify;
@@ -263,7 +263,7 @@
       text-decoration: none;
       box-shadow: 0 8px 20px rgb(126 87 194 / 0.7);
       transition: background-color 0.3s ease, box-shadow 0.3s ease;
-      font-size: 1.1rem;
+      font-size: 1rem;
       text-align: center;
       position: relative;
       z-index: 1;
@@ -281,42 +281,107 @@
     .section-icon {
       color: #b8a9ff;
       margin-right: 10px;
-      font-size: 1.4rem;
+      font-size: 1.2rem;
       vertical-align: middle;
       position: relative;
       z-index: 1;
       user-select: none;
     }
 
-    /* Responsive */
-    @media (max-width: 960px) {
-      main {
-        width: 90%;
-        padding: 30px 30px 40px 30px;
-      }
-      h1 {
-        font-size: 2.2rem;
-      }
-      h2 {
-        font-size: 1.15rem;
-      }
-      a.button {
-        width: 100%;
-        padding: 14px 0;
-        font-size: 1rem;
-      }
-    }
-    @media (max-width: 600px) {
-      main {
-        padding: 20px 15px 25px 15px;
-      }
-      h1 {
-        font-size: 1.8rem;
-      }
-      h2 {
-        font-size: 1.1rem;
-      }
-    }
+ #sections-container p, #sections-container li, #sections-container a { color: #e8e8e8; font-size: 0.85rem; line-height: 1.2; }
+  #sections-container .section-icon,
+  #sections-container .toggle-icon { color: #f5f5f5; font-size:0.85rem;}
+  #sections-container h2 {font-size: 0.9rem; color: #f5f5f5;  font-family: 'Poppins', sans-serif;}
+
+  /* Individual icon colors per section */
+#section1-header .section-icon {
+  color: #f9c74f; /* warm yellow for Registration */
+}
+#section2-header .section-icon {
+  color: #90be6d; /* green for Access & Amenities */
+}
+#section3-header .section-icon {
+  color: #43aa8b; /* teal for Communication Channels */
+}
+#section4-header .section-icon {
+  color: #f8961e; /* orange for Community Guidelines */
+}
+#section5-header .section-icon {
+  color: #577590; /* blue for Getting Involved */
+}
+
+/* Optional: subtle hover effect for headings */
+#sections-container h2:hover {
+  color: #ffffff;
+}
+#sections-container h2:hover .section-icon {
+  transform: scale(1.1);
+  transition: transform 0.2s ease;
+}
+
+    /* Sticky toggle button on mobile */
+    @media (max-width: 768px) {
+  /* Reset container layout */
+  #sections-container {
+    font-size: 0.75rem;
+    padding: 0 12px; /* add internal padding */
+    margin: 0 auto;
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden; /* ensure no horizontal cropping */
+    position: relative;
+  }
+
+  /* Fix section headers cropping */
+  #sections-container h2 {
+    font-size: 0.75rem;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    text-align: left;
+    padding: 8px 10px; /* add safe space inside */
+    margin: 8px 0;
+    width: 100%;
+    box-sizing: border-box;
+    overflow: visible; /* prevent text clipping */
+    transform: none !important; /* fix if JS adds transforms */
+    position: relative;
+    left: 0;
+  }
+
+  /* Adjust icons inside headers */
+  #sections-container .section-icon {
+    font-size: 0.8rem;
+    margin-right: 6px;
+    flex-shrink: 0;
+  }
+
+  #sections-container .toggle-icon {
+    font-size: 0.8rem;
+    margin-left: auto; /* push toggle icon to far right */
+  }
+
+  /* Paragraphs and lists */
+  #sections-container p,
+  #sections-container li {
+    font-size: 0.7rem;
+    line-height: 1.2;
+    padding-left: 4px;
+  }
+
+  #sections-container a {
+    font-size: 0.7rem;
+  }
+
+  /* Ensure parent doesn't crop */
+  body, html {
+    overflow-x: hidden;
+  }
+
+  h1#new-resident-title {font-size:0.95rem;}
+  .quick-nav {font-size: 0.75rem;padding: 0 14px;}
+}
 
     /* Back to Top Button */
     #scrollToTop {
@@ -328,7 +393,7 @@
       border: none;
       border-radius: 50%;
       padding: 12px 16px;
-      font-size: 0.85rem;
+      font-size: 0.8rem;
       cursor: pointer;
       box-shadow: 0 4px 12px rgba(0,0,0,0.3);
       opacity: 0;
@@ -364,8 +429,8 @@ html {
   scroll-behavior: smooth;
 }
 a.feedback-btn {
-  font-size: 0.85rem;
-  padding: 8px 20px;
+  font-size: 0.8rem;
+  padding: 5px 15px;
 }
 
   </style>
@@ -377,7 +442,7 @@ a.feedback-btn {
 </div>
 
   <main role="main" aria-labelledby="new-resident-title">
-    <h1 id="new-resident-title">Welcome to Avishikta - I Type - A Association!</h1>
+    <h1 id="new-resident-title">New Resident Guidelines – Avishikta - 1 Type - RWA</h1>
 
    <div class="quick-nav">
       <strong>Quick Jump:</strong>
