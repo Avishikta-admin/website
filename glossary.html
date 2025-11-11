@@ -40,6 +40,7 @@
       text-align: center;
       font-size: 2.5rem;
       margin-bottom: 0.5rem;
+      margin-top: -2rem;
       font-weight: 700;
       background: linear-gradient(45deg, #6ec1e4, #2980b9, #27ae60, #f39c12);
       -webkit-background-clip: text;
@@ -61,10 +62,20 @@
       margin: 0 auto 1rem;
     }
 
+  .search-wrapper::before {
+  content: '🔍';             /* magnifying glass emoji */
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.9rem;           /* adjust size if needed */
+  pointer-events: none;      /* allows clicking input without obstruction */
+  color: #888;
+}
+
     #searchInput {
       width: 100%;
       padding: 0.5rem 2.5rem 0.5rem 0.8rem;
-      font-size: 1rem;
+      font-size: 0.85rem;
       border: 1px solid #ccc;
       border-radius: 6px;
       box-sizing: border-box;
@@ -150,7 +161,8 @@
       list-style: none;
       padding: 0;
       margin: 0 auto;
-      max-width: 700px;
+      max-width: 600px;
+      font-size: 14px;
     }
 
     ul.glossary-list li {
@@ -162,19 +174,19 @@
       display: flex;
       flex-wrap: wrap;
       align-items: center;
-      gap: 0.5rem;
+      gap: 0.1rem;
     }
 
     ul.glossary-list li strong {
       color: #34495e;
-      font-size: 1.1rem;
+      font-size: 0.85rem;
       font-weight: 600;
     }
 
     .dash {
       color: #999;
       font-weight: bold;
-      margin: 0 0.4rem;
+      margin: 0 0.1rem;
       user-select: none;
     }
 
@@ -192,7 +204,7 @@
     .highlight {
       background-color: #ffeb3b;
       color: #000;
-      font-weight: 700;
+      font-weight: 600;
       padding: 0 2px;
       border-radius: 3px;
     }
@@ -276,6 +288,13 @@
       #scrollTopBtn {
     bottom: 80px; /* Move up a bit */
   }
+  h1 {font-size:1rem;}
+  .last-updated {font-size:0.85rem;}
+  ul.glossary-list { font-size: 10px;}
+  ul.glossary-list li strong {font-size: 0.75rem; font-weight: 600;}
+  .alphabet-filter button { min-width: 8px; padding: 0.1rem 0.2rem; font-size: 0.7rem; }
+  #searchInput {font-size: 0.8rem; padding: 0.35rem 2rem 0.35rem 0.6rem;}
+   .search-wrapper::before {font-size:0.75rem;}
 }
 
 </style>
@@ -286,13 +305,13 @@
     <p class="last-updated" aria-live="polite"></p>
 
     <div class="search-wrapper">
-      <input type="text" id="searchInput" placeholder="Search glossary..." aria-label="Search glossary" />
+      <input type="text" id="searchInput" placeholder="  Search glossary..." aria-label="Search glossary" />
       <button class="clear-btn" id="clearSearchBtn" title="Clear search">×</button>
     </div>
 
     <div class="alphabet-filter" role="toolbar" aria-label="Filter glossary by letter">
       <button id="showAllBtn" aria-pressed="true">Show All</button>
-      <button id="sortToggleBtn" title="Toggle sort A-Z / Z-A" aria-pressed="true">Sort: Z-A</button>
+      <button id="sortToggleBtn" title="Toggle sort A-Z / Z-A" aria-pressed="true">Sort: A-Z</button>
       <button>A</button><button>B</button><button>C</button><button>D</button><button>E</button>
       <button>F</button><button>G</button><button>H</button><button>I</button><button>J</button>
       <button>K</button><button>L</button><button>M</button><button>N</button><button>O</button>
@@ -380,25 +399,44 @@
       return matrix[b.length][a.length];
     }
 
-    // Find closest term to suggest
-    function findClosestTerm(query) {
-  let minDistance = Infinity;
-  let closestTerm = null;
+  // Find closest term to suggest
+  function findClosestTerms(query) {
+  if (query.length < 3) return [];
+
+  const suggestions = [];
+  const threshold = Math.min(3, query.length / 1.5);
   const lowerQuery = query.toLowerCase();
 
   glossaryData.forEach(item => {
-    const termLower = item.term.toLowerCase();
-    const dist = levenshtein(lowerQuery, termLower);
-    if (dist < minDistance) {
-      minDistance = dist;
-      closestTerm = item.term;
+    const termDist = levenshtein(lowerQuery, item.term.toLowerCase());
+    const descDist = levenshtein(lowerQuery, item.desc.toLowerCase());
+
+    if (termDist <= threshold) {
+      suggestions.push({ text: item.term, distance: termDist });
+    } else if (descDist <= threshold) {
+      suggestions.push({ text: item.term, distance: descDist });
     }
   });
 
-  // Only suggest if reasonably close (distance less than half the length)
-  if (minDistance <= query.length / 2) return closestTerm;
-  return null;
+  // Remove duplicates, keep best distance for each term
+  const uniqueSuggestions = [];
+  const seen = new Map();
+
+  suggestions.forEach(({ text, distance }) => {
+    if (!seen.has(text) || distance < seen.get(text)) {
+      seen.set(text, distance);
+    }
+  });
+
+  seen.forEach((distance, text) => {
+    uniqueSuggestions.push({ text, distance });
+  });
+
+  uniqueSuggestions.sort((a, b) => a.distance - b.distance);
+
+  return uniqueSuggestions.slice(0, 3);
 }
+
 
   function renderGlossary(filterLetter = null, overrideList = null, query = '') {
   glossaryList.innerHTML = '';
@@ -422,27 +460,31 @@
     );
 
     if (filtered.length === 0) {
-      const suggestion = findClosestTerm(query);
-      if (suggestion && suggestion.toLowerCase() !== query.toLowerCase()) {
-        didYouMeanContainer.innerHTML = `Did you mean ? <button id="didYouMeanBtn" aria-label="Did you mean ${suggestion}">${suggestion}</button>`;
-        const didYouMeanBtn = document.getElementById('didYouMeanBtn');
-        if (didYouMeanBtn) {
-          didYouMeanBtn.addEventListener('click', () => {
-            searchInput.value = suggestion;
-            filterGlossary(null, suggestion);
-            didYouMeanContainer.textContent = '';
-          });
-          didYouMeanBtn.focus();
-        }
+  const suggestions = findClosestTerms(query);
+  
+  if (suggestions.length > 0) {
+    didYouMeanContainer.innerHTML = `Did you mean? ` + suggestions.map(s => 
+      `<button class="didYouMeanBtn" data-suggestion="${s.text}" aria-label="Did you mean ${s.text}">${s.text}</button>`
+    ).join(' ');
 
-        glossaryList.innerHTML = '';
-        return;
-      } else {
+    document.querySelectorAll('.didYouMeanBtn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const suggestion = btn.dataset.suggestion;
+        searchInput.value = suggestion;
+        filterGlossary(null, suggestion);
         didYouMeanContainer.textContent = '';
-        glossaryList.innerHTML = '<li>No terms found.</li>';
-        return;
-      }
-    }
+      });
+    });
+
+    glossaryList.innerHTML = '';
+    return;
+  } else {
+    didYouMeanContainer.innerHTML = '<span>No close matches found.</span>';
+  glossaryList.innerHTML = '<li>No terms found.</li>';
+  return;
+  }
+}
+
   }
 
   didYouMeanContainer.textContent = ''; // Clear "Did You Mean" if results found or no query
@@ -511,13 +553,29 @@
       searchInput.focus();
     });
 
+function updateSortButtonLabel() {
+  sortToggleBtn.textContent = currentSortAsc ? 'Sort: A-Z' : 'Sort: Z-A';
+  sortToggleBtn.setAttribute('aria-pressed', currentSortAsc.toString());
+}
+
     // Event: Sort toggle button
     sortToggleBtn.addEventListener('click', () => {
-      currentSortAsc = !currentSortAsc;
-      sortToggleBtn.textContent = currentSortAsc ? 'Sort: Z-A' : 'Sort: A-Z';
-      sortToggleBtn.setAttribute('aria-pressed', currentSortAsc.toString());
-      filterGlossary(null, searchInput.value.trim());
-    });
+  // Toggle the sort order boolean
+  currentSortAsc = !currentSortAsc;
+
+  // Update button text based on the new sort order
+  if (currentSortAsc) {
+    sortToggleBtn.textContent = 'Sort: A-Z';
+  } else {
+    sortToggleBtn.textContent = 'Sort: Z-A';
+  }
+
+  // Update aria-pressed attribute for accessibility
+  sortToggleBtn.setAttribute('aria-pressed', currentSortAsc.toString());
+
+  // Re-render glossary with new sort order and current search query
+  filterGlossary(null, searchInput.value.trim());
+});
 
     // Scroll to top button logic
     window.addEventListener('scroll', () => {
@@ -534,6 +592,7 @@
     });
 
     // Initialize with all terms shown, sorted A-Z
+    updateSortButtonLabel();
     filterGlossary('Show All');
 
   </script>
