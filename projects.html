@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -63,7 +64,7 @@
     /* Accordion summary styling */
     details > summary.section-title {
       font-family: 'Playfair Display', serif;
-      font-size: 1.25rem;
+      font-size: 1rem;
       color: #4a3575;
       margin: 10px 0 6px;
       border-bottom: 2px solid #4a3575;
@@ -90,7 +91,7 @@
      content: "+";
      margin-left: auto;      /* push to the right */
      font-weight: 900;
-     font-size: 1.6rem;
+     font-size: 1rem;
      color: #2a9d8f;         /* same color as summary text */
      transition: transform 0.3s ease, color 0.3s ease;
      line-height: 1;         /* prevent vertical misalignment */
@@ -102,7 +103,7 @@
       content: "−";           /* minus sign */
       color: blue;         /* highlight color */
       font-weight: 900;       /* bold */
-      font-size: 1.6rem;      /* match size */
+      font-size: 1rem;      /* match size */
              line-height: 1;
              text-shadow: 0 0 1px blue;
    }
@@ -179,7 +180,7 @@
       flex: 1;
     }
     .project-title {
-      font-size: 1.2rem;
+      font-size: 1rem;
       color: #4a3575;
       margin: 0 0 8px 0;
       font-weight: 700;
@@ -201,8 +202,8 @@
       color: #f4a261;
     }
     .project-description {
-      font-size: 1rem;
-      line-height: 1.5;
+      font-size: 0.85rem;
+      line-height: 1.3;
       color: #555;
       text-align: justify;
     }
@@ -228,81 +229,57 @@
   background-color: #2a9d8f;
 }
 
-
-    /* Responsive */
-    @media (max-width: 600px) {
-      .project {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-      }
-      .project img {
-        width: 100%;
-        height: auto;
-      }
-      .project-content {
-        width: 100%;
-      }
-    }
-
-    /* Go to Top button styling */
-    #goTopBtn {
-      position: fixed;
-      bottom: 50px;
-      right: 10px;
-      background: #007BFF;
-      color: white;
-      border: none;
-      padding: 12px 16px;
-      border-radius: 50%;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-      cursor: pointer;
-      font-size: 20px;
-      z-index: 1000;
-      opacity: 0.7;
-      transition: opacity 0.3s ease;
-      display: none; /* hidden initially */
-    }
-    #goTopBtn:hover {
-      opacity: 1;
-      background: #0056b3;
-    }
-
 /* === MOBILE RESPONSIVE IMPROVEMENTS === */
-@media (max-width: 600px) {
-  /* Stack control buttons and search input vertically */
+@media (max-width: 600px)
+{
+  /* Project layout adjustments */
+  .project { 
+    flex-direction: column; 
+    align-items: center; 
+    text-align: center; 
+  }
+  .project img { 
+    width: 100%; 
+    height: auto; 
+  }
+  .project-content { 
+    width: 100%; 
+  }
+
+  /* Font adjustments */
+  h1 { font-size: 0.85rem; }
+  p.tagline { font-size: 0.7rem; }
+  
+  /* Control buttons & search input stack */
   .expand-collapse-controls {
     flex-direction: column;
     align-items: stretch; /* full width */
-    gap: 12px; /* spacing between */
+    gap: 8px; /* spacing between buttons */
   }
-  .control-btn, 
+
+  .expand-collapse-controls .control-btn {font-size: 0.75rem; padding: 2px 4px; width: 100%;}
+
   #projectSearch {
     width: 100%; /* full width */
-    margin-bottom: 0; /* remove extra margin */
+    font-size: 0.75rem; /* smaller font */
+    padding: 4px 9px;   /* reduced padding for compactness */
+    margin-bottom: 0;   /* remove extra margin */
   }
 
-  /* Increase padding on accordion headings for easier tap */
-  details > summary.section-title {
-    padding: 12px 16px;
-  }
+  /* Accordion headings padding for easier tap */
+  details > summary.section-title { padding: 10px 12px; font-size: 0.8rem;}
+  .progress-label span {font-size: 0.7rem;}
 
-  /* Smaller Go to Top button on small screens */
+  .project-title {font-size: 0.8rem;}
+ .project-description {font-size: 0.7rem;}
+ .status-label {font-size: 0.7rem; padding: 2px 6px;}
+
+  /* Go to Top button smaller & repositioned */
   #goTopBtn {
     bottom: 20px;
     right: 15px;
-    padding: 10px 12px;
-    font-size: 18px;
-  }
-}
-
-/* Slight font size adjustment on very small screens */
-@media (max-width: 350px) {
-  .project-title {
-    font-size: 1.1rem;
-  }
-  .project-description {
-    font-size: 0.9rem;
+    padding: 8px 10px;
+    font-size: 15px;
   }
 }
 
@@ -311,7 +288,6 @@ summary.section-title:focus-visible {
   outline: 3px solid #2a9d8f;
   outline-offset: 3px;
 }
-
 
     h1 i {
       color: #f4a261 !important; /* bright orange */
@@ -387,6 +363,7 @@ summary.section-title:focus-visible {
   user-select: none;
   text-shadow: 0 1px 2px rgba(0,0,0,0.1);
 }
+
 /* Floating status tag inside each project card */
 .project .status-label {
   position: absolute;
@@ -415,6 +392,7 @@ summary.section-title:focus-visible {
   background-color: #f4a261;
   color: #333;
 }
+
 /* Project Progress Bar */
 .project-progress {
   margin-top: 10px;
@@ -470,7 +448,7 @@ summary.section-title:focus-visible {
 
 <article class="project status-ongoing">
   <span class="status-label">Ongoing</span>
-  <img src="Boundary_Wall_Coloring.jpg" alt="Colouring of Boundary Wall behind Type A Towers" loading="lazy" />
+  <img src="boundary_wall_painting.jpg" alt="Colouring of Boundary Wall behind Type A Towers" loading="lazy" />
   <div class="project-content">
     <h2 class="project-title">Colouring of Boundary Wall behind Type - A Towers</h2>
 
@@ -480,7 +458,7 @@ summary.section-title:focus-visible {
     </div>
     <div class="progress-label">
       <span>Progress</span>
-      <span>60%</span>
+      <span>70%</span>
     </div>
 
     <p class="project-description">
@@ -772,7 +750,6 @@ summary.section-title:focus-visible {
     });
   </script>
 <!-- ✅ This should be last -->
-<script src="layout.js" defer></script>
+<script src="layout-loader.js"></script>
 </body>
 </html>
-
