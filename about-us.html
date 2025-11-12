@@ -52,24 +52,25 @@
     }
 
     .header-banner .overlay-text {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      font-size: 2.2rem;
-      color: #fff;
-      font-weight: 800;
-      text-transform: uppercase;
-      text-shadow: 0 0 10px rgba(0,0,0,0.7);
-      letter-spacing: 0.1em;
-    }
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 2.2rem;
+  color: #FBE4D9;
+  font-weight: 800;
+  font-family: 'Poppins', sans-serif; /* modern font */
+  text-transform: uppercase;
+  text-shadow: 0 0 10px rgba(0,0,0,0.7);
+  letter-spacing: 0.1em;
+}
 
     /* Catchy Tagline */
     .tagline {
       max-width: 900px;
       margin: 0 auto 25px auto;
       text-align: center;
-      font-size: 1.4rem;
+      font-size: 1.2rem;
       font-weight: 600;
       color: #ffdd57; /* warm, bright color */
       text-shadow: 0 0 8px rgba(255, 221, 87, 0.7);
@@ -81,7 +82,7 @@
       height: 4px;
       width: 180px;
       background: linear-gradient(to right, #00e5ff, #00c3ff);
-      margin: 20px auto 30px auto;
+      margin: 5px auto 30px auto;
       border-radius: 2px;
       box-shadow: 0 0 10px #00e5ff;
     }
@@ -92,9 +93,8 @@
       margin: auto;
       background-color: rgba(255, 255, 255, 0.85);
       border-radius: 16px;
-      padding: 2rem 2.2rem;
+      padding: 2rem 2rem;
       box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
-      backdrop-filter: blur(10px);
     }
 
     main p {
@@ -104,7 +104,7 @@
       margin-bottom: 1.5rem;
       transition: background 0.4s, box-shadow 0.4s;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-      font-size: 1.05rem;
+      font-size: 1rem;
       line-height: 1.6;
       color: #333;
       text-align: justify;
@@ -116,78 +116,40 @@
       box-shadow: 0 6px 20px rgba(0, 229, 255, 0.3);
     }
 
-    /* Call to Action Section */
-    .cta {
-  max-width: 50%;
-  margin: 30px auto 40px auto;
-  padding: 0.8rem 1.2rem; /* Reduced padding */
-  background: linear-gradient(135deg, #7b2ff7, #f107a3);
-  color: #fff;
-  border-radius: 16px;
-  box-shadow: 0 8px 24px rgba(241, 7, 163, 0.4);
-  text-align: center;
-  font-weight: 600;
-  font-size: 1.1rem;
-  letter-spacing: 0.05em;
+   @media (max-width: 600px) {
+  .header-banner {
+    height: 140px;
+  }
+
+  .header-banner .overlay-text {
+    font-size: 1.6rem;
+  }
+
+  .tagline {
+    font-size: 0.7rem;
+    margin-bottom: 20px;
+  }
+
+  main {
+    padding: 1.5rem 1rem;
+  }
+
+  main p {
+    font-size: 0.75rem;
+  }
+
+  .cute-cta {
+    max-width: 100% !important;
+    margin: 5px auto 5px auto !important;
+    padding: 0.05rem 0.05rem !important;
+    font-size: 0.65rem !important;
+  }
+
+  .cute-cta .button {
+    padding: 0.25rem 0.7rem !important;
+    font-size: 0.65rem !important; 
+  }
 }
-
-.cta .button {
-  display: inline-block;
-  padding: 0.6rem 1.6rem;
-  background-color: #fff;
-  color: #7b2ff7;
-  font-weight: 700;
-  font-size: 1rem;
-  border-radius: 12px;
-  text-decoration: none;
-  transition: background-color 0.3s ease, color 0.3s ease;
-  box-shadow: 0 3px 10px rgba(255, 255, 255, 0.7);
-}
-
-.cta .button:hover,
-.cta .button:focus {
-  background-color: #f107a3;
-  color: #fff;
-  outline: none;
-  box-shadow: 0 6px 18px rgba(241, 7, 163, 0.8);
-}
-
-    .cta p {
-      margin-bottom: 1.5rem;
-    }
-
-    @media (max-width: 600px) {
-      .header-banner {
-        height: 140px;
-      }
-
-      .header-banner .overlay-text {
-        font-size: 1.6rem;
-      }
-
-      .tagline {
-        font-size: 1.1rem;
-        margin-bottom: 20px;
-      }
-
-      main {
-        padding: 1.5rem 1rem;
-      }
-
-      main p {
-        font-size: 0.95rem;
-      }
-
-      .cta {
-        font-size: 1.1rem;
-        padding: 1.5rem 1rem;
-      }
-
-      .cta .button {
-        font-size: 1rem;
-        padding: 0.6rem 1.4rem;
-      }
-    }
 
     #scrollToTop {
       position: fixed;
@@ -228,6 +190,47 @@
       color: white;
       margin-left: 8px;
     }
+
+/* Compact Cute CTA at the top */
+.cute-cta {
+  max-width: 40%;
+  margin: 1px auto 5px auto;
+  padding: 0.35rem 0.7rem;
+  background: linear-gradient(135deg, #ffdd57, #ffc107);
+  color: #222;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(255, 193, 7, 0.3);
+  text-align: center;
+  font-weight: 600;
+  font-size: 0.85rem;
+  letter-spacing: 0.02em;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.cute-cta:hover {
+  transform: rotate(0deg) scale(1.03);
+  box-shadow: 0 8px 18px rgba(255, 193, 7, 0.5);
+}
+
+.cute-cta .button {
+  display: inline-block;
+  padding: 0.45rem 1.2rem;
+  background-color: #fff;
+  color: #ff9800;
+  font-weight: 700;
+  font-size: 0.85rem;
+  border-radius: 12px;
+  text-decoration: none;
+  box-shadow: 0 2px 8px rgba(255, 255, 255, 0.6);
+  transition: all 0.25s ease;
+}
+
+.cute-cta .button:hover {
+  background-color: #ff9800;
+  color: #fff;
+  box-shadow: 0 5px 14px rgba(255, 152, 0, 0.7);
+}
+
   </style>
 </head>
 <body>
@@ -252,6 +255,12 @@
   <!-- Separator Bar -->
   <div class="separator-bar"></div>
 
+  <!-- Call to Action Section -->
+  <section class="cta cute-cta">
+  <p>🌟 Want to be part of our vibrant community?</p>
+  <a href="contact-us.html" class="button" aria-label="Contact Us">Join Us!</a>
+  </section>
+
   <!-- Main Content Section -->
   <main>
     <p>
@@ -263,16 +272,10 @@
     <p>
       We warmly invite every member of the Avishikta – I Type – A Association to join hands 🤲 with the greater Avishikta – I Housing family, shaping a future built on harmony, respect, and shared growth. 🌱 Together, we are building a resilient, caring neighborhood that will thrive for generations. Thank you for being a treasured part of this journey. Let’s continue to grow, support, and flourish—side by side—as one united family. 🌟🏘️
     </p>
-  </main>
-
-  <!-- Call to Action Section -->
-  <section class="cta">
-    <p>Interested in joining or learning more about our activities?</p>
-    <a href="contact-us.html" class="button" aria-label="Contact Us">Contact Us</a>
-  </section>
-
+ 
   <!-- Layout Footer -->
   <div id="footer"></div>
+ </main>
 
 <script>
   const scrollToTopBtn = document.getElementById('scrollToTop');
