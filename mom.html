@@ -86,8 +86,8 @@
       flex-grow: 1;
     }
     #controls button {
-      padding: 8px 16px;
-      font-size: 0.85rem;
+      padding: 8px 14px;
+      font-size: 0.8rem;
       font-weight: bold;
       border-radius: 6px;
       border: 1px solid #0073e6;
@@ -97,7 +97,7 @@
       transition: background-color 0.3s ease;
     }
     #controls button:hover {
-      background: #e6f0ff;
+      background: #13501B;
       transform: scale(1.05);
       transition: transform 0.2s ease, background-color 0.3s ease;
     }
@@ -164,6 +164,7 @@
       overflow-wrap: break-word; /* ensure breaks */
       word-wrap: break-word;
       flex-shrink: 0;
+      
     }
     .mom-summary h3 {
       color: #0073e6;
@@ -315,13 +316,23 @@
       #controls input[type="text"], #controls select {
         width: 100%;
       }
+     .mom-banner h2 { font-size: 0.75rem; padding: 8px 15px;}
+     #controls input, #controls select, #controls button {padding: 4px 6px; font-size: 0.7rem;}
+     #controls option {font-size: 0.75rem;}
+     .mom-summary h3 {font-size: 0.75rem; line-height: 1.1;}
+     .mom-title {font-size: 0.75rem;}
+     .mom-date, .mom-type, .mom-summary {font-size: 0.7rem;}
+     .view-full-btn {font-size: 0.7rem; padding: 4px 8px; border-radius: 4px;}
+     #modalHeader {font-size: 0.75rem;}
+     #noMomMessage { font-size: 0.75rem;}
     }
+
   </style>
 </head>
 <body>
   <main>
     <section class="mom-banner" aria-label="Banner showing Minutes of Meeting image and title">
-      <h2>Minutes of Meetings (MoM) — <br> Official records of Avishikta - I Type - A RWA meetings</h2>
+      <h2>Minutes of Meetings (MoM) — <br> Official records of Avishikta - I Type - A RWA</h2>
     </section>
 
     <section id="controls" aria-label="Filter and search controls for Minutes of Meetings">
@@ -558,4 +569,3 @@
 </script>
 </body>
 </html>
-
