@@ -32,36 +32,43 @@
       transition: padding-left 0.3s ease;
       min-height: 100vh;
     }
-    @media (max-width: 768px) {
-      body {
-        padding-left: 0;
-      }
-    }
     main {
       max-width: 1200px;
       margin: 20px auto;
       padding: 0 1rem;
       box-sizing: border-box;
     }
+
     .events-header {
-      text-align: center;
-      margin-bottom: 1rem;
-      color: #2a72d8;
-      margin-top: -2rem;
-    }
-    .events-header h1 {
-      font-weight: 700;
-      font-size: 2.4rem;
-      margin-bottom: 0.3rem;
-      text-shadow: 1px 1px 2px rgba(42,114,216,0.3);
-    }
-    .events-header p {
-      font-weight: 500;
-      font-size: 1.1rem;
-      color: #555;
-      max-width: 650px;
-      margin: 0 auto;
-    }
+  text-align: center;
+  margin-top: 1rem; /* reduce top space of section */
+  margin-bottom: 1rem;
+  padding-top: 0;   /* remove extra padding */
+  padding-bottom: 0;
+}
+
+.events-header h1 {
+  background: linear-gradient(90deg, #1e3c72, #2a5298, #f12711, #f5af19);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 1.5em;
+  font-weight: bold;
+  margin-top: -50px;      /* remove default top margin */
+  margin-bottom: 0.1rem; /* small space below heading */
+}
+
+.events-header p {
+  background: linear-gradient(90deg, #6a11cb, #2575fc);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 1em;
+  font-weight: 500;
+  max-width: 600px;
+  margin: 0 auto;    /* keep centered */
+  margin-top: 0;     /* remove extra top margin */
+  text-align: center;
+}
+
     .upcoming-events {
       max-width: 650px;
       margin: 0 auto 1.5rem;
@@ -112,19 +119,6 @@
   cursor: default;
   user-select: none;
   box-sizing: border-box;
-}
-
-@media (max-width: 1024px) {
-  .image-container {
-    width: calc(50% - 1rem);
-  }
-}
-
-@media (max-width: 600px) {
-  .image-container {
-    width: 100%;
-    margin-left: 0;
-  }
 }
 
     .image-container:hover,
@@ -296,25 +290,6 @@
       z-index: 10000;
       padding: 1rem;
     }
-    @media (max-width: 768px) {
-  #zoom-modal {
-    left: 0;
-    top: 0;
-    bottom: 0;
-    padding-top: 54px;
-  }
-
-  .zoom-controls {
-    bottom: 20px;
-    right: 20px;
-    gap: 10px;
-  }
-  .zoom-control {
-    width: 36px;
-    height: 36px;
-    font-size: 1.4rem;
-  }
- }
 
     #zoom-modal img {
       max-width: 90%;
@@ -373,13 +348,61 @@
       color: #2a72d8;
       outline: none;
     }
+
+    .event-filter-section {
+  text-align: center;
+  margin: 1rem 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.event-filter-section label {
+  font-weight: 700;
+  font-size: 1.1rem;
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #333;
+}
+
+.event-filter-section select {
+  font-size: 1rem;
+  padding: 0.4rem 0.6rem;
+  min-width: 200px;
+}
+
     /* Make caption always visible on mobile */
     @media (max-width: 768px) {
       .image-container .caption {
         opacity: 1 !important;
         pointer-events: auto !important;
       }
-    }
+      #zoom-modal {
+    left: 0;
+    top: 0;
+    bottom: 0;
+    padding-top: 54px;
+  }
+
+  .zoom-controls {
+    bottom: 20px;
+    right: 20px;
+    gap: 10px;
+  }
+  .zoom-control {
+    width: 36px;
+    height: 36px;
+    font-size: 1.4rem;
+  }
+    .events-header h1 {font-size:0.9rem !important;}
+    .events-header p {font-size:0.8rem !important;}
+    .event-filter-section label {font-size: 0.8rem;}
+    .event-filter-section select {font-size: 0.6rem;min-width: 150px;}
+    .image-container .caption {font-size: 0.5rem;padding: 2px 4px;}
+    .image-container img {height: 120px;}
+    .zoom-btn {padding: 2px 2px; font-size: 0.6rem; top:0; right: 0;}
+    .delete-btn {padding: 2px 2px; font-size: 0.4rem; bottom: 15px; right: 4px;}
+    .download-btn {padding: 2px 2px; font-size: 0.4rem; top:0; right: 0;}
+}
+
     /* Focus styles for accessibility */
     .image-container:focus-within,
     .icon-btn:focus {
@@ -396,7 +419,7 @@
   color: white;
   border: none;
   border-radius: 50%;
-  font-size: 1.6rem;
+  font-size: 1.3rem;
   font-weight: bold;
   line-height: 1;
   cursor: pointer;
@@ -480,34 +503,13 @@
 <body>
   <main>
     <section class="events-header">
-      <h1 style="
-  background: linear-gradient(90deg, #1e3c72, #2a5298, #f12711, #f5af19);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  font-size: 2em;
-  font-weight: bold;
-">
-  Events & Photo Gallery
-</h1>
-      <p style="
-  background: linear-gradient(90deg, #6a11cb, #2575fc);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  font-size: 1em;
-  font-weight: 500;
-  max-width: 600px;
-  margin: 0 auto;
-  text-align: center;
-">
-  Enjoy the beautiful memories captured in our photo gallery
-</p>
-    </section>
+  <h1>Shared Moments That Bring Us Together</h1>
+  <p>Cherish the beautiful memories from our photo gallery.</p>
+</section>
  
     <!-- 🔍 Search bar for filtering images -->
-<section style="text-align: center; margin: 1rem 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
-  <label for="event-filter" style="font-weight: 700; font-size: 1.1rem; display: block; margin-bottom: 0.5rem; color: #333;">
-    Filter by Event:
-  </label>
+<section class="event-filter-section">
+  <label for="event-filter">Filter by Event:</label>
   <select id="event-filter" multiple>
     <option value="AGM">AGM</option>
     <option value="Independence Day">Independence Day</option>
@@ -842,8 +844,6 @@ goTopBtn.style.display = 'none';
 });
 
 </script>
-
 <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
-
 </body>
 </html>
