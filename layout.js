@@ -72,7 +72,7 @@ const footerHTML = `
 <footer id="page-footer" role="contentinfo" aria-label="Site Footer">
   <div class="footer-content">
     <div class="footer-credit">
-      Designed and Developed by <strong><span class="blinking-text">Niloy Pandit</span></strong> | ⚡Powered by the <strong style="color: #e0ffff;">Type - A Tech Team</strong> |
+      Designed and Developed by <strong><span class="blinking-text">Niloy Pandit</span></strong> | ⚡Powered by:<strong style="color: #e0ffff;">Type - A Tech Team</strong> |
       Copyright &copy Avishikta – 1 Type – A RWA, All rights reserved
     </div>
       <span class="current-time" id="current-time" aria-live="polite" aria-atomic="true"></span>
@@ -289,8 +289,10 @@ document.body.insertAdjacentHTML('beforeend', footerHTML);
     /* Reset & base */
     * {
       box-sizing: border-box;
+      margin: 0;
+  padding: 0;
     }
-    body {
+  body {
   font-family: 'Poppins', sans-serif;
   margin: 0;
   background-color: #f4f6f9;
@@ -299,12 +301,14 @@ document.body.insertAdjacentHTML('beforeend', footerHTML);
   padding-bottom: 60px;
   padding-left: 260px;
   transition: padding-left 0.3s ease;
+  height: 100%;
 }
 
 main {
   margin: 20px auto;
   max-width: 1200px;
   box-sizing: border-box;
+  flex:1;
 }
 
 /* Header */
@@ -668,18 +672,19 @@ li.locked .submenu,
   bottom: 0; left: 0; right: 0;
   background: linear-gradient(135deg, #2a72d8, #feb47b);
   color: #fff;
-  min-height: 28px;  /* Sleek and tight */
+  min-height: 20px;  /* Sleek and tight */
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 0.70rem;
-  padding: 4px 10px;  /* Reduced padding */
+  font-size: 0.6rem;
+  padding: 0.2rem 1rem;  /* Reduced padding */
   box-shadow: 0 -2px 8px rgba(0,0,0,0.3);
   user-select: none;
   white-space: normal;  /* Allow wrapping */
   z-index: 9999;
   text-align: center;
   overflow-x: auto;
+  line-height: 0.1;
 }
 
 .footer-content {
@@ -687,7 +692,7 @@ li.locked .submenu,
   flex-direction: row;  /* Change from column */
   align-items: center;
   gap: 1rem;  /* Space between credit and meta */
-  line-height: 1.2;  /* tighter */
+  line-height: 1;  /* tighter */
   width: 100%;
   max-width: 1200px;
   padding: 0 5px;
@@ -698,9 +703,9 @@ li.locked .submenu,
   flex-shrink: 1;
   white-space: nowrap;
   user-select: text;
-  line-height: 1.2;
+  line-height: 1;
   font-weight: 400;
-  font-size: 0.70rem;
+  font-size: 0.65rem;
   overflow: hidden;
   text-overflow: ellipsis;
 }
@@ -757,7 +762,7 @@ li.locked .submenu,
 
 /* Current time tweaks */
 .current-time {
-  color: #00ffff;
+  color: #FFFCFB;
   font-weight: 700;
   margin-left: 8px;
   white-space: nowrap;
@@ -767,12 +772,13 @@ li.locked .submenu,
   #page-footer {
     white-space: normal;  /* allow wrapping on mobile */
     min-height: auto;
-    padding: 8px 10px;
+    padding: 2px 3px;
   }
   .footer-content {
     flex-direction: column;
     align-items: center;
     gap: 6px;
+    font-size: 0.6rem;
   }
   .footer-credit {
     white-space: normal;
