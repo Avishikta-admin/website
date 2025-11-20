@@ -112,12 +112,12 @@ const navHTML = `
   <ul id="submenu-resources" class="submenu" aria-hidden="true">
     <li><a href="community-bulletin.html" title="Latest announcements and upcoming events"><i class="fas fa-bullhorn"></i> Community Bulletin</a></li>
     <li><a href="mom.html" title="Minutes from past meetings"><i class="fas fa-file-alt"></i> Meeting Minutes</a></li>
-    <li><a href="new-resident-guide.html" title="Guide for new residents"><i class="fas fa-compass"></i> New Resident Guideline</a></li>
-    <li><a href="events.html" title="Events and shared moments"><i class="fas fa-camera-retro"></i> Events & Shared Moments</a></li>
-    <li><a href="general-guidelines.html" title="Association rules and policies"><i class="fas fa-gavel"></i> Community Guidelines</a></li>
+    <li><a href="new-resident-guide.html" title="Guide for new residents"><i class="fas fa-compass"></i> New Resident Guide</a></li>
+    <li><a href="events.html" title="Events and shared moments"><i class="fas fa-camera-retro"></i> Shared Moments</a></li>
+    <li><a href="general-guidelines.html" title="Association rules and policies"><i class="fas fa-gavel"></i> Community Guide</a></li>
     <li><a href="download-center.html" title="Download important documents"><i class="fas fa-download"></i> Download Center</a></li>
     <li><a href="useful-links.html" title="Helpful resources and support"><i class="fas fa-life-ring"></i> Support Hub</a></li>
-    <li><a href="projects.html" itle="View project status"><i class="fas fa-tasks"></i> Project Status & Updates</a></li>
+    <li><a href="projects.html" itle="View project status"><i class="fas fa-tasks"></i> Project Status</a></li>
     <li><a href="member-tools.html" title="Utilities for residents"><i class="fas fa-tasks"></i> Resident Utilities</a></li>
   </ul>
 </li>
@@ -223,12 +223,12 @@ document.body.insertAdjacentHTML('beforeend', footerHTML);
       'qtrwise_exp.html': ['Home', 'Association', 'Q-Fin Snapshot'],
       'community-bulletin.html': ['Home', 'Resources', 'Community Bulletin'],
       'mom.html': ['Home', 'Resources', 'Meeting Minutes'],
-      'new-resident-guide.html': ['Home', 'Resources', 'New Resident Guideline'],
-      'events.html': ['Home', 'Resources', 'Events & Shared Moments'],
-      'general-guidelines.html': ['Home', 'Resources', 'Community Guidelines'],
+      'new-resident-guide.html': ['Home', 'Resources', 'New Resident Guide'],
+      'events.html': ['Home', 'Resources', 'Shared Moments'],
+      'general-guidelines.html': ['Home', 'Resources', 'Community Guide'],
       'download-center.html': ['Home', 'Resources', 'Download Center'],
       'useful-links.html': ['Home', 'Resources', 'Support Hub'],
-      'projects.html': ['Home', 'Resources','Project Status & Updates'],
+      'projects.html': ['Home', 'Resources','Project Status'],
       'member-tools.html': ['Home', 'Resources','Resident Utilities'],
       'feedback.html': ['Home', 'Get Involved','Give Feedback'],
       'volunteer.html': ['Home', 'Get Involved','Volunteer Opportunities'],
@@ -246,11 +246,11 @@ document.body.insertAdjacentHTML('beforeend', footerHTML);
       'Resources': '#',
       'Community Bulletin': 'community-bulletin.html',
       'Meeting Minutes': 'mom.html',
-      'New Resident Guideline': 'new-resident-guide.html',
-      'Event Calendar': 'events.html',
-      'Community Guidelines': 'general-guidelines.html',
+      'New Resident Guide': 'new-resident-guide.html',
+      'Shared Moments': 'events.html',
+      'Community Guide': 'general-guidelines.html',
       'Download Center': 'download-center.html',
-      'Project Status & Updates': 'projects.html',
+      'Project Status': 'projects.html',
       'Resident Utilities': 'member-tools.html',
       'Support Hub': 'useful-links.html',
       'Get Involved': '#',
@@ -489,7 +489,7 @@ header#page-header .header-text {
   border-bottom: 1px solid #324060;
 }
 
-@media (max-width: 767px) {
+@media (max-width: 768px) {
   #hamburger {
     display: block;
   }
@@ -509,8 +509,8 @@ header#page-header .header-text {
   align-items: center;
   justify-content: flex-start; /* left align */
   gap: 8px; /* space between icon and text */
-  padding: 12px 20px;
-  font-size: 0.75rem;
+  padding: 10px 15px;
+  font-size: 0.7rem;
   color: #ddd;
   background: none;
   border: none;
@@ -530,8 +530,8 @@ header#page-header .header-text {
   display: flex;
   align-items: center;
   justify-content: space-between; /* caret on right */
-  padding: 12px 12px;
-  font-size: 0.75rem;
+  padding: 10px 10px;
+  font-size: 0.7rem;
   color: #ddd;
   background: none;
   border: none;
@@ -559,7 +559,7 @@ header#page-header .header-text {
   color: #2a72d8;
   margin: 0;
   padding: 0;
-  font-size: 1em; /* match text size */
+  font-size: 0.8em; /* match text size */
 }
 
 /* Caret icon on buttons */
@@ -574,9 +574,9 @@ header#page-header .header-text {
   align-items: center;
   gap: 8px;
   color: #ddd;
-  padding: 10px 20px;
+  padding: 8px 15px;
   text-decoration: none;
-  font-size: 0.75rem;
+  font-size: 0.7rem;
 }
 
 #main-nav ul.submenu li a i {
@@ -612,7 +612,7 @@ li.locked .submenu,
       overflow: hidden;
       background-color: #2e3b66;
       transition: max-height 0.3s ease;
-      font-size: 0.75rem;
+      font-size: 0.7rem;
     }
     #main-nav ul li ul.submenu[aria-hidden="false"] {
       max-height: 500px; /* enough for submenu */
