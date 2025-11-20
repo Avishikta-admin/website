@@ -214,74 +214,111 @@ document.body.insertAdjacentHTML('beforeend', footerHTML);
 
   // 6. Insert breadcrumb above main
   function renderBreadcrumb() {
-    const breadcrumbMap = {
-      'index.html': ['Home'],
-      'about-us.html': ['Home', 'Association', 'Who We Are'],
-      'vision-mission.html': ['Home', 'Association', 'Vision & Mission'],
-      'governing-body.html': ['Home', 'Association', 'Executive Committee'],
-      'our-members.html': ['Home', 'Association', 'Residents Directory'],
-      'qtrwise_exp.html': ['Home', 'Association', 'Q-Fin Snapshot'],
-      'community-bulletin.html': ['Home', 'Resources', 'Community Bulletin'],
-      'mom.html': ['Home', 'Resources', 'Meeting Minutes'],
-      'new-resident-guide.html': ['Home', 'Resources', 'New Resident Guide'],
-      'events.html': ['Home', 'Resources', 'Shared Moments'],
-      'general-guidelines.html': ['Home', 'Resources', 'Community Guide'],
-      'download-center.html': ['Home', 'Resources', 'Download Center'],
-      'useful-links.html': ['Home', 'Resources', 'Support Hub'],
-      'projects.html': ['Home', 'Resources','Project Status'],
-      'member-tools.html': ['Home', 'Resources','Resident Utilities'],
-      'feedback.html': ['Home', 'Get Involved','Give Feedback'],
-      'volunteer.html': ['Home', 'Get Involved','Volunteer Opportunities'],
-      'search.html': ['Home', 'Find & Explore','Site Search'],
-    };
-  
-    const pageLinks = {
-      'Home': 'index.html',
-      'Association': '#',
-      'Who We Are': 'about-us.html',
-      'Vision & Mission': 'vision-mission.html',
-      'Executive Committee': 'governing-body.html',
-      'Residents Directory': 'our-members.html',
-      'Quarterly Q-Fin Snapshot': 'qtrwise_exp.html',
-      'Resources': '#',
-      'Community Bulletin': 'community-bulletin.html',
-      'Meeting Minutes': 'mom.html',
-      'New Resident Guide': 'new-resident-guide.html',
-      'Shared Moments': 'events.html',
-      'Community Guide': 'general-guidelines.html',
-      'Download Center': 'download-center.html',
-      'Project Status': 'projects.html',
-      'Resident Utilities': 'member-tools.html',
-      'Support Hub': 'useful-links.html',
-      'Get Involved': '#',
-      'Give Feedback': 'feedback.html',
-      'Volunteer Opportunities': 'volunteer.html',
-      'Get in Touch': '#',
-      'Find & Explore': '#',
-      'Site Search': 'search.html',
-    };
-  
-    const fileName = window.location.pathname.split('/').pop();
-    const crumbs = breadcrumbMap[fileName];
-    if (!crumbs) return;
-  
+  // Avoid duplicates
+  if (document.querySelector('.breadcrumb')) return;
+
+  const breadcrumbMap = {
+    'index.html': ['Home'],
+    'about-us.html': ['Home', 'Association', 'Who We Are'],
+    'vision-mission.html': ['Home', 'Association', 'Vision & Mission'],
+    'governing-body.html': ['Home', 'Association', 'Executive Committee'],
+    'our-members.html': ['Home', 'Association', 'Residents Directory'],
+    'qtrwise_exp.html': ['Home', 'Association', 'Q-Fin Snapshot'],
+    'community-bulletin.html': ['Home', 'Resources', 'Community Bulletin'],
+    'mom.html': ['Home', 'Resources', 'Meeting Minutes'],
+    'new-resident-guide.html': ['Home', 'Resources', 'New Resident Guide'],
+    'events.html': ['Home', 'Resources', 'Shared Moments'],
+    'general-guidelines.html': ['Home', 'Resources', 'Community Guide'],
+    'download-center.html': ['Home', 'Resources', 'Download Center'],
+    'useful-links.html': ['Home', 'Resources', 'Support Hub'],
+    'projects.html': ['Home', 'Resources','Project Status'],
+    'member-tools.html': ['Home', 'Resources','Resident Utilities'],
+    'feedback.html': ['Home', 'Get Involved','Give Feedback'],
+    'volunteer.html': ['Home', 'Get Involved','Volunteer Opportunities'],
+    'search.html': ['Home', 'Find & Explore','Site Search'],
+  };
+
+  const pageLinks = {
+    'Home': 'index.html',
+    'Association': '#',
+    'Who We Are': 'about-us.html',
+    'Vision & Mission': 'vision-mission.html',
+    'Executive Committee': 'governing-body.html',
+    'Residents Directory': 'our-members.html',
+    'Quarterly Q-Fin Snapshot': 'qtrwise_exp.html',
+    'Resources': '#',
+    'Community Bulletin': 'community-bulletin.html',
+    'Meeting Minutes': 'mom.html',
+    'New Resident Guide': 'new-resident-guide.html',
+    'Shared Moments': 'events.html',
+    'Community Guide': 'general-guidelines.html',
+    'Download Center': 'download-center.html',
+    'Project Status': 'projects.html',
+    'Resident Utilities': 'member-tools.html',
+    'Support Hub': 'useful-links.html',
+    'Get Involved': '#',
+    'Give Feedback': 'feedback.html',
+    'Volunteer Opportunities': 'volunteer.html',
+    'Get in Touch': '#',
+    'Find & Explore': '#',
+    'Site Search': 'search.html',
+  };
+
+  const fileName = window.location.pathname.split('/').pop();
+  const crumbs = breadcrumbMap[fileName];
+  if (!crumbs) return; // no breadcrumb for this page
+
+  const createBreadcrumb = () => {
+    if (document.querySelector('.breadcrumb')) return; // avoid duplicates
+
     const breadcrumbNav = document.createElement('nav');
     breadcrumbNav.className = 'breadcrumb';
     breadcrumbNav.setAttribute('aria-label', 'breadcrumb');
-  
+    breadcrumbNav.style.margin = '10px auto';
+    breadcrumbNav.style.maxWidth = '900px';
+    breadcrumbNav.style.fontSize = '0.8rem';
+
     breadcrumbNav.innerHTML = crumbs.map((label, i) => {
       if (i === crumbs.length - 1) return `<span aria-current="page">${label}</span>`;
       const href = pageLinks[label] || '#';
       return `<a href="${href}">${label}</a> <span aria-hidden="true">&gt;</span> `;
     }).join('');
-  
+
+    // Insert breadcrumb in preferred order
+    const banner = document.querySelector('.header-banner');
+    const header = document.getElementById('header');
     const main = document.querySelector('main');
-    if (main && main.parentNode) {
+
+    if (banner && banner.parentNode) {
+      banner.parentNode.insertBefore(breadcrumbNav, banner.nextSibling);
+    } else if (header && header.parentNode) {
+      header.parentNode.insertBefore(breadcrumbNav, header.nextSibling);
+    } else if (main && main.parentNode) {
       main.parentNode.insertBefore(breadcrumbNav, main);
+    } else {
+      document.body.insertBefore(breadcrumbNav, document.body.firstChild);
     }
+  };
+
+  // ✅ If target elements exist now, render immediately
+  if (document.querySelector('.header-banner') || document.getElementById('header') || document.querySelector('main')) {
+    createBreadcrumb();
+    return;
   }
 
-  renderBreadcrumb();
+  // ✅ Otherwise, observe the DOM for insertion
+  const observer = new MutationObserver((mutations, obs) => {
+    if (document.querySelector('.header-banner') || document.getElementById('header') || document.querySelector('main')) {
+      createBreadcrumb();
+      obs.disconnect(); // stop observing once done
+    }
+  });
+
+  observer.observe(document.body, { childList: true, subtree: true });
+}
+
+// Run
+renderBreadcrumb();
 
   // 7. Inject styles
   const style = document.createElement("style");
@@ -463,13 +500,47 @@ header#page-header .header-text {
   pointer-events: auto;
 }
 
+/* Desktop and tablets (768px and above) */
 @media (min-width: 768px) {
   .nav-menu {
-    display: flex; /* or block, depending on layout */
+    display: flex; /* show nav menu */
   }
 
   .hamburger {
-    display: none;
+    display: none; /* hide hamburger */
+  }
+
+  .breadcrumb {
+    font-size: 0.85rem; /* larger font on desktop */
+    margin: 15px auto;
+  }
+
+  .breadcrumb a {
+    word-break: break-word; /* prevent overflow */
+  }
+}
+
+/* Mobile devices (767px and below) */
+@media (max-width: 767px) {
+  #hamburger {
+    display: block;
+  }
+
+  #main-nav {
+    display: none; /* hide nav by default */
+  }
+
+  #main-nav.nav-open {
+    display: block; /* show nav when hamburger clicked */
+  }
+
+  .breadcrumb {
+    font-size: 0.6rem !important;
+    margin: 10px auto;
+  }
+
+  .breadcrumb a {
+    word-break: break-word;
   }
 }
 
@@ -487,20 +558,6 @@ header#page-header .header-text {
 
 #main-nav ul li {
   border-bottom: 1px solid #324060;
-}
-
-@media (max-width: 768px) {
-  #hamburger {
-    display: block;
-  }
-
-  #main-nav {
-    display: none; /* Hide nav by default on mobile */
-  }
-
-  #main-nav.nav-open {
-    display: block; /* Show nav when hamburger clicked */
-  }
 }
 
 /* Home link: icon + text aligned left with gap */
@@ -647,7 +704,7 @@ li.locked .submenu,
       display: inline-block;          /* Shrinks to content */
       margin: 10px 20px 0 0;
       padding: 2px 12px;
-      font-size: 0.7rem;
+      font-size: 0.6rem;
       background-color: #78206E; /* Blue background */
       color: #ffffff;
       user-select: none;
