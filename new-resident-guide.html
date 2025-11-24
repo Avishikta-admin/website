@@ -27,10 +27,10 @@
   
   #progressBarContainer {
   position: fixed;
-  top: 45px;
+  margin-top: -20px;
   left: 0;
   width: 100%;
-  height: 16px; /* taller to fit text */
+  height: 12px; /* taller to fit text */
   background-color: #e0e0e0;
   z-index: 9999;
   border-radius: 4px;
@@ -40,12 +40,14 @@
 #progressBar {
   height: 100%;
   width: 0;
-  background: orange;   /* changed to orange */
+  background: orange;
   color: black;
   font-weight: bold;
-  font-size: 10px;      /* smaller font size */
+  font-size: 10px;
   text-align: center;
-  line-height: 18px;    /* center vertically */
+  display: flex;
+  justify-content: center; /* horizontal center */
+  align-items: center;     /* vertical center */
   transition: width 0.25s ease;
   white-space: nowrap;
   overflow: visible;
@@ -331,6 +333,14 @@
     max-width: 100%;
     overflow-x: hidden; /* ensure no horizontal cropping */
     position: relative;
+  }
+
+  #progressBarContainer {
+  position: fixed;
+  margin-top: 0;
+  }
+  #progressBar {
+  font-size:8px;
   }
 
   /* Fix section headers cropping */
