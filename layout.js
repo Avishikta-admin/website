@@ -681,8 +681,16 @@ li.locked .submenu,
     #main-nav ul li button.section-header {
       color: #0B1D5C; /* deep blue for reversed gradient */
       text-decoration: none;
-      font-weight: 600; /* makes menu text bold */
+      font-weight:700; /* makes menu text bold */
+      transition: color 0.3s, font-weight 0.3s;  /* smooth hover transition */
     }
+
+    /* Hover effect */
+#main-nav ul li a:hover,
+#main-nav ul li button.section-header:hover {
+  color: #FFFFFF;            /* accent color on hover */
+  transform: scale(1.05);  /* gently enlarges the text */
+}
 
     #main-nav ul li ul.submenu {
       max-height: 0;
