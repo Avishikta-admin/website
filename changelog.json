@@ -1,93 +1,83 @@
 [
   {
+    "date": "2025-11-26",
+    "summary": "🆕 3 new, ✨ 1 improvement",
+    "items": [
+      {
+        "type": "🆕 new",
+        "desc": "Quick Stats section added on Home page showing Tower Info."
+      },
+      {
+        "type": "🆕 new",
+        "desc": "Feedback button added on Home page."
+      },
+      {
+        "type": "🆕 new",
+        "desc": "WhatsApp Chat option is added to join group chat"
+      },
+      {
+        "type": "✨ improved",
+        "desc": "Overall Home page aesthetics refined."
+      }
+    ]
+  },
+  {
+    "date": "2025-11-25",
+    "summary": "🆕 3 new, ✨ 1 improvement",
+    "items": [
+      {
+        "type": "🆕 new",
+        "desc": "Enhanced Quick Stats section for better visibility."
+      },
+      {
+        "type": "🆕 new",
+        "desc": "Added a Feedback button for easy interaction."
+      },
+      {
+        "type": "🆕 new",
+        "desc": "WhatsApp group chat option introduced."
+      },
+      {
+        "type": "✨ improved",
+        "desc": "Improved spacing and visual layout of Home page."
+      }
+    ]
+  },
+  {
     "date": "2025-11-11",
     "summary": "✨ 1 improvement",
     "items": [
       {
         "type": "✨ improved",
-        "desc": "Redesigned the search suggestions dropdown with a translucent frosted glass background, subtle soft-pink hover/active highlights, and reduced padding on input fields and items for a modern, compact, and visually responsive UI."
+        "desc": "Redesigned search suggestions dropdown for compact, modern UI."
       }
     ]
   },
   {
     "date": "2025-11-05",
-    "summary": "✨ 2 improvements, 🆕 0 new, 🐞 0 fixes",
+    "summary": "✨ 2 improvements",
     "items": [
       {
         "type": "✨ improved",
-        "desc": "Refined the Quarterly Expense Report menu naming: updated terminology to 'Q-Fin Ledger' for a modern, concise, and clear representation of both income and expenditure."
+        "desc": "Renamed 'Quarterly Expense Report' menu to 'Q-Fin Ledger'."
       },
       {
         "type": "✨ improved",
-        "desc": "Added a feedback button at the bottom-right corner of the Home page (index.html) for quick and easy visitor access."
+        "desc": "Added feedback button at bottom-right of Home page."
       }
     ]
   },
   {
     "date": "2025-11-01",
-    "summary": "🆕 1 new feature, ✨ 1 improvement, 🐞 0 fixes",
+    "summary": "🆕 1 new, ✨ 1 improvement",
     "items": [
       {
         "type": "🆕 new",
-        "desc": "Enhanced the Home page (index.html) with a 'Quick Stats' section highlighting the number of towers, flats, occupied units, and annual events for better visitor insights."
+        "desc": "Quick Stats section added with towers, flats, and events info."
       },
       {
         "type": "✨ improved",
-        "desc": "Updated governing-body.html with a colorful, visually appealing layout and added an email link to the Secretary portfolio for quick queries."
-      }
-    ]
-  },
-  {
-    "date": "2025-10-25",
-    "summary": "🆕 2 new features, ✨ 1 improvement, 🐞 0 fixes",
-    "items": [
-      {
-        "type": "✨ improved",
-        "desc": "Added alternating row colors and hover highlights to the Quarterly Expense Report table for better readability and visual clarity."
-      },
-      {
-        "type": "🆕 new",
-        "desc": "Introduced slightly stronger alternate row shading to improve table legibility without being distracting."
-      },
-      {
-        "type": "🆕 new",
-        "desc": "Added Income and Expenditure filter checkboxes above the table; selecting/deselecting them dynamically updates the table and corresponding charts."
-      }
-    ]
-  },
-  {
-    "date": "2025-10-17",
-    "summary": "🆕 2 new features, ✨ 1 improvement, 🐞 0 fixes",
-    "items": [
-      {
-        "type": "🆕 new",
-        "desc": "Added Quarterly Expense Report page with interactive charts, budget gauge, and table view for Q2 2025."
-      },
-      {
-        "type": "✨ improved",
-        "desc": "Enhanced the page with a light gradient background and responsive layout for better readability and mobile experience."
-      },
-      {
-        "type": "🆕 new",
-        "desc": "Included contextual note highlighting increased costs due to special festivals and urgent maintenance, displayed only for relevant quarters."
-      }
-    ]
-  },
-  {
-    "date": "2025-10-10",
-    "summary": "🆕 2 new features, ✨ 1 improvement, 🐞 0 fixes",
-    "items": [
-      {
-        "type": "🆕 new",
-        "desc": "Added countdown to Kali Puja on the Home page (index.html) to help visitors track the upcoming festival."
-      },
-      {
-        "type": "🆕 new",
-        "desc": "Introduced diwali.html page, which will be automatically displayed on 20th Oct 2025 to celebrate Diwali."
-      },
-      {
-        "type": "✨ improved",
-        "desc": "Updated governing-body.html to reflect selected EC members during the AGM held on 27th July 2025."
+        "desc": "Updated governing-body.html layout and added Secretary email link."
       }
     ]
   }
