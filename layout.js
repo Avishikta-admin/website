@@ -480,10 +480,10 @@ header#page-header .header-text {
 /* Nav Styles */
 #main-nav {
   position: fixed;
-  top: 30px; /* optional fallback */
+  top: 25px; /* optional fallback */
   left: 0;
   width: 180px;
-  bottom: 25px;
+  bottom: 20px;
   background: linear-gradient(180deg, #FBE3D6 0%, #163E64 100%);
   color: #fff; /* blue text */
   overflow-y: auto;
@@ -678,10 +678,11 @@ li.locked .submenu,
 }
 
     #main-nav ul li a,
-#main-nav ul li button.section-header {
-  color: #0B1D5C; /* deep blue for reversed gradient */
-  text-decoration: none;
-}
+    #main-nav ul li button.section-header {
+      color: #0B1D5C; /* deep blue for reversed gradient */
+      text-decoration: none;
+      font-weight: 600; /* makes menu text bold */
+    }
 
     #main-nav ul li ul.submenu {
       max-height: 0;
