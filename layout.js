@@ -324,11 +324,12 @@ renderBreadcrumb();
   const style = document.createElement("style");
   style.textContent = `
     /* Reset & base */
-    * {
+  * {
       box-sizing: border-box;
       margin: 0;
-  padding: 0;
+      padding: 0;
     }
+
   body {
   font-family: 'Poppins', sans-serif;
   margin: 0;
@@ -410,7 +411,7 @@ header#page-header .header-text {
       margin: 3px 0; /* ✅ Add spacing */
     }
 #hamburger.open span {
-  background-color: #ff3366; /* ❤️ Example: nice pink/red */
+  background-color: #FDEFE7; /* ❤️ Example: light cream */
 }
 
 /* Hover effect - subtle background */
@@ -440,7 +441,7 @@ header#page-header .header-text {
   background: linear-gradient(135deg, #ffd6e8, #a0e9ff); /* pastel pink-blue gradient */
   border: none;
   color: #333;
-  font-size: 13px; /* smaller font */
+  font-size: 12px; /* smaller font */
   cursor: pointer;
   position: absolute;
   top: 50%; /* center vertically */
@@ -481,10 +482,10 @@ header#page-header .header-text {
   position: fixed;
   top: 30px; /* optional fallback */
   left: 0;
-  width: 200px;
+  width: 180px;
   bottom: 25px;
-  background: linear-gradient(135deg, #1e2a47 0%, #16213e 100%);
-  color: #fff;
+  background: linear-gradient(180deg, #FBE3D6 0%, #163E64 100%);
+  color: #fff; /* blue text */
   overflow-y: auto;
   z-index: 9998;
   display: block; /* hide nav by default on mobile */
@@ -511,7 +512,7 @@ header#page-header .header-text {
   }
 
   .breadcrumb {
-    font-size: 0.85rem; /* larger font on desktop */
+    font-size: 0.8rem; /* larger font on desktop */
     margin: 15px auto;
   }
 
@@ -528,6 +529,17 @@ header#page-header .header-text {
 
   #main-nav {
     display: none; /* hide nav by default */
+    width: 200px!important; /* apply width even when hidden */
+  }
+
+  #main-nav i {
+    font-size: 0.6rem !important;
+  }
+
+  #main-nav ul li a,
+  #main-nav ul li button.section-header,
+  #main-nav ul li ul.submenu li a {
+    font-size: 0.6rem !important; /* set smaller text */
   }
 
   #main-nav.nav-open {
@@ -568,7 +580,7 @@ header#page-header .header-text {
   gap: 8px; /* space between icon and text */
   padding: 10px 15px;
   font-size: 0.7rem;
-  color: #ddd;
+  color: #0B1D5C;
   background: none;
   border: none;
   width: 100%;
@@ -579,7 +591,7 @@ header#page-header .header-text {
 
 #main-nav ul li a.nav-link:hover {
   background-color: #feb47b;
-  color: #1e2a47;
+  color: #215F9A;
 }
 
 /* Submenu buttons: icon + text left, caret right */
@@ -589,7 +601,7 @@ header#page-header .header-text {
   justify-content: space-between; /* caret on right */
   padding: 10px 10px;
   font-size: 0.7rem;
-  color: #ddd;
+  color: #F2F2F2;
   background: none;
   border: none;
   width: 100%;
@@ -623,7 +635,7 @@ header#page-header .header-text {
 #main-nav ul li button.section-header i.fa-caret-down {
   transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   margin-left: 2px;
-  color: white;
+  color: #163E64;
 }
 
 #main-nav ul.submenu li a {
@@ -650,7 +662,8 @@ header#page-header .header-text {
   max-height: 0;
   overflow: hidden;
   opacity: 0;
-  padding-left: 15px;
+  padding-left: 5px;
+  margin-left: 0; /* optional, ensure no extra space */
   transition: max-height 0.4s ease-in-out, opacity 0.3s ease-in-out;
   will-change: max-height, opacity;
   pointer-events: none; /* prevent clicks when hidden */
@@ -662,6 +675,12 @@ li.locked .submenu,
   max-height: 800px; /* Adjust depending on content */
   opacity: 1;
   pointer-events: auto;
+}
+
+    #main-nav ul li a,
+#main-nav ul li button.section-header {
+  color: #0B1D5C; /* deep blue for reversed gradient */
+  text-decoration: none;
 }
 
     #main-nav ul li ul.submenu {
@@ -678,7 +697,7 @@ li.locked .submenu,
       border-bottom: none;
     }
     #main-nav ul li ul.submenu li a {
-      padding-left: 40px;
+      padding-left: 15px;
       color: #ccc;
       font-weight: 400;
     }
@@ -866,7 +885,6 @@ li.locked .submenu,
          left: 0;
          width: 300px; /* Increased from 260px */
          bottom: 60px;
-         background: #1e2a47;
          color: #fff;
          overflow-y: auto;
          transition: transform 0.3s ease;
